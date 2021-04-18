@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\User;
 use App\Http\Requests\ClientStoreRequest;
 use Illuminate\Http\Request;
+use GuzzleHttp;
+use Log;
 
 class ClientsController extends Controller
 {
@@ -24,15 +27,33 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function index() {
-        $clients = Client::with('file')->get();
+//        $clients = Client::with('file')->get();
+//
+//        Log::debug($clients);
+//
+//        $clients->each(function ($client) {
+//            $client->append('avatar');
+//        });
+//
+//        return response()->json([
+//            'data' => $clients
+//        ]);
 
-        $clients->each(function ($client) {
-            $client->append('avatar');
-        });
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users';
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+        $statusCode = $response->getStatusCode();
+        $users = json_decode($response->getBody()->getContents());
 
-        return response()->json([
-            'data' => $clients
-        ]);
+        return response()->json(['data' => $users]);
     }
 
     /**

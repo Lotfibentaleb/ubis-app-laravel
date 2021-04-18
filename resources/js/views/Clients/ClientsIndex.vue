@@ -1,14 +1,14 @@
 <template>
   <div>
-    <title-bar :title-stack="['Admin', 'Clients']"/>
+    <title-bar :title-stack="['Admin', 'Users']"/>
     <hero-bar>
-      Clients
+      Users
       <router-link to="/clients/new" class="button" slot="right">
-        New Client
+        New User
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <card-component class="has-table has-mobile-sort-spaced" title="Clients" icon="account-multiple">
+      <card-component class="has-table has-mobile-sort-spaced" title="Users" icon="account-multiple">
         <card-toolbar>
           <button slot="right" type="button" class="button is-danger is-small has-checked-rows-number" @click="trashModal(null)" :disabled="!checkedRows.length">
             <b-icon icon="trash-can" custom-size="default"/>
@@ -30,22 +30,14 @@
           :data="clients">
 
           <template slot-scope="props">
-            <b-table-column class="has-no-head-mobile is-image-cell">
-              <div v-if="props.row.avatar" class="image">
-                <img :src="props.row.avatar" class="is-rounded">
-              </div>
-            </b-table-column>
             <b-table-column label="Name" field="name" sortable>
               {{ props.row.name }}
             </b-table-column>
-            <b-table-column label="Company" field="company" sortable>
-              {{ props.row.company }}
+            <b-table-column label="Email" field="email" sortable>
+              {{ props.row.email }}
             </b-table-column>
-            <b-table-column label="City" field="city" sortable>
-              {{ props.row.city }}
-            </b-table-column>
-            <b-table-column class="is-progress-col" label="Progress" field="progress" sortable>
-              <progress class="progress is-small is-primary" :value="props.row.progress" max="100">{{ props.row.progress }}</progress>
+            <b-table-column label="UUID" field="uuid" sortable>
+              {{ props.row.uuid }}
             </b-table-column>
             <b-table-column label="Created">
               <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
