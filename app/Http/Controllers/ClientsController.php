@@ -7,6 +7,7 @@ use App\User;
 use App\Http\Requests\ClientStoreRequest;
 use Illuminate\Http\Request;
 use GuzzleHttp;
+use Illuminate\Support\Facades\Session;
 use Log;
 
 class ClientsController extends Controller
@@ -42,9 +43,17 @@ class ClientsController extends Controller
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
         $requestString = 'users';
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
         $options = [
             'headers' =>[
-                'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+                'Authorization' => 'Bearer ' .$bearer_token,
                 'Accept'        => 'application/json',
                 'Content-Type' => 'application/json'
             ]

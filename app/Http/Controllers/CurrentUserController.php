@@ -6,6 +6,8 @@ use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use GuzzleHttp;
+use Illuminate\Support\Facades\Session;
 
 class CurrentUserController extends Controller
 {
@@ -27,13 +29,38 @@ class CurrentUserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function show( Request $request ) {
-        $user = $request->user();
+//        $user = $request->user();
+//
+//        $user->load('file');
+//        $user->append('avatar');
+//
+//        return response()->json([
+//            'data' => $request->user()
+//        ]);
 
-        $user->load('file');
-        $user->append('avatar');
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'auth/me';
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
 
+        $options = [
+            'headers' =>[
+                'Authorization' =>'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+        ];
+
+        $response = $client->request('get', $baseUrl.$requestString, $options);   // call API
+
+        $body = json_decode($response->getBody()->getContents());
         return response()->json([
-            'data' => $request->user()
+            'data' => $body
         ]);
     }
 

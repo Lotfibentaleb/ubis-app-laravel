@@ -65,22 +65,25 @@ class LoginController extends Controller
             ]
         ];
 
-        $response = $client->request('post', $baseUrl.$requestString, $options);   // call API
-        $statusCode = $response->getStatusCode();
-
-        $body = json_decode($response->getBody()->getContents());
-
-        if (isset($body->access_token)) {
-            Session::put('bearer_token', $body->access_token);
-
-            return redirect('/home');
-
-        } else {
+        try {
+            $response = $client->request('post', $baseUrl.$requestString, $options);   // call API
+            $body = json_decode($response->getBody()->getContents());
+            if (isset($body->access_token)) {
+                Session::put('bearer_token', $body->access_token);
+                return redirect('/home');
+            } else {
+                throw ValidationException::withMessages([
+                    $this->username() => [trans('auth.failed')],
+                ]);
+            }
+        }
+        catch (GuzzleHttp\Exception\ClientException $e) {
+//            $response = $e->getResponse();
+//            $responseBodyAsString = $response->getBody()->getContents();
             throw ValidationException::withMessages([
                 $this->username() => [trans('auth.failed')],
             ]);
         }
-
     }
 
     public function showLoginForm()
@@ -91,6 +94,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        Session::forget('bearer_token');
         return Session::has('bearer_token')
             ? Session::forget('bearer_token')
             : redirect('/');

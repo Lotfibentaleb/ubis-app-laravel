@@ -17,12 +17,8 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-//        if (! $request->expectsJson()) {
-//            return route('login');
-//        }
-//
         if (!Session::has('bearer_token')) {
-            return route('login');
+            return redirect('login');
         }
         return $next($request);
     }
