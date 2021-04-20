@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" to="/clients/index" class="button">
-        Clients
+      <router-link slot="right" to="/users/index" class="button">
+        Users
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -17,18 +17,20 @@
               </b-field>
               <hr>
             </template>
-            <b-field label="Avatar" horizontal>
-              <file-picker @file-id-updated="fileIdUpdated" :current-file="form.avatar_filename"/>
-            </b-field>
-            <hr>
-            <b-field label="Name" message="Client name" horizontal>
+            <b-field label="Name" message="user name" horizontal>
               <b-input placeholder="e.g. John Doe" v-model="form.name" required />
             </b-field>
-            <b-field label="Company" message="Client's company name" horizontal>
-              <b-input placeholder="e.g. Berton & Steinway" v-model="form.company" required />
+            <b-field label="Email" message="user email" horizontal>
+              <b-input placeholder="e.g. Berton & Steinway" v-model="form.email" required />
             </b-field>
-            <b-field label="City" message="Client's city" horizontal>
-              <b-input placeholder="e.g. Geoffreyton" v-model="form.city" required />
+            <b-field label="UUID" message="user uuid" horizontal>
+              <b-input placeholder="e.g. Geoffreyton" v-model="form.uuid" readonly/>
+            </b-field>
+            <b-field label="Role" message="user role" horizontal>
+              <b-select v-model="form.role">
+                <option value="0">admin</option>
+                <option value="1">user</option>
+              </b-select>
             </b-field>
             <b-field label="Created" horizontal>
               <b-datepicker
@@ -38,35 +40,30 @@
                 icon="calendar-today">
               </b-datepicker>
             </b-field>
-            <hr>
-            <b-field label="Progress" horizontal>
-              <b-slider v-model="form.progress"/>
-            </b-field>
-            <hr>
             <b-field horizontal>
               <b-button type="is-primary" :loading="isLoading" native-type="submit">Submit</b-button>
             </b-field>
           </form>
         </card-component>
-        <card-component v-if="isProfileExists" title="Client Profile" icon="account" class="tile is-child">
+        <card-component v-if="isProfileExists" title="User Profile" icon="account" class="tile is-child">
           <user-avatar :avatar="item.avatar" :is-current-user="false" class="image has-max-width is-aligned-center"/>
           <hr>
           <b-field label="Name">
             <b-input :value="item.name" custom-class="is-static" readonly/>
           </b-field>
-          <b-field label="Company">
-            <b-input :value="item.company" custom-class="is-static" readonly/>
+          <b-field label="Email">
+            <b-input :value="item.email" custom-class="is-static" readonly/>
           </b-field>
-          <b-field label="City">
-            <b-input :value="item.city" custom-class="is-static" readonly/>
+          <b-field label="UUID">
+            <b-input :value="item.uuid" custom-class="is-static" readonly/>
+          </b-field>
+          <b-field label="Role">
+            <b-input :value="showRole" custom-class="is-static" readonly/>
           </b-field>
           <b-field label="Created">
             <b-input :value="item.created" custom-class="is-static" readonly/>
           </b-field>
           <hr>
-          <b-field label="Progress">
-            <progress class="progress is-small is-primary" :value="item.progress" max="100">{{ item.progress }}</progress>
-          </b-field>
         </card-component>
       </tiles>
     </section>
@@ -111,7 +108,7 @@ export default {
 
       return [
         'Admin',
-        'Clients',
+        'Users',
         lastCrumb
       ]
     },
@@ -119,18 +116,25 @@ export default {
       if (this.isProfileExists) {
         return this.form.name
       } else {
-        return 'Create Client'
+        return 'Create User'
       }
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Edit Client'
+        return 'Edit User'
       } else {
-        return 'New Client'
+        return 'New User'
       }
     },
     isProfileExists () {
       return !!this.item
+    },
+    showRole () {
+      if (this.item.role == 0) {
+          return 'Admin'
+      } else {
+          return 'User'
+      }
     }
   },
   created () {
@@ -141,20 +145,21 @@ export default {
       return {
         id: null,
         name: null,
-        company: null,
-        city: null,
+        email: null,
+        uuid: null,
         created_date: new Date(),
         created_mm_dd_yyyy: null,
         progress: 0,
         avatar: null,
         avatar_filename: null,
-        file_id: null
+        file_id: null,
+        role: 1
       }
     },
     getData () {
       if (this.id) {
         axios
-          .get(`/clients/${this.id}`)
+          .get(`/users/${this.id}`)
           .then(r => {
             this.form = r.data.data
             this.item = clone(r.data.data)
@@ -182,11 +187,11 @@ export default {
     submit () {
       this.isLoading = true
       let method = 'post'
-      let url = '/clients/store'
+      let url = '/users/store'
 
       if (this.id) {
         method = 'patch'
-        url = `/clients/${this.id}`
+        url = `/users/${this.id}`
       }
 
       axios({
@@ -197,7 +202,7 @@ export default {
         this.isLoading = false
 
         if (!this.id && r.data.data.id) {
-          this.$router.push({name: 'clients.edit', params: {id: r.data.data.id}})
+          this.$router.push({name: 'users.edit', params: {id: r.data.data.id}})
 
           this.$buefy.snackbar.open({
             message: 'Created',

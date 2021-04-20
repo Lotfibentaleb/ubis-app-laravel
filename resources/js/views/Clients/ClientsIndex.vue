@@ -10,11 +10,7 @@
     <section class="section is-main-section">
       <card-component class="has-table has-mobile-sort-spaced" title="Users" icon="account-multiple">
         <card-toolbar>
-          <button slot="right" type="button" class="button is-danger is-small has-checked-rows-number" @click="trashModal(null)" :disabled="!checkedRows.length">
-            <b-icon icon="trash-can" custom-size="default"/>
-            <span>Delete</span>
-            <span v-show="!!checkedRows.length">({{ checkedRows.length }})</span>
-          </button>
+
         </card-toolbar>
         <modal-trash-box :is-active="isModalActive" :trash-subject="trashSubject" @confirm="trashConfirm" @cancel="trashCancel"/>
 
@@ -39,6 +35,9 @@
             <b-table-column label="UUID" field="uuid" sortable>
               {{ props.row.uuid }}
             </b-table-column>
+            <b-table-column label="Role" field="uuid" sortable>
+              {{ props.row.role == 0 ? 'Admin' : 'User' }}
+            </b-table-column>
             <b-table-column label="Created">
               <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
             </b-table-column>
@@ -47,7 +46,7 @@
                 <router-link :to="{name:'users.edit', params: {id: props.row.id}}" class="button is-small is-primary">
                   <b-icon icon="account-edit" size="is-small"/>
                 </router-link>
-                <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)">
+                <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" :disabled="!props.row.role">
                   <b-icon icon="trash-can" size="is-small"/>
                 </button>
               </div>

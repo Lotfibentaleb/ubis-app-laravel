@@ -28,17 +28,6 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function index() {
-//        $clients = Client::with('file')->get();
-//
-//        Log::debug($clients);
-//
-//        $clients->each(function ($client) {
-//            $client->append('avatar');
-//        });
-//
-//        return response()->json([
-//            'data' => $clients
-//        ]);
 
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
@@ -59,7 +48,6 @@ class ClientsController extends Controller
             ]
         ];
         $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
-        $statusCode = $response->getStatusCode();
         $users = json_decode($response->getBody()->getContents());
 
         return response()->json(['data' => $users]);
@@ -72,13 +60,31 @@ class ClientsController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show( Client $client ) {
-        $client->append('avatar');
-        $client->append('avatar_filename');
-        $client->append('created_mm_dd_yyyy');
+    public function show($id) {
+
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users/'.$id;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+        $user = json_decode($response->getBody()->getContents());
 
         return response()->json([
-            'data' => $client
+            'data' => $user
         ]);
     }
 
@@ -90,16 +96,36 @@ class ClientsController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update( ClientStoreRequest $request, Client $client ) {
-        $client->fill($request->all());
-        $client->save();
+    public function update(Request $request, $id) {
 
-        $client->append('avatar');
+        $updateData = $request->all();
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users/'.$id;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => $updateData
+        ];
+        $response = $client->request('put', $baseUrl.$requestString, $options);   // call API
+        $resData = json_decode($response->getBody()->getContents());
 
         return response()->json([
-            'status' => true,
-            'data' => $client
+        'status' => true,
+            'data' => $resData
         ]);
+
     }
 
     /**
@@ -109,18 +135,21 @@ class ClientsController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store( ClientStoreRequest $request ) {
-        $client = new Client;
-        $client->fill($request->all());
-        $client->save();
+    public function store(Request $request) {
+//        $client = new Client;
+//        $client->fill($request->all());
+//        $client->save();
+//
+//        return response()->json([
+//            'status' => true,
+//            'created' => true,
+//            'data' => [
+//                'id' => $client->id
+//            ]
+//        ]);
 
-        return response()->json([
-            'status' => true,
-            'created' => true,
-            'data' => [
-                'id' => $client->id
-            ]
-        ]);
+        $paramDate = $request->input('selectedDate', '');
+
     }
 
     /**
