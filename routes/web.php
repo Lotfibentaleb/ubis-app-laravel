@@ -28,11 +28,11 @@ Route::get('/home', 'HomeController@index')->name('home');
  * */
 Route::prefix('/users')->group(function () {
     Route::get('', 'ClientsController@index');
-    Route::get('{client}', 'ClientsController@show');
+    Route::get('{userId}', 'ClientsController@show');
     Route::post('store', 'ClientsController@store');
-    Route::patch('{client}', 'ClientsController@update');
+    Route::patch('{userId}', 'ClientsController@update');
     Route::post('destroy', 'ClientsController@destroyMass');
-    Route::delete('{client}/destroy', 'ClientsController@destroy');
+    Route::delete('{userId}/destroy', 'ClientsController@destroy');
 });
 
 /*

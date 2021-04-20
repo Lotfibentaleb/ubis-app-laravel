@@ -56,7 +56,7 @@ class ClientsController extends Controller
     /**
      * Get single resource
      *
-     * @param Client $client
+     * @param int $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -91,9 +91,8 @@ class ClientsController extends Controller
     /**
      * Update single resource
      *
-     * @param ClientStoreRequest $request
-     * @param Client $client
-     *
+     * @param Request $request
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id) {
@@ -122,16 +121,14 @@ class ClientsController extends Controller
         $resData = json_decode($response->getBody()->getContents());
 
         return response()->json([
-        'status' => true,
             'data' => $resData
         ]);
-
     }
 
     /**
      * Store new resource
      *
-     * @param ClientStoreRequest $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -155,17 +152,35 @@ class ClientsController extends Controller
     /**
      * Destroy single resource
      *
-     * @param Client $client
+     * @param int $id
      *
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy( Client $client ) {
-        $client->delete();
+    public function destroy($id) {
 
-        return response()->json([
-            'status' => true
-        ]);
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users/'.$id;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+        ];
+        $response = $client->request('delete', $baseUrl.$requestString, $options);   // call API
+        $resData = json_decode($response->getBody()->getContents());
+
+        return response()->json($resData);
     }
 
     /**
