@@ -41,10 +41,10 @@ class LoginController extends Controller
      * @return void
      */
 
-//    public function __construct()
-//    {
+    public function __construct()
+    {
 //        $this->middleware('guest')->except('logout');
-//    }
+    }
 
     public function login(Request $request)
     {
@@ -78,8 +78,6 @@ class LoginController extends Controller
             }
         }
         catch (GuzzleHttp\Exception\ClientException $e) {
-//            $response = $e->getResponse();
-//            $responseBodyAsString = $response->getBody()->getContents();
             throw ValidationException::withMessages([
                 $this->username() => [trans('auth.failed')],
             ]);

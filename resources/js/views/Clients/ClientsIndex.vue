@@ -3,7 +3,7 @@
     <title-bar :title-stack="['Admin', 'Users']"/>
     <hero-bar>
       Users
-      <router-link to="/clients/new" class="button" slot="right">
+      <router-link to="/users/new" class="button" slot="right">
         New User
       </router-link>
     </hero-bar>
@@ -44,7 +44,7 @@
             </b-table-column>
             <b-table-column custom-key="actions" class="is-actions-cell">
               <div class="buttons is-right">
-                <router-link :to="{name:'clients.edit', params: {id: props.row.id}}" class="button is-small is-primary">
+                <router-link :to="{name:'users.edit', params: {id: props.row.id}}" class="button is-small is-primary">
                   <b-icon icon="account-edit" size="is-small"/>
                 </router-link>
                 <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)">
@@ -119,7 +119,7 @@ export default {
     getData () {
       this.isLoading = true
       axios
-        .get('/clients')
+        .get('/users')
         .then(r => {
           this.isLoading = false
           if (r.data && r.data.data) {
@@ -153,10 +153,10 @@ export default {
 
       if (this.trashObject) {
         method = 'delete'
-        url = `/clients/${this.trashObject.id}/destroy`
+        url = `/users/${this.trashObject.id}/destroy`
       } else if (this.checkedRows.length) {
         method = 'post'
-        url = '/clients/destroy'
+        url = '/users/  destroy'
         data = {
           ids: map(this.checkedRows, row => row.id)
         }

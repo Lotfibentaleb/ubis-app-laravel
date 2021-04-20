@@ -24,9 +24,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 /*
- * Clients management
+ * Users management
  * */
-Route::prefix('/clients')->group(function () {
+Route::prefix('/users')->group(function () {
     Route::get('', 'ClientsController@index');
     Route::get('{client}', 'ClientsController@show');
     Route::post('store', 'ClientsController@store');

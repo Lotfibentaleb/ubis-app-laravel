@@ -43,7 +43,7 @@ export default {
         'Resource',
         [
           {
-            to: '/clients/index',
+            to: '/users/index',
             label: 'Users',
             icon: 'account-multiple',
             updateMark: true

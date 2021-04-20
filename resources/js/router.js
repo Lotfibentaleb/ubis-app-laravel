@@ -28,18 +28,18 @@ export default new Router({
       component: () => import('./views/Profile.vue')
     },
     {
-      path: '/clients/index',
-      name: 'clients.index',
+      path: '/users/index',
+      name: 'users.index',
       component: () => import('./views/Clients/ClientsIndex.vue'),
     },
     {
-      path: '/clients/new',
-      name: 'clients.new',
+      path: '/users/new',
+      name: 'users.new',
       component: () => import('./views/Clients/ClientsForm.vue'),
     },
     {
-      path: '/clients/:id',
-      name: 'clients.edit',
+      path: '/users/:id',
+      name: 'users.edit',
       component: () => import('./views/Clients/ClientsForm.vue'),
       props: true
     },
