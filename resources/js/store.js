@@ -9,6 +9,7 @@ export default new Vuex.Store({
     userName: null,
     userEmail: null,
     userAvatar: null,
+    userRole: null,
 
     /* NavBar */
     isNavBarVisible: true,
@@ -36,6 +37,9 @@ export default new Vuex.Store({
       }
       if (payload.avatar) {
         state.userAvatar = payload.avatar
+      }
+      if (payload.role != null) {
+          state.userRole = payload.role == 0 ? 'admin' : 'user'
       }
     },
 

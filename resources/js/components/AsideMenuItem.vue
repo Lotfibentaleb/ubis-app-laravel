@@ -1,6 +1,6 @@
 <template>
   <li :class="{'is-active':isDropdownActive}">
-    <component :is="componentIs" :to="itemTo" :href="itemHref" @click="menuClick" exact-active-class="is-active" :class="{'has-icon':!!item.icon, 'has-dropdown-icon':hasDropdown}">
+    <component v-if="item.role.includes(userRole)" :is="componentIs" :to="itemTo" :href="itemHref" @click="menuClick" exact-active-class="is-active" :class="{'has-icon':!!item.icon, 'has-dropdown-icon':hasDropdown}">
       <b-icon v-if="item.icon" :icon="item.icon" :class="{ 'has-update-mark' : item.updateMark }" custom-size="default"  />
       <span v-if="item.label" :class="{'menu-item-label':!!item.icon}">{{ item.label }}</span>
       <div v-if="hasDropdown" class="dropdown-icon">
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'AsideMenuItem',
   data () {
@@ -52,7 +53,10 @@ export default {
     },
     itemHref () {
       return this.item.href ? this.item.href : null
-    }
+    },
+    ...mapState([
+        'userRole'
+    ])
   }
 }
 </script>

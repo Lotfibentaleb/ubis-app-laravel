@@ -28,7 +28,8 @@ export default {
           {
             to: '/',
             icon: 'desktop-mac',
-            label: 'Dashboard'
+            label: 'Dashboard',
+            role: ['admin', 'user'],
           }
         ],
         'Production',
@@ -37,6 +38,7 @@ export default {
             to: '/products/list',
             label: 'Products',
             icon: 'package-variant-closed',
+            role: ['admin', 'user'],
           },
 
         ],
@@ -46,7 +48,8 @@ export default {
             to: '/users/index',
             label: 'Users',
             icon: 'account-multiple',
-            updateMark: true
+            updateMark: true,
+            role: ['admin'],
           },
         ]
       ]
