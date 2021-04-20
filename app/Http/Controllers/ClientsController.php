@@ -97,7 +97,7 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id) {
 
-        $updateData = $request->all();
+        $paramData = $request->all();
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
         $requestString = 'users/'.$id;
@@ -115,7 +115,7 @@ class ClientsController extends Controller
                 'Accept'        => 'application/json',
                 'Content-Type' => 'application/json'
             ],
-            'json' => $updateData
+            'json' => $paramData
         ];
         $response = $client->request('put', $baseUrl.$requestString, $options);   // call API
         $resData = json_decode($response->getBody()->getContents());
@@ -126,26 +126,41 @@ class ClientsController extends Controller
     }
 
     /**
-     * Store new resource
+     * Create new resource
      *
      * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request) {
-//        $client = new Client;
-//        $client->fill($request->all());
-//        $client->save();
-//
-//        return response()->json([
-//            'status' => true,
-//            'created' => true,
-//            'data' => [
-//                'id' => $client->id
-//            ]
-//        ]);
+    public function create(Request $request) {
 
-        $paramDate = $request->input('selectedDate', '');
+        $paramData = $request->all();
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users/create';
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => $paramData
+        ];
+        $response = $client->request('post', $baseUrl.$requestString, $options);   // call API
+        $resData = json_decode($response->getBody()->getContents());
+
+        return response()->json([
+            'data' => $resData
+        ]);
+
 
     }
 

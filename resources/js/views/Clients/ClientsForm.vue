@@ -21,10 +21,10 @@
               <b-input placeholder="e.g. John Doe" v-model="form.name" required />
             </b-field>
             <b-field label="Email" message="user email" horizontal>
-              <b-input placeholder="e.g. Berton & Steinway" v-model="form.email" required />
+              <b-input placeholder="e.g. user@test.com" v-model="form.email" required />
             </b-field>
             <b-field label="UUID" message="user uuid" horizontal>
-              <b-input placeholder="e.g. Geoffreyton" v-model="form.uuid" readonly/>
+              <b-input placeholder="The UUID will be created automatically when submitting" v-model="form.uuid" readonly/>
             </b-field>
             <b-field label="Role" message="user role" horizontal>
               <b-select v-model="form.role">
@@ -32,13 +32,21 @@
                 <option value="1">user</option>
               </b-select>
             </b-field>
-            <b-field label="Created" horizontal>
+            <b-field v-if="id" label="Created" horizontal>
               <b-datepicker
                 @input="input"
                 v-model="form.created_date"
                 placeholder="Click to select..."
                 icon="calendar-today">
               </b-datepicker>
+            </b-field>
+            <b-field v-if="!id" horizontal>
+              <b-field label="Password" message="password">
+                <b-input type="password" placeholder="" v-model="form.password" required />
+              </b-field>
+              <b-field label="Confirm Password" message="confirm password">
+                <b-input type="password" placeholder="" v-model="form.confirm_password" required />
+              </b-field>
             </b-field>
             <b-field horizontal>
               <b-button type="is-primary" :loading="isLoading" native-type="submit">Submit</b-button>
@@ -79,10 +87,11 @@ import CardComponent from '@/components/CardComponent'
 import FilePicker from '@/components/FilePicker'
 import UserAvatar from '@/components/UserAvatar'
 import Notification from '@/components/Notification'
+import BField from "buefy/src/components/field/Field";
 
 export default {
   name: 'ClientForm',
-  components: { UserAvatar, FilePicker, CardComponent, Tiles, HeroBar, TitleBar, Notification },
+  components: {BField, UserAvatar, FilePicker, CardComponent, Tiles, HeroBar, TitleBar, Notification },
   props: {
     id: {
       default: null
@@ -103,7 +112,7 @@ export default {
       if (this.isProfileExists) {
         lastCrumb = this.form.name
       } else {
-        lastCrumb = 'New client'
+        lastCrumb = 'New user'
       }
 
       return [
@@ -153,7 +162,9 @@ export default {
         avatar: null,
         avatar_filename: null,
         file_id: null,
-        role: 1
+        role: 1,
+        password: '',
+        confirm_password: ''
       }
     },
     getData () {
@@ -187,11 +198,23 @@ export default {
     submit () {
       this.isLoading = true
       let method = 'post'
-      let url = '/users/store'
+      let url = '/users/create'
 
       if (this.id) {
         method = 'patch'
         url = `/users/${this.id}`
+      } else {
+          if (this.form.password != this.form.confirm_password) {
+              this.form.password = ''
+              this.form.confirm_password = ''
+              this.$buefy.snackbar.open({
+                  type: 'is-danger',
+                  message: 'do not match password and confirm password',
+                  queue: false
+              })
+              this.isLoading = false
+              return
+          }
       }
 
       axios({
