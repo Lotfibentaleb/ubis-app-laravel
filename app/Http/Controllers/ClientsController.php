@@ -117,12 +117,18 @@ class ClientsController extends Controller
             ],
             'json' => $paramData
         ];
-        $response = $client->request('put', $baseUrl.$requestString, $options);   // call API
-        $resData = json_decode($response->getBody()->getContents());
 
-        return response()->json([
-            'data' => $resData
-        ]);
+        try {
+            $response = $client->request('put', $baseUrl.$requestString, $options);   // call API
+            $resData = json_decode($response->getBody()->getContents());
+            return response()->json([
+                'data' => $resData
+            ]);
+        } catch (GuzzleHttp\Exception\ClientException $e) {
+            return response()->json([
+                'status' => false,
+            ], 404);
+        }
     }
 
     /**
