@@ -112,13 +112,41 @@ class CurrentUserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updatePassword( PasswordUpdateRequest $request ) {
-        $user = $request->user();
-        $user->password = bcrypt($request->password);
-        $user->save();
+    public function updatePassword( Request $request ) {
 
-        return response()->json([
-            'status' => true
-        ]);
+        $paramData = $request->all();
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users/updatePassword';
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+        $options = [
+            'headers' =>[
+                'Authorization' =>'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => $paramData,
+        ];
+
+        try {
+            $response = $client->request('post', $baseUrl.$requestString, $options);   // call API
+            $body = json_decode($response->getBody()->getContents());
+            return response()->json([
+                'status' => true,
+                'data' => $body,
+            ]);
+        } catch (GuzzleHttp\Exception\ClientException $e) {
+            $responseErrorBody = $e->getResponse()->getBody(true);
+            return response()->json([
+                'status' => false,
+                'data' => $responseErrorBody,
+            ], 500);
+        }
+
     }
 }
