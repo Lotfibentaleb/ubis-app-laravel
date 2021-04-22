@@ -54,7 +54,7 @@
           </form>
         </card-component>
         <card-component v-if="isProfileExists" title="User Profile" icon="account" class="tile is-child">
-          <user-avatar :avatar="item.avatar" :is-current-user="false" class="image has-max-width is-aligned-center"/>
+          <!--<user-avatar :avatar="item.avatar" :is-current-user="false" class="image has-max-width is-aligned-center"/>-->
           <hr>
           <b-field label="Name">
             <b-input :value="item.name" custom-class="is-static" readonly/>

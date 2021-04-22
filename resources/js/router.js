@@ -48,6 +48,11 @@ export default new Router({
       name: 'products.list',
       component: () => import('./views/Products/ProductsList.vue'),
     },
+    {
+      path: '/products/template',
+      name: 'products.template',
+      component: () => import('./views/Products/ProductionTemplate.vue'),
+    },
 
   ],
   scrollBehavior (to, from, savedPosition) {

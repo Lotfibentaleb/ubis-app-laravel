@@ -40,6 +40,12 @@ export default {
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
+          {
+            to: '/products/template',
+            label: 'Production Template',
+            icon: 'package-variant-closed',
+            role: ['admin'],
+          },
 
         ],
         'Resource',
