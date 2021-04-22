@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use App\User;
-use App\Http\Requests\ClientStoreRequest;
 use Illuminate\Http\Request;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Session;
 use Log;
+use Exception;
 
 class ClientsController extends Controller
 {
@@ -19,7 +18,7 @@ class ClientsController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -47,10 +46,15 @@ class ClientsController extends Controller
                 'Content-Type' => 'application/json'
             ]
         ];
-        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
-        $users = json_decode($response->getBody()->getContents());
 
-        return response()->json(['data' => $users]);
+        try {
+            $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+            $users = json_decode($response->getBody()->getContents());
+            return response()->json(['data' => $users]);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
+        }
     }
 
     /**
@@ -80,12 +84,15 @@ class ClientsController extends Controller
                 'Content-Type' => 'application/json'
             ]
         ];
-        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
-        $user = json_decode($response->getBody()->getContents());
 
-        return response()->json([
-            'data' => $user
-        ]);
+        try {
+            $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+            $user = json_decode($response->getBody()->getContents());
+            return response()->json(['data' => $user]);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
+        }
     }
 
     /**
@@ -124,10 +131,9 @@ class ClientsController extends Controller
             return response()->json([
                 'data' => $resData
             ]);
-        } catch (GuzzleHttp\Exception\ClientException $e) {
-            return response()->json([
-                'status' => false,
-            ], 404);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
         }
     }
 
@@ -160,13 +166,15 @@ class ClientsController extends Controller
             ],
             'json' => $paramData
         ];
-        $response = $client->request('post', $baseUrl.$requestString, $options);   // call API
-        $resData = json_decode($response->getBody()->getContents());
 
-        return response()->json([
-            'data' => $resData
-        ]);
-
+        try {
+            $response = $client->request('post', $baseUrl.$requestString, $options);   // call API
+            $resData = json_decode($response->getBody()->getContents());
+            return response()->json(['data' => $resData]);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
+        }
 
     }
 
@@ -198,10 +206,15 @@ class ClientsController extends Controller
                 'Content-Type' => 'application/json'
             ],
         ];
-        $response = $client->request('delete', $baseUrl.$requestString, $options);   // call API
-        $resData = json_decode($response->getBody()->getContents());
 
-        return response()->json($resData);
+        try {
+            $response = $client->request('delete', $baseUrl.$requestString, $options);   // call API
+            $resData = json_decode($response->getBody()->getContents());
+            return response()->json($resData);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
+        }
     }
 
     /**

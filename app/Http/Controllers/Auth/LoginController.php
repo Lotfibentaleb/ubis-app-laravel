@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use GuzzleHttp;
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -43,13 +44,23 @@ class LoginController extends Controller
 
     public function __construct()
     {
-//        $this->middleware('guest')->except('logout');
+
     }
 
     public function login(Request $request)
     {
-        $email = $request->input('email');
-        $password = $request->input('password');
+        $requestData = $request->all();
+        $validator = Validator::make($requestData, [
+            'email' => 'string|required',
+            'password' => 'string|required',
+        ]);
+
+        if($validator->fails()){
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.failed')],
+            ]);
+        }
+
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
         $requestString = 'auth/login';
@@ -60,8 +71,8 @@ class LoginController extends Controller
                 'Content-Type' => 'application/json'
             ],
             'json' =>[
-                'email' => $email,
-                'password' => $password
+                'email' => $requestData['email'],
+                'password' => $requestData['password']
             ]
         ];
 
