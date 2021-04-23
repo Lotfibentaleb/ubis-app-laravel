@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PasswordUpdateRequest;
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Session;
 

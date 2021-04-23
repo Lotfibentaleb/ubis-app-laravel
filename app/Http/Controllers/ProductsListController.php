@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use GuzzleHttp;
 use Validator;
 use Log;
-use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExcelCollection;
 use Illuminate\Support\Facades\Session;
