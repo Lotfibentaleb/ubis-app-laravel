@@ -16,13 +16,27 @@
           :checked-rows.sync="checkedRows"
           :checkable="true"
           :loading="isLoading"
-          :paginated="paginated"
+          paginated
+          backend-pagination
+          :total="total"
           :per-page="perPage"
           :striped="true"
           :hoverable="true"
           default-sort="name"
-          :data="productionTemplatesData"
-          @dblclick="dbRowClickHandler">
+          @page-change="onPageChange"
+
+          @dblclick="dbRowClickHandler"
+
+          backend-sorting
+          :default-sort-direction="defaultSortOrder"
+          :default-sort="[sortField, sortOrder]"
+          @sort="onSort"
+
+          backend-filtering
+          @filters-change="onFilterChange"
+
+          :data="productionTemplatesData">
+
           <template slot-scope="props">
             <b-table-column label="id" field="id" sortable>
               {{ props.row.id }}
@@ -35,9 +49,6 @@
             </b-table-column>
             <b-table-column custom-key="actions" class="is-actions-cell">
               <div class="buttons is-right">
-                <router-link :to="{name:'users.edit', params: {id: props.row.id}}" class="button is-small is-primary">
-                  <b-icon icon="account-edit" size="is-small"/>
-                </router-link>
                 <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)">
                   <b-icon icon="trash-can" size="is-small"/>
                 </button>
@@ -77,6 +88,7 @@
   import HeroBar from '@/components/HeroBar'
   import BField from "buefy/src/components/field/Field";
   import vueJsonEditor from 'vue-json-editor'
+  import debounce from 'lodash/debounce'
 
   export default {
     name: 'products.list',
@@ -122,13 +134,91 @@
         isLoading: false,
         paginated: false,
         perPage: 10,
-        checkedRows: []
+        checkedRows: [],
+        sortField:'',
+        sortOrder:'asc',
+        defaultSortOrder:'asc',
+        page: 1,
+        total: 0,
+        filterValues: '{}',
       }
     },
     created () {
       this.getData()
     },
     methods: {
+      onPageChange(page) {
+        this.page = page
+        this.getData ()
+      },
+      onSort(field, order) {
+        this.sortField = field
+        this.sortOrder = order
+        this.getData()
+      },
+      onFilterChange: debounce(function (filter) {
+        console.warn('filter', Object.entries(filter));
+        this.filterValues = '';
+        this.filterValues = encodeURIComponent(JSON.stringify(filter));
+        this.getData()
+        this.getFilteringURL()
+      }, 250),
+      getFilteringURL () {
+        if(this.dataUrl){
+          const paramsGeneral = [
+            `enhanced=0`,
+            `sort_by=${this.sortField}.${this.sortOrder}`,
+            `page=${this.page}`,
+            `filter=${this.filterValues}`
+          ].join('&')
+
+          const paramsEnhance = [
+            `enhanced=1`,
+            `sort_by=${this.sortField}.${this.sortOrder}`,
+            `page=${this.page}`,
+            `filter=${this.filterValues}`
+          ].join('&')
+
+          this.filterGeneralUrl = this.dataUrl + '/excel?' + paramsGeneral
+          this.filterEnhancedUrl = this.dataUrl + '/enhancedExcel?' + paramsEnhance
+        }
+      },
+      getData () {
+        this.isLoading = true
+        const params = [
+          `size=${this.perPage}`,
+          `sort_by=${this.sortField}.${this.sortOrder}`,
+          `page=${this.page}`,
+          `filter=${this.filterValues}`
+        ].join('&')
+
+        const fetchUrl = '/production_flow'
+
+        axios.create({
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+          .get(fetchUrl+'?'+params)
+          .then(r => {
+            this.isLoading = false
+
+            if (r.data && r.data.data) {
+              this.perPage = r.data.meta.per_page
+              this.total = r.data.meta.total
+              this.page = r.data.meta.current_page
+              this.productionTemplatesData = r.data.data
+            }
+          })
+          .catch( err => {
+            this.isLoading = false
+            this.$buefy.toast.open({
+              message: `Error: ${err.message}`,
+              type: 'is-danger',
+              queue: false
+            })
+          })
+      },
       onJsonChange (value) {
         this.productionTemplatesData[this.selectedNum - 1].production_flow = []
         this.productionTemplatesData[this.selectedNum - 1].production_flow = value
@@ -137,28 +227,6 @@
         this.selectedNum = rowData.id
         this.jsonProductFlow = []
         this.jsonProductFlow = rowData.production_flow
-      },
-      getData () {
-        this.isLoading = true
-        axios
-            .get('/product_templates')
-            .then(r => {
-              this.isLoading = false
-              if (r.data) {
-                if (r.data.length > this.perPage) {
-                  this.paginated = true
-                }
-                this.productionTemplatesData = r.data
-              }
-            })
-            .catch( err => {
-              this.isLoading = false
-              this.$buefy.toast.open({
-                message: `Error: ${err.message}`,
-                type: 'is-danger',
-                queue: false
-              })
-            })
       },
     }
   }
