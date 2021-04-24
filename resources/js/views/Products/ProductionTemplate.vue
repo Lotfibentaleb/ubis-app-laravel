@@ -11,7 +11,8 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <card-component class="has-table has-mobile-sort-spaced" title="Production template" icon="account-multiple">
+      <card-component class="has-table has-mobile-sort-spaced" title="Production flow template for Articles" icon="package-variant-closed">
+        <card-toolbar />
         <b-table
           :checked-rows.sync="checkedRows"
           :checkable="true"
@@ -38,14 +39,20 @@
           :data="productionTemplatesData">
 
           <template slot-scope="props">
-            <b-table-column label="id" field="id" sortable>
+            <b-table-column label="id" field="id">
               {{ props.row.id }}
             </b-table-column>
-            <b-table-column label="st_article_nr" field="st_article_nr" sortable>
+            <b-table-column label="st_article_nr" field="st_article_nr" searchable>
               {{ props.row.st_article_nr }}
             </b-table-column>
-            <b-table-column label="production_flow" field="production_flow" sortable>
+            <b-table-column label="production_flow" field="production_flow">
               {{ props.row.production_flow[0] }}
+            </b-table-column>
+            <b-table-column label="created_at" field="created_at" sortable>
+              {{ props.row.created_at.split('T')[0] }}
+            </b-table-column>
+            <b-table-column label="updated_at" field="updated_at" sortable>
+              {{ props.row.updated_at.split('T')[0] }}
             </b-table-column>
             <b-table-column custom-key="actions" class="is-actions-cell">
               <div class="buttons is-right">
@@ -72,6 +79,19 @@
               </template>
             </div>
           </section>
+
+          <template #footer>
+            <div class="has-text-right">
+              <b-select v-model="perPage">
+                <option value="10">10 per page</option>
+                <option value="20">20 per page</option>
+                <option value="50">50 per page</option>
+                <option value="100">100 per page</option>
+                <option value="1000">1000 per page</option>
+              </b-select>
+            </div>
+          </template>
+
         </b-table>
       </card-component>
       <div class="json-editor">
@@ -84,6 +104,7 @@
 <script>
   import Notification from '@/components/Notification'
   import CardComponent from '@/components/CardComponent'
+  import CardToolbar from '@/components/CardToolbar'
   import TitleBar from '@/components/TitleBar'
   import HeroBar from '@/components/HeroBar'
   import BField from "buefy/src/components/field/Field";
@@ -92,7 +113,7 @@
 
   export default {
     name: 'products.list',
-    components: {BField, HeroBar, TitleBar, CardComponent, Notification, vueJsonEditor},
+    components: {BField, HeroBar, TitleBar, CardComponent, CardToolbar, Notification, vueJsonEditor},
     computed: {
       titleStack () {
         return [
@@ -140,7 +161,7 @@
         defaultSortOrder:'asc',
         page: 1,
         total: 0,
-        filterValues: '{}',
+        filterValues: '',
       }
     },
     created () {
@@ -157,39 +178,17 @@
         this.getData()
       },
       onFilterChange: debounce(function (filter) {
-        console.warn('filter', Object.entries(filter));
         this.filterValues = '';
-        this.filterValues = encodeURIComponent(JSON.stringify(filter));
+        this.filterValues = filter.st_article_nr ? filter.st_article_nr : ''
         this.getData()
-        this.getFilteringURL()
       }, 250),
-      getFilteringURL () {
-        if(this.dataUrl){
-          const paramsGeneral = [
-            `enhanced=0`,
-            `sort_by=${this.sortField}.${this.sortOrder}`,
-            `page=${this.page}`,
-            `filter=${this.filterValues}`
-          ].join('&')
-
-          const paramsEnhance = [
-            `enhanced=1`,
-            `sort_by=${this.sortField}.${this.sortOrder}`,
-            `page=${this.page}`,
-            `filter=${this.filterValues}`
-          ].join('&')
-
-          this.filterGeneralUrl = this.dataUrl + '/excel?' + paramsGeneral
-          this.filterEnhancedUrl = this.dataUrl + '/enhancedExcel?' + paramsEnhance
-        }
-      },
       getData () {
         this.isLoading = true
         const params = [
           `size=${this.perPage}`,
           `sort_by=${this.sortField}.${this.sortOrder}`,
           `page=${this.page}`,
-          `filter=${this.filterValues}`
+          `article_nr=${this.filterValues}`
         ].join('&')
 
         const fetchUrl = '/production_flow'
@@ -202,7 +201,6 @@
           .get(fetchUrl+'?'+params)
           .then(r => {
             this.isLoading = false
-
             if (r.data && r.data.data) {
               this.perPage = r.data.meta.per_page
               this.total = r.data.meta.total
