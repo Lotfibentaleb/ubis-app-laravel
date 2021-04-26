@@ -24,7 +24,7 @@
           {{ props.row.st_article_nr }}
         </b-table-column>
         <b-table-column label="production_flow" field="production_flow">
-          {{ props.row.production_flow[0] }}
+          {{ JSON.stringify(props.row.production_flow[0]) + ' ...' }}
         </b-table-column>
         <b-table-column label="updated_by" field="updated_by">
           {{ props.row.updated_by }}

@@ -11,6 +11,25 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
+      <b-modal :active="showSectionModal" has-modal-card>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Select the correct section ID</p>
+          </header>
+          <section class="modal-card-body">
+            <p>You can select the section Id within this range.</p>
+            <div class="has-text-right">
+              <b-select v-model="selectedSectionIndex">
+                <option v-for="(availableSectionId, index) in availableSectionIds" :value="index">{{availableSectionId}}</option>
+              </b-select>
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <b-button class="btn excel-export"  @click="cancelModal">Cancel</b-button>
+            <b-button class="btn excel-export"  @click="confirmModal">Update</b-button>
+          </footer>
+        </div>
+      </b-modal>
       <card-component class="has-table has-mobile-sort-spaced" title="Production flow template for Articles" icon="package-variant-closed">
         <card-toolbar />
         <b-table
@@ -46,7 +65,7 @@
               {{ props.row.st_article_nr }}
             </b-table-column>
             <b-table-column label="production_flow" field="production_flow">
-              {{ props.row.production_flow[0] }}
+              {{ JSON.stringify(props.row.production_flow[0]) + ' ...' }}
             </b-table-column>
             <b-table-column label="created_at" field="created_at" sortable>
               {{ props.row.created_at.split('T')[0] }}
@@ -56,7 +75,7 @@
             </b-table-column>
             <b-table-column custom-key="actions" class="is-actions-cell">
               <div class="buttons is-right">
-                <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)">
+                <button class="button is-small is-danger" type="button" disabled>
                   <b-icon icon="trash-can" size="is-small"/>
                 </button>
               </div>
@@ -99,7 +118,7 @@
       </div>
       <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" title="Production Template History" icon="package-variant-closed">
         <card-toolbar />
-        <product-template-history data-url="/production_flow/history" :article_nr="selectedArticleNr" />
+        <product-template-history data-url="/production_flow/history" :article_nr="selectedArticleNr" :checkable="true" />
       </card-component>
     </section>
   </div>
@@ -112,13 +131,14 @@
   import TitleBar from '@/components/TitleBar'
   import HeroBar from '@/components/HeroBar'
   import ProductTemplateHistory from '@/components/ProductTemplateHistory'
+  import ModalBox from '@/components/ModalBox'
   import BField from "buefy/src/components/field/Field";
   import vueJsonEditor from 'vue-json-editor'
   import debounce from 'lodash/debounce'
 
   export default {
     name: 'products.list',
-    components: {BField, HeroBar, TitleBar, CardComponent, CardToolbar, Notification, vueJsonEditor, ProductTemplateHistory},
+    components: {BField, HeroBar, TitleBar, CardComponent, CardToolbar, ModalBox, Notification, vueJsonEditor, ProductTemplateHistory},
     watch:{
       perPage:function(){
         this.getData();
@@ -162,10 +182,12 @@
         selectedArticleNr: '',
         selectedId: null,
         selectedIndex: null,
+        selectedSectionIndex: 0,
         isModalActive: false,
         trashObject: null,
         productionTemplatesData: [],
         productSectionTemplateData: [],
+        availableSectionIds: [],
         isLoading: false,
         paginated: false,
         perPage: 10,
@@ -176,6 +198,7 @@
         page: 1,
         total: 0,
         filterValues: '',
+        showSectionModal: false
       }
     },
     created () {
@@ -213,6 +236,9 @@
             this.isLoading = false
             if (r.data && r.data.data) {
               this.productSectionTemplateData = r.data.data
+              this.productSectionTemplateData.forEach(pdSectionTempItem => {
+                this.availableSectionIds.push(pdSectionTempItem.id)
+              })
             }
           })
           .catch( err => {
@@ -267,7 +293,30 @@
         })
         this.productionTemplatesData[this.selectedIndex].production_flow = []
         this.productionTemplatesData[this.selectedIndex].production_flow = value
-        this.updateProductionFlow()
+
+        if (!this.checkSectionId()) {
+          this.showSectionModal = true
+        } else {
+          this.updateProductionFlow()
+        }
+      },
+      checkSectionId () {
+        let countTrueSectionId = 0
+        this.productionTemplatesData[this.selectedIndex].production_flow.every(pdFlowItem => {
+          if (this.availableSectionIds.includes(pdFlowItem.production_section_template)) {
+            countTrueSectionId = countTrueSectionId + 1
+          }
+        })
+        if (countTrueSectionId != this.productionTemplatesData[this.selectedIndex].production_flow.length ) {
+          return false
+        } else { return true }
+      },
+      setSelectedSectionId () {
+        this.productionTemplatesData[this.selectedIndex].production_flow.forEach((pdFlowItem, index) => {
+          if (!this.availableSectionIds.includes(pdFlowItem.production_section_template)) {
+            this.productionTemplatesData[this.selectedIndex].production_flow[index].production_section_template = this.availableSectionIds[this.selectedSectionIndex]
+          }
+        })
       },
       dbRowClickHandler (rowData) {
         this.selectedArticleNr = rowData.st_article_nr
@@ -306,6 +355,15 @@
         }).finally(() => {
 
         })
+      },
+      confirmModal () {
+        this.showSectionModal = false
+        this.setSelectedSectionId()
+        this.updateProductionFlow()
+      },
+      cancelModal () {
+        this.showSectionModal = false
+        this.getData()
       }
     }
   }
