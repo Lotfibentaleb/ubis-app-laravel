@@ -94,9 +94,13 @@
 
         </b-table>
       </card-component>
-      <div class="json-editor">
+      <div v-if="isClickedRow" class="json-editor">
         <vue-json-editor v-model="jsonProductFlow" :show-btns="false" :expandedOnStart="false" @json-change="onJsonChange"/>
       </div>
+      <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" title="Production Template History" icon="package-variant-closed">
+        <card-toolbar />
+        <product-template-history data-url="/production_flow/history" :article_nr="selectedArticleNr" />
+      </card-component>
     </section>
   </div>
 </template>
@@ -107,13 +111,19 @@
   import CardToolbar from '@/components/CardToolbar'
   import TitleBar from '@/components/TitleBar'
   import HeroBar from '@/components/HeroBar'
+  import ProductTemplateHistory from '@/components/ProductTemplateHistory'
   import BField from "buefy/src/components/field/Field";
   import vueJsonEditor from 'vue-json-editor'
   import debounce from 'lodash/debounce'
 
   export default {
     name: 'products.list',
-    components: {BField, HeroBar, TitleBar, CardComponent, CardToolbar, Notification, vueJsonEditor},
+    components: {BField, HeroBar, TitleBar, CardComponent, CardToolbar, Notification, vueJsonEditor, ProductTemplateHistory},
+    watch:{
+      perPage:function(){
+        this.getData();
+      }
+    },
     computed: {
       titleStack () {
         return [
@@ -148,11 +158,14 @@
             production_section_template: 4,
           }
         ],
+        isClickedRow: false,
+        selectedArticleNr: '',
         selectedId: null,
         selectedIndex: null,
         isModalActive: false,
         trashObject: null,
         productionTemplatesData: [],
+        productSectionTemplateData: [],
         isLoading: false,
         paginated: false,
         perPage: 10,
@@ -167,6 +180,7 @@
     },
     created () {
       this.getData()
+      this.getSectionTemplateData()
     },
     methods: {
       onPageChange(page) {
@@ -183,6 +197,33 @@
         this.filterValues = filter.st_article_nr ? filter.st_article_nr : ''
         this.getData()
       }, 250),
+      getSectionTemplateData () {
+        const params = [
+          `size=100`,
+          `page=1`
+        ].join('&')
+        const fetchUrl = '/production_section'
+        axios.create({
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+          .get(fetchUrl+'?'+params)
+          .then(r => {
+            this.isLoading = false
+            if (r.data && r.data.data) {
+              this.productSectionTemplateData = r.data.data
+            }
+          })
+          .catch( err => {
+            this.isLoading = false
+            this.$buefy.toast.open({
+              message: `Error: ${err.message}`,
+              type: 'is-danger',
+              queue: false
+            })
+          })
+      },
       getData () {
         this.isLoading = true
         const params = [
@@ -226,7 +267,16 @@
         })
         this.productionTemplatesData[this.selectedIndex].production_flow = []
         this.productionTemplatesData[this.selectedIndex].production_flow = value
-
+        this.updateProductionFlow()
+      },
+      dbRowClickHandler (rowData) {
+        this.selectedArticleNr = rowData.st_article_nr
+        this.selectedId = rowData.id
+        this.jsonProductFlow = []
+        this.jsonProductFlow = rowData.production_flow
+        this.isClickedRow = true
+      },
+      updateProductionFlow () {
         let method = 'put'
         let url = `/production_flow/${this.selectedId}`
         let data = {
@@ -256,12 +306,7 @@
         }).finally(() => {
 
         })
-      },
-      dbRowClickHandler (rowData) {
-        this.selectedId = rowData.id
-        this.jsonProductFlow = []
-        this.jsonProductFlow = rowData.production_flow
-      },
+      }
     }
   }
 </script>

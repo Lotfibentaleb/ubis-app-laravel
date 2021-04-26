@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Client;
+use Throwable;
 
 class ProductionSectionController extends Controller
 {
@@ -13,10 +16,6 @@ class ProductionSectionController extends Controller
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
 
         $requestData = $request->all();
-        switch($type){
-            case 'PUT': $requestData['updated_by'] = (string)auth()->user()->uuid; break;
-            case 'POST': $requestData['created_by'] = (string)auth()->user()->uuid; break;
-        }
 
         // set given query parameters, to be able to forward them
         $query = $request->query();

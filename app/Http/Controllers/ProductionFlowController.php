@@ -86,9 +86,6 @@ class ProductionFlowController extends Controller
      */
     public function indexHistory(Request $request)
     {
-        if( !auth()->user()->tokenCan('product-list') ){    // TODO update rights
-            return response()->json(['message' =>  'Unauthorized'], 403);
-        }
         return $this->processCall($request, 'production_flow/history');
     }
 
