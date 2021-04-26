@@ -12,3 +12,28 @@
     margin: 0 auto;
   }
 }
+
+.modal-section-selector {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-selector-width {
+  width: 25%;
+  span {
+    width: 100%;
+    select {
+      width: 100%;
+    }
+  }
+}
+
+.section-group-width {
+  width: 70%;
+}
+
+.custom-foot {
+  display: flex;
+  justify-content: flex-end;
+}

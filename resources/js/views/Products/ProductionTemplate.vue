@@ -14,19 +14,20 @@
       <b-modal :active="showSectionModal" has-modal-card>
         <div class="modal-card">
           <header class="modal-card-head">
-            <p class="modal-card-title">Select the correct section ID</p>
+            <p class="modal-card-title">Select the correct section template ID</p>
           </header>
           <section class="modal-card-body">
-            <p>You can select the section Id within this range.</p>
-            <div class="has-text-right">
-              <b-select v-model="selectedSectionIndex">
+            <p>You can select the section template Id within this range:</p>
+            <div class="has-text-right modal-section-selector">
+              <b-select class="section-selector-width" v-model="selectedSectionIndex">
                 <option v-for="(availableSectionId, index) in availableSectionIds" :value="index">{{availableSectionId}}</option>
               </b-select>
+              <b-input class="section-group-width" type="text" :value="selectedSectionGroupName" readonly />
             </div>
           </section>
-          <footer class="modal-card-foot">
-            <b-button class="btn excel-export"  @click="cancelModal">Cancel</b-button>
+          <footer class="modal-card-foot custom-foot">
             <b-button class="btn excel-export"  @click="confirmModal">Update</b-button>
+            <b-button class="btn excel-export"  @click="cancelModal">Cancel</b-button>
           </footer>
         </div>
       </b-modal>
@@ -135,13 +136,19 @@
   import BField from "buefy/src/components/field/Field";
   import vueJsonEditor from 'vue-json-editor'
   import debounce from 'lodash/debounce'
+  import BInput from "buefy/src/components/input/Input";
 
   export default {
     name: 'products.list',
-    components: {BField, HeroBar, TitleBar, CardComponent, CardToolbar, ModalBox, Notification, vueJsonEditor, ProductTemplateHistory},
+    components: {
+      BInput,
+      BField, HeroBar, TitleBar, CardComponent, CardToolbar, ModalBox, Notification, vueJsonEditor, ProductTemplateHistory},
     watch:{
-      perPage:function(){
+      perPage: function () {
         this.getData();
+      },
+      selectedSectionIndex: function () {
+        this.selectedSectionGroupName = this.productSectionTemplateData[this.selectedSectionIndex]['group']
       }
     },
     computed: {
@@ -183,6 +190,7 @@
         selectedId: null,
         selectedIndex: null,
         selectedSectionIndex: 0,
+        selectedSectionGroupName: '',
         isModalActive: false,
         trashObject: null,
         productionTemplatesData: [],
