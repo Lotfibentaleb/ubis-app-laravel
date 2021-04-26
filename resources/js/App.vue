@@ -44,7 +44,7 @@ export default {
             to: '/products/template',
             label: 'Production Template',
             icon: 'package-variant-closed',
-            role: ['admin'],
+            role: ['admin', 'user'],
           },
 
         ],
