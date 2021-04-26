@@ -148,7 +148,8 @@
             production_section_template: 4,
           }
         ],
-        selectedNum: null,
+        selectedId: null,
+        selectedIndex: null,
         isModalActive: false,
         trashObject: null,
         productionTemplatesData: [],
@@ -218,11 +219,46 @@
           })
       },
       onJsonChange (value) {
-        this.productionTemplatesData[this.selectedNum - 1].production_flow = []
-        this.productionTemplatesData[this.selectedNum - 1].production_flow = value
+        this.productionTemplatesData.forEach((pdTemplateItem, index) => {
+          if (pdTemplateItem.id === this.selectedId) {
+            this.selectedIndex = index
+          }
+        })
+        this.productionTemplatesData[this.selectedIndex].production_flow = []
+        this.productionTemplatesData[this.selectedIndex].production_flow = value
+
+        let method = 'put'
+        let url = `/production_flow/${this.selectedId}`
+        let data = {
+          st_article_nr: this.productionTemplatesData[this.selectedIndex].st_article_nr,
+          production_flow: JSON.stringify(this.productionTemplatesData[this.selectedIndex].production_flow)
+        }
+        axios({
+          method,
+          url,
+          data
+        }).then( r => {
+          let infoMessage = `Production_Flow update success`
+          this.$buefy.snackbar.open({
+            message: infoMessage,
+            queue: false
+          })
+        }).catch( err => {
+          let message = `Fehler: ${err.message}`
+          if( err.response.status == 404){
+            message = `Product update failed`
+          }
+          this.$buefy.toast.open({
+            message: message,
+            type: 'is-danger',
+            queue: false
+          })
+        }).finally(() => {
+
+        })
       },
       dbRowClickHandler (rowData) {
-        this.selectedNum = rowData.id
+        this.selectedId = rowData.id
         this.jsonProductFlow = []
         this.jsonProductFlow = rowData.production_flow
       },
