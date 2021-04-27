@@ -20,20 +20,20 @@
       :data="productsHistory">
       <template slot-scope="props">
 
-        <b-table-column label="st_article_nr" field="st_article_nr">
+        <b-table-column label="St_Article_Nr" field="st_article_nr">
           {{ props.row.st_article_nr }}
         </b-table-column>
-        <b-table-column label="production_flow" field="production_flow">
+        <b-table-column label="Production_Flow" field="production_flow">
           {{ JSON.stringify(props.row.production_flow[0]) + ' ...' }}
         </b-table-column>
-        <b-table-column label="updated_by" field="updated_by">
+        <b-table-column label="Updated_by" field="updated_by">
           {{ props.row.updated_by }}
         </b-table-column>
-        <b-table-column label="created_at" field="created_at" sortable>
-          {{ props.row.created_at.split('T')[0] }}
+        <b-table-column label="Valid_From" field="created_at">
+          {{ props.row.valid_since ? props.row.valid_since.split('.')[0] : '' }}
         </b-table-column>
-        <b-table-column label="updated_at" field="updated_at" sortable>
-          {{ props.row.updated_at.split('T')[0] }}
+        <b-table-column label="Valid_Till" field="updated_at">
+          {{ props.row.valid_till ? props.row.valid_till.split('.')[0] : '' }}
         </b-table-column>
       </template>
       <section class="section" slot="empty">
