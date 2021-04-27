@@ -42,3 +42,37 @@ table tr.is-selected {
   background-color: #58585a!important;
   color: white;
 }
+
+.prod-detail-popup {
+  position: absolute;
+  top: 0px;
+  left: 100%;
+  border-radius: 5px;
+  background: #ffffff;
+  width: 400px;
+  height: 122px;
+  z-index: 99;
+  border: solid 1px #759bab;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
+  .prod-detail-text>div>textarea {
+    width: 90%;
+    height: 80px!important;
+    min-height: 70px!important;
+  }
+  .prod-detail-btn {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 30px;
+    .btn-prod-modal {
+      width: 70px;
+      height: 100%;
+      background: #759bab;
+      color: #ffffff;
+      margin: 5px;
+    }
+  }
+}
+
+
+

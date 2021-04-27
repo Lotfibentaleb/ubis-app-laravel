@@ -1,30 +1,43 @@
 <template>
   <div>
-    <b-table
-      :checked-rows.sync="checkedRows"
-      :checkable="checkable"
-      :loading="isLoading"
-      paginated
-      backend-pagination
-      :total="total"
-      :per-page="perPage"
-      :striped="true"
-      :hoverable="true"
-      @page-change="onPageChange"
-      backend-sorting
-      :default-sort-direction="defaultSortOrder"
-      :default-sort="[sortField, sortOrder]"
-      @sort="onSort"
-      backend-filtering
-      @filters-change="onFilterChange"
-      :data="productsHistory">
-      <template slot-scope="props">
 
+    <b-table
+            :checked-rows.sync="checkedRows"
+            :checkable="checkable"
+            :loading="isLoading"
+            paginated
+            backend-pagination
+            :total="total"
+            :per-page="perPage"
+            :striped="true"
+            :hoverable="true"
+            @page-change="onPageChange"
+            backend-sorting
+            :default-sort-direction="defaultSortOrder"
+            :default-sort="[sortField, sortOrder]"
+            @sort="onSort"
+            backend-filtering
+            @filters-change="onFilterChange"
+            :data="productsHistory">
+      <template slot-scope="props">
         <b-table-column label="St_Article_Nr" field="st_article_nr">
           {{ props.row.st_article_nr }}
         </b-table-column>
-        <b-table-column label="Production_Flow" field="production_flow">
-          {{ JSON.stringify(props.row.production_flow[0]) + ' ...' }}
+        <b-table-column label="Production_Flow" field="production_flow" centered>
+          <div class="buttons is-right" style="position: relative">
+            <div v-if="isShowProdDetailModal && selectedIndex == props.row.index" class="prod-detail-popup">
+              <div class="prod-detail-text">
+                <b-input :value="JSON.stringify(selectedRowData.production_flow)" type="textarea" readonly />
+              </div>
+              <div class="prod-detail-btn">
+                <b-button class="btn btn-prod-modal"  @click="confirmModal">Ok</b-button>
+                <b-button class="btn btn-prod-modal"  @click="canCelModal">Cancel</b-button>
+              </div>
+            </div>
+            <button class="button is-small is-success" type="button" @click.prevent="showProductDetail(props.row)">
+              show detail
+            </button>
+          </div>
         </b-table-column>
         <b-table-column label="Updated_by" field="updated_by">
           {{ props.row.updated_by }}
@@ -71,10 +84,11 @@
   import ModalTrashBox from '@/components/ModalTrashBox'
   import debounce from 'lodash/debounce'
   import BButton from "buefy/src/components/button/Button";
+  import BInput from "buefy/src/components/input/Input";
 
   export default {
     name: 'ProductTemplateHistory',
-    components: {BButton, ModalTrashBox },
+    components: {BInput, BButton, ModalTrashBox },
     props: {
       dataUrl: {
         type: String,
@@ -104,6 +118,9 @@
         page: 1,
         total: 0,
         filterValues: '{}',
+        isShowProdDetailModal: false,
+        selectedRowData: [],
+        selectedIndex: null,
       }
     },
     watch:{
@@ -133,6 +150,11 @@
         this.filterValues = encodeURIComponent(JSON.stringify(filter));
         this.getData()
       }, 250),
+      showProductDetail (rowData) {
+        this.selectedIndex = rowData.index
+        this.selectedRowData = rowData
+        this.isShowProdDetailModal = true
+      },
       getData () {
         if (this.dataUrl) {
           this.isLoading = true
@@ -148,25 +170,34 @@
               'Content-Type': 'application/json',
             }
           })
-            .get(this.dataUrl+'?'+params)
-            .then(r => {
-              this.isLoading = false
-              if (r.data && r.data.data) {
-                this.perPage = r.data.meta.per_page
-                this.total = r.data.meta.total
-                this.page = r.data.meta.current_page
-                this.productsHistory = r.data.data
-              }
-            })
-            .catch( err => {
-              this.isLoading = false
-              this.$buefy.toast.open({
-                message: `Error: ${err.message}`,
-                type: 'is-danger',
-                queue: false
+              .get(this.dataUrl+'?'+params)
+              .then(r => {
+                this.isLoading = false
+                if (r.data && r.data.data) {
+                  this.perPage = r.data.meta.per_page
+                  this.total = r.data.meta.total
+                  this.page = r.data.meta.current_page
+                  this.productsHistory = r.data.data
+                  this.productsHistory.forEach((productHistoryItem, index) => {
+                    productHistoryItem['index'] = index
+                  })
+                }
               })
-            })
+              .catch( err => {
+                this.isLoading = false
+                this.$buefy.toast.open({
+                  message: `Error: ${err.message}`,
+                  type: 'is-danger',
+                  queue: false
+                })
+              })
         }
+      },
+      confirmModal () {
+        this.isShowProdDetailModal = false
+      },
+      canCelModal () {
+        this.isShowProdDetailModal = false
       }
     }
   }
