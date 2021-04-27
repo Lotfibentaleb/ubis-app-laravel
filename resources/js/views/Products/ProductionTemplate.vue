@@ -26,35 +26,41 @@
             </div>
           </section>
           <footer class="modal-card-foot custom-foot">
-            <b-button class="btn excel-export"  @click="confirmModal">Update</b-button>
-            <b-button class="btn excel-export"  @click="cancelModal">Cancel</b-button>
+            <b-button class="btn btn-ok"  @click="confirmModal">Ok</b-button>
           </footer>
         </div>
       </b-modal>
       <card-component class="has-table has-mobile-sort-spaced" title="Production flow template for Articles" icon="package-variant-closed">
-        <card-toolbar />
+        <b-field v-if="hasUpdatingData" grouped group-multiline class="prod-update-area">
+          <b-button class="btn prod-update" @click="saveJsonData">Save</b-button>
+          <b-button class="btn prod-update" @click="cancelJsonData">Cancel</b-button>
+        </b-field>
+        <b-field v-else grouped group-multiline class="prod-update-area">
+          <b-button class="btn prod-update" @click="saveJsonData" disabled>Save</b-button>
+          <b-button class="btn prod-update" @click="cancelJsonData" disabled>Cancel</b-button>
+        </b-field>
         <b-table
-          :checked-rows.sync="checkedRows"
-          :checkable="true"
-          :loading="isLoading"
-          paginated
-          backend-pagination
-          :total="total"
-          :per-page="perPage"
-          :striped="true"
-          :hoverable="true"
-          default-sort="name"
-          @page-change="onPageChange"
-          :selected.sync="selectedRow"
-          backend-sorting
-          :default-sort-direction="defaultSortOrder"
-          :default-sort="[sortField, sortOrder]"
-          @sort="onSort"
+                :checked-rows.sync="checkedRows"
+                :checkable="true"
+                :loading="isLoading"
+                paginated
+                backend-pagination
+                :total="total"
+                :per-page="perPage"
+                :striped="true"
+                :hoverable="true"
+                default-sort="name"
+                @page-change="onPageChange"
+                :selected.sync="selectedRow"
+                backend-sorting
+                :default-sort-direction="defaultSortOrder"
+                :default-sort="[sortField, sortOrder]"
+                @sort="onSort"
 
-          backend-filtering
-          @filters-change="onFilterChange"
+                backend-filtering
+                @filters-change="onFilterChange"
 
-          :data="productionTemplatesData">
+                :data="productionTemplatesData">
 
           <template slot-scope="props">
             <b-table-column label="St_Article_Nr" field="st_article_nr" searchable>
@@ -102,9 +108,9 @@
 
         </b-table>
       </card-component>
-      <!--<div v-if="isClickedRow" class="json-editor">-->
-        <!--<vue-json-editor v-model="jsonProductFlow" :show-btns="false" :expandedOnStart="false" @json-change="onJsonChange"/>-->
-      <!--</div>-->
+      <div v-if="isClickedRow" class="json-editor">
+        <v-jsoneditor v-model="jsonProductFlow" />
+      </div>
       <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" title="Production Template History" icon="package-variant-closed">
         <card-toolbar />
         <product-template-history data-url="/production_flow/history" :article_nr="selectedArticleNr" :checkable="true" />
@@ -121,16 +127,18 @@
   import HeroBar from '@/components/HeroBar'
   import ProductTemplateHistory from '@/components/ProductTemplateHistory'
   import ModalBox from '@/components/ModalBox'
-  import BField from "buefy/src/components/field/Field";
-  // import vueJsonEditor from 'vue-json-editor'
+  import BField from "buefy/src/components/field/Field"
+  import VJsoneditor from 'v-jsoneditor'
   import debounce from 'lodash/debounce'
-  import BInput from "buefy/src/components/input/Input";
+  import BInput from "buefy/src/components/input/Input"
+  import BButton from "buefy/src/components/button/Button"
 
   export default {
     name: 'products.list',
     components: {
+      BButton,
       BInput,
-      BField, HeroBar, TitleBar, CardComponent, CardToolbar, ModalBox, Notification, ProductTemplateHistory},
+      BField, HeroBar, TitleBar, CardComponent, CardToolbar, VJsoneditor, ModalBox, Notification, ProductTemplateHistory},
     watch:{
       perPage: function () {
         this.getData();
@@ -140,6 +148,9 @@
       },
       selectedRow: function () {
         this.rowClickHandler()
+      },
+      jsonProductFlow: function () {
+        this.onJsonChange()
       }
     },
     computed: {
@@ -154,28 +165,7 @@
       return {
         isShow: false,
         tableRowData: {},
-        jsonProductFlow: [
-          {
-            required: 'false',
-            step_name: 'visual.test.1',
-            production_section_template: 1,
-          },
-          {
-            required: 'false',
-            step_name: 'backlight.test.1',
-            production_section_template: 2,
-          },
-          {
-            required: 'false',
-            step_name: 'touch.test.1',
-            production_section_template: 3,
-          },
-          {
-            required: 'false',
-            step_name: 'tilt.test.1',
-            production_section_template: 4,
-          }
-        ],
+        jsonProductFlow: [],
         selectedRow: {},
         isClickedRow: false,
         selectedArticleNr: '',
@@ -198,7 +188,8 @@
         page: 1,
         total: 0,
         filterValues: '',
-        showSectionModal: false
+        showSectionModal: false,
+        hasUpdatingData: false,
       }
     },
     created () {
@@ -220,6 +211,90 @@
         this.filterValues = filter.st_article_nr ? filter.st_article_nr : ''
         this.getData()
       }, 250),
+      confirmModal () {
+        this.showSectionModal = false
+        this.setSelectedSectionId()
+        this.hasUpdatingData = true
+        // this.updateProductionFlow()
+      },
+      saveJsonData () {
+        if (!this.checkSectionId()) {
+          this.showSectionModal = true
+        } else {
+          this.updateProductionFlow()
+        }
+        this.hasUpdatingData = false
+      },
+      cancelJsonData () {
+        this.hasUpdatingData = false
+        this.getData()
+        this.isClickedRow = false
+      },
+      onJsonChange () {
+        this.productionTemplatesData.forEach((pdTemplateItem, index) => {
+          if (pdTemplateItem.id === this.selectedId) {
+            this.selectedIndex = index
+          }
+        })
+        this.productionTemplatesData[this.selectedIndex].production_flow = []
+        this.productionTemplatesData[this.selectedIndex].production_flow = this.jsonProductFlow
+        if (!this.checkSectionId()) { this.showSectionModal = true }
+      },
+      checkSectionId () {
+        let countTrueSectionId = 0
+        this.productionTemplatesData[this.selectedIndex].production_flow.forEach(pdFlowItem => {
+          if (this.availableSectionIds.includes(pdFlowItem.production_section_template)) {
+            countTrueSectionId = countTrueSectionId + 1
+          }
+        })
+        if (countTrueSectionId != this.productionTemplatesData[this.selectedIndex].production_flow.length ) {
+          return false
+        } else { return true }
+      },
+      setSelectedSectionId () {
+        this.productionTemplatesData[this.selectedIndex].production_flow.forEach((pdFlowItem, index) => {
+          if (!this.availableSectionIds.includes(pdFlowItem.production_section_template)) {
+            this.productionTemplatesData[this.selectedIndex].production_flow[index].production_section_template = this.availableSectionIds[this.selectedSectionIndex]
+          }
+        })
+      },
+      rowClickHandler () {
+        this.selectedArticleNr = this.selectedRow.st_article_nr
+        this.selectedId = this.selectedRow.id
+        this.jsonProductFlow = this.selectedRow.production_flow
+        this.isClickedRow = true
+      },
+      updateProductionFlow () {
+        let method = 'put'
+        let url = `/production_flow/${this.selectedId}`
+        let data = {
+          st_article_nr: this.productionTemplatesData[this.selectedIndex].st_article_nr,
+          production_flow: JSON.stringify(this.productionTemplatesData[this.selectedIndex].production_flow)
+        }
+        axios({
+          method,
+          url,
+          data
+        }).then( r => {
+          let infoMessage = `Production_Flow update success`
+          this.$buefy.snackbar.open({
+            message: infoMessage,
+            queue: false
+          })
+        }).catch( err => {
+          let message = `Fehler: ${err.message}`
+          if( err.response.status == 404){
+            message = `Product update failed`
+          }
+          this.$buefy.toast.open({
+            message: message,
+            type: 'is-danger',
+            queue: false
+          })
+        }).finally(() => {
+
+        })
+      },
       getSectionTemplateData () {
         const params = [
           `size=100`,
@@ -274,7 +349,7 @@
                 this.total = r.data.meta.total
                 this.page = r.data.meta.current_page
                 this.productionTemplatesData = r.data.data
-                this.selectedRow = this.productionTemplatesData[0]
+                // this.selectedRow = this.productionTemplatesData[0]
               }
             })
             .catch( err => {
@@ -285,86 +360,6 @@
                 queue: false
               })
             })
-      },
-      onJsonChange (value) {
-        this.productionTemplatesData.forEach((pdTemplateItem, index) => {
-          if (pdTemplateItem.id === this.selectedId) {
-            this.selectedIndex = index
-          }
-        })
-        this.productionTemplatesData[this.selectedIndex].production_flow = []
-        this.productionTemplatesData[this.selectedIndex].production_flow = value
-
-        if (!this.checkSectionId()) {
-          this.showSectionModal = true
-        } else {
-          this.updateProductionFlow()
-        }
-      },
-      checkSectionId () {
-        let countTrueSectionId = 0
-        this.productionTemplatesData[this.selectedIndex].production_flow.every(pdFlowItem => {
-          if (this.availableSectionIds.includes(pdFlowItem.production_section_template)) {
-            countTrueSectionId = countTrueSectionId + 1
-          }
-        })
-        if (countTrueSectionId != this.productionTemplatesData[this.selectedIndex].production_flow.length ) {
-          return false
-        } else { return true }
-      },
-      setSelectedSectionId () {
-        this.productionTemplatesData[this.selectedIndex].production_flow.forEach((pdFlowItem, index) => {
-          if (!this.availableSectionIds.includes(pdFlowItem.production_section_template)) {
-            this.productionTemplatesData[this.selectedIndex].production_flow[index].production_section_template = this.availableSectionIds[this.selectedSectionIndex]
-          }
-        })
-      },
-      rowClickHandler () {
-        this.selectedArticleNr = this.selectedRow.st_article_nr
-        this.selectedId = this.selectedRow.id
-        this.jsonProductFlow = []
-        this.jsonProductFlow = this.selectedRow.production_flow
-        this.isClickedRow = true
-      },
-      updateProductionFlow () {
-        let method = 'put'
-        let url = `/production_flow/${this.selectedId}`
-        let data = {
-          st_article_nr: this.productionTemplatesData[this.selectedIndex].st_article_nr,
-          production_flow: JSON.stringify(this.productionTemplatesData[this.selectedIndex].production_flow)
-        }
-        axios({
-          method,
-          url,
-          data
-        }).then( r => {
-          let infoMessage = `Production_Flow update success`
-          this.$buefy.snackbar.open({
-            message: infoMessage,
-            queue: false
-          })
-        }).catch( err => {
-          let message = `Fehler: ${err.message}`
-          if( err.response.status == 404){
-            message = `Product update failed`
-          }
-          this.$buefy.toast.open({
-            message: message,
-            type: 'is-danger',
-            queue: false
-          })
-        }).finally(() => {
-
-        })
-      },
-      confirmModal () {
-        this.showSectionModal = false
-        this.setSelectedSectionId()
-        this.updateProductionFlow()
-      },
-      cancelModal () {
-        this.showSectionModal = false
-        this.getData()
       }
     }
   }

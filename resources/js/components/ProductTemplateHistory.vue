@@ -27,7 +27,7 @@
           <div class="buttons is-right" style="position: relative">
             <div v-if="isShowProdDetailModal && selectedIndex == props.row.index" class="prod-detail-popup">
               <div class="prod-detail-text">
-                <b-input :value="JSON.stringify(selectedRowData.production_flow)" type="textarea" readonly />
+                <b-input :value="JSON.stringify(JSON.parse(JSON.stringify(selectedRowData.production_flow)))" type="textarea" readonly />
               </div>
               <div class="prod-detail-btn">
                 <b-button class="btn btn-prod-modal"  @click="confirmModal">Ok</b-button>

@@ -36,11 +36,17 @@
 .custom-foot {
   display: flex;
   justify-content: flex-end;
+  .btn-ok {
+    width: 100px;
+    background: #888bf1;
+    margin-right: 12px;
+    color: #ffffff;
+  }
 }
 
 table tr.is-selected {
-  background-color: #58585a!important;
-  color: white;
+  background-color: #dcdbdb !important;
+  color: black!important;
 }
 
 .prod-detail-popup {
@@ -67,12 +73,24 @@ table tr.is-selected {
     .btn-prod-modal {
       width: 70px;
       height: 100%;
-      background: #759bab;
+      background: #888bf1;
       color: #ffffff;
       margin: 5px;
     }
   }
 }
+
+.prod-update-area {
+  margin: 12px;
+  .prod-update {
+    width: 100px;
+    background: #888bf1;
+    margin-right: 12px;
+    color: #ffffff;
+  }
+
+}
+
 
 
 
