@@ -2,7 +2,7 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-        Produkte
+      Produkte
       <p class="subtitle">
         Übersicht aller aktuell in der Datenbank befindlichen Produkte
       </p>
@@ -45,9 +45,7 @@
           :hoverable="true"
           default-sort="name"
           @page-change="onPageChange"
-
-          @dblclick="dbRowClickHandler"
-
+          :selected.sync="selectedRow"
           backend-sorting
           :default-sort-direction="defaultSortOrder"
           :default-sort="[sortField, sortOrder]"
@@ -59,9 +57,6 @@
           :data="productionTemplatesData">
 
           <template slot-scope="props">
-            <b-table-column label="id" field="id">
-              {{ props.row.id }}
-            </b-table-column>
             <b-table-column label="st_article_nr" field="st_article_nr" searchable>
               {{ props.row.st_article_nr }}
             </b-table-column>
@@ -73,13 +68,6 @@
             </b-table-column>
             <b-table-column label="updated_at" field="updated_at" sortable>
               {{ props.row.updated_at.split('T')[0] }}
-            </b-table-column>
-            <b-table-column custom-key="actions" class="is-actions-cell">
-              <div class="buttons is-right">
-                <button class="button is-small is-danger" type="button" disabled>
-                  <b-icon icon="trash-can" size="is-small"/>
-                </button>
-              </div>
             </b-table-column>
           </template>
 
@@ -149,6 +137,9 @@
       },
       selectedSectionIndex: function () {
         this.selectedSectionGroupName = this.productSectionTemplateData[this.selectedSectionIndex]['group']
+      },
+      selectedRow: function () {
+        this.rowClickHandler()
       }
     },
     computed: {
@@ -185,6 +176,7 @@
             production_section_template: 4,
           }
         ],
+        selectedRow: [],
         isClickedRow: false,
         selectedArticleNr: '',
         selectedId: null,
@@ -239,24 +231,24 @@
             'Content-Type': 'application/json',
           }
         })
-          .get(fetchUrl+'?'+params)
-          .then(r => {
-            this.isLoading = false
-            if (r.data && r.data.data) {
-              this.productSectionTemplateData = r.data.data
-              this.productSectionTemplateData.forEach(pdSectionTempItem => {
-                this.availableSectionIds.push(pdSectionTempItem.id)
-              })
-            }
-          })
-          .catch( err => {
-            this.isLoading = false
-            this.$buefy.toast.open({
-              message: `Error: ${err.message}`,
-              type: 'is-danger',
-              queue: false
+            .get(fetchUrl+'?'+params)
+            .then(r => {
+              this.isLoading = false
+              if (r.data && r.data.data) {
+                this.productSectionTemplateData = r.data.data
+                this.productSectionTemplateData.forEach(pdSectionTempItem => {
+                  this.availableSectionIds.push(pdSectionTempItem.id)
+                })
+              }
             })
-          })
+            .catch( err => {
+              this.isLoading = false
+              this.$buefy.toast.open({
+                message: `Error: ${err.message}`,
+                type: 'is-danger',
+                queue: false
+              })
+            })
       },
       getData () {
         this.isLoading = true
@@ -274,24 +266,24 @@
             'Content-Type': 'application/json',
           }
         })
-          .get(fetchUrl+'?'+params)
-          .then(r => {
-            this.isLoading = false
-            if (r.data && r.data.data) {
-              this.perPage = r.data.meta.per_page
-              this.total = r.data.meta.total
-              this.page = r.data.meta.current_page
-              this.productionTemplatesData = r.data.data
-            }
-          })
-          .catch( err => {
-            this.isLoading = false
-            this.$buefy.toast.open({
-              message: `Error: ${err.message}`,
-              type: 'is-danger',
-              queue: false
+            .get(fetchUrl+'?'+params)
+            .then(r => {
+              this.isLoading = false
+              if (r.data && r.data.data) {
+                this.perPage = r.data.meta.per_page
+                this.total = r.data.meta.total
+                this.page = r.data.meta.current_page
+                this.productionTemplatesData = r.data.data
+              }
             })
-          })
+            .catch( err => {
+              this.isLoading = false
+              this.$buefy.toast.open({
+                message: `Error: ${err.message}`,
+                type: 'is-danger',
+                queue: false
+              })
+            })
       },
       onJsonChange (value) {
         this.productionTemplatesData.forEach((pdTemplateItem, index) => {
@@ -326,11 +318,11 @@
           }
         })
       },
-      dbRowClickHandler (rowData) {
-        this.selectedArticleNr = rowData.st_article_nr
-        this.selectedId = rowData.id
+      rowClickHandler () {
+        this.selectedArticleNr = this.selectedRow.st_article_nr
+        this.selectedId = this.selectedRow.id
         this.jsonProductFlow = []
-        this.jsonProductFlow = rowData.production_flow
+        this.jsonProductFlow = this.selectedRow.production_flow
         this.isClickedRow = true
       },
       updateProductionFlow () {

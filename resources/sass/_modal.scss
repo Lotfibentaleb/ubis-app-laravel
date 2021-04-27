@@ -37,3 +37,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+table tr.is-selected {
+  background-color: #759bab!important;
+  color: white;
+}
