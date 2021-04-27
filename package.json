@@ -37,7 +37,6 @@
         "vue-carousel": "^0.18.0",
         "vue-json-editor": "^1.4.3",
         "vue-json-excel": "^0.3.0",
-        "vue-json-ui-editor": "^1.0.0",
         "vue-moment": "^4.1.0",
         "vue-slick-carousel": "^1.0.6"
     }

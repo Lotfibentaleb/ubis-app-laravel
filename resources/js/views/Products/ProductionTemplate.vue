@@ -57,16 +57,16 @@
           :data="productionTemplatesData">
 
           <template slot-scope="props">
-            <b-table-column label="st_article_nr" field="st_article_nr" searchable>
+            <b-table-column label="St_Article_Nr" field="st_article_nr" searchable>
               {{ props.row.st_article_nr }}
             </b-table-column>
-            <b-table-column label="production_flow" field="production_flow">
+            <b-table-column label="Production_Flow" field="production_flow">
               {{ JSON.stringify(props.row.production_flow[0]) + ' ...' }}
             </b-table-column>
-            <b-table-column label="created_at" field="created_at" sortable>
+            <b-table-column label="Created_At" field="created_at" sortable>
               {{ props.row.created_at.split('T')[0] }}
             </b-table-column>
-            <b-table-column label="updated_at" field="updated_at" sortable>
+            <b-table-column label="Updated_At" field="updated_at" sortable>
               {{ props.row.updated_at.split('T')[0] }}
             </b-table-column>
           </template>
@@ -102,9 +102,9 @@
 
         </b-table>
       </card-component>
-      <div v-if="isClickedRow" class="json-editor">
-        <vue-json-editor v-model="jsonProductFlow" :show-btns="false" :expandedOnStart="false" @json-change="onJsonChange"/>
-      </div>
+      <!--<div v-if="isClickedRow" class="json-editor">-->
+        <!--<vue-json-editor v-model="jsonProductFlow" :show-btns="false" :expandedOnStart="false" @json-change="onJsonChange"/>-->
+      <!--</div>-->
       <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" title="Production Template History" icon="package-variant-closed">
         <card-toolbar />
         <product-template-history data-url="/production_flow/history" :article_nr="selectedArticleNr" :checkable="true" />
@@ -122,7 +122,7 @@
   import ProductTemplateHistory from '@/components/ProductTemplateHistory'
   import ModalBox from '@/components/ModalBox'
   import BField from "buefy/src/components/field/Field";
-  import vueJsonEditor from 'vue-json-editor'
+  // import vueJsonEditor from 'vue-json-editor'
   import debounce from 'lodash/debounce'
   import BInput from "buefy/src/components/input/Input";
 
@@ -130,7 +130,7 @@
     name: 'products.list',
     components: {
       BInput,
-      BField, HeroBar, TitleBar, CardComponent, CardToolbar, ModalBox, Notification, vueJsonEditor, ProductTemplateHistory},
+      BField, HeroBar, TitleBar, CardComponent, CardToolbar, ModalBox, Notification, ProductTemplateHistory},
     watch:{
       perPage: function () {
         this.getData();
@@ -176,7 +176,7 @@
             production_section_template: 4,
           }
         ],
-        selectedRow: [],
+        selectedRow: {},
         isClickedRow: false,
         selectedArticleNr: '',
         selectedId: null,
@@ -274,6 +274,7 @@
                 this.total = r.data.meta.total
                 this.page = r.data.meta.current_page
                 this.productionTemplatesData = r.data.data
+                this.selectedRow = this.productionTemplatesData[0]
               }
             })
             .catch( err => {
