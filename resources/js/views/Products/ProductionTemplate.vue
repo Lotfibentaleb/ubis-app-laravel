@@ -12,17 +12,23 @@
     </hero-bar>
     <section class="section is-main-section">
       <b-modal :active="showSectionModal" has-modal-card>
-        <div class="modal-card">
+        <div class="modal-card section-template-modal">
           <header class="modal-card-head">
-            <p class="modal-card-title">Select the correct section template ID</p>
+            <p class="modal-card-title">Select the available section template name</p>
           </header>
           <section class="modal-card-body">
-            <p>You can select the section template Id within this range:</p>
+            <p>Selected section id: {{availableSectionIds[selectedSectionIndex]}}</p>
             <div class="has-text-right modal-section-selector">
-              <b-select class="section-selector-width" v-model="selectedSectionIndex">
-                <option v-for="(availableSectionId, index) in availableSectionIds" :value="index">{{availableSectionId}}</option>
-              </b-select>
-              <b-input class="section-group-width" type="text" :value="selectedSectionGroupName" readonly />
+              <div class="section-selector-area">
+                <h1 class="section-template-text">Name</h1>
+                <b-select class="section-selector-width" v-model="selectedSectionIndex">
+                  <option v-for="(availableSectionName, index) in availableSectionNames" :value="index">{{availableSectionName}}</option>
+                </b-select>
+              </div>
+              <div class="section-group-area">
+                <h1 class="section-template-text">Group</h1>
+                <b-input class="section-group-width" type="text" :value="selectedSectionGroup" readonly />
+              </div>
             </div>
           </section>
           <footer class="modal-card-foot custom-foot">
@@ -144,7 +150,7 @@
         this.getData();
       },
       selectedSectionIndex: function () {
-        this.selectedSectionGroupName = this.productSectionTemplateData[this.selectedSectionIndex]['group']
+        this.selectedSectionGroup = this.productSectionTemplateData[this.selectedSectionIndex]['group']
       },
       selectedRow: function () {
         this.rowClickHandler()
@@ -172,12 +178,13 @@
         selectedId: null,
         selectedIndex: null,
         selectedSectionIndex: 0,
-        selectedSectionGroupName: '',
+        selectedSectionGroup: '',
         isModalActive: false,
         trashObject: null,
         productionTemplatesData: [],
         productSectionTemplateData: [],
         availableSectionIds: [],
+        availableSectionNames: [],
         isLoading: false,
         paginated: false,
         perPage: 10,
@@ -228,7 +235,6 @@
       cancelJsonData () {
         this.hasUpdatingData = false
         this.getData()
-        this.isClickedRow = false
       },
       onJsonChange () {
         this.productionTemplatesData.forEach((pdTemplateItem, index) => {
@@ -311,8 +317,10 @@
               this.isLoading = false
               if (r.data && r.data.data) {
                 this.productSectionTemplateData = r.data.data
+                this.selectedSectionGroup = this.productSectionTemplateData[this.selectedSectionIndex]['group']
                 this.productSectionTemplateData.forEach(pdSectionTempItem => {
                   this.availableSectionIds.push(pdSectionTempItem.id)
+                  this.availableSectionNames.push(pdSectionTempItem.name)
                 })
               }
             })
@@ -327,6 +335,7 @@
       },
       getData () {
         this.isLoading = true
+        this.isClickedRow = false
         const params = [
           `size=${this.perPage}`,
           `sort_by=${this.sortField}.${this.sortOrder}`,
