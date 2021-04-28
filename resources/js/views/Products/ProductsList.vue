@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="no-aside-right" v-bind:class="{'has-aside-right-edit-panel': isAsideLeftEditPanel}">
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Produkte
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Notification from '@/components/Notification'
 import ProductsTable from '@/components/ProductsTable'
 import CardComponent from '@/components/CardComponent'
@@ -38,7 +39,10 @@ export default {
         'Production',
         'Products'
       ]
-    }
+    },
+    ...mapState([
+      'isAsideLeftEditPanel'
+    ])
   },
   data () {
       return {

@@ -19,7 +19,8 @@ export default new Vuex.Store({
 
     /* Aside */
     isAsideVisible: true,
-    isAsideMobileExpanded: false
+    isAsideMobileExpanded: false,
+    isAsideLeftEditPanel: false
   },
   mutations: {
     /* A fit-them-all commit */
@@ -41,6 +42,11 @@ export default new Vuex.Store({
       if (payload.role != null) {
           state.userRole = payload.role == 0 ? 'admin' : 'user'
       }
+    },
+
+    /* Aside Left Edit Panel */
+    editPanel (state, payload) {
+      state.isAsideLeftEditPanel = payload
     },
 
     /* Aside Mobile */

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="no-aside-right" v-bind:class="{'has-aside-right-edit-panel': isAsideLeftEditPanel}">
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       Produkte
@@ -127,6 +127,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import Notification from '@/components/Notification'
   import CardComponent from '@/components/CardComponent'
   import CardToolbar from '@/components/CardToolbar'
@@ -159,6 +160,9 @@
       },
       jsonProductFlow: function () {
         this.onJsonChange()
+      },
+      checkedRows: function () {
+        this.proceedCheckedRows()
       }
     },
     computed: {
@@ -167,7 +171,10 @@
           'Production',
           'Template'
         ]
-      }
+      },
+      ...mapState([
+        'isAsideLeftEditPanel'
+      ])
     },
     data () {
       return {
@@ -283,6 +290,9 @@
         this.selectedId = this.selectedRow.id
         this.jsonProductFlow = this.selectedRow.production_flow
         this.isClickedRow = true
+      },
+      proceedCheckedRows () {
+        this.$store.commit('editPanel', true)
       },
       updateProductionFlow () {
         let method = 'put'

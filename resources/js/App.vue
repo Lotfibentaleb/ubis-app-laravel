@@ -3,6 +3,7 @@
     <nav-bar/>
     <aside-menu :menu="menu"/>
     <router-view/>
+    <aside-right-edit-panel />
     <footer-bar/>
   </div>
 </template>
@@ -12,12 +13,14 @@
 import NavBar from '@/components/NavBar'
 import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
+import AsideRightEditPanel from '@/components/AsideRightEditPanel'
 
 export default {
   name: 'home',
   components: {
     FooterBar,
     AsideMenu,
+    AsideRightEditPanel,
     NavBar
   },
   computed: {
