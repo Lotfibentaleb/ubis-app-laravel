@@ -11,6 +11,7 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
+      <modal-update-check :is-active="isShowUpdateCheckModal"  @confirm="confirmUpdate" @cancel="cancelUpdate"/>
       <b-modal :active="showSectionModal" has-modal-card>
         <div class="modal-card section-template-modal">
           <header class="modal-card-head">
@@ -39,11 +40,11 @@
       <card-component class="has-table has-mobile-sort-spaced" title="Production flow template for Articles" icon="package-variant-closed">
         <b-field v-if="hasUpdatingData" grouped group-multiline class="prod-update-area">
           <b-button class="btn prod-update" @click="saveJsonData">Save</b-button>
-          <b-button class="btn prod-update" @click="cancelJsonData">Cancel</b-button>
+          <b-button class="btn prod-update-cancel" @click="cancelJsonData">Cancel</b-button>
         </b-field>
         <b-field v-else grouped group-multiline class="prod-update-area">
           <b-button class="btn prod-update" @click="saveJsonData" disabled>Save</b-button>
-          <b-button class="btn prod-update" @click="cancelJsonData" disabled>Cancel</b-button>
+          <b-button class="btn prod-update-cancel" @click="cancelJsonData" disabled>Cancel</b-button>
         </b-field>
         <b-table
                 :checked-rows.sync="checkedRows"
@@ -131,7 +132,8 @@
   import CardToolbar from '@/components/CardToolbar'
   import TitleBar from '@/components/TitleBar'
   import HeroBar from '@/components/HeroBar'
-  import ProductTemplateHistory from '@/components/ProductTemplateHistory'
+  import ProductTemplateHistory from '@/components/ProductsTemplate/ProductTemplateHistory'
+  import ModalUpdateCheck from '@/components/ProductsTemplate/ModalUpdateCheck'
   import ModalBox from '@/components/ModalBox'
   import BField from "buefy/src/components/field/Field"
   import VJsoneditor from 'v-jsoneditor'
@@ -144,7 +146,7 @@
     components: {
       BButton,
       BInput,
-      BField, HeroBar, TitleBar, CardComponent, CardToolbar, VJsoneditor, ModalBox, Notification, ProductTemplateHistory},
+      BField, HeroBar, TitleBar, CardComponent, CardToolbar, VJsoneditor, ModalBox, Notification, ProductTemplateHistory, ModalUpdateCheck},
     watch:{
       perPage: function () {
         this.getData();
@@ -169,11 +171,12 @@
     },
     data () {
       return {
+        isShowUpdateCheckModal: false,
         isShow: false,
+        isClickedRow: false,
         tableRowData: {},
         jsonProductFlow: [],
         selectedRow: {},
-        isClickedRow: false,
         selectedArticleNr: '',
         selectedId: null,
         selectedIndex: null,
@@ -218,6 +221,14 @@
         this.filterValues = filter.st_article_nr ? filter.st_article_nr : ''
         this.getData()
       }, 250),
+      confirmUpdate () {
+        this.updateProductionFlow()
+        this.isShowUpdateCheckModal = false
+      },
+      cancelUpdate () {
+        this.isShowUpdateCheckModal = false
+        this.getData()
+      },
       confirmModal () {
         this.showSectionModal = false
         this.setSelectedSectionId()
@@ -265,6 +276,9 @@
         })
       },
       rowClickHandler () {
+        if (this.hasUpdatingData) {
+          this.isShowUpdateCheckModal = true
+        }
         this.selectedArticleNr = this.selectedRow.st_article_nr
         this.selectedId = this.selectedRow.id
         this.jsonProductFlow = this.selectedRow.production_flow
@@ -287,6 +301,7 @@
             message: infoMessage,
             queue: false
           })
+          this.hasUpdatingData = false
         }).catch( err => {
           let message = `Fehler: ${err.message}`
           if( err.response.status == 404){
@@ -336,6 +351,7 @@
       getData () {
         this.isLoading = true
         this.isClickedRow = false
+        this.hasUpdatingData = false
         const params = [
           `size=${this.perPage}`,
           `sort_by=${this.sortField}.${this.sortOrder}`,

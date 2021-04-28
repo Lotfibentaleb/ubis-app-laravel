@@ -31,7 +31,7 @@
               </div>
               <div class="prod-detail-btn">
                 <b-button class="btn btn-prod-modal"  @click="confirmModal">Ok</b-button>
-                <b-button class="btn btn-prod-modal"  @click="canCelModal">Cancel</b-button>
+                <b-button class="btn btn-prod-modal-cancel"  @click="canCelModal">Cancel</b-button>
               </div>
             </div>
             <button class="button is-small is-success" type="button" @click.prevent="showProductDetail(props.row)">
