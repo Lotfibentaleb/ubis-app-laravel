@@ -40,9 +40,18 @@ export default {
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
+        ],
+        'Template',
+        [
           {
             to: '/products/template',
-            label: 'Production Template',
+            label: 'Product',
+            icon: 'package-variant-closed',
+            role: ['admin', 'user'],
+          },
+          {
+            to: '/products/section/template',
+            label: 'Production Section',
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
