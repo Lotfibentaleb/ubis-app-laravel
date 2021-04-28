@@ -20,10 +20,7 @@
             @filters-change="onFilterChange"
             :data="productsHistory">
       <template slot-scope="props">
-        <b-table-column label="St_Article_Nr" field="st_article_nr">
-          {{ props.row.st_article_nr }}
-        </b-table-column>
-        <b-table-column label="Production_Flow" field="production_flow" centered>
+        <b-table-column label="Produktions-Ablauf" field="production_flow" centered>
           <div class="buttons is-right" style="position: relative">
             <div v-if="isShowProdDetailModal && selectedIndex == props.row.index" class="prod-detail-popup">
               <div class="prod-detail-text">
@@ -39,14 +36,14 @@
             </button>
           </div>
         </b-table-column>
-        <b-table-column label="Updated_by" field="updated_by">
+        <b-table-column label="Geändert durch" field="updated_by">
           {{ props.row.updated_by }}
         </b-table-column>
-        <b-table-column label="Valid_From" field="created_at">
-          {{ props.row.valid_since ? props.row.valid_since.split('.')[0] : '' }}
+        <b-table-column label="Gültig von" field="valid_since">
+          {{ props.row.valid_since | moment("DD.MM.YYYY / h:mm:ss")}}
         </b-table-column>
-        <b-table-column label="Valid_Till" field="updated_at">
-          {{ props.row.valid_till ? props.row.valid_till.split('.')[0] : '' }}
+        <b-table-column label="Gültig bis" field="valid_till">
+          {{ props.row.valid_till | moment("DD.MM.YYYY / h:mm:ss")}}
         </b-table-column>
       </template>
       <section class="section" slot="empty">

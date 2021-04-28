@@ -48,7 +48,7 @@ export default {
         [
           {
             to: '/products/template',
-            label: 'Product',
+            label: 'Produktionsabläufe',
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },

@@ -2,9 +2,9 @@
   <div class="no-aside-right" v-bind:class="{'has-aside-right-edit-panel': isAsideLeftEditPanel}">
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      Produkte
+      Produktionsabläufe
       <p class="subtitle">
-        Übersicht aller aktuell in der Datenbank befindlichen Produkte
+        Übersicht der aktuell aktiven Produktionsabläufe je Artikel
       </p>
       <router-link slot="right" to="/" class="button">
         Dashboard
@@ -15,7 +15,7 @@
       <b-modal :active="showSectionModal" has-modal-card>
         <div class="modal-card section-template-modal">
           <header class="modal-card-head">
-            <p class="modal-card-title">Select the available section template name</p>
+            <p class="modal-card-title">Produktionskonfiguration für diesen Arbeitsschritt auswählen</p>
           </header>
           <section class="modal-card-body">
             <p>Selected section id: {{availableSectionIds[selectedSectionIndex]}}</p>
@@ -37,7 +37,7 @@
           </footer>
         </div>
       </b-modal>
-      <card-component class="has-table has-mobile-sort-spaced" title="Production flow template for Articles" icon="package-variant-closed">
+      <card-component class="has-table has-mobile-sort-spaced" title="Produktionsablauf je Artikel" icon="package-variant-closed">
         <b-field v-if="hasUpdatingData" grouped group-multiline class="prod-update-area">
           <b-button class="btn prod-update" @click="saveJsonData">Save</b-button>
           <b-button class="btn prod-update-cancel" @click="cancelJsonData">Cancel</b-button>
@@ -70,17 +70,17 @@
                 :data="productionTemplatesData">
 
           <template slot-scope="props">
-            <b-table-column label="St_Article_Nr" field="st_article_nr" searchable>
+            <b-table-column label="Artikel-Nr." field="st_article_nr" searchable>
               {{ props.row.st_article_nr }}
             </b-table-column>
-            <b-table-column label="Production_Flow" field="production_flow">
+            <b-table-column label="Produktions-Ablauf" field="production_flow">
               {{ JSON.stringify(props.row.production_flow[0]) + ' ...' }}
             </b-table-column>
-            <b-table-column label="Created_At" field="created_at" sortable>
-              {{ props.row.created_at.split('T')[0] }}
+            <b-table-column label="Erstellt" field="created_at" sortable>
+              {{ props.row.created_at | moment("DD.MM.YYYY / h:mm:ss")}}
             </b-table-column>
-            <b-table-column label="Updated_At" field="updated_at" sortable>
-              {{ props.row.updated_at.split('T')[0] }}
+            <b-table-column label="Geändert" field="updated_at" sortable>
+              {{ props.row.updated_at | moment("DD.MM.YYYY / h:mm:ss")}}
             </b-table-column>
           </template>
 
@@ -118,7 +118,7 @@
       <div v-if="isClickedRow" class="json-editor">
         <v-jsoneditor v-model="jsonProductFlow" />
       </div>
-      <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" title="Production Template History" icon="package-variant-closed">
+      <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" title="Änderungsverlauf" icon="package-variant-closed">
         <card-toolbar />
         <product-template-history data-url="/production_flow/history" :article_nr="selectedArticleNr" :checkable="true" />
       </card-component>

@@ -1,11 +1,11 @@
 <template>
   <b-modal :active="isActive" has-modal-card>
-    <div class="modal-card section-template-modal">
+    <div class="modal-card section-template-warning-modal">
       <header class="modal-card-head">
-        <p class="modal-card-title">Modal to check the changed data</p>
+        <p class="modal-card-title">Achtung! Daten wurden geändert aber noch nicht gesichert</p>
       </header>
       <section class="modal-card-body">
-        <p>You must save the changed data before leaving this row.</p>
+        <p>Wollen sie die Änderungen sichern oder verwerfen?</p>
       </section>
       <footer class="modal-card-foot custom-foot">
         <b-button class="btn btn-ok"  @click="confirm">Save</b-button>
