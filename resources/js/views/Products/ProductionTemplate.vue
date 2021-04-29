@@ -18,17 +18,12 @@
             <p class="modal-card-title">Produktionskonfiguration für diesen Arbeitsschritt auswählen</p>
           </header>
           <section class="modal-card-body">
-            <p>Selected section id: {{availableSectionIds[selectedSectionIndex]}}</p>
             <div class="has-text-right modal-section-selector">
               <div class="section-selector-area">
-                <h1 class="section-template-text">Name</h1>
+                <h1 class="section-template-text">Name [ID] / Group</h1>
                 <b-select class="section-selector-width" v-model="selectedSectionIndex">
-                  <option v-for="(availableSectionName, index) in availableSectionNames" :value="index">{{availableSectionName}}</option>
+                  <option v-for="(availableSectionName, index) in availableSectionNames" :value="index">{{availableSectionName + ' [' + availableSectionIds[index] + ']' + ' / ' + 'group' + ': ' + availableSectionGroups[index]}}</option>
                 </b-select>
-              </div>
-              <div class="section-group-area">
-                <h1 class="section-template-text">Group</h1>
-                <b-input class="section-group-width" type="text" :value="selectedSectionGroup" readonly />
               </div>
             </div>
           </section>
@@ -195,6 +190,7 @@
         productSectionTemplateData: [],
         availableSectionIds: [],
         availableSectionNames: [],
+        availableSectionGroups: [],
         isLoading: false,
         paginated: false,
         perPage: 10,
@@ -356,6 +352,7 @@
                 this.productSectionTemplateData.forEach(pdSectionTempItem => {
                   this.availableSectionIds.push(pdSectionTempItem.id)
                   this.availableSectionNames.push(pdSectionTempItem.name)
+                  this.availableSectionGroups.push(pdSectionTempItem['group'])
                 })
               }
             })
