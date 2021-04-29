@@ -64,10 +64,10 @@
               {{ JSON.stringify(props.row.production_flow[0]) + ' ...' }}
             </b-table-column>
             <b-table-column label="Erstellt" field="created_at" sortable>
-              {{ props.row.created_at | moment("DD.MM.YYYY / h:mm:ss")}}
+              {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
             </b-table-column>
             <b-table-column label="Geändert" field="updated_at" sortable>
-              {{ props.row.updated_at | moment("DD.MM.YYYY / h:mm:ss")}}
+              {{ props.row.updated_at | moment("DD.MM.YYYY / k:mm:ss")}}
             </b-table-column>
           </template>
 

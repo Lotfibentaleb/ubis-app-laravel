@@ -55,7 +55,7 @@
           {{ props.row.production_order_nr }}
         </b-table-column>
         <b-table-column label="Erstellt" field="created_at" sortable>
-          <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / h:mm:ss")}}</small>
+          <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>
         <b-table-column custom-key="actions" class="is-actions-cell">
           <div class="buttons is-right">

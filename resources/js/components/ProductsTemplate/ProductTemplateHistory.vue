@@ -42,10 +42,10 @@
           {{ props.row.updated_by }}
         </b-table-column>
         <b-table-column label="Gültig von" field="valid_since">
-          {{ props.row.valid_since | moment("DD.MM.YYYY / h:mm:ss")}}
+          {{ props.row.valid_since | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
         <b-table-column label="Gültig bis" field="valid_till">
-          {{ props.row.valid_till | moment("DD.MM.YYYY / h:mm:ss")}}
+          {{ props.row.valid_till | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
       </template>
       <section class="section" slot="empty">
