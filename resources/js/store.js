@@ -20,7 +20,12 @@ export default new Vuex.Store({
     /* Aside */
     isAsideVisible: true,
     isAsideMobileExpanded: false,
-    isAsideLeftEditPanel: false
+
+    /* Edit Panel */
+    isAsideLeftEditPanel: false,
+    isClickedTemplateSave: false,
+    isClickedTemplateCancel: false,
+
   },
   mutations: {
     /* A fit-them-all commit */
@@ -47,6 +52,14 @@ export default new Vuex.Store({
     /* Aside Left Edit Panel */
     editPanel (state, payload) {
       state.isAsideLeftEditPanel = payload
+    },
+
+    prodTemplateSave (state, payload) {
+      state.isClickedTemplateSave = payload
+    },
+
+    prodTemplateCancel (state, payload) {
+      state.isClickedTemplateCancel = payload
     },
 
     /* Aside Mobile */

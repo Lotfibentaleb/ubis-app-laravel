@@ -21,19 +21,21 @@
             :data="productsHistory">
       <template slot-scope="props">
         <b-table-column label="Produktions-Ablauf" field="production_flow" centered>
-          <div class="buttons is-right" style="position: relative">
-            <div v-if="isShowProdDetailModal && selectedIndex == props.row.index" class="prod-detail-popup">
-              <div class="prod-detail-text">
-                <b-input :value="JSON.stringify(JSON.parse(JSON.stringify(selectedRowData.production_flow)))" type="textarea" readonly />
+          <div class="buttons is-right popup-display-btn">
+            <div class="position-btn-detail">
+              <div v-if="isShowProdDetailModal && selectedIndex == props.row.index" class="prod-detail-popup">
+                <div class="prod-detail-text">
+                  <b-input :value="JSON.stringify(JSON.parse(JSON.stringify(selectedRowData.production_flow)))" type="textarea" readonly />
+                </div>
+                <div class="prod-detail-btn">
+                  <b-button class="btn btn-prod-modal"  @click="confirmModal">Ok</b-button>
+                  <b-button class="btn btn-prod-modal-cancel"  @click="canCelModal">Cancel</b-button>
+                </div>
               </div>
-              <div class="prod-detail-btn">
-                <b-button class="btn btn-prod-modal"  @click="confirmModal">Ok</b-button>
-                <b-button class="btn btn-prod-modal-cancel"  @click="canCelModal">Cancel</b-button>
-              </div>
+              <button class="button is-small is-success btn-detail" type="button" @click.prevent="showProductDetail(props.row)">
+                show detail
+              </button>
             </div>
-            <button class="button is-small is-success" type="button" @click.prevent="showProductDetail(props.row)">
-              show detail
-            </button>
           </div>
         </b-table-column>
         <b-table-column label="Geändert durch" field="updated_by">

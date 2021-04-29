@@ -170,17 +170,6 @@ aside.aside {
   transition: 1s;
 }
 
-.aside-right-edit-panel {
-  width: 250px;
-  height: calc(100vh - 50px);
-  background: #ffffff;
-  border-left: 1px solid #759BAB;
-  position: fixed;
-  top: 50px;
-  right: -250px;
-  transition: 1s;
-}
-
 .aside-right-edit-panel-transition {
   right: 0px!important;
   transition: 1s;

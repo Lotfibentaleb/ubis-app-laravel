@@ -38,14 +38,6 @@
         </div>
       </b-modal>
       <card-component class="has-table has-mobile-sort-spaced" title="Produktionsablauf je Artikel" icon="package-variant-closed">
-        <b-field v-if="hasUpdatingData" grouped group-multiline class="prod-update-area">
-          <b-button class="btn prod-update" @click="saveJsonData">Save</b-button>
-          <b-button class="btn prod-update-cancel" @click="cancelJsonData">Cancel</b-button>
-        </b-field>
-        <b-field v-else grouped group-multiline class="prod-update-area">
-          <b-button class="btn prod-update" @click="saveJsonData" disabled>Save</b-button>
-          <b-button class="btn prod-update-cancel" @click="cancelJsonData" disabled>Cancel</b-button>
-        </b-field>
         <b-table
                 :checked-rows.sync="checkedRows"
                 :checkable="true"
@@ -163,6 +155,12 @@
       },
       checkedRows: function () {
         this.proceedCheckedRows()
+      },
+      isClickedTemplateSave: function () {
+        this.saveJsonData()
+      },
+      isClickedTemplateCancel: function () {
+        this.cancelJsonData()
       }
     },
     computed: {
@@ -173,7 +171,9 @@
         ]
       },
       ...mapState([
-        'isAsideLeftEditPanel'
+        'isAsideLeftEditPanel',
+        'isClickedTemplateSave',
+        'isClickedTemplateCancel',
       ])
     },
     data () {
@@ -231,28 +231,38 @@
       confirmUpdate () {
         this.updateProductionFlow()
         this.isShowUpdateCheckModal = false
+        this.$store.commit('editPanel', false)
       },
       cancelUpdate () {
         this.isShowUpdateCheckModal = false
+        this.$store.commit('editPanel', false)
         this.getData()
       },
       confirmModal () {
         this.showSectionModal = false
         this.setSelectedSectionId()
         this.hasUpdatingData = true
-        // this.updateProductionFlow()
+        this.$store.commit('editPanel', true)
       },
       saveJsonData () {
-        if (!this.checkSectionId()) {
-          this.showSectionModal = true
-        } else {
-          this.updateProductionFlow()
+        if (this.isClickedTemplateSave) {
+          if (!this.checkSectionId()) {
+            this.showSectionModal = true
+          } else {
+            this.updateProductionFlow()
+          }
+          this.hasUpdatingData = false
+          this.$store.commit('editPanel', false)
+          this.$store.commit('prodTemplateSave', false)
         }
-        this.hasUpdatingData = false
       },
       cancelJsonData () {
-        this.hasUpdatingData = false
-        this.getData()
+        if (this.isClickedTemplateCancel) {
+          this.hasUpdatingData = false
+          this.$store.commit('editPanel', false)
+          this.$store.commit('prodTemplateCancel', false)
+          this.getData()
+        }
       },
       onJsonChange () {
         this.productionTemplatesData.forEach((pdTemplateItem, index) => {
@@ -292,7 +302,7 @@
         this.isClickedRow = true
       },
       proceedCheckedRows () {
-        this.$store.commit('editPanel', true)
+        // this.$store.commit('editPanel', true)
       },
       updateProductionFlow () {
         let method = 'put'
