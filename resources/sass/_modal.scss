@@ -25,6 +25,7 @@
 
 .section-template-modal {
   width: 500px;
+  height: 320px;
   .modal-card-head {
     background: #759bab;
     .modal-card-title {
@@ -34,9 +35,9 @@
 }
 
 .modal-section-selector {
-  margin-top: 15px;
+  margin-top: 25px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .section-selector-area {
@@ -157,6 +158,23 @@ table tr.is-selected {
     width: 100px;
   }
 
+}
+
+.section-template-drop-down {
+  width: 80%;
+  .dropdown-trigger {
+    width: 100%;
+    padding: 0px;
+    button {
+      width: 100%;
+      padding: 0px
+    }
+  }
+  .dropdown-menu {
+    width: 100%;
+    height: 95px;
+    overflow-y: auto;
+  }
 }
 
 

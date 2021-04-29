@@ -19,18 +19,29 @@
           </header>
           <section class="modal-card-body">
             <div class="has-text-right modal-section-selector">
-              <div class="section-selector-area">
-                <h1 class="section-template-text">Name [ID] / Group</h1>
-                <b-select class="section-selector-width" v-model="selectedSectionIndex">
-                  <option v-for="(availableSectionName, index) in availableSectionNames" :value="index">{{availableSectionName + ' [' + availableSectionIds[index] + ']' + ' / ' + 'group' + ': ' + availableSectionGroups[index]}}</option>
-                </b-select>
-              </div>
+              <b-dropdown v-model="selectedSectionIndex" aria-role="list" class="section-template-drop-down">
+                <template #trigger>
+                  <b-button
+                    icon-right="menu-down">
+                    {{setDropDownLabel(selectedSectionIndex)}}
+                  </b-button>
+                </template>
+                <b-dropdown-item v-for="(availableSectionName, index) in availableSectionNames" :value="index" aria-role="listitem">
+                  <div class="media">
+                    <div class="media-content">
+                      <h3>{{availableSectionName + ' [' + availableSectionIds[index] + ']'}}</h3>
+                      <small>{{'group' + ': ' + availableSectionGroups[index]}}</small>
+                    </div>
+                  </div>
+                </b-dropdown-item>
+              </b-dropdown>
             </div>
           </section>
           <footer class="modal-card-foot custom-foot">
             <b-button class="btn btn-ok"  @click="confirmModal">Ok</b-button>
           </footer>
         </div>
+
       </b-modal>
       <card-component class="has-table has-mobile-sort-spaced" title="Produktionsablauf je Artikel" icon="package-variant-closed">
         <b-table
@@ -210,6 +221,9 @@
       this.getSectionTemplateData()
     },
     methods: {
+      setDropDownLabel (index) {
+        return this.availableSectionNames[index] + ' [' + this.availableSectionIds[index] + ']'
+      },
       onPageChange(page) {
         this.page = page
         this.getData ()
