@@ -51,9 +51,6 @@ export default {
     isClickedProdNrSave: function() {
       if (this.isClickedProdNrSave) {
         this.onSettingSave(this.g_production_order_nr)
-        this.$store.commit('prodOrderNrSave', false)
-        this.$store.commit('editPanel', false)
-        this.$store.commit('fromProd', false)
       }
     },
     isClickedProdNrCancel: function() {
@@ -84,8 +81,10 @@ export default {
           let infoMessage = `Please input product order number`
           this.$buefy.snackbar.open({
               message: infoMessage,
+              type: 'is-danger',
               queue: false
           })
+          this.$store.commit('prodOrderNrSave', false)
           return;
         }
         this.isShow = false
@@ -105,6 +104,11 @@ export default {
                 message: infoMessage,
                 queue: false
             })
+
+          this.$store.commit('prodOrderNrSave', false)
+          this.$store.commit('editPanel', false)
+          this.$store.commit('fromProd', false)
+
         }).catch( err => {
             let message = `Fehler: ${err.message}`
             if( err.response.status == 404){

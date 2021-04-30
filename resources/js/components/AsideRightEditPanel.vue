@@ -79,6 +79,9 @@
     watch: {
       prodOrderNr: function() {
         this.$store.commit('setProdOrderNr', this.prodOrderNr)
+      },
+      g_production_order_nr: function () {
+        this.prodOrderNr = this.g_production_order_nr
       }
     },
     data () {
