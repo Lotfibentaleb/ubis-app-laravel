@@ -80,6 +80,7 @@
       this.$store.commit('editPanel',false)
       this.$store.commit('fromTemp',false)
       this.$store.commit('fromSecTemp',false)
+      this.$store.commit('fromProd', false)
     },
     methods: {
       clickedRow (data) {
