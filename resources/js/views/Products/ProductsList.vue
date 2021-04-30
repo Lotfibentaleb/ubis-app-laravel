@@ -13,7 +13,7 @@
     <section class="section is-main-section">
       <card-component class="has-table has-mobile-sort-spaced product-table-panel" title="Produkte" icon="account-multiple">
         <products-table data-url="/productlist" @onSettingShow="onSettingShow" :checkable="true"/>
-        <table-edit-panel v-if="isShow" :curValue="tableRowData.production_order_nr" :isShow="isShow" @onSettingHide="onSettingHide" @onSettingSave="onSettingSave"/>
+        <!--<table-edit-panel v-if="isShow" :curValue="tableRowData.production_order_nr" :isShow="isShow" @onSettingHide="onSettingHide" @onSettingSave="onSettingSave"/>-->
       </card-component>
     </section>
   </div>
@@ -41,8 +41,28 @@ export default {
       ]
     },
     ...mapState([
-      'isAsideLeftEditPanel'
+      'isAsideLeftEditPanel',
+      'isClickedProdNrSave',
+      'isClickedProdNrCancel',
+      'g_production_order_nr'
     ])
+  },
+  watch: {
+    isClickedProdNrSave: function() {
+      if (this.isClickedProdNrSave) {
+        this.onSettingSave(this.g_production_order_nr)
+        this.$store.commit('prodOrderNrSave', false)
+        this.$store.commit('editPanel', false)
+        this.$store.commit('fromProd', false)
+      }
+    },
+    isClickedProdNrCancel: function() {
+      if (this.isClickedProdNrCancel) {
+        this.$store.commit('editPanel', false)
+        this.$store.commit('fromProd', false)
+        this.$store.commit('prodOrderNrCancel', false)
+      }
+    }
   },
   data () {
       return {
@@ -53,10 +73,10 @@ export default {
   methods: {
       onSettingShow(data) {
         this.tableRowData = data
-        this.isShow = true
-      },
-      onSettingHide(data) {
-        this.isShow = false
+        // this.isShow = true
+        this.$store.commit('editPanel', true)
+        this.$store.commit('fromProd', true)
+        this.$store.commit('setProdOrderNr', this.tableRowData.production_order_nr)
       },
       onSettingSave(productOrderNr) {
         if (productOrderNr === '' || productOrderNr === null)

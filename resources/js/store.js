@@ -23,6 +23,9 @@ export default new Vuex.Store({
 
     /* Edit Panel */
     isFromProd: false,
+    g_production_order_nr: '',
+    isClickedProdNrSave: false,
+    isClickedProdNrCancel: false,
 
     isAsideLeftEditPanel: false,
     isFromTemp: false,
@@ -59,6 +62,22 @@ export default new Vuex.Store({
     /* Aside Left Edit Panel */
     editPanel (state, payload) {
       state.isAsideLeftEditPanel = payload
+    },
+
+    fromProd (state, payload) {
+      state.isFromProd = payload
+    },
+
+    setProdOrderNr (state, payload) {
+      state.g_production_order_nr = payload
+    },
+
+    prodOrderNrSave (state, payload) {
+      state.isClickedProdNrSave = payload
+    },
+
+    prodOrderNrCancel (state, payload) {
+      state.isClickedProdNrCancel = payload
     },
 
     fromTemp (state, payload) {

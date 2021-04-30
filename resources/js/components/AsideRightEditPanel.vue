@@ -12,11 +12,11 @@
             <h3>Produktionsauftrag</h3>
           </div>
           <div class="section-content">
-            <b-input :disabled="!isFromProd"/>
+            <b-input :disabled="!isFromProd" v-model="prodOrderNr" />
           </div>
           <div class="section-footer">
-            <b-button class="btn-confirm" :disabled="!isFromProd">Save</b-button>
-            <b-button class="btn-cancel" @click="closeEditPanel" :disabled="!isFromProd">Close</b-button>
+            <b-button class="btn-confirm" :disabled="!isFromProd" @click="clickedProdNrSave">Save</b-button>
+            <b-button class="btn-cancel" @click="clickedProdNrCancel" :disabled="!isFromProd">Close</b-button>
           </div>
         </div>
       </div>
@@ -70,12 +70,34 @@
         'isClickedTemplateCancel',
         'isFromTemp',
         'isFromSecTemp',
-        'isFromProd'
+        'isFromProd',
+        'g_production_order_nr',
+        'isClickedProdNrSave',
+        'isClickedProdNrCancel'
       ])
+    },
+    watch: {
+      prodOrderNr: function() {
+        this.$store.commit('setProdOrderNr', this.prodOrderNr)
+      }
+    },
+    data () {
+      return {
+        prodOrderNr: ''
+      }
+    },
+    created() {
+      this.prodOrderNr = this.g_production_order_nr
     },
     methods: {
       closeEditPanel () {
         this.$store.commit('editPanel', false)
+      },
+      clickedProdNrSave () {
+        this.$store.commit('prodOrderNrSave', true)
+      },
+      clickedProdNrCancel () {
+        this.$store.commit('prodOrderNrCancel', true)
       },
 
       clickedTemplateSave () {
