@@ -1,0 +1,170 @@
+<template>
+  <div>
+    <b-table
+            :checked-rows.sync="checkedRows"
+            :checkable="true"
+            :loading="isLoading"
+            paginated
+            backend-pagination
+            :total="total"
+            :per-page="perPage"
+            :striped="true"
+            :hoverable="true"
+            default-sort="name"
+            @page-change="onPageChange"
+            :selected.sync="selectedRow"
+            backend-sorting
+            :default-sort-direction="defaultSortOrder"
+            :default-sort="[sortField, sortOrder]"
+            @sort="onSort"
+            backend-filtering
+            @filters-change="onFilterChange"
+            :data="pdSecTemplateData">
+
+      <template slot-scope="props">
+        <b-table-column label="name" field="st_article_nr">
+          {{ props.row.name }}
+        </b-table-column>
+        <b-table-column label="group" field="st_article_nr" searchable>
+          {{ props.row['group'] }}
+        </b-table-column>
+        <b-table-column label="measurement data" field="production_flow">
+          {{ JSON.stringify(props.row.data[0]).substring(0, 25) + ' ...' }}
+        </b-table-column>
+        <b-table-column label="Erstellt" field="created_at" sortable>
+          {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
+        </b-table-column>
+        <b-table-column label="Geändert" field="updated_at" sortable>
+          {{ props.row.updated_at | moment("DD.MM.YYYY / k:mm:ss")}}
+        </b-table-column>
+      </template>
+
+      <section class="section" slot="empty">
+        <div class="content has-text-grey has-text-centered">
+          <template v-if="isLoading">
+            <p>
+              <b-icon icon="dots-horizontal" size="is-large"/>
+            </p>
+            <p>Fetching data...</p>
+          </template>
+          <template v-else>
+            <p>
+              <b-icon icon="emoticon-sad" size="is-large"/>
+            </p>
+            <p>Nothing's here&hellip;</p>
+          </template>
+        </div>
+      </section>
+
+      <template #footer>
+        <div class="has-text-right">
+          <b-select v-model="perPage">
+            <option value="10">10 per page</option>
+            <option value="20">20 per page</option>
+            <option value="50">50 per page</option>
+            <option value="100">100 per page</option>
+            <option value="1000">1000 per page</option>
+          </b-select>
+        </div>
+      </template>
+
+    </b-table>
+  </div>
+</template>
+<script>
+
+  import debounce from 'lodash/debounce'
+
+  export default {
+    name: 'ProductionSectionTemplate',
+    watch: {
+      selectedRow: function () {
+        this.rowClickHandler()
+      }
+    },
+    data () {
+      return {
+        // initial table
+        checkedRows: [],
+        selectedRow: {},
+        isLoading: false,
+        total: 0,
+        perPage: 10,
+        page: 1,
+        sortField:'',
+        sortOrder:'asc',
+        defaultSortOrder:'asc',
+        filterValues: '',
+        pdSecTemplateData: [],
+        // control table
+        isClickedRow: false,
+        selectedId: null,
+        // selected measurement data
+        jsonMeasurementData: []
+      }
+    },
+    created () {
+      this.getData()
+    },
+    methods: {
+      ///////////////////////////  table  ///////////////////////////
+      onPageChange (page) {
+        this.page = page
+        this.getData ()
+      },
+      onSort (field, order) {
+        this.sortField = field
+        this.sortOrder = order
+        this.getData()
+      },
+      onFilterChange: debounce(function (filter) {
+        this.filterValues = '';
+        this.filterValues = filter.st_article_nr ? filter.st_article_nr : ''
+        this.getData()
+      }, 250),
+      ///////////////////////////////////////////////////////////////
+
+      rowClickHandler () {
+        this.selectedId = this.selectedRow.id
+        this.jsonMeasurementData = this.selectedRow.data
+        this.isClickedRow = true
+        let data = {
+          id: this.selectedId,
+          group: this.selectedRow['group'],
+          data: this.jsonMeasurementData,
+          render_hint: this.selectedRow.render_hint,
+          description: this.selectedRow.description
+        }
+        this.$emit('clickedRow', data)
+      },
+
+      getData () {
+        const params = [
+          `size=100`,
+          `page=1`
+        ].join('&')
+        const fetchUrl = '/production_section'
+        axios.create({
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+            .get(fetchUrl+'?'+params)
+            .then(r => {
+              this.isLoading = false
+              if (r.data && r.data.data) {
+                this.pdSecTemplateData = r.data.data
+              }
+            })
+            .catch( err => {
+              this.isLoading = false
+              this.$buefy.toast.open({
+                message: `Error: ${err.message}`,
+                type: 'is-danger',
+                queue: false
+              })
+            })
+      }
+    }
+  }
+</script>

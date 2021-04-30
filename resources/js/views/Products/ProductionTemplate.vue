@@ -72,7 +72,7 @@
               {{ props.row.st_article_nr }}
             </b-table-column>
             <b-table-column label="Produktions-Ablauf" field="production_flow">
-              {{ JSON.stringify(props.row.production_flow[0]) + ' ...' }}
+              {{ JSON.stringify(props.row.production_flow[0]).substring(0, 55) + ' ...' }}
             </b-table-column>
             <b-table-column label="Erstellt" field="created_at" sortable>
               {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
@@ -217,6 +217,9 @@
       }
     },
     created () {
+      this.$store.commit('editPanel',false)
+      this.$store.commit('fromTemp',false)
+      this.$store.commit('fromSecTemp',false)
       this.getData()
       this.getSectionTemplateData()
     },
@@ -242,10 +245,12 @@
         this.updateProductionFlow()
         this.isShowUpdateCheckModal = false
         this.$store.commit('editPanel', false)
+        this.$store.commit('fromTemp', false)
       },
       cancelUpdate () {
         this.isShowUpdateCheckModal = false
         this.$store.commit('editPanel', false)
+        this.$store.commit('fromTemp', false)
         this.getData()
       },
       confirmModal () {
@@ -253,6 +258,7 @@
         this.setSelectedSectionId()
         this.hasUpdatingData = true
         this.$store.commit('editPanel', true)
+        this.$store.commit('fromTemp', true)
       },
       saveJsonData () {
         if (this.isClickedTemplateSave) {
@@ -263,6 +269,7 @@
           }
           this.hasUpdatingData = false
           this.$store.commit('editPanel', false)
+          this.$store.commit('fromTemp', false)
           this.$store.commit('prodTemplateSave', false)
         }
       },
@@ -270,6 +277,7 @@
         if (this.isClickedTemplateCancel) {
           this.hasUpdatingData = false
           this.$store.commit('editPanel', false)
+          this.$store.commit('fromTemp', false)
           this.$store.commit('prodTemplateCancel', false)
           this.getData()
         }

@@ -4,24 +4,25 @@
       <b-button class="close-btn" @click="closeEditPanel"></b-button>
     </div>
 
-    <div class="edit-panel-layout" disabled>
-      <h1 class="section-product-disabled">Products</h1>
-      <div class="section-product section-product-disabled">
+    <div class="edit-panel-layout">
+      <h1 v-bind:class="{'section-product-disabled': !isFromProd}">Products</h1>
+      <div class="section-product" v-bind:class="{'section-product-disabled': !isFromProd}">
         <div class="section-layout">
           <div class="section-header-label">
             <h3>Produktionsauftrag</h3>
           </div>
           <div class="section-content">
-            <b-input />
+            <b-input :disabled="!isFromProd"/>
           </div>
           <div class="section-footer">
-            <b-button class="btn-confirm">Save</b-button>
-            <b-button class="btn-cancel" @click="closeEditPanel">Close</b-button>
+            <b-button class="btn-confirm" :disabled="!isFromProd">Save</b-button>
+            <b-button class="btn-cancel" @click="closeEditPanel" :disabled="!isFromProd">Close</b-button>
           </div>
         </div>
       </div>
-      <h1>Produktionsabläufe</h1>
-      <div class="section-product">
+
+      <h1 v-bind:class="{'section-product-disabled': !isFromTemp}">Produktionsabläufe</h1>
+      <div class="section-product" v-bind:class="{'section-product-disabled': !isFromTemp}">
         <div class="section-layout">
           <div class="section-header-label">
             <h3>You must save the changed </h3>
@@ -30,8 +31,24 @@
             <h3>production flow data.</h3>
           </div>
           <div class="section-footer section-footer-template">
-            <b-button class="btn-confirm" @click="clickedTemplateSave">Save</b-button>
-            <b-button class="btn-cancel" @click="clickedTemplateCancel">Cancel</b-button>
+            <b-button class="btn-confirm" @click="clickedTemplateSave" :disabled='!isFromTemp'>Save</b-button>
+            <b-button class="btn-cancel" @click="clickedTemplateCancel" :disabled='!isFromTemp'>Cancel</b-button>
+          </div>
+        </div>
+      </div>
+
+      <h1 v-bind:class="{'section-product-disabled': !isFromSecTemp}">Production Section Template</h1>
+      <div class="section-product" v-bind:class="{'section-product-disabled': !isFromSecTemp}">
+        <div class="section-layout">
+          <div class="section-header-label">
+            <h3>You must save the changed production </h3>
+          </div>
+          <div class="section-header-label">
+            <h3>section template data.</h3>
+          </div>
+          <div class="section-footer section-footer-template">
+            <b-button class="btn-confirm" @click="clickedSecTemplateSave" :disabled='!isFromSecTemp'>Save</b-button>
+            <b-button class="btn-cancel" @click="clickedSecTemplateCancel" :disabled='!isFromSecTemp'>Cancel</b-button>
           </div>
         </div>
       </div>
@@ -50,7 +67,10 @@
       ...mapState([
         'isAsideLeftEditPanel',
         'isClickedTemplateSave',
-        'isClickedTemplateCancel'
+        'isClickedTemplateCancel',
+        'isFromTemp',
+        'isFromSecTemp',
+        'isFromProd'
       ])
     },
     methods: {
@@ -64,6 +84,12 @@
       clickedTemplateCancel () {
         this.$store.commit('prodTemplateCancel', true)
       },
+      clickedSecTemplateSave () {
+        this.$store.commit('prodSecTemplateSave', true)
+      },
+      clickedSecTemplateCancel () {
+        this.$store.commit('prodSecTemplateCancel', true)
+      }
     }
   }
 </script>

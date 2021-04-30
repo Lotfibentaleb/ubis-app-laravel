@@ -22,9 +22,16 @@ export default new Vuex.Store({
     isAsideMobileExpanded: false,
 
     /* Edit Panel */
+    isFromProd: false,
+
     isAsideLeftEditPanel: false,
+    isFromTemp: false,
     isClickedTemplateSave: false,
     isClickedTemplateCancel: false,
+
+    isFromSecTemp: false,
+    isClickedSecTemplateSave: false,
+    isClickedSecTemplateCancel: false,
 
   },
   mutations: {
@@ -54,12 +61,28 @@ export default new Vuex.Store({
       state.isAsideLeftEditPanel = payload
     },
 
+    fromTemp (state, payload) {
+      state.isFromTemp = payload
+    },
+
+    fromSecTemp (state, payload) {
+      state.isFromSecTemp = payload
+    },
+
     prodTemplateSave (state, payload) {
       state.isClickedTemplateSave = payload
     },
 
     prodTemplateCancel (state, payload) {
       state.isClickedTemplateCancel = payload
+    },
+
+    prodSecTemplateSave (state, payload) {
+      state.isClickedSecTemplateSave = payload
+    },
+
+    prodSecTemplateCancel (state, payload) {
+      state.isClickedSecTemplateCancel = payload
     },
 
     /* Aside Mobile */
