@@ -130,7 +130,7 @@
         this.isClickedRow = true
         let data = {
           id: this.selectedId,
-          group: this.selectedRow['group'],
+          name: this.selectedRow.name,
           data: this.jsonMeasurementData,
           render_hint: this.selectedRow.render_hint,
           description: this.selectedRow.description

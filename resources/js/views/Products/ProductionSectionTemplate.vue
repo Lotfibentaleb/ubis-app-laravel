@@ -18,9 +18,9 @@
       <div v-if="isClickedRow" class="json-editor">
         <v-jsoneditor v-model="jsonSecTempData" />
       </div>
-      <card-component class="has-table has-mobile-sort-spaced history-table" title="Änderungsverlauf" icon="package-variant-closed">
+      <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" title="Änderungsverlauf" icon="package-variant-closed">
         <card-toolbar />
-        <production-section-template-history-table  data-url="/production_section/history" :group_name="selectedGroupName" :checkable="true"/>
+        <production-section-template-history-table  data-url="/production_section/history" :name="selectedName" :checkable="true"/>
       </card-component>
     </section>
   </div>
@@ -67,7 +67,7 @@
     data () {
       return {
         // section template table component
-        selectedGroupName: '',
+        selectedName: '',
         selectedSecTempId: null,
 
         // json edit component
@@ -85,8 +85,7 @@
       clickedRow (data) {
         this.isClickedRow = true
         this.selectedSecTempId = data.id
-        this.selectedGroupName = data.group
-        console.log('--- selected group name ---', data.group)
+        this.selectedName = data.name
         this.jsonSecTempData = data
         this.prevJsonSecTempData =this.jsonSecTempData
       },

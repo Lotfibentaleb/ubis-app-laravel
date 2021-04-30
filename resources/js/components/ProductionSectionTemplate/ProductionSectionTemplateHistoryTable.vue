@@ -96,7 +96,7 @@
         type: String,
         default: null
       },
-      groupName: {
+      name: {
         type: String,
         default: null
       },
@@ -129,7 +129,7 @@
       article_nr: function() {
         this.getData()
       },
-      groupName: function() {
+      name: function() {
         this.getData()
       }
     },
@@ -159,13 +159,12 @@
       },
       getData () {
         if (this.dataUrl) {
-          console.log('============', this.groupName)
           this.isLoading = true
           const params = [
             `size=${this.perPage}`,
             `sort_by=${this.sortField}.${this.sortOrder}`,
             `page=${this.page}`,
-            `group=${this.groupName}`
+            `name=${this.name}`
           ].join('&')
 
           axios.create({
