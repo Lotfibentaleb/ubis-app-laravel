@@ -5,4 +5,8 @@ footer.footer {
       height: $footer-logo-height;
     }
   }
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  box-shadow: 0px 0px 0px 1px #ddd;
 }
