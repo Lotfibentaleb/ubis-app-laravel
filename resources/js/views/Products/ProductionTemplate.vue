@@ -26,7 +26,7 @@
                     {{setDropDownLabel(selectedSectionIndex)}}
                   </b-button>
                 </template>
-                <b-dropdown-item v-for="(availableSectionName, index) in availableSectionNames" :value="index" aria-role="listitem">
+                <b-dropdown-item v-for="(availableSectionName, index) in availableSectionNames" :value="index" :key="index" aria-role="listitem">
                   <div class="media">
                     <div class="media-content">
                       <h3>{{availableSectionName + ' [' + availableSectionIds[index] + ']'}}</h3>
