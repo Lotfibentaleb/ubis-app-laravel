@@ -6,8 +6,8 @@
       <p class="subtitle">
         Übersicht der aktuell aktiven Produktionsabläufe je Artikel
       </p>
-      <router-link slot="right" to="/" class="button">
-        Dashboard
+      <router-link slot="right" to="/products/new-template" class="button">
+        New template
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -45,6 +45,15 @@
         </b-modal>
         <div class="column">
           <card-component class="has-table has-mobile-sort-spaced" title="Produktionsablauf je Artikel" icon="package-variant-closed">
+            <div class="level">
+              <div class="level-left">
+                <b-button size="is-medium" icon-left="plus-circle-outline"  @click="createNewEntryFormActive=true" >
+                  Add
+                </b-button>
+              </div>
+              <div class="level-right">
+              </div>
+            </div>
             <product-template-table @clickedRow="clickedRow" :reload="isReload"/>
           </card-component>
 

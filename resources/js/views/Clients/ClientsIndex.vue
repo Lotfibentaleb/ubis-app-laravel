@@ -9,9 +9,19 @@
     </hero-bar>
     <section class="section is-main-section">
       <card-component class="has-table has-mobile-sort-spaced" title="Users" icon="account-multiple">
-        <card-toolbar>
-
-        </card-toolbar>
+        <!--<card-toolbar>-->
+          <div class="level">
+            <div class="level-left">
+              <router-link to="/users/new">
+                <b-button size="is-medium" icon-left="plus-circle-outline"  @click="createNewEntryFormActive=true" >
+                  Add
+                </b-button>
+              </router-link>
+            </div>
+            <div class="level-right">
+            </div>
+          </div>
+        <!--</card-toolbar>-->
         <modal-trash-box :is-active="isModalActive" :trash-subject="trashSubject" @confirm="trashConfirm" @cancel="trashCancel"/>
 
         <b-table

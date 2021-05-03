@@ -28,8 +28,10 @@
         <b-table-column label="group" field="group" searchable>
           {{ props.row.group }}
         </b-table-column>
-        <b-table-column label="measurement data" field="data">
-          {{ JSON.stringify(props.row.data[0]).substring(0, 25) + ' ...' }}
+        <b-table-column label="Messkonfiguration">
+          <b-tooltip :label="JSON.stringify(props.row.data, null, 2)"  position="is-right" :delay="1000" multilined size="is-large">
+            {{ JSON.stringify(props.row.data[0]).substring(0, 25) + ' ...' }}
+          </b-tooltip>
         </b-table-column>
         <b-table-column label="Erstellt" field="created_at" sortable>
           {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
@@ -142,6 +144,7 @@
           name: this.selectedRow.name,
           data: this.jsonMeasurementData,
           render_hint: this.selectedRow.render_hint,
+          group: this.selectedRow.group,
           description: this.selectedRow.description
         }
         this.$emit('clickedRow', data)
