@@ -73,7 +73,8 @@
         // json edit component
         isClickedRow: false,
         jsonSecTempData: [],
-        prevJsonSecTempData: []
+        prevJsonSecTempData: [],
+        isChangedJson: false,
       }
     },
     created () {
@@ -84,6 +85,7 @@
     },
     methods: {
       clickedRow (data) {
+        this.isChangedJson = false
         this.isClickedRow = true
         this.selectedSecTempId = data.id
         this.selectedName = data.name
@@ -93,8 +95,13 @@
 
       // control json editor component
       onJsonChange () {
-        this.$store.commit('editPanel', true)
-        this.$store.commit('fromSecTemp', true)
+        if (this.jsonSecTempData != this.prevJsonSecTempData) {
+          this.isChangedJson = true
+        }
+        if (this.isChangedJson) {
+          this.$store.commit('editPanel', true)
+          this.$store.commit('fromSecTemp', true)
+        }
       },
       saveJsonData () {
         if (this.isClickedSecTemplateSave) {
