@@ -77,9 +77,18 @@
 
   export default {
     name: 'ProductionSectionTemplate',
+    props: {
+      reset: {
+        type: Boolean,
+        default: false
+      },
+    },
     watch: {
       selectedRow: function () {
         this.rowClickHandler()
+      },
+      reset: function () {
+        this.getData()
       }
     },
     data () {
@@ -153,6 +162,7 @@
             .then(r => {
               this.isLoading = false
               if (r.data && r.data.data) {
+                this.pdSecTemplateData = []
                 this.pdSecTemplateData = r.data.data
               }
             })

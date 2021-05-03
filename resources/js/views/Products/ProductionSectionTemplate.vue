@@ -13,7 +13,7 @@
     <section class="section is-main-section">
       <card-component class="has-table has-mobile-sort-spaced" title="Production Section Template" icon="package-variant-closed">
         <card-toolbar />
-        <production-section-template-table  @clickedRow="clickedRow"/>
+        <production-section-template-table  :reset="isResetSecTempTable" @clickedRow="clickedRow"/>
       </card-component>
       <div v-if="isClickedRow" class="json-editor">
         <v-jsoneditor v-model="jsonSecTempData" />
@@ -75,6 +75,7 @@
         jsonSecTempData: [],
         prevJsonSecTempData: [],
         isChangedJson: false,
+        isResetSecTempTable: false
       }
     },
     created () {
@@ -109,6 +110,8 @@
           this.$store.commit('fromSecTemp', false)
           this.$store.commit('prodSecTemplateSave', false)
           this.updateMeasurementData()
+          this.isResetSecTempTable ? this.isResetSecTempTable = false : this.isResetSecTempTable = true
+          this.isClickedRow = false
         }
       },
       cancelJsonData () {
@@ -116,6 +119,8 @@
           this.$store.commit('editPanel', false)
           this.$store.commit('fromSecTemp', false)
           this.$store.commit('prodSecTemplateCancel', false)
+          this.isResetSecTempTable ? this.isResetSecTempTable = false : this.isResetSecTempTable = true
+          this.isClickedRow = false
         }
       },
 
