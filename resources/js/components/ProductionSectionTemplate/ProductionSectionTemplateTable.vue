@@ -22,13 +22,13 @@
             :data="pdSecTemplateData">
 
       <template slot-scope="props">
-        <b-table-column label="name" field="st_article_nr">
+        <b-table-column label="name" field="name">
           {{ props.row.name }}
         </b-table-column>
-        <b-table-column label="group" field="st_article_nr" searchable>
-          {{ props.row['group'] }}
+        <b-table-column label="group" field="group" searchable>
+          {{ props.row.group }}
         </b-table-column>
-        <b-table-column label="measurement data" field="production_flow">
+        <b-table-column label="measurement data" field="data">
           {{ JSON.stringify(props.row.data[0]).substring(0, 25) + ' ...' }}
         </b-table-column>
         <b-table-column label="Erstellt" field="created_at" sortable>
@@ -128,7 +128,7 @@
       },
       onFilterChange: debounce(function (filter) {
         this.filterValues = '';
-        this.filterValues = filter.st_article_nr ? filter.st_article_nr : ''
+        this.filterValues = filter.group ? filter.group : ''
         this.getData()
       }, 250),
       ///////////////////////////////////////////////////////////////
@@ -150,7 +150,8 @@
       getData () {
         const params = [
           `size=100`,
-          `page=1`
+          `page=1`,
+          `group=${this.filterValues}`
         ].join('&')
         const fetchUrl = '/production_section'
         axios.create({
