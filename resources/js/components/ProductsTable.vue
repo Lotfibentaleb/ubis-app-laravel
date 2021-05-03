@@ -18,7 +18,7 @@
       :striped="true"
       :hoverable="true"
       @page-change="onPageChange"
-
+      :selected.sync="selectedRow"
       backend-sorting
       :default-sort-direction="defaultSortOrder"
       :default-sort="[sortField, sortOrder]"
@@ -64,13 +64,13 @@
             </button>
           </div>
         </b-table-column>
-        <b-table-column custom-key="actions" class="is-actions-cell">
-          <div class="buttons is-right">
-            <button class="button is-small is-success" type="button" @click.prevent="showEditPanel(props.row)">
-              <b-icon icon="google-photos" size="is-small"/>
-            </button>
-          </div>
-        </b-table-column>
+        <!--<b-table-column custom-key="actions" class="is-actions-cell">-->
+          <!--<div class="buttons is-right">-->
+            <!--<button class="button is-small is-success" type="button" @click.prevent="showEditPanel(props.row)">-->
+              <!--<b-icon icon="google-photos" size="is-small"/>-->
+            <!--</button>-->
+          <!--</div>-->
+        <!--</b-table-column>-->
       </template>
 
       <section class="section" slot="empty">
@@ -141,6 +141,7 @@ export default {
       page: 1,
       total: 0,
       filterValues: '{}',
+      selectedRow: {},
       filterGeneralUrl: '',
       filterEnhancedUrl: '',
       excelProducts: [],
@@ -158,7 +159,10 @@ export default {
   watch:{
     perPage:function(){
       this.getData();
-    }
+    },
+    selectedRow: function () {
+      this.$emit('clickedRow', this.selectedRow)
+    },
   },
   computed: {
     trashObjectName () {
@@ -247,9 +251,6 @@ export default {
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
-    },
-    showEditPanel (editableObject) {
-      this.$emit("onSettingShow", editableObject)
     },
     trashConfirm () {
       this.isModalActive = false

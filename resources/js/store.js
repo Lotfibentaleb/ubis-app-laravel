@@ -21,21 +21,6 @@ export default new Vuex.Store({
     isAsideVisible: true,
     isAsideMobileExpanded: false,
 
-    /* Edit Panel */
-    isFromProd: false,
-    g_production_order_nr: '',
-    isClickedProdNrSave: false,
-    isClickedProdNrCancel: false,
-
-    isAsideLeftEditPanel: false,
-    isFromTemp: false,
-    isClickedTemplateSave: false,
-    isClickedTemplateCancel: false,
-
-    isFromSecTemp: false,
-    isClickedSecTemplateSave: false,
-    isClickedSecTemplateCancel: false,
-
   },
   mutations: {
     /* A fit-them-all commit */
@@ -57,51 +42,6 @@ export default new Vuex.Store({
       if (payload.role != null) {
           state.userRole = payload.role == 0 ? 'admin' : 'user'
       }
-    },
-
-    /* Aside Left Edit Panel */
-    editPanel (state, payload) {
-      state.isAsideLeftEditPanel = payload
-    },
-
-    fromProd (state, payload) {
-      state.isFromProd = payload
-    },
-
-    setProdOrderNr (state, payload) {
-      state.g_production_order_nr = payload
-    },
-
-    prodOrderNrSave (state, payload) {
-      state.isClickedProdNrSave = payload
-    },
-
-    prodOrderNrCancel (state, payload) {
-      state.isClickedProdNrCancel = payload
-    },
-
-    fromTemp (state, payload) {
-      state.isFromTemp = payload
-    },
-
-    fromSecTemp (state, payload) {
-      state.isFromSecTemp = payload
-    },
-
-    prodTemplateSave (state, payload) {
-      state.isClickedTemplateSave = payload
-    },
-
-    prodTemplateCancel (state, payload) {
-      state.isClickedTemplateCancel = payload
-    },
-
-    prodSecTemplateSave (state, payload) {
-      state.isClickedSecTemplateSave = payload
-    },
-
-    prodSecTemplateCancel (state, payload) {
-      state.isClickedSecTemplateCancel = payload
     },
 
     /* Aside Mobile */
