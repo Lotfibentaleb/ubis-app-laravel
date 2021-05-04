@@ -13,7 +13,31 @@
         <card-component :title="formCardTitle" icon="package-variant-closed" class="tile is-child">
           <form @submit.prevent="submit">
             <b-field label="Artikel-Nr." message="Artikel-Nr.">
-              <b-input placeholder="e.g. 80000101A1" v-model="article_nr" required expanded/>
+              <b-autocomplete
+                      :data="articleList"
+                      v-model="article_nr"
+                      placeholder="Nach ERP Artikelnummer suchen z.B. 800000114B2"
+                      :loading="isFetchingArticleList"
+                      icon="magnify"
+                      field="articleNumber"
+                      :clearable="clearable"
+                      @typing="getAsyncArticleList"
+                      @select="option => articleSelected = option"
+                      size="is-medium"
+                      required
+              >
+                <template slot-scope="props">
+                  <div class="media">
+                    <div class="media-content">
+                      {{ props.option.articleNumber }}<br>
+                      <small>
+                        <div v-show="props.option.productionArticle == true">- Produktions Artikel -</div>
+                        {{ props.option.name }}
+                      </small>
+                    </div>
+                  </div>
+                </template>
+              </b-autocomplete>
             </b-field>
             <b-field expanded>
               <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">Add Production Flow</b-button>
@@ -52,6 +76,7 @@
   import Notification from '@/components/Notification'
   import BField from "buefy/src/components/field/Field"
   import VJsoneditor from 'v-jsoneditor'
+  import debounce from 'lodash/debounce'
   import CreateProductionFlowModal from '@/components/ProductsTemplate/CreateProductionFlowModal'
 
   export default {
@@ -70,6 +95,12 @@
         article_nr: '',
         jsonData: [],
         isJsonEmpty: false,
+
+        //auto complete
+        articleList: [],
+        articleSelected: null,
+        isFetchingArticleList: false,
+        clearable: false,
 
         //production section template information
         pdSecTemData: [],
@@ -172,9 +203,9 @@
         }).then(r => {
           this.isLoading = false
           if (r.data ) {
-            this.$router.push({name: 'products.section_template'})
+            this.$router.push({name: 'products.template'})
             this.$buefy.snackbar.open({
-              message: 'Created New Section Template',
+              message: 'Created New Product Template',
               queue: false
             })
           }
@@ -186,7 +217,51 @@
             queue: false
           })
         })
-      }
+      },
+      getAsyncArticleList: debounce(function (name) {
+            if (!name.length) {
+              this.articleList = []
+              return
+            }
+            this.isFetchingArticleList = true
+
+            axios
+                .get(`/registration/articles?search_artnr=${name}`, {
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+                    "Access-Control-Allow-Headers": "Authorization, Content-Type, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After, DNT, User-Agent, X-Requested-With, If-Modified-Since, Cache-Control, Range"
+                  }
+                })
+                .then( result => {
+                  console.log('Article list');
+                  console.log(result.data)
+                  this.isFetchingArticleList = false
+                  this.articleList = []
+                  result.data.data.forEach((item) => this.articleList.push(item))
+                })
+                .catch( error => {
+                  if (error.request) {
+                    // The request was made but no response was received, `error.request` is an instance of XMLHttpRequest in the browser and an instance
+                    // of http.ClientRequest in Node.js
+                    console.log(error.request);
+                  }else  if (error.response) {
+                    // The request was made and the server responded with a status code that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                  } else {
+                    // Something happened in setting up the request and triggered an Error
+                    console.log('Error', error.message);
+                  }
+
+                })
+                .finally(() => {
+                  this.isFetchingArticleList = false
+                })
+          },
+          250)
     }
   }
 </script>
