@@ -113,13 +113,13 @@ table tr.is-selected {
   top: 100%;
   left: 105%;
   background: #ffffff;
-  width: 350px;
-  height: 100px;
+  width: 550px;
+  height: 230px;
   z-index: 1500;
   border: solid 1px #969191;
   .prod-detail-text>div>textarea {
     width: 90%;
-    height: 57px!important;
+    height: 190px!important;
     min-height: 57px!important;
     border: 1px solid #ddd;
     &:hover, &:focus {
