@@ -54,6 +54,11 @@ export default new Router({
       component: () => import('./views/Products/ProductionTemplate.vue'),
     },
     {
+      path: '/products/new-template',
+      name: 'products.new-template',
+      component: () => import('./views/Products/ProductionTemplateForm.vue'),
+    },
+    {
       path: '/products/section/template',
       name: 'products.section_template',
       component: () => import('./views/Products/ProductionSectionTemplate.vue'),

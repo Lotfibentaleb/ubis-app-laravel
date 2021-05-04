@@ -3,7 +3,7 @@
     <div class="modal-card section-template-warning-modal">
       <form id="add-json" @submit.prevent="submit">
         <header class="modal-card-head">
-          <p class="modal-card-title">Produktions-Ablauf</p>
+          <p class="modal-card-title">Messkonfiguration</p>
         </header>
         <section class="modal-card-body">
           <div class="columns">

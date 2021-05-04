@@ -47,9 +47,11 @@
           <card-component class="has-table has-mobile-sort-spaced" title="Produktionsablauf je Artikel" icon="package-variant-closed">
             <div class="level">
               <div class="level-left">
-                <b-button size="is-medium" icon-left="plus-circle-outline"  @click="createNewEntryFormActive=true" >
-                  Add
-                </b-button>
+                <router-link to="/products/new-template">
+                  <b-button size="is-medium" icon-left="plus-circle-outline">
+                    Add
+                  </b-button>
+                </router-link>
               </div>
               <div class="level-right">
               </div>
