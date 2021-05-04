@@ -71,7 +71,7 @@
                   </div>
                 </div>
                 <div class="level-right">
-                  <div><b-button type="is-primary" :disabled="!hasUpdatingData" @click="savePdFlowData">Save</b-button></div>
+                  <div><b-button class="btn btn-ok" :disabled="!hasUpdatingData" @click="savePdFlowData">Save</b-button></div>
                 </div>
               </div>
               <b-field label="Artikel-Nr." message="Ausgewählt Artikel-Nr.">

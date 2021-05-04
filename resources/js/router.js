@@ -58,6 +58,11 @@ export default new Router({
       name: 'products.section_template',
       component: () => import('./views/Products/ProductionSectionTemplate.vue'),
     },
+    {
+      path: '/products/section/new-template',
+      name: 'products.section_template.new',
+      component: () => import('./views/Products/ProductionSectionTemplateForm.vue'),
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

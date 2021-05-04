@@ -24,10 +24,10 @@
             </b-field>
             <div class="level">
               <div class="level-left">
-                <div><b-button type="is-primary" @click="onSettingSave">Save</b-button></div>
+                <div><b-button class="btn btn-ok-small" @click="onSettingSave">Save</b-button></div>
               </div>
               <div class="level-right">
-                <div><b-button type="is-light" @click="onSettingPanelClose">Close</b-button></div>
+                <div><b-button class="btn btn-cancel-small" @click="onSettingPanelClose">Close</b-button></div>
               </div>
             </div>
           </card-component>

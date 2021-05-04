@@ -17,9 +17,11 @@
           <card-component class="has-table has-mobile-sort-spaced" title="Production Section Template" icon="package-variant-closed">
             <div class="level">
               <div class="level-left">
-                <b-button size="is-medium" icon-left="plus-circle-outline"  @click="createNewEntryFormActive=true" >
-                  Add
-                </b-button>
+                <router-link to="/products/section/new-template">
+                  <b-button size="is-medium" icon-left="plus-circle-outline"  @click="createNewEntryFormActive=true" >
+                    Add
+                  </b-button>
+                </router-link>
               </div>
               <div class="level-right">
               </div>
@@ -40,12 +42,12 @@
                   </div>
                 </div>
                 <div class="level-right">
-                  <div><b-button type="is-primary" @click="savePdSecTemData" :disabled="!hasUpdatingData">Save</b-button></div>
+                  <div><b-button class="btn btn-ok" @click="savePdSecTemData" :disabled="!hasUpdatingData">Save</b-button></div>
                 </div>
               </div>
               <b-field label="Darstellung">
                 <b-select placeholder="default" v-model="selectedRenderHint" required expanded>
-                  <option v-for="(render_hints, index) in this.formHelper.render_hints" :key="index" :value="render_hints">
+                  <option v-for="(render_hints, index) in formHelper.render_hints" :key="index" :value="render_hints">
                     {{ render_hints }}
                   </option>
                 </b-select>

@@ -177,6 +177,30 @@ table tr.is-selected {
   }
 }
 
+.btn-ok {
+  width: 100px;
+  background: #888bf1;
+  color: #ffffff;
+}
+
+.btn-cancel {
+  width: 100px;
+}
+
+.btn-ok-small {
+  width: 70px;
+  background: #888bf1;
+  color: #ffffff;
+}
+
+.btn-cancel-small {
+  width: 70px;
+}
+
+.button.btn.btn-ok:disabled {
+  background: #888bf1;
+}
+
 
 
 
