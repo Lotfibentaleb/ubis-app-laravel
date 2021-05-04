@@ -13,7 +13,7 @@
     <section class="section is-main-section">
       <div class="columns is-mobile">
         <div class="column" v-bind:class="{'is-four-fifths': isClickedRow}">
-          <card-component class="has-table has-mobile-sort-spaced" title="Produkte" icon="account-multiple">
+          <card-component class="has-table has-mobile-sort-spaced" title="Produkte" icon="package-variant-closed">
             <products-table data-url="/productlist" @clickedRow="clickedRow" :checkable="true"/>
           </card-component>
         </div>

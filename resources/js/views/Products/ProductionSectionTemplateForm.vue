@@ -10,7 +10,7 @@
     <create-section-template-modal :is-json-modal="isJsonModal" @addedJsonData="addedJsonData" @cancelJsonAdd="cancelJsonAdd"></create-section-template-modal>
     <section class="section is-main-section">
       <tiles>
-        <card-component :title="formCardTitle" icon="account-edit" class="tile is-child">
+        <card-component :title="formCardTitle" icon="package-variant-closed" class="tile is-child">
           <form @submit.prevent="submit">
             <b-field label="Name" message="production section template name">
               <b-input placeholder="e.g. measurement.daisy" v-model="form.name" required expanded/>
@@ -47,7 +47,7 @@
             </div>
           </form>
         </card-component>
-        <card-component v-if="hasJsonItem" title="Produktions-Ablauf" icon="account" class="tile is-child">
+        <card-component v-if="hasJsonItem" title="Produktions-Ablauf" icon="package-variant-closed" class="tile is-child">
           <b-field label="Produktions-Ablauf" message="Produktions-Ablauf" >
             <v-jsoneditor v-model="jsonData" />
           </b-field>
