@@ -45,17 +45,6 @@
         </b-modal>
         <div class="column">
           <card-component class="has-table has-mobile-sort-spaced" title="Produktionsablauf je Artikel" icon="package-variant-closed">
-            <div class="level">
-              <div class="level-left">
-                <router-link to="/products/new-template">
-                  <b-button size="is-medium" icon-left="plus-circle-outline">
-                    Add
-                  </b-button>
-                </router-link>
-              </div>
-              <div class="level-right">
-              </div>
-            </div>
             <product-template-table @clickedRow="clickedRow" :reload="isReload"/>
           </card-component>
 

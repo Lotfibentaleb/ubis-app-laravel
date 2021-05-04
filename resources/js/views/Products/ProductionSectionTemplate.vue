@@ -15,17 +15,6 @@
         <modal-update-check :is-active="isShowUpdateCheckModal"  @confirm="confirmUpdate" @cancel="cancelUpdate"/>
         <div class="column">
           <card-component class="has-table has-mobile-sort-spaced" title="Production Section Template" icon="package-variant-closed">
-            <div class="level">
-              <div class="level-left">
-                <router-link to="/products/section/new-template">
-                  <b-button size="is-medium" icon-left="plus-circle-outline"  @click="createNewEntryFormActive=true" >
-                    Add
-                  </b-button>
-                </router-link>
-              </div>
-              <div class="level-right">
-              </div>
-            </div>
             <production-section-template-table  @clickedRow="clickedRow" :reset="isResetSecTempTable"/>
           </card-component>
           <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" title="Änderungsverlauf" icon="package-variant-closed">
