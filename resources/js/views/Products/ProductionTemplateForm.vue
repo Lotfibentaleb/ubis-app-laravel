@@ -58,6 +58,21 @@
           <b-field label="Produktions-Ablauf" message="Produktions-Ablauf" >
             <v-jsoneditor v-model="jsonData" />
           </b-field>
+          <b-field>
+            <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
+              <p>path: {{schemaErrorData.instancePath}}</p>
+              <p>message: {{schemaErrorData.message}}</p>
+              <p v-if="schemaErrorData.message == errorMessage.enumValues">allowed values: {{JSON.stringify(schemaErrorData.params.allowedValues)}}</p>
+              <b-tooltip :label="JSON.stringify(schemaData.schema, null, 2)" position="is-left" size="is-large" multilined>
+                <a href="#"><p>See schema</p></a>
+              </b-tooltip>
+            </b-message>
+          </b-field>
+          <b-field>
+            <b-message v-if="isValidSchema" auto-close title="Success" type="is-success" aria-close-label="Close message" has-icon>
+              <p>JSON Schema Validation Success</p>
+            </b-message>
+          </b-field>
           <hr>
         </card-component>
       </tiles>
@@ -66,7 +81,7 @@
 </template>
 
 <script>
-  import clone from 'lodash/clone'
+  import Ajv from 'ajv'
   import TitleBar from '@/components/TitleBar'
   import HeroBar from '@/components/HeroBar'
   import Tiles from '@/components/Tiles'
@@ -78,6 +93,9 @@
   import VJsoneditor from 'v-jsoneditor'
   import debounce from 'lodash/debounce'
   import CreateProductionFlowModal from '@/components/ProductsTemplate/CreateProductionFlowModal'
+  import ProductionFlowSchema from '@/schema/ProductionFlowSchema'
+
+  const ajv = new Ajv()
 
   export default {
     name: 'ProductionSectionTemplateForm',
@@ -85,6 +103,17 @@
     props: {
       id: {
         default: null
+      }
+    },
+    watch: {
+      jsonData: function() {
+        const valid = ajv.validate(this.schemaData.schema, this.jsonData)
+        if(!valid) {
+          this.isValidSchema = false
+          this.schemaErrorData = ajv.errors[0]
+        } else {
+          this.isValidSchema = true
+        }
       }
     },
     data () {
@@ -108,7 +137,15 @@
         availableSectionNames: [],
         availableSectionGroups: [],
         selectedSectionIndex: 0,
-        sectionData: {}
+        sectionData: {},
+
+        //json schema
+        isValidSchema: true,
+        schemaErrorData: {},
+        errorMessage: {
+          enumValues: 'must be equal to one of the allowed values'
+        },
+        schemaData: ProductionFlowSchema,
       }
     },
     computed: {
@@ -185,6 +222,13 @@
           this.$buefy.snackbar.open({
             type: 'is-danger',
             message: 'Empty production flow field',
+            queue: false
+          })
+          return
+        } else if(!this.isValidSchema) {
+          this.$buefy.snackbar.open({
+            type: 'is-danger',
+            message: 'Json schema Validation Error',
             queue: false
           })
           return
