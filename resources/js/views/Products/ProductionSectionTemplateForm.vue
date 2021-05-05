@@ -33,8 +33,8 @@
               <b-input type="textarea" placeholder="Explain how we can help you" v-model="form.description" maxlength="255" required/>
             </b-field>
             <b-field expanded>
-              <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">Add data</b-button>
-              <b-button v-else type="is-danger" @click="clickedAddJsonBtn">Add data</b-button>
+              <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">Add basic data</b-button>
+              <b-button v-else type="is-danger" @click="clickedAddJsonBtn">Add basic data</b-button>
             </b-field>
             <div class="level">
               <div class="level-left">
@@ -49,7 +49,22 @@
         </card-component>
         <card-component v-if="hasJsonItem" title="Produktions-Ablauf" icon="package-variant-closed" class="tile is-child">
           <b-field label="Produktions-Ablauf" message="Produktions-Ablauf" >
-            <v-jsoneditor v-model="jsonData" />
+            <v-jsoneditor v-model="jsonData" :plus="false"/>
+          </b-field>
+          <b-field>
+            <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
+              <p>path: {{schemaErrorData.instancePath}}</p>
+              <p>message: {{schemaErrorData.message}}</p>
+              <p v-if="schemaErrorData.message == errorMessage.enumValues">allowed values: {{JSON.stringify(schemaErrorData.params.allowedValues)}}</p>
+              <b-tooltip :label="JSON.stringify(schema, null, 4)" position="is-left" size="is-large" multilined>
+                <a href="#"><p>See schema</p></a>
+              </b-tooltip>
+            </b-message>
+          </b-field>
+          <b-field>
+            <b-message v-if="isValidSchema" auto-close title="Success" type="is-success" aria-close-label="Close message" has-icon>
+              <p>JSON Schema Validation Success</p>
+            </b-message>
           </b-field>
           <hr>
         </card-component>
@@ -59,7 +74,7 @@
 </template>
 
 <script>
-  import clone from 'lodash/clone'
+  import Ajv from 'ajv'
   import TitleBar from '@/components/TitleBar'
   import HeroBar from '@/components/HeroBar'
   import Tiles from '@/components/Tiles'
@@ -70,10 +85,16 @@
   import BField from "buefy/src/components/field/Field"
   import VJsoneditor from 'v-jsoneditor'
   import CreateSectionTemplateModal from '@/components/ProductionSectionTemplate/CreateSectionTemplateModal'
+  import BTooltip from "buefy/src/components/tooltip/Tooltip"
+  import ProductionSectionSchema from '@/schema/ProductionSectionSchema'
+
+  const ajv = new Ajv()
 
   export default {
     name: 'ProductionSectionTemplateForm',
-    components: {BField, UserAvatar, FilePicker, CardComponent, VJsoneditor, CreateSectionTemplateModal, Tiles, HeroBar, TitleBar, Notification },
+    components: {
+      BTooltip,
+      BField, UserAvatar, FilePicker, CardComponent, VJsoneditor, CreateSectionTemplateModal, Tiles, HeroBar, TitleBar, Notification },
     props: {
       id: {
         default: null
@@ -90,6 +111,15 @@
         formHelper: [],
         jsonData: [],
         isJsonEmpty: false,
+
+        //json schema
+        isValidSchema: true,
+        schemaErrorData: {},
+        errorMessage: {
+          enumValues: 'must be equal to one of the allowed values',
+          hasSeveralTypes: ''
+        },
+        schemaData: ProductionSectionSchema,
       }
     },
     computed: {
@@ -105,6 +135,17 @@
       },
       formCardTitle () {
         return 'New Section Template'
+      }
+    },
+    watch: {
+      jsonData: function() {
+        const valid = ajv.validate(this.schemaData.schema, this.jsonData)
+        if(!valid) {
+          this.isValidSchema = false
+          this.schemaErrorData = ajv.errors[0]
+        } else {
+          this.isValidSchema = true
+        }
       }
     },
     created () {
@@ -139,7 +180,6 @@
         })
             .then( result => {
               this.formHelper = result.data;
-              console.log(this.formHelper)
             })
             .catch( error => {
               console.log('Error', error.message);
@@ -153,6 +193,13 @@
           this.$buefy.snackbar.open({
             type: 'is-danger',
             message: 'Empty data field, Please add data',
+            queue: false
+          })
+          return
+        } else if(!this.isValidSchema) {
+          this.$buefy.snackbar.open({
+            type: 'is-danger',
+            message: 'Json schema Validation Error',
             queue: false
           })
           return

@@ -10,7 +10,7 @@
             <div class="column">
               <div class="column is-full">
                 <b-field label="min">
-                  <b-input type="number" v-model="form.min" required/>
+                  <b-input type="number" v-model="form.min" step="any" required/>
                 </b-field>
               </div>
               <div class="column is-full">
@@ -115,12 +115,12 @@
       submit() {
         console.log(this.form)
         let data = {
-          min: this.form.min,
-          max: this.form.max,
+          min: parseFloat(this.form.min),
+          max: parseFloat(this.form.max),
           type: this.form.type,
           unit: this.form.unit,
           title: this.form.unit,
-          nominal: this.form.type == 'bool' ? this.form.nominalBool : this.form.nominalNum
+          nominal: this.form.type == 'bool' ? this.form.nominalBool : parseFloat(this.form.nominalNum)
         }
         if(this.checkStrict) {
           data['strict'] = this.form.strict
