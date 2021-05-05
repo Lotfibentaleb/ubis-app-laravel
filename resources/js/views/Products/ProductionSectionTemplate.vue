@@ -54,6 +54,21 @@
               <b-field label="Konfiguration" message="Messplatz Konfiguration" >
                 <v-jsoneditor v-model="selectedJsonData" />
               </b-field>
+              <b-field>
+                <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
+                  <p>path: {{schemaErrorData.instancePath}}</p>
+                  <p>message: {{schemaErrorData.message}}</p>
+                  <p v-if="schemaErrorData.message == errorMessage.enumValues">allowed values: {{JSON.stringify(schemaErrorData.params.allowedValues)}}</p>
+                  <b-tooltip :label="JSON.stringify(schemaData.schema, null, 2)" position="is-left" size="is-large" multilined>
+                    <a href="#"><p>See schema</p></a>
+                  </b-tooltip>
+                </b-message>
+              </b-field>
+              <b-field>
+                <b-message v-if="isValidSchema" auto-close title="Success" type="is-success" aria-close-label="Close message" has-icon>
+                  <p>JSON Schema Validation Success</p>
+                </b-message>
+              </b-field>
             </card-component>
           </div>
         </div>
@@ -63,6 +78,7 @@
 </template>
 
 <script>
+  import Ajv from 'ajv'
   import TitleBar from '@/components/TitleBar'
   import HeroBar from '@/components/HeroBar'
   import CardComponent from "../../components/CardComponent";
@@ -71,13 +87,23 @@
   import VJsoneditor from 'v-jsoneditor'
   import ProductionSectionTemplateHistoryTable from '@/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable'
   import ModalUpdateCheck from '@/components/ProductsTemplate/ModalUpdateCheck'
+  import ProductionSectionSchema from '@/schema/ProductionSectionSchema'
+
+  const ajv = new Ajv()
 
   export default {
     name: 'products.list',
     components: {TitleBar, HeroBar, CardComponent, ProductionSectionTemplateHistoryTable, ModalUpdateCheck, CardToolbar, VJsoneditor, ProductionSectionTemplateTable},
     watch: {
       selectedJsonData: function() {
-        this.changedJsonData()
+        const valid = ajv.validate(this.schemaData.schema, this.selectedJsonData)
+        if(!valid) {
+          this.isValidSchema = false
+          this.schemaErrorData = ajv.errors[0]
+        } else {
+          this.isValidSchema = true
+          this.changedJsonData()
+        }
       },
       selectedGroup: function() {
         this.changedJsonData()
@@ -118,6 +144,14 @@
         hasUpdatingData: false,
         isResetSecTempTable: false,
         formHelper: null,
+
+        //json schema
+        isValidSchema: true,
+        schemaErrorData: {},
+        errorMessage: {
+          enumValues: 'must be equal to one of the allowed values'
+        },
+        schemaData: ProductionSectionSchema,
       }
     },
     mounted() {
@@ -151,9 +185,19 @@
           this.hasUpdatingData = true
         } else if(this.selectedDescription != this.jsonSecTempData.description) {
           this.hasUpdatingData = true
+        } else {
+          this.hasUpdatingData = false
         }
       },
       savePdSecTemData() {
+        if(!this.isValidSchema) {
+          this.$buefy.snackbar.open({
+            type: 'is-danger',
+            message: 'Json schema Validation Error',
+            queue: false
+          })
+          return
+        }
         this.updateMeasurementData()
         this.isResetSecTempTable ? this.isResetSecTempTable = false : this.isResetSecTempTable = true
       } ,

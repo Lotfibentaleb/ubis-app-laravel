@@ -71,6 +71,21 @@
               <b-field label="Produktions-Ablauf" message="Produktions-Ablauf" >
                 <v-jsoneditor v-model="jsonPdFlow" />
               </b-field>
+              <b-field>
+                <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
+                  <p>path: {{schemaErrorData.instancePath}}</p>
+                  <p>message: {{schemaErrorData.message}}</p>
+                  <p v-if="schemaErrorData.message == errorMessage.enumValues">allowed values: {{JSON.stringify(schemaErrorData.params.allowedValues)}}</p>
+                  <b-tooltip :label="JSON.stringify(schemaData.schema, null, 2)" position="is-left" size="is-large" multilined>
+                    <a href="#"><p>See schema</p></a>
+                  </b-tooltip>
+                </b-message>
+              </b-field>
+              <b-field>
+                <b-message v-if="isValidSchema" auto-close title="Success" type="is-success" aria-close-label="Close message" has-icon>
+                  <p>JSON Schema Validation Success</p>
+                </b-message>
+              </b-field>
             </card-component>
           </div>
         </div>
@@ -80,6 +95,7 @@
 </template>
 
 <script>
+  import Ajv from 'ajv'
   import Notification from '@/components/Notification'
   import CardComponent from '@/components/CardComponent'
   import CardToolbar from '@/components/CardToolbar'
@@ -93,6 +109,9 @@
   import VJsoneditor from 'v-jsoneditor'
   import BInput from "buefy/src/components/input/Input"
   import BButton from "buefy/src/components/button/Button"
+  import ProductionFlowSchema from '@/schema/ProductionFlowSchema'
+
+  const ajv = new Ajv()
 
   export default {
     name: 'products.list',
@@ -102,7 +121,14 @@
       BField, HeroBar, TitleBar, CardComponent, CardToolbar, VJsoneditor, ModalBox, Notification, ProductTemplateHistory, ProductTemplateTable, ModalUpdateCheck},
     watch:{
       jsonPdFlow: function() {
-        this.changedJsonData()
+        const valid = ajv.validate(this.schemaData.schema, this.jsonPdFlow)
+        if(!valid) {
+          this.isValidSchema = false
+          this.schemaErrorData = ajv.errors[0]
+        } else {
+          this.isValidSchema = true
+          this.changedJsonData()
+        }
       }
     },
     computed: {
@@ -136,6 +162,14 @@
 
         //to reload products template table data
         isReload: false,
+
+        //json schema
+        isValidSchema: true,
+        schemaErrorData: {},
+        errorMessage: {
+          enumValues: 'must be equal to one of the allowed values'
+        },
+        schemaData: ProductionFlowSchema,
       }
     },
     created() {
@@ -182,11 +216,18 @@
         this.setSelectedSectionId()
       },
       savePdFlowData() {
+        if(!this.isValidSchema) {
+          this.$buefy.snackbar.open({
+            type: 'is-danger',
+            message: 'Json schema Validation Error',
+            queue: false
+          })
+          return
+        }
         if (!this.checkingSectionId()) {
           this.invalidSecId = true
         } else {
           this.updateProductionFlow()
-
           //to reload table data
           this.isReload ? this.isReload = false : this.isReload = true
         }

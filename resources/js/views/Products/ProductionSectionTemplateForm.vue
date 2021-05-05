@@ -56,7 +56,7 @@
               <p>path: {{schemaErrorData.instancePath}}</p>
               <p>message: {{schemaErrorData.message}}</p>
               <p v-if="schemaErrorData.message == errorMessage.enumValues">allowed values: {{JSON.stringify(schemaErrorData.params.allowedValues)}}</p>
-              <b-tooltip :label="JSON.stringify(schema, null, 4)" position="is-left" size="is-large" multilined>
+              <b-tooltip :label="JSON.stringify(schemaData.schema, null, 2)" position="is-left" size="is-large" multilined>
                 <a href="#"><p>See schema</p></a>
               </b-tooltip>
             </b-message>
