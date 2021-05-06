@@ -206,6 +206,42 @@ export default {
         "fieldMessage": "Selected Article Nr",
         "saveButton": "Save",
       }
+    },
+    "productionSectionPage": {
+      "titleBar": {
+        "main": "Production",
+        "sub1": "Section Template",
+      },
+      "heroBar": {
+        "title": "Production Section Template",
+        "subTitle": "Overview of the currently active production processes for each item",
+        "goto": "New Section Template"
+      },
+      "table": {
+        "title": "Production Section Template",
+        "historyTitle": "Updated history",
+        "perPage": "per page",
+        "fields": {
+          "name": "Name",
+          "group": "Group",
+          "data": "Data",
+          "createdAt": "Created_at",
+          "updatedAt": "Updated_at",
+          "updatedBy": "Updated_by",
+          "validFrom": "Valid_from",
+          "validTill": "Valid_till",
+        }
+      },
+      "settingPanel": {
+        "title": "Edit Product Section Template",
+        "description": "Description",
+        "name": "Name",
+        "group": "Group",
+        "fieldMessage": "Description with using up to 255 characters",
+        "configuration": "Configuration",
+        "configurationMessage": "Measurement station configuration",
+        "saveButton": "Save",
+      }
     }
   },
   "de": {
@@ -413,6 +449,42 @@ export default {
       "settingPanel": {
         "title": "Bearbeiten Produktionsabläufe",
         "fieldMessage": "Ausgewählt Artikel-Nr",
+        "saveButton": "Save",
+      }
+    },
+    "productionSectionPage": {
+      "titleBar": {
+        "main": "Produktion",
+        "sub1": "Fertigungs-Stationen",
+      },
+      "heroBar": {
+        "title": "Fertigungs-Stationen",
+        "subTitle": "Übersicht der aktuell aktiven Produktionsabläufe je Artikel",
+        "goto": "Nue Fertigungs-Stationen"
+      },
+      "table": {
+        "title": "Fertigungs-Stationen",
+        "historyTitle": "Updated history",
+        "perPage": "per page",
+        "fields": {
+          "name": "Darstellung",
+          "group": "Gruppe",
+          "data": "Daten",
+          "createdAt": "Erstellt",
+          "updatedAt": "Geändert",
+          "updatedBy": "Geändert durch",
+          "validFrom": "Gültig von",
+          "validTill": "Gültig bis",
+        }
+      },
+      "settingPanel": {
+        "title": "Bearbeiten Fertigungs-Stationen",
+        "description": "Beschreibung",
+        "name": "Darstellung",
+        "group": "Gruppe",
+        "fieldMessage": "Beschreibung mit bis zu 255 Zeichen",
+        "configuration": "Konfiguration",
+        "configurationMessage": "Messplatz Konfiguration",
         "saveButton": "Save",
       }
     }

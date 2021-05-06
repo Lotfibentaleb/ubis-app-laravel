@@ -2,12 +2,12 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      Produktionsabläufe
+      {{$t('productionSectionPage.heroBar.title')}}
       <p class="subtitle">
-        Übersicht der aktuell aktiven Produktionsabläufe je Artikel
+        {{$t('productionSectionPage.heroBar.subTitle')}}
       </p>
       <router-link slot="right" to="/products/section/new-template" class="button">
-        New template
+        {{$t('productionSectionPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -24,34 +24,34 @@
         </div>
         <div v-if="isClickedRow">
           <div class="column">
-            <card-component title="Produkt Komponenten" class="has-mobile-sort-spaced" icon="lead-pencil">
+            <card-component :title="$t('productionSectionPage.settingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
               <div class="level">
                 <div class="level-left">
                   <div>
                   </div>
                 </div>
                 <div class="level-right">
-                  <div><b-button class="btn btn-ok" @click="savePdSecTemData" :disabled="!hasUpdatingData">Save</b-button></div>
+                  <div><b-button class="btn btn-ok" @click="savePdSecTemData" :disabled="!hasUpdatingData">{{$t('productionSectionPage.settingPanel.saveButton')}}</b-button></div>
                 </div>
               </div>
-              <b-field label="Darstellung">
+              <b-field :label="$t('productionSectionPage.settingPanel.name')">
                 <b-select placeholder="default" v-model="selectedRenderHint" required expanded>
                   <option v-for="(render_hints, index) in formHelper.render_hints" :key="index" :value="render_hints">
                     {{ render_hints }}
                   </option>
                 </b-select>
               </b-field>
-              <b-field label="Gruppe">
+              <b-field :label="$t('productionSectionPage.settingPanel.group')">
                 <b-select placeholder="default" v-model="selectedGroup" required expanded>
                   <option v-for="(groups, index) in this.formHelper.groups" :key="index" :value="groups">
                     {{ groups }}
                   </option>
                 </b-select>
               </b-field>
-              <b-field label="Beschreibung" message="Description with using up to 255 characters" expanded>
+              <b-field :label="$t('productionSectionPage.settingPanel.description')" :message="$t('productionSectionPage.settingPanel.fieldMessage')" expanded>
                 <b-input type="textarea" placeholder="Explain how we can help you" v-model="selectedDescription" maxlength="255" required/>
               </b-field>
-              <b-field label="Konfiguration" message="Messplatz Konfiguration" >
+              <b-field :label="$t('productionSectionPage.settingPanel.configuration')" :message="$t('productionSectionPage.settingPanel.configurationMessage')" >
                 <v-jsoneditor v-model="selectedJsonData" />
               </b-field>
               <b-field>
@@ -118,8 +118,8 @@
     computed: {
       titleStack () {
         return [
-          'Production',
-          'Section Template'
+          this.$t('productionSectionPage.titleBar.main'),
+          this.$t('productionSectionPage.titleBar.sub1')
         ]
       },
     },
