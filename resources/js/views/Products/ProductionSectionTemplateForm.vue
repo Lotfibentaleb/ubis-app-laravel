@@ -7,7 +7,6 @@
         Section Templates
       </router-link>
     </hero-bar>
-    <create-section-template-modal :is-json-modal="isJsonModal" @addedJsonData="addedJsonData" @cancelJsonAdd="cancelJsonAdd"></create-section-template-modal>
     <section class="section is-main-section">
       <tiles>
         <card-component :title="formCardTitle" icon="package-variant-closed" class="tile is-child">
@@ -33,8 +32,10 @@
               <b-input type="textarea" placeholder="Explain how we can help you" v-model="form.description" maxlength="255" required/>
             </b-field>
             <b-field expanded>
-              <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">Add basic data</b-button>
-              <b-button v-else type="is-danger" @click="clickedAddJsonBtn">Add basic data</b-button>
+              <b-tooltip :label="JSON.stringify(basicData, null, 2)" position="is-right" size="is-large" multilined>
+                <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">Add basic data</b-button>
+                <b-button v-else type="is-danger" @click="clickedAddJsonBtn">Add basic data</b-button>
+              </b-tooltip>
             </b-field>
             <div class="level">
               <div class="level-left">
@@ -84,7 +85,6 @@
   import Notification from '@/components/Notification'
   import BField from "buefy/src/components/field/Field"
   import VJsoneditor from 'v-jsoneditor'
-  import CreateSectionTemplateModal from '@/components/ProductionSectionTemplate/CreateSectionTemplateModal'
   import BTooltip from "buefy/src/components/tooltip/Tooltip"
   import ProductionSectionSchema from '@/schema/ProductionSectionSchema'
 
@@ -94,7 +94,7 @@
     name: 'ProductionSectionTemplateForm',
     components: {
       BTooltip,
-      BField, UserAvatar, FilePicker, CardComponent, VJsoneditor, CreateSectionTemplateModal, Tiles, HeroBar, TitleBar, Notification },
+      BField, UserAvatar, FilePicker, CardComponent, VJsoneditor, Tiles, HeroBar, TitleBar, Notification },
     props: {
       id: {
         default: null
@@ -111,6 +111,15 @@
         formHelper: [],
         jsonData: [],
         isJsonEmpty: false,
+        basicData: {
+          max: 999.5,
+          min: -999.5,
+          type: 'double',
+          unit: '°C',
+          title: 'sample_value',
+          strict: false,
+          nominal: 0
+        },
 
         //json schema
         isValidSchema: true,
@@ -153,7 +162,7 @@
     },
     methods: {
       clickedAddJsonBtn() {
-        this.isJsonModal = true
+        this.addedJsonData(this.basicData)
       },
       addedJsonData(data) {
         this.hasJsonItem = true
