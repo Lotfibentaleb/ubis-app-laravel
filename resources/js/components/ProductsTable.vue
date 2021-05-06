@@ -2,9 +2,9 @@
   <div>
     <modal-trash-box :is-active="isModalActive" :trash-subject="trashObjectName" @confirm="trashConfirm" @cancel="trashCancel"/>
     <b-field grouped group-multiline>
-          <b-button type="is-info" disabled>Anzahl Einträge: {{this.total}}</b-button>
-          <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">Download Excel</b-button></a>
-          <a :href="this.filterEnhancedUrl"><b-button class="btn excel-export">Enhanced Excel</b-button></a>
+          <b-button type="is-info" disabled>{{$t('productsPage.productsTable.productsCounts')}}: {{this.total}}</b-button>
+          <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.downloadExcel')}}</b-button></a>
+          <a :href="this.filterEnhancedUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.enhancedExcel')}}</b-button></a>
     </b-field>
 
     <b-table
@@ -36,25 +36,25 @@
             <img :src="props.row.avatar" class="is-rounded">
           </div>
         </b-table-column>
-        <b-table-column label="Artikel-Nr." field="st_article_nr" sortable searchable>
+        <b-table-column :label="$t('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable searchable>
           {{ props.row.st_article_nr }}
         </b-table-column>
-        <b-table-column label="Serial-Nr." field="st_serial_nr" sortable searchable>
+        <b-table-column :label="$t('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable searchable>
           {{ props.row.st_serial_nr }}
         </b-table-column>
-        <b-table-column label="Status" field="lifecycle" sortable>
+        <b-table-column :label="$t('productsPage.productsTable.fields.status')" field="lifecycle" sortable>
           {{ props.row.lifecycle }}
         </b-table-column>
-        <b-table-column label="Produktionsdaten" field="production_data_count">
+        <b-table-column :label="$t('productsPage.productsTable.fields.productionDataCount')" field="production_data_count">
           {{ props.row.production_data_count }}
         </b-table-column>
-        <b-table-column label="Komponenten" field="components_count">
+        <b-table-column :label="$t('productsPage.productsTable.fields.componentsCount')" field="components_count">
           {{ props.row.components_count }}
         </b-table-column>
-        <b-table-column label="Produktionsauftrag" field="production_order_nr" sortable searchable>
+        <b-table-column :label="$t('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable searchable>
           {{ props.row.production_order_nr }}
         </b-table-column>
-        <b-table-column label="Erstellt" field="created_at" sortable>
+        <b-table-column :label="$t('productsPage.productsTable.fields.createdAt')" field="created_at" sortable>
           <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>
         <b-table-column custom-key="actions" class="is-actions-cell">
@@ -93,11 +93,11 @@
       <template #footer>
         <div class="has-text-right">
           <b-select v-model="perPage">
-            <option value="10">10 per page</option>
-            <option value="20">20 per page</option>
-            <option value="50">50 per page</option>
-            <option value="100">100 per page</option>
-            <option value="1000">1000 per page</option>
+            <option value="10">10 {{$t('productsPage.productsTable.perPage')}}</option>
+            <option value="20">20 {{$t('productsPage.productsTable.perPage')}}</option>
+            <option value="50">50 {{$t('productsPage.productsTable.perPage')}}</option>
+            <option value="100">100 {{$t('productsPage.productsTable.perPage')}}</option>
+            <option value="1000">1000 {{$t('productsPage.productsTable.perPage')}}</option>
           </b-select>
 
         </div>

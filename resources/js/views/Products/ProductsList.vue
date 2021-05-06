@@ -2,18 +2,18 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      Produkte
+      {{$t('productsPage.heroBar.title')}}
       <p class="subtitle">
-        Übersicht aller aktuell in der Datenbank befindlichen Produkte
+        {{$t('productsPage.heroBar.subTitle')}}
       </p>
       <router-link slot="right" to="/" class="button">
-        Dashboard
+        {{$t('productsPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <div class="columns is-mobile">
         <div class="column" v-bind:class="{'is-four-fifths': isClickedRow}">
-          <card-component class="has-table has-mobile-sort-spaced" title="Produkte" icon="package-variant-closed">
+          <card-component class="has-table has-mobile-sort-spaced" :title="$t('productsPage.productsTable.title')" icon="package-variant-closed">
             <products-table data-url="/productlist" @clickedRow="clickedRow" :checkable="true"/>
           </card-component>
         </div>
@@ -53,8 +53,8 @@
     computed: {
       titleStack () {
         return [
-          'Production',
-          'Products'
+          this.$t('productsPage.titleBar.main'),
+          this.$t('productsPage.titleBar.sub1')
         ]
       },
     },
