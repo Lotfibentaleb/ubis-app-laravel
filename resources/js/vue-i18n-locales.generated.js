@@ -235,7 +235,7 @@ export default {
       "settingPanel": {
         "title": "Edit Product Section Template",
         "description": "Description",
-        "name": "Name",
+        "render": "Render_hint",
         "group": "Group",
         "fieldMessage": "Description with using up to 255 characters",
         "configuration": "Configuration",
@@ -264,6 +264,90 @@ export default {
         "title": "Production flow",
         "addButton": "Add",
         "cancelButton": "Cancel",
+      }
+    },
+    "usersPage": {
+      "titleBar": {
+        "main": "Admin",
+        "sub1": "Users"
+      },
+      "heroBar": {
+        "title": "Users",
+        "goto": "New User"
+      },
+      "table": {
+        "title": "Users",
+        "name": "Name",
+        "email": "Email",
+        "uuid": "UUID",
+        "role": "Role",
+        "createdAt": "Created_at"
+      }
+    },
+    "createUserPage": {
+      "titleBar": {
+        "main": "Admin",
+        "sub1": "Users",
+        "sub2": "New User"
+      },
+      "heroBar": {
+        "title": "Create User",
+        "goto": "Users"
+      },
+      "card": {
+        "title": "New User",
+        "name": "Name",
+        "nameMessage": "user name",
+        "email": "Email",
+        "emailMessage": "user email",
+        "uuid": "UUID",
+        "uuidMessage": "user uuid",
+        "role": "Role",
+        "roleMessage": "user role",
+        "password": "Password",
+        "passwordMessage": "password",
+        "confirmPassword": "Confirm Password",
+        "confirmPasswordMessage": "confirm password",
+        "submitButton": "submit"
+      }
+    },
+    "editUserPage": {
+      "titleBar": {
+        "main": "Admin",
+        "sub1": "Users"
+      },
+      "card": {
+        "title": "Edit User",
+        "name": "Name",
+        "nameMessage": "user name",
+        "email": "Email",
+        "emailMessage": "user email",
+        "uuid": "UUID",
+        "uuidMessage": "user uuid",
+        "role": "Role",
+        "roleMessage": "user role",
+        "createdAt": "Created",
+        "submitButton": "submit"
+      }
+    },
+    "createProductionSectionPage": {
+      "titleBar": {
+        "main": "Production",
+        "sub1": "New Section Template",
+      },
+      "heroBar": {
+        "title": "Create Section Template"
+      },
+      "card": {
+        "title": "New Section Template",
+        "name": "Name",
+        "nameMessage": "production section template name",
+        "render": "Render_hint",
+        "group": "Group",
+        "description": "Description",
+        "descriptionMessage": "Description with using up to 255 characters",
+        "addBasicDataButton": "Add basic data",
+        "submitButton": "submit",
       }
     }
   },
@@ -490,7 +574,7 @@ export default {
         "historyTitle": "Updated history",
         "perPage": "per page",
         "fields": {
-          "name": "Darstellung",
+          "name": "Name",
           "group": "Gruppe",
           "data": "Daten",
           "createdAt": "Erstellt",
@@ -503,7 +587,7 @@ export default {
       "settingPanel": {
         "title": "Bearbeiten Fertigungs-Stationen",
         "description": "Beschreibung",
-        "name": "Darstellung",
+        "render": "Darstellung",
         "group": "Gruppe",
         "fieldMessage": "Beschreibung mit bis zu 255 Zeichen",
         "configuration": "Konfiguration",
@@ -532,6 +616,90 @@ export default {
         "title": "Fertigungsabläufe",
         "addButton": "Hinzufügen",
         "cancelButton": "Stornieren",
+      }
+    },
+    "usersPage": {
+      "titleBar": {
+        "main": "Administrator",
+        "sub1": "Benutzer"
+      },
+      "heroBar": {
+        "title": "Benutzer",
+        "goto": "Neu Benutzer"
+      },
+      "table": {
+        "title": "Benutzer",
+        "name": "Name",
+        "email": "Email",
+        "uuid": "UUID",
+        "role": "Rolle",
+        "createdAt": "Erstellt"
+      }
+    },
+    "createUserPage": {
+      "titleBar": {
+        "main": "Administrator",
+        "sub1": "Benutzer",
+        "sub2": "Neu Benutzer"
+      },
+      "heroBar": {
+        "title": "Erstellen Benutzer",
+        "goto": "Benutzer"
+      },
+      "card": {
+        "title": "Neu Benutzer",
+        "name": "Name",
+        "nameMessage": "Benutzer name",
+        "email": "Email",
+        "emailMessage": "Benutzer email",
+        "uuid": "UUID",
+        "uuidMessage": "Benutzer uuid",
+        "role": "Rolle",
+        "roleMessage": "Benutzer Rolle",
+        "password": "Passwort",
+        "passwordMessage": "Passwort",
+        "confirmPassword": "Kennwort bestätigen",
+        "confirmPasswordMessage": "Kennwort bestätigen",
+        "submitButton": "einreichen"
+      }
+    },
+    "editUserPage": {
+      "titleBar": {
+        "main": "Administrator",
+        "sub1": "Benutzer"
+      },
+      "card": {
+        "title": "Benutzer bearbeiten",
+        "name": "Name",
+        "nameMessage": "user name",
+        "email": "Email",
+        "emailMessage": "user email",
+        "uuid": "UUID",
+        "uuidMessage": "user uuid",
+        "role": "Role",
+        "roleMessage": "user role",
+        "createdAt": "Erstellt",
+        "submitButton": "einreichen"
+      }
+    },
+    "createProductionSectionPage": {
+      "titleBar": {
+        "main": "Production",
+        "sub1": "Neu Fertigungs-Stationen",
+      },
+      "heroBar": {
+        "title": "Fertigungs-Stationen erstellen"
+      },
+      "card": {
+        "title": "Neu Fertigungs-Stationen",
+        "name": "Name",
+        "nameMessage": "Fertigungs-Stationen Name",
+        "render": "Darstellung",
+        "group": "Gruppe",
+        "description": "Beschreibung",
+        "descriptionMessage": "Beschreibung mit bis zu 255 Zeichen",
+        "addBasicDataButton": "Grunddaten hinzufügen",
+        "submitButton": "einreichen",
       }
     }
   }

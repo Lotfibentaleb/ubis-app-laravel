@@ -34,7 +34,7 @@
                   <div><b-button class="btn btn-ok" @click="savePdSecTemData" :disabled="!hasUpdatingData">{{$t('productionSectionPage.settingPanel.saveButton')}}</b-button></div>
                 </div>
               </div>
-              <b-field :label="$t('productionSectionPage.settingPanel.name')">
+              <b-field :label="$t('productionSectionPage.settingPanel.render')">
                 <b-select placeholder="default" v-model="selectedRenderHint" required expanded>
                   <option v-for="(render_hints, index) in formHelper.render_hints" :key="index" :value="render_hints">
                     {{ render_hints }}

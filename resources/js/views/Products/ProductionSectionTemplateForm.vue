@@ -11,30 +11,30 @@
       <tiles>
         <card-component :title="formCardTitle" icon="package-variant-closed" class="tile is-child">
           <form @submit.prevent="submit">
-            <b-field label="Name" message="production section template name">
+            <b-field :label="$t('createProductionSectionPage.card.name')" :message="$t('createProductionSectionPage.card.nameMessage')">
               <b-input placeholder="e.g. measurement.daisy" v-model="form.name" required expanded/>
             </b-field>
-            <b-field label="Darstellung">
+            <b-field :label="$t('createProductionSectionPage.card.render')">
               <b-select placeholder="default" v-model="form.render_hint" required expanded>
                 <option v-for="(render_hints, index) in formHelper.render_hints" :key="index" :value="render_hints">
                   {{ render_hints }}
                 </option>
               </b-select>
             </b-field>
-            <b-field label="Gruppe">
+            <b-field :label="$t('createProductionSectionPage.card.group')">
               <b-select placeholder="default" v-model="form.group" required expanded>
                 <option v-for="(groups, index) in formHelper.groups" :key="index" :value="groups">
                   {{ groups }}
                 </option>
               </b-select>
             </b-field>
-            <b-field label="Beschreibung" message="Description with using up to 255 characters" expanded>
+            <b-field :label="$t('createProductionSectionPage.card.description')" :message="$t('createProductionSectionPage.card.descriptionMessage')" expanded>
               <b-input type="textarea" placeholder="Explain how we can help you" v-model="form.description" maxlength="255" required/>
             </b-field>
             <b-field expanded>
               <b-tooltip :label="JSON.stringify(basicData, null, 2)" position="is-right" size="is-large" multilined>
-                <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">Add basic data</b-button>
-                <b-button v-else type="is-danger" @click="clickedAddJsonBtn">Add basic data</b-button>
+                <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">{{$t('createProductionSectionPage.card.addBasicDataButton')}}</b-button>
+                <b-button v-else type="is-danger" @click="clickedAddJsonBtn">{{$t('createProductionSectionPage.card.addBasicDataButton')}}</b-button>
               </b-tooltip>
             </b-field>
             <div class="level">
@@ -42,7 +42,7 @@
               </div>
               <div class="level-right">
                 <b-field >
-                  <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">Submit</b-button>
+                  <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$t('createProductionSectionPage.card.submitButton')}}</b-button>
                 </b-field>
               </div>
             </div>
@@ -134,16 +134,15 @@
     computed: {
       titleStack () {
         return [
-          'Products',
-          'Section',
-          'New Section Template'
+          this.$t('createProductionSectionPage.titleBar.main'),
+          this.$t('createProductionSectionPage.titleBar.sub1'),
         ]
       },
       heroTitle () {
-        return 'Create Section Template'
+        return this.$t('createProductionSectionPage.heroBar.title')
       },
       formCardTitle () {
-        return 'New Section Template'
+        return this.$t('createProductionSectionPage.card.title')
       }
     },
     watch: {
