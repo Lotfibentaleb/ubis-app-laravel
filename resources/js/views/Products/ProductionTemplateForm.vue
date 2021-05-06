@@ -4,7 +4,7 @@
     <hero-bar>
       {{ heroTitle }}
       <router-link slot="right" to="/products/template" class="button">
-        Product Templates
+        {{$t('createProductionTemplatePage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <create-production-flow-modal :is-json-modal="isJsonModal" :section-data="sectionData" @addedJsonData="addedJsonData" @cancelJsonAdd="cancelJsonAdd"></create-production-flow-modal>
@@ -12,7 +12,7 @@
       <tiles>
         <card-component :title="formCardTitle" icon="package-variant-closed" class="tile is-child">
           <form @submit.prevent="submit">
-            <b-field label="Artikel-Nr." message="Artikel-Nr.">
+            <b-field :label="$t('createProductionTemplatePage.card.articleNr')" :message="$t('createProductionTemplatePage.card.articleNrMessage')">
               <b-autocomplete
                       :data="articleList"
                       v-model="article_nr"
@@ -40,15 +40,15 @@
               </b-autocomplete>
             </b-field>
             <b-field expanded>
-              <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">Add Production Flow</b-button>
-              <b-button v-else type="is-danger" @click="clickedAddJsonBtn">Add Production Flow</b-button>
+              <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">{{$t('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>
+              <b-button v-else type="is-danger" @click="clickedAddJsonBtn">{{$t('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>
             </b-field>
             <div class="level">
               <div class="level-left">
               </div>
               <div class="level-right">
                 <b-field >
-                  <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">Submit</b-button>
+                  <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$t('createProductionTemplatePage.card.submitButton')}}</b-button>
                 </b-field>
               </div>
             </div>
@@ -151,16 +151,16 @@
     computed: {
       titleStack () {
         return [
-          'Products',
-          'Template',
-          'New Template'
+          this.$t('createProductionTemplatePage.titleBar.main'),
+          this.$t('createProductionTemplatePage.titleBar.sub1'),
+          this.$t('createProductionTemplatePage.titleBar.sub2')
         ]
       },
       heroTitle () {
-        return 'Create Product Template'
+        return this.$t('createProductionTemplatePage.heroBar.title')
       },
       formCardTitle () {
-        return 'New Product Template'
+        return this.$t('createProductionTemplatePage.card.title')
       }
     },
     created() {

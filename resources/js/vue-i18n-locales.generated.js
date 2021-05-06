@@ -242,6 +242,29 @@ export default {
         "configurationMessage": "Measurement station configuration",
         "saveButton": "Save",
       }
+    },
+    "createProductionTemplatePage": {
+      "titleBar": {
+        "main": "Production",
+        "sub1": "Template",
+        "sub2": "New Template",
+      },
+      "heroBar": {
+        "title": "Create Production Template",
+        "goto": "Production Templates"
+      },
+      "card": {
+        "title": "New Production Template",
+        "articleNr": "Article-Nr",
+        "articleNrMessage": "Article-Nr",
+        "addBasicDataButton": "Add Production Flow",
+        "submitButton": "submit"
+      },
+      "productionFlowModal": {
+        "title": "Production flow",
+        "addButton": "Add",
+        "cancelButton": "Cancel",
+      }
     }
   },
   "de": {
@@ -437,7 +460,7 @@ export default {
         "historyTitle": "Änderungsverlauf",
         "perPage": "pro Seite",
         "fields": {
-          "articleNr": "Article-Nr.",
+          "articleNr": "Artikel-Nr.",
           "productionFlow": "Produktions-Ablauf",
           "createdAt": "Erstellt",
           "updatedAt": "Geändert",
@@ -486,6 +509,29 @@ export default {
         "configuration": "Konfiguration",
         "configurationMessage": "Messplatz Konfiguration",
         "saveButton": "Save",
+      }
+    },
+    "createProductionTemplatePage": {
+      "titleBar": {
+        "main": "Produktion",
+        "sub1": "Fertigungsabläufe",
+        "sub2": "Neu Fertigungsabläufe",
+      },
+      "heroBar": {
+        "title": "Erstellen Fertigungsabläufe",
+        "goto": "Fertigungsabläufe"
+      },
+      "card": {
+        "title": "Neu Fertigungsabläufe",
+        "articleNr": "Artikel-Nr.",
+        "articleNrMessage": "Artikel-Nr.",
+        "addBasicDataButton": "Hinzufügen Fertigungsabläufe",
+        "submitButton": "einreichen"
+      },
+      "productionFlowModal": {
+        "title": "Fertigungsabläufe",
+        "addButton": "Hinzufügen",
+        "cancelButton": "Stornieren",
       }
     }
   }
