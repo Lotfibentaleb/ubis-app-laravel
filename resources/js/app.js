@@ -9,6 +9,21 @@ import Buefy from 'buefy'
 import router from './router'
 import store from './store'
 
+import VueInternationalization from 'vue-i18n';
+import Locale from './vue-i18n-locales.generated';
+import FlagIcon from 'vue-flag-icon'
+
+Vue.use(FlagIcon);
+Vue.use(VueInternationalization);
+
+const lang = document.documentElement.lang.substr(0, 2);
+// or however you determine your current app locale
+
+const i18n = new VueInternationalization({
+  locale: lang,
+  messages: Locale
+});
+
 /* Vue. Main component */
 import App from './App.vue'
 
@@ -35,6 +50,7 @@ Vue.use(Buefy)
 /* This is main entry point */
 
 new Vue({
+  i18n,
   store,
   router,
   render: h => h(App),

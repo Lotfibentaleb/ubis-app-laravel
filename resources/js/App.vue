@@ -23,45 +23,45 @@ export default {
   computed: {
     menu () {
       return [
-        'General',
+        this.$t('sidebar.general'),
         [
           {
             to: '/',
             icon: 'desktop-mac',
-            label: 'Dashboard',
+            label: this.$t('sidebar.dashboard'),
             role: ['admin', 'user'],
           }
         ],
-        'Production',
+        this.$t('sidebar.production'),
         [
           {
             to: '/products/list',
-            label: 'Products',
+            label: this.$t('sidebar.products'),
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
         ],
-        'Template',
+        this.$t('sidebar.template'),
         [
           {
             to: '/products/template',
-            label: 'Produktionsabläufe',
+            label: this.$t('sidebar.prodTemplate'),
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
           {
             to: '/products/section/template',
-            label: 'Production Section',
+            label: this.$t('sidebar.prodSection'),
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
 
         ],
-        'Resource',
+        this.$t('sidebar.resource'),
         [
           {
             to: '/users/index',
-            label: 'Users',
+            label: this.$t('sidebar.users'),
             icon: 'account-multiple',
             updateMark: true,
             role: ['admin'],
