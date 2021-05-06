@@ -1,29 +1,15 @@
 <template>
   <div>
-    <title-bar :title-stack="['Admin', 'Users']"/>
+    <title-bar :title-stack="[$t('usersPage.titleBar.main'), $t('usersPage.titleBar.sub1')]"/>
     <hero-bar>
-      Users
+      {{$t('usersPage.heroBar.title')}}
       <router-link to="/users/new" class="button" slot="right">
-        New User
+        {{$t('usersPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <card-component class="has-table has-mobile-sort-spaced" title="Users" icon="account-multiple">
-        <!--<card-toolbar>-->
-          <div class="level">
-            <div class="level-left">
-              <router-link to="/users/new">
-                <b-button size="is-medium" icon-left="plus-circle-outline"  @click="createNewEntryFormActive=true" >
-                  Add
-                </b-button>
-              </router-link>
-            </div>
-            <div class="level-right">
-            </div>
-          </div>
-        <!--</card-toolbar>-->
+      <card-component class="has-table has-mobile-sort-spaced" :title="$t('usersPage.table.title')" icon="account-multiple">
         <modal-trash-box :is-active="isModalActive" :trash-subject="trashSubject" @confirm="trashConfirm" @cancel="trashCancel"/>
-
         <b-table
           :checked-rows.sync="checkedRows"
           :checkable="true"
@@ -34,21 +20,20 @@
           :hoverable="true"
           default-sort="name"
           :data="clients">
-
           <template slot-scope="props">
-            <b-table-column label="Name" field="name" sortable>
+            <b-table-column :label="$t('usersPage.table.name')" field="name" sortable>
               {{ props.row.name }}
             </b-table-column>
-            <b-table-column label="Email" field="email" sortable>
+            <b-table-column :label="$t('usersPage.table.email')" field="email" sortable>
               {{ props.row.email }}
             </b-table-column>
-            <b-table-column label="UUID" field="uuid" sortable>
+            <b-table-column  :label="$t('usersPage.table.uuid')" field="uuid" sortable>
               {{ props.row.uuid }}
             </b-table-column>
-            <b-table-column label="Role" field="uuid" sortable>
+            <b-table-column :label="$t('usersPage.table.role')" field="uuid" sortable>
               {{ props.row.role == 0 ? 'Admin' : 'User' }}
             </b-table-column>
-            <b-table-column label="Created">
+            <b-table-column :label="$t('usersPage.table.createdAt')">
               <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
             </b-table-column>
             <b-table-column custom-key="actions" class="is-actions-cell">
@@ -62,7 +47,6 @@
               </div>
             </b-table-column>
           </template>
-
           <section class="section" slot="empty">
             <div class="content has-text-grey has-text-centered">
               <template v-if="isLoading">
