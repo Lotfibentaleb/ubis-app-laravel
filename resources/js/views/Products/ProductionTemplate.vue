@@ -2,12 +2,12 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      Produktionsabläufe
+      {{$t('productionFlowsPage.heroBar.title')}}
       <p class="subtitle">
-        Übersicht der aktuell aktiven Produktionsabläufe je Artikel
+        {{$t('productionFlowsPage.heroBar.subTitle')}}
       </p>
       <router-link slot="right" to="/products/new-template" class="button">
-        New template
+        {{$t('productionFlowsPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -44,7 +44,7 @@
           </div>
         </b-modal>
         <div class="column">
-          <card-component class="has-table has-mobile-sort-spaced" title="Produktionsablauf je Artikel" icon="package-variant-closed">
+          <card-component class="has-table has-mobile-sort-spaced" :title="$t('productionFlowsPage.table.title')" icon="package-variant-closed">
             <product-template-table @clickedRow="clickedRow" :reload="isReload"/>
           </card-component>
 
@@ -55,7 +55,7 @@
         </div>
         <div v-if="isClickedRow">
           <div  class="column">
-            <card-component title="Produkt Komponenten" class="has-mobile-sort-spaced" icon="lead-pencil">
+            <card-component :title="$t('productionFlowsPage.settingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
               <div class="level">
                 <div class="level-left">
                   <div>
@@ -65,10 +65,10 @@
                   <div><b-button class="btn btn-ok" :disabled="!hasUpdatingData" @click="savePdFlowData">Save</b-button></div>
                 </div>
               </div>
-              <b-field label="Artikel-Nr." message="Ausgewählt Artikel-Nr.">
+              <b-field :label="$t('productionFlowsPage.table.fields.articleNr')" :message="$t('productionFlowsPage.settingPanel.fieldMessage')">
                 <b-input type="text" placeholder="Artikel-Nr." :value="selectedArticleNr" readonly/>
               </b-field>
-              <b-field label="Produktions-Ablauf" message="Produktions-Ablauf" >
+              <b-field :label="$t('productionFlowsPage.table.fields.productionFlow')" :message="$t('productionFlowsPage.table.fields.productionFlow')" >
                 <v-jsoneditor v-model="jsonPdFlow" />
               </b-field>
               <b-field>
@@ -134,8 +134,8 @@
     computed: {
       titleStack() {
         return [
-          'Production',
-          'Template'
+          this.$t('productionFlowsPage.titleBar.main'),
+          this.$t('productionFlowsPage.titleBar.sub1')
         ]
       },
     },

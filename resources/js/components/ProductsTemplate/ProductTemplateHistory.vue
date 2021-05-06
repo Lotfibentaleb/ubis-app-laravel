@@ -20,7 +20,7 @@
             @filters-change="onFilterChange"
             :data="productsHistory">
       <template slot-scope="props">
-        <b-table-column label="Produktions-Ablauf" field="production_flow" centered>
+        <b-table-column :label="$t('productionFlowsPage.table.fields.productionFlow')" field="production_flow" centered>
           <div class="buttons is-right popup-display-btn">
             <div class="position-btn-detail">
               <div v-if="isShowProdDetailModal && selectedIndex == props.row.index" class="prod-detail-popup">
@@ -38,13 +38,13 @@
             </div>
           </div>
         </b-table-column>
-        <b-table-column label="Geändert durch" field="updated_by">
+        <b-table-column :label="$t('productionFlowsPage.table.fields.updatedBy')" field="updated_by">
           {{ props.row.updated_by }}
         </b-table-column>
-        <b-table-column label="Gültig von" field="valid_since">
+        <b-table-column :label="$t('productionFlowsPage.table.fields.validFrom')" field="valid_since">
           {{ props.row.valid_since | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
-        <b-table-column label="Gültig bis" field="valid_till">
+        <b-table-column :label="$t('productionFlowsPage.table.fields.validTill')" field="valid_till">
           {{ props.row.valid_till | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
       </template>
@@ -67,11 +67,11 @@
       <template #footer>
         <div class="has-text-right">
           <b-select v-model="perPage">
-            <option value="10">10 per page</option>
-            <option value="20">20 per page</option>
-            <option value="50">50 per page</option>
-            <option value="100">100 per page</option>
-            <option value="1000">1000 per page</option>
+            <option value="10">10 {{$t('productionFlowsPage.table.perPage')}}</option>
+            <option value="20">20 {{$t('productionFlowsPage.table.perPage')}}</option>
+            <option value="50">50 {{$t('productionFlowsPage.table.perPage')}}</option>
+            <option value="100">100 {{$t('productionFlowsPage.table.perPage')}}</option>
+            <option value="1000">1000 {{$t('productionFlowsPage.table.perPage')}}</option>
           </b-select>
         </div>
       </template>
