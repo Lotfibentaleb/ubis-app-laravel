@@ -48,9 +48,9 @@
             </div>
           </form>
         </card-component>
-        <card-component v-if="hasJsonItem" title="Produktions-Ablauf" icon="package-variant-closed" class="tile is-child">
-          <b-field label="Produktions-Ablauf" message="Produktions-Ablauf" >
-            <v-jsoneditor v-model="jsonData" :plus="false"/>
+        <card-component  v-if="hasJsonItem" :title="$t('createProductionSectionPage.card.data')" icon="package-variant-closed" class="tile is-child">
+          <b-field :label="$t('createProductionSectionPage.card.data')" :message="$t('createProductionSectionPage.card.data')" >
+            <v-jsoneditor v-model="jsonData" :options="options" :plus="false"/>
           </b-field>
           <b-field>
             <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
@@ -121,6 +121,13 @@
           nominal: 0
         },
 
+        options: {
+          mode: 'tree',
+          modes: ['code', 'tree'], // allowed modes
+          enableTransform: false,
+          enableSort: false,
+        },
+
         //json schema
         isValidSchema: true,
         schemaErrorData: {},
@@ -128,7 +135,7 @@
           enumValues: 'must be equal to one of the allowed values',
           hasSeveralTypes: ''
         },
-        schemaData: ProductionSectionSchema,
+        schemaData: ProductionSectionSchema
       }
     },
     computed: {

@@ -56,7 +56,7 @@
         </card-component>
         <card-component v-if="hasJsonItem" title="Produktions-Ablauf" icon="package-variant-closed" class="tile is-child">
           <b-field label="Produktions-Ablauf" message="Produktions-Ablauf" >
-            <v-jsoneditor v-model="jsonData" />
+            <v-jsoneditor v-model="jsonData" :options="options"/>
           </b-field>
           <b-field>
             <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
@@ -140,6 +140,12 @@
         sectionData: {},
 
         //json schema
+        options: {
+          mode: 'tree',
+          modes: ['code', 'tree'], // allowed modes
+          enableTransform: false,
+          enableSort: false,
+        },
         isValidSchema: true,
         schemaErrorData: {},
         errorMessage: {

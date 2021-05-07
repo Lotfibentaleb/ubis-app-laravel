@@ -69,7 +69,7 @@
                 <b-input type="text" placeholder="Artikel-Nr." :value="selectedArticleNr" readonly/>
               </b-field>
               <b-field :label="$t('productionFlowsPage.table.fields.productionFlow')" :message="$t('productionFlowsPage.table.fields.productionFlow')" >
-                <v-jsoneditor v-model="jsonPdFlow" />
+                <v-jsoneditor v-model="jsonPdFlow" :options="options"/>
               </b-field>
               <b-field>
                 <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
@@ -164,6 +164,12 @@
         isReload: false,
 
         //json schema
+        options: {
+          mode: 'tree',
+          modes: ['code', 'tree'], // allowed modes
+          enableTransform: false,
+          enableSort: false,
+        },
         isValidSchema: true,
         schemaErrorData: {},
         errorMessage: {

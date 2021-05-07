@@ -350,6 +350,7 @@ export default {
         "descriptionMessage": "Description with using up to 255 characters",
         "addBasicDataButton": "Add basic data",
         "submitButton": "submit",
+        "data": "Data",
       }
     }
   },
@@ -704,6 +705,7 @@ export default {
         "descriptionMessage": "Beschreibung mit bis zu 255 Zeichen",
         "addBasicDataButton": "Grunddaten hinzufügen",
         "submitButton": "einreichen",
+        "data": "Data",
       }
     }
   }

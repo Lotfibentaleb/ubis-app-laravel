@@ -39,7 +39,7 @@
             </a>
           </div>
         </nav-bar-menu>
-        <b-field class="lang-section">
+        <div class="navbar-item has-divider">
           <b-dropdown
                   :scrollable="isScrollable"
                   :max-height="maxHeight"
@@ -54,15 +54,15 @@
                     v-for="(language, index) in availableLanguages"
                     :key="index"
                     :value="language" aria-role="listitem">
-              <div class="media">
+              <div class="media" style="align-items: center;">
                 <flag :iso="language.flag"/>
-                <div class="media-content">
-                  <h3>{{language.title}}</h3>
+                <div class="media-content" style="margin-left: 10px;">
+                  <h2>{{language.title}}</h2>
                 </div>
               </div>
             </b-dropdown-item>
           </b-dropdown>
-        </b-field>
+        </div>
         <a href="https://justboil.me/bulma-admin-template/one" class="navbar-item has-divider is-desktop-icon-only" title="About">
           <b-icon icon="help-circle-outline" custom-size="default"/>
           <span>About</span>
@@ -112,10 +112,6 @@
           {
             title: "de",
             flag: "de"
-          },
-          {
-            title: "cz",
-            flag: "cz"
           }
         ],
       }
