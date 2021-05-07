@@ -52,7 +52,7 @@
                 <b-input type="textarea" placeholder="Explain how we can help you" v-model="selectedDescription" maxlength="255" required/>
               </b-field>
               <b-field :label="$t('productionSectionPage.settingPanel.configuration')" :message="$t('productionSectionPage.settingPanel.configurationMessage')" >
-                <v-jsoneditor ref="jeditor" v-model="selectedJsonData" :options="options"/>
+                <v-jsoneditor ref="jeditor" v-model="selectedJsonData" :options="options" style="max-width: 500px;"/>
               </b-field>
               <b-field>
                 <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
