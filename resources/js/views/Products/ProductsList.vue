@@ -45,11 +45,10 @@
   import TitleBar from '@/components/TitleBar'
   import HeroBar from '@/components/HeroBar'
   import BField from "buefy/src/components/field/Field";
-  import TableEditPanel from "@/components/TableEditPanel";
 
   export default {
     name: 'products.list',
-    components: {BField, HeroBar, TitleBar, CardComponent, ProductsTable, Notification, TableEditPanel },
+    components: {BField, HeroBar, TitleBar, CardComponent, ProductsTable, Notification },
     computed: {
       titleStack () {
         return [
