@@ -21,10 +21,6 @@
           </line-chart>
         </div>
       </card-component>
-
-      <card-component title="Clients" class="has-table has-mobile-sort-spaced">
-        <clients-table-sample data-url="/clients"/>
-      </card-component>
     </section>
   </div>
 </template>

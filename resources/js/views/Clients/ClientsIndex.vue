@@ -1,23 +1,15 @@
 <template>
   <div>
-    <title-bar :title-stack="['Admin', 'Clients']"/>
+    <title-bar :title-stack="[$t('usersPage.titleBar.main'), $t('usersPage.titleBar.sub1')]"/>
     <hero-bar>
-      Clients
-      <router-link to="/clients/new" class="button" slot="right">
-        New Client
+      {{$t('usersPage.heroBar.title')}}
+      <router-link to="/users/new" class="button" slot="right">
+        {{$t('usersPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <card-component class="has-table has-mobile-sort-spaced" title="Clients" icon="account-multiple">
-        <card-toolbar>
-          <button slot="right" type="button" class="button is-danger is-small has-checked-rows-number" @click="trashModal(null)" :disabled="!checkedRows.length">
-            <b-icon icon="trash-can" custom-size="default"/>
-            <span>Delete</span>
-            <span v-show="!!checkedRows.length">({{ checkedRows.length }})</span>
-          </button>
-        </card-toolbar>
+      <card-component class="has-table has-mobile-sort-spaced" :title="$t('usersPage.table.title')" icon="account-multiple">
         <modal-trash-box :is-active="isModalActive" :trash-subject="trashSubject" @confirm="trashConfirm" @cancel="trashCancel"/>
-
         <b-table
           :checked-rows.sync="checkedRows"
           :checkable="true"
@@ -28,40 +20,33 @@
           :hoverable="true"
           default-sort="name"
           :data="clients">
-
           <template slot-scope="props">
-            <b-table-column class="has-no-head-mobile is-image-cell">
-              <div v-if="props.row.avatar" class="image">
-                <img :src="props.row.avatar" class="is-rounded">
-              </div>
-            </b-table-column>
-            <b-table-column label="Name" field="name" sortable>
+            <b-table-column :label="$t('usersPage.table.name')" field="name" sortable>
               {{ props.row.name }}
             </b-table-column>
-            <b-table-column label="Company" field="company" sortable>
-              {{ props.row.company }}
+            <b-table-column :label="$t('usersPage.table.email')" field="email" sortable>
+              {{ props.row.email }}
             </b-table-column>
-            <b-table-column label="City" field="city" sortable>
-              {{ props.row.city }}
+            <b-table-column  :label="$t('usersPage.table.uuid')" field="uuid" sortable>
+              {{ props.row.uuid }}
             </b-table-column>
-            <b-table-column class="is-progress-col" label="Progress" field="progress" sortable>
-              <progress class="progress is-small is-primary" :value="props.row.progress" max="100">{{ props.row.progress }}</progress>
+            <b-table-column :label="$t('usersPage.table.role')" field="uuid" sortable>
+              {{ props.row.role == 0 ? 'Admin' : 'User' }}
             </b-table-column>
-            <b-table-column label="Created">
+            <b-table-column :label="$t('usersPage.table.createdAt')">
               <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
             </b-table-column>
             <b-table-column custom-key="actions" class="is-actions-cell">
               <div class="buttons is-right">
-                <router-link :to="{name:'clients.edit', params: {id: props.row.id}}" class="button is-small is-primary">
+                <router-link :to="{name:'users.edit', params: {id: props.row.id}}" class="button is-small is-primary">
                   <b-icon icon="account-edit" size="is-small"/>
                 </router-link>
-                <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)">
+                <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)" :disabled="!props.row.role">
                   <b-icon icon="trash-can" size="is-small"/>
                 </button>
               </div>
             </b-table-column>
           </template>
-
           <section class="section" slot="empty">
             <div class="content has-text-grey has-text-centered">
               <template v-if="isLoading">
@@ -127,7 +112,7 @@ export default {
     getData () {
       this.isLoading = true
       axios
-        .get('/clients')
+        .get('/users')
         .then(r => {
           this.isLoading = false
           if (r.data && r.data.data) {
@@ -161,10 +146,10 @@ export default {
 
       if (this.trashObject) {
         method = 'delete'
-        url = `/clients/${this.trashObject.id}/destroy`
+        url = `/users/${this.trashObject.id}/destroy`
       } else if (this.checkedRows.length) {
         method = 'post'
-        url = '/clients/destroy'
+        url = '/users/  destroy'
         data = {
           ids: map(this.checkedRows, row => row.id)
         }

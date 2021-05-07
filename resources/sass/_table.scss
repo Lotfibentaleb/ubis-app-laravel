@@ -165,3 +165,20 @@ table.table {
     cursor: pointer;
   }
 }
+
+.json-editor{
+  background: white;
+  border-radius: 7px;
+  .jsoneditor-menu{
+    background: #759BAB;
+    height: 40px;
+  }
+}
+
+.jsoneditor{
+  border-radius: 5px;
+}
+
+.history-table{
+  margin-top: 30px;
+}

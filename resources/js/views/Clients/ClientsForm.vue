@@ -3,8 +3,8 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" to="/clients/index" class="button">
-        Clients
+      <router-link slot="right" to="/users/index" class="button">
+        {{$t('createUserPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -17,20 +17,22 @@
               </b-field>
               <hr>
             </template>
-            <b-field label="Avatar" horizontal>
-              <file-picker @file-id-updated="fileIdUpdated" :current-file="form.avatar_filename"/>
-            </b-field>
-            <hr>
-            <b-field label="Name" message="Client name" horizontal>
+            <b-field :label="$t('createUserPage.card.name')" :message="$t('createUserPage.card.nameMessage')" horizontal>
               <b-input placeholder="e.g. John Doe" v-model="form.name" required />
             </b-field>
-            <b-field label="Company" message="Client's company name" horizontal>
-              <b-input placeholder="e.g. Berton & Steinway" v-model="form.company" required />
+            <b-field :label="$t('createUserPage.card.email')" :message="$t('createUserPage.card.emailMessage')" horizontal>
+              <b-input placeholder="e.g. user@test.com" v-model="form.email" required />
             </b-field>
-            <b-field label="City" message="Client's city" horizontal>
-              <b-input placeholder="e.g. Geoffreyton" v-model="form.city" required />
+            <b-field :label="$t('createUserPage.card.uuid')" :message="$t('createUserPage.card.uuidMessage')" horizontal>
+              <b-input :placeholder="$t('createUserPage.card.uuidPlaceholder')" v-model="form.uuid" readonly/>
             </b-field>
-            <b-field label="Created" horizontal>
+            <b-field :label="$t('createUserPage.card.role')" :message="$t('createUserPage.card.roleMessage')" horizontal>
+              <b-select v-model="form.role">
+                <option value="0">{{$t('createUserPage.titleBar.main')}}</option>
+                <option value="1">{{$t('createUserPage.titleBar.sub1')}}</option>
+              </b-select>
+            </b-field>
+            <b-field v-if="id" :label="$t('createUserPage.card.createdAt')" horizontal>
               <b-datepicker
                 @input="input"
                 v-model="form.created_date"
@@ -38,35 +40,37 @@
                 icon="calendar-today">
               </b-datepicker>
             </b-field>
-            <hr>
-            <b-field label="Progress" horizontal>
-              <b-slider v-model="form.progress"/>
+            <b-field v-if="!id" horizontal>
+              <b-field :label="$t('createUserPage.card.password')" :message="$t('createUserPage.card.passwordMessage')">
+                <b-input type="password" placeholder="" v-model="form.password" required />
+              </b-field>
+              <b-field :label="$t('createUserPage.card.confirmPassword')" :message="$t('createUserPage.card.confirmPasswordMessage')">
+                <b-input type="password" placeholder="" v-model="form.confirm_password" required />
+              </b-field>
             </b-field>
-            <hr>
             <b-field horizontal>
-              <b-button type="is-primary" :loading="isLoading" native-type="submit">Submit</b-button>
+              <b-button type="is-primary" :loading="isLoading" native-type="submit">{{$t('createUserPage.card.submitButton')}}</b-button>
             </b-field>
           </form>
         </card-component>
-        <card-component v-if="isProfileExists" title="Client Profile" icon="account" class="tile is-child">
-          <user-avatar :avatar="item.avatar" :is-current-user="false" class="image has-max-width is-aligned-center"/>
+        <card-component v-if="isProfileExists" title="User Profile" icon="account" class="tile is-child">
           <hr>
-          <b-field label="Name">
+          <b-field :label="$t('createUserPage.card.name')">
             <b-input :value="item.name" custom-class="is-static" readonly/>
           </b-field>
-          <b-field label="Company">
-            <b-input :value="item.company" custom-class="is-static" readonly/>
+          <b-field :label="$t('createUserPage.card.email')">
+            <b-input :value="item.email" custom-class="is-static" readonly/>
           </b-field>
-          <b-field label="City">
-            <b-input :value="item.city" custom-class="is-static" readonly/>
+          <b-field :label="$t('createUserPage.card.uuid')">
+            <b-input :value="item.uuid" custom-class="is-static" readonly/>
           </b-field>
-          <b-field label="Created">
+          <b-field :label="$t('createUserPage.card.role')">
+            <b-input :value="showRole" custom-class="is-static" readonly/>
+          </b-field>
+          <b-field :label="$t('createUserPage.card.createdAt')">
             <b-input :value="item.created" custom-class="is-static" readonly/>
           </b-field>
           <hr>
-          <b-field label="Progress">
-            <progress class="progress is-small is-primary" :value="item.progress" max="100">{{ item.progress }}</progress>
-          </b-field>
         </card-component>
       </tiles>
     </section>
@@ -82,10 +86,11 @@ import CardComponent from '@/components/CardComponent'
 import FilePicker from '@/components/FilePicker'
 import UserAvatar from '@/components/UserAvatar'
 import Notification from '@/components/Notification'
+import BField from "buefy/src/components/field/Field";
 
 export default {
   name: 'ClientForm',
-  components: { UserAvatar, FilePicker, CardComponent, Tiles, HeroBar, TitleBar, Notification },
+  components: {BField, UserAvatar, FilePicker, CardComponent, Tiles, HeroBar, TitleBar, Notification },
   props: {
     id: {
       default: null
@@ -106,12 +111,12 @@ export default {
       if (this.isProfileExists) {
         lastCrumb = this.form.name
       } else {
-        lastCrumb = 'New client'
+        lastCrumb = this.$t('createUserPage.titleBar.sub2')
       }
 
       return [
-        'Admin',
-        'Clients',
+        this.$t('createUserPage.titleBar.main'),
+        this.$t('createUserPage.titleBar.sub1'),
         lastCrumb
       ]
     },
@@ -119,18 +124,25 @@ export default {
       if (this.isProfileExists) {
         return this.form.name
       } else {
-        return 'Create Client'
+        return this.$t('createUserPage.heroBar.title')
       }
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Edit Client'
+        return 'Edit User'
       } else {
-        return 'New Client'
+        return this.$t('createUserPage.card.title')
       }
     },
     isProfileExists () {
       return !!this.item
+    },
+    showRole () {
+      if (this.item.role == 0) {
+          return 'Admin'
+      } else {
+          return 'User'
+      }
     }
   },
   created () {
@@ -141,20 +153,23 @@ export default {
       return {
         id: null,
         name: null,
-        company: null,
-        city: null,
+        email: null,
+        uuid: null,
         created_date: new Date(),
         created_mm_dd_yyyy: null,
         progress: 0,
         avatar: null,
         avatar_filename: null,
-        file_id: null
+        file_id: null,
+        role: 1,
+        password: '',
+        confirm_password: ''
       }
     },
     getData () {
       if (this.id) {
         axios
-          .get(`/clients/${this.id}`)
+          .get(`/users/${this.id}`)
           .then(r => {
             this.form = r.data.data
             this.item = clone(r.data.data)
@@ -182,11 +197,23 @@ export default {
     submit () {
       this.isLoading = true
       let method = 'post'
-      let url = '/clients/store'
+      let url = '/users/create'
 
       if (this.id) {
         method = 'patch'
-        url = `/clients/${this.id}`
+        url = `/users/${this.id}`
+      } else {
+          if (this.form.password != this.form.confirm_password) {
+              this.form.password = ''
+              this.form.confirm_password = ''
+              this.$buefy.snackbar.open({
+                  type: 'is-danger',
+                  message: 'do not match password and confirm password',
+                  queue: false
+              })
+              this.isLoading = false
+              return
+          }
       }
 
       axios({
@@ -197,7 +224,7 @@ export default {
         this.isLoading = false
 
         if (!this.id && r.data.data.id) {
-          this.$router.push({name: 'clients.edit', params: {id: r.data.data.id}})
+          this.$router.push({name: 'users.edit', params: {id: r.data.data.id}})
 
           this.$buefy.snackbar.open({
             message: 'Created',

@@ -12,3 +12,212 @@
     margin: 0 auto;
   }
 }
+
+.section-template-warning-modal {
+  width: 465px;
+  .modal-card-head {
+    background: #759bab;
+    .modal-card-title {
+      color: #ffffff;
+    }
+  }
+}
+
+.section-template-modal {
+  width: 500px;
+  height: 320px;
+  .modal-card-head {
+    background: #759bab;
+    .modal-card-title {
+      color: #ffffff;
+    }
+  }
+}
+
+.modal-section-selector {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.section-selector-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  .section-template-text {
+    font-size: 15px;
+    margin-bottom: 7px;
+  }
+  .section-selector-width {
+    width: 100%;
+    span {
+      width: 100%;
+      select {
+        width: 100%;
+      }
+    }
+  }
+
+}
+
+.section-group-area {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  .section-template-text {
+    font-size: 15px;
+    margin-bottom: 7px;
+  }
+  .section-group-width {
+    width: 100%;
+  }
+
+}
+
+.custom-foot {
+  display: flex;
+  justify-content: flex-end;
+  .btn-ok {
+    width: 100px;
+    background: #888bf1;
+    color: #ffffff;
+  }
+  .btn-cancel {
+    width: 100px;
+  }
+}
+
+table tr.is-selected {
+  background-color: #dcdbdb !important;
+  color: black!important;
+}
+
+.popup-display-btn {
+  justify-content: center!important;
+  .position-btn-detail {
+    position: relative;
+    width: 75px;
+    height: 30px;
+    .btn-detail {
+      width: 100%;
+      height: 100%;
+      border-radius: 3px;
+    }
+  }
+}
+
+.prod-detail-popup {
+  position: absolute;
+  top: 100%;
+  left: 105%;
+  background: #ffffff;
+  width: 550px;
+  height: 230px;
+  z-index: 1500;
+  border: solid 1px #969191;
+  .prod-detail-text>div>textarea {
+    width: 90%;
+    height: 190px!important;
+    min-height: 57px!important;
+    border: 1px solid #ddd;
+    &:hover, &:focus {
+    border: 1px solid #ddd;
+  }
+  }
+  .prod-detail-btn {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 30px;
+    .btn-prod-modal {
+      width: 60px;
+      height: 95%;
+      background: #888bf1;
+      color: #ffffff;
+      margin: 5px;
+    }
+    .btn-prod-modal-cancel {
+      width: 60px;
+      height: 95%;
+      margin: 5px;
+    }
+  }
+}
+
+.prod-update-area {
+  margin: 12px;
+  .prod-update {
+    width: 100px;
+    background: #888bf1;
+    margin-right: 12px;
+    color: #ffffff;
+  }
+  .prod-update-cancel {
+    width: 100px;
+  }
+
+}
+
+.section-template-drop-down {
+  width: 80%;
+  .dropdown-trigger {
+    width: 100%;
+    padding: 0px;
+    button {
+      width: 100%;
+      padding: 0px
+    }
+  }
+  .dropdown-menu {
+    width: 100%;
+    height: 95px;
+    overflow-y: auto;
+  }
+}
+
+.btn-ok {
+  width: 100px;
+  background: #888bf1;
+  color: #ffffff;
+}
+
+.btn-cancel {
+  width: 100px;
+}
+
+.btn-ok-small {
+  width: 70px;
+  background: #888bf1;
+  color: #ffffff;
+}
+
+.btn-cancel-small {
+  width: 70px;
+}
+
+.button.btn.btn-ok:disabled {
+  background: #888bf1;
+}
+
+.section-template-drop-down-for-adding {
+  width: 100%;
+  .dropdown-trigger {
+    width: 100%;
+    padding: 0px;
+    button {
+      width: 100%;
+      padding: 0px
+    }
+  }
+  .dropdown-menu {
+    width: 100%;
+    height: 95px;
+    overflow-y: auto;
+  }
+}
+
+
+
+

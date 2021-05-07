@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use App\Http\Requests\ClientStoreRequest;
 use Illuminate\Http\Request;
+use GuzzleHttp;
+use Illuminate\Support\Facades\Session;
+use Log;
+use Exception;
 
 class ClientsController extends Controller
 {
@@ -15,7 +18,7 @@ class ClientsController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -24,89 +27,194 @@ class ClientsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function index() {
-        $clients = Client::with('file')->get();
 
-        $clients->each(function ($client) {
-            $client->append('avatar');
-        });
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users';
 
-        return response()->json([
-            'data' => $clients
-        ]);
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        try {
+            $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+            $users = json_decode($response->getBody()->getContents());
+            return response()->json(['data' => $users]);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
+        }
     }
 
     /**
      * Get single resource
      *
-     * @param Client $client
+     * @param int $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show( Client $client ) {
-        $client->append('avatar');
-        $client->append('avatar_filename');
-        $client->append('created_mm_dd_yyyy');
+    public function show($id) {
 
-        return response()->json([
-            'data' => $client
-        ]);
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users/'.$id;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        try {
+            $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+            $user = json_decode($response->getBody()->getContents());
+            return response()->json(['data' => $user]);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
+        }
     }
 
     /**
      * Update single resource
      *
-     * @param ClientStoreRequest $request
-     * @param Client $client
-     *
+     * @param Request $request
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update( ClientStoreRequest $request, Client $client ) {
-        $client->fill($request->all());
-        $client->save();
+    public function update(Request $request, $id) {
 
-        $client->append('avatar');
+        $paramData = $request->all();
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users/'.$id;
 
-        return response()->json([
-            'status' => true,
-            'data' => $client
-        ]);
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => $paramData
+        ];
+
+        try {
+            $response = $client->request('put', $baseUrl.$requestString, $options);   // call API
+            $resData = json_decode($response->getBody()->getContents());
+            return response()->json([
+                'data' => $resData
+            ]);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
+        }
     }
 
     /**
-     * Store new resource
+     * Create new resource
      *
-     * @param ClientStoreRequest $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store( ClientStoreRequest $request ) {
-        $client = new Client;
-        $client->fill($request->all());
-        $client->save();
+    public function create(Request $request) {
 
-        return response()->json([
-            'status' => true,
-            'created' => true,
-            'data' => [
-                'id' => $client->id
-            ]
-        ]);
+        $paramData = $request->all();
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users/create';
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => $paramData
+        ];
+
+        try {
+            $response = $client->request('post', $baseUrl.$requestString, $options);   // call API
+            $resData = json_decode($response->getBody()->getContents());
+            return response()->json(['data' => $resData]);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
+        }
+
     }
 
     /**
      * Destroy single resource
      *
-     * @param Client $client
+     * @param int $id
      *
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy( Client $client ) {
-        $client->delete();
+    public function destroy($id) {
 
-        return response()->json([
-            'status' => true
-        ]);
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'users/'.$id;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+        ];
+
+        try {
+            $response = $client->request('delete', $baseUrl.$requestString, $options);   // call API
+            $resData = json_decode($response->getBody()->getContents());
+            return response()->json($resData);
+        } catch (Exception $e) {
+            $statusCode = $e->getResponse()->getStatusCode();
+            return response()->json(['message' => $e->getMessage()], $statusCode);
+        }
     }
 
     /**

@@ -17,55 +17,51 @@
     </div>
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive}">
       <div class="navbar-end">
-        <nav-bar-menu class="has-divider">
-          <b-icon icon="menu" custom-size="default"/>
-          <span>New Sample Menu</span>
-          <div slot="dropdown" class="navbar-dropdown">
-            <router-link to="/profile" class="navbar-item" exact-active-class="is-active">
-              <b-icon icon="account" custom-size="default"/>
-              <span>My Profile</span>
-            </router-link>
-            <a class="navbar-item">
-              <b-icon icon="settings" custom-size="default"/>
-              <span>Settings</span>
-            </a>
-            <a class="navbar-item">
-              <b-icon icon="email" custom-size="default"/>
-              <span>Messages</span>
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item">
-              <b-icon icon="logout" custom-size="default"/>
-              <span>Log Out</span>
-            </a>
-          </div>
-        </nav-bar-menu>
         <nav-bar-menu class="has-divider has-user-avatar">
-          <user-avatar/>
           <div class="is-user-name">
             <span>{{ userName }}</span>
           </div>
 
           <div slot="dropdown" class="navbar-dropdown">
-            <a class="navbar-item">
+            <a class="navbar-item" href="/#/profile">
               <b-icon icon="account" custom-size="default"></b-icon>
-              <span>My Profile</span>
+              <span>{{$t('topbar.profile')}}</span>
             </a>
             <a class="navbar-item">
               <b-icon icon="settings" custom-size="default"></b-icon>
-              <span>Settings</span>
-            </a>
-            <a class="navbar-item">
-              <b-icon icon="email" custom-size="default"></b-icon>
-              <span>Messages</span>
+              <span>{{$t('topbar.settings')}}</span>
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item">
+            <a class="navbar-item" @click="logout">
               <b-icon icon="logout" custom-size="default"></b-icon>
-              <span>Log Out</span>
+              <span>{{$t('topbar.logout')}}</span>
             </a>
           </div>
         </nav-bar-menu>
+        <div class="navbar-item has-divider">
+          <b-dropdown
+                  :scrollable="isScrollable"
+                  :max-height="maxHeight"
+                  v-model="currentLang"
+                  aria-role="list"
+          >
+            <template #trigger>
+              <flag :iso="currentLang.flag"/>
+            </template>
+
+            <b-dropdown-item
+                    v-for="(language, index) in availableLanguages"
+                    :key="index"
+                    :value="language" aria-role="listitem">
+              <div class="media" style="align-items: center;">
+                <flag :iso="language.flag"/>
+                <div class="media-content" style="margin-left: 10px;">
+                  <h2>{{language.title}}</h2>
+                </div>
+              </div>
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
         <a href="https://justboil.me/bulma-admin-template/one" class="navbar-item has-divider is-desktop-icon-only" title="About">
           <b-icon icon="help-circle-outline" custom-size="default"/>
           <span>About</span>
@@ -80,44 +76,68 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import NavBarMenu from '@/components/NavBarMenu'
-import UserAvatar from '@/components/UserAvatar'
+  import { mapState } from 'vuex'
+  import NavBarMenu from '@/components/NavBarMenu'
+  import UserAvatar from '@/components/UserAvatar'
+  import BField from "buefy/src/components/field/Field";
 
-export default {
-  name: 'NavBar',
-  components: {
-    UserAvatar,
-    NavBarMenu
-  },
-  data () {
-    return {
-      isMenuNavBarActive: false
-    }
-  },
-  computed: {
-    menuNavBarToggleIcon () {
-      return (this.isMenuNavBarActive) ? 'close' : 'dots-vertical'
+  export default {
+    name: 'NavBar',
+    components: {
+      BField,
+      UserAvatar,
+      NavBarMenu,
     },
-    menuToggleMobileIcon () {
-      return this.isAsideMobileExpanded ? 'backburger' : 'forwardburger'
+    watch: {
+      currentLang: function() {
+        this.$root.$i18n.locale = this.currentLang.title
+      }
     },
-    ...mapState([
-      'isNavBarVisible',
-      'isAsideMobileExpanded',
-      'userName'
-    ])
-  },
-  methods: {
-    menuToggleMobile () {
-      this.$store.commit('asideMobileStateToggle')
+    data () {
+      return {
+        isMenuNavBarActive: false,
+        initLang: {
+          title: "en",
+          flag: "gb"
+        },
+        isScrollable: false,
+        maxHeight: 200,
+        currentLang: { title: 'en', flag: 'gb' },
+        availableLanguages: [
+          {
+            title: "en",
+            flag: "gb"
+          },
+          {
+            title: "de",
+            flag: "de"
+          }
+        ],
+      }
     },
-    menuNavBarToggle () {
-      this.isMenuNavBarActive = (!this.isMenuNavBarActive)
+    computed: {
+      menuNavBarToggleIcon () {
+        return (this.isMenuNavBarActive) ? 'close' : 'dots-vertical'
+      },
+      menuToggleMobileIcon () {
+        return this.isAsideMobileExpanded ? 'backburger' : 'forwardburger'
+      },
+      ...mapState([
+        'isNavBarVisible',
+        'isAsideMobileExpanded',
+        'userName'
+      ])
     },
-    logout () {
-      document.getElementById('logout-form').submit()
+    methods: {
+      menuToggleMobile () {
+        this.$store.commit('asideMobileStateToggle')
+      },
+      menuNavBarToggle () {
+        this.isMenuNavBarActive = (!this.isMenuNavBarActive)
+      },
+      logout () {
+        document.getElementById('logout-form').submit()
+      }
     }
   }
-}
 </script>

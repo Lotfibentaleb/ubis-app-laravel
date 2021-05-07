@@ -59,6 +59,12 @@ pwd: geheim
 	- *php artisan queue:restart*
 	- *php artisan cache:clear*
 
+## tranlation updating
+
+- refer to vue-i18n-locales.generated.js file in resources/js directory
+- execute *php artisan vue-i18n:generate* to overwrite the vue-i18n-locales.generated.js
+  - this command refers to the php files in lang directory
+
 **[Online description laravel deploy](https://laravel.com/docs/7.x/deployment)**
 
 **[Online description setting up laravel/nginx](https://laraveldaily.com/how-to-deploy-laravel-projects-to-live-server-the-ultimate-guide/)**

@@ -24,15 +24,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 /*
- * Clients management
+ * Users management
  * */
-Route::prefix('/clients')->group(function () {
+Route::prefix('/users')->group(function () {
     Route::get('', 'ClientsController@index');
-    Route::get('{client}', 'ClientsController@show');
-    Route::post('store', 'ClientsController@store');
-    Route::patch('{client}', 'ClientsController@update');
+    Route::get('{userId}', 'ClientsController@show');
+    Route::post('create', 'ClientsController@create');
+    Route::patch('{userId}', 'ClientsController@update');
     Route::post('destroy', 'ClientsController@destroyMass');
-    Route::delete('{client}/destroy', 'ClientsController@destroy');
+    Route::delete('{userId}/destroy', 'ClientsController@destroy');
 });
 
 /*
@@ -89,6 +89,14 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('', 'DashboardController@index');
 });
 
+
 Route::get('/dashboardInfo', 'DashboardController@dashboardInfo');
 
 Route::get('/cleanup', [App\Http\Controllers\CleanupController::class, 'index']);
+
+Route::get('production_flow/history', 'ProductionFlowController@indexHistory');
+Route::apiResource('production_flow', 'ProductionFlowController');
+
+Route::get('production_section/history', 'ProductionSectionController@indexHistory');
+Route::get('production_section/form_support', 'ProductionSectionController@showSupportValues');
+Route::apiResource('production_section', 'ProductionSectionController');

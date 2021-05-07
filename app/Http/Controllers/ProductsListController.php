@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use GuzzleHttp;
 use Validator;
 use Log;
-use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExcelCollection;
+use Illuminate\Support\Facades\Session;
 
 
 class ProductsListController extends Controller
@@ -35,9 +33,17 @@ class ProductsListController extends Controller
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
         $requestString = 'products'. $passOnQuery;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
         $options = [
             'headers' =>[
-            'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+            'Authorization' => 'Bearer ' .$bearer_token,
             'Accept'        => 'application/json',
             'Content-Type' => 'application/json'
             ]
@@ -65,9 +71,17 @@ class ProductsListController extends Controller
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
         $requestString = 'excelProducts'.$passOnQuery;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
         $options = [
             'headers' =>[
-            'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+            'Authorization' => 'Bearer ' .$bearer_token,
             'Accept'        => 'application/json',
             'Content-Type' => 'application/json'
             ]
@@ -115,9 +129,17 @@ class ProductsListController extends Controller
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
         $requestString = 'excelProducts'.$passOnQuery;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
         $options = [
             'headers' =>[
-                'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+                'Authorization' => 'Bearer ' .$bearer_token,
                 'Accept'        => 'application/json',
                 'Content-Type' => 'application/json'
             ]
@@ -171,9 +193,17 @@ class ProductsListController extends Controller
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
         $requestString = 'products/'.$id;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
         $options = [
             'headers' =>[
-                'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+                'Authorization' => 'Bearer ' .$bearer_token,
                 'Accept'        => 'application/json',
                 'Content-Type' => 'application/json'
             ],

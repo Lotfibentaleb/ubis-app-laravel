@@ -28,18 +28,18 @@ export default new Router({
       component: () => import('./views/Profile.vue')
     },
     {
-      path: '/clients/index',
-      name: 'clients.index',
+      path: '/users/index',
+      name: 'users.index',
       component: () => import('./views/Clients/ClientsIndex.vue'),
     },
     {
-      path: '/clients/new',
-      name: 'clients.new',
+      path: '/users/new',
+      name: 'users.new',
       component: () => import('./views/Clients/ClientsForm.vue'),
     },
     {
-      path: '/clients/:id',
-      name: 'clients.edit',
+      path: '/users/:id',
+      name: 'users.edit',
       component: () => import('./views/Clients/ClientsForm.vue'),
       props: true
     },
@@ -48,7 +48,26 @@ export default new Router({
       name: 'products.list',
       component: () => import('./views/Products/ProductsList.vue'),
     },
-
+    {
+      path: '/products/template',
+      name: 'products.template',
+      component: () => import('./views/Products/ProductionTemplate.vue'),
+    },
+    {
+      path: '/products/new-template',
+      name: 'products.new-template',
+      component: () => import('./views/Products/ProductionTemplateForm.vue'),
+    },
+    {
+      path: '/products/section/template',
+      name: 'products.section_template',
+      component: () => import('./views/Products/ProductionSectionTemplate.vue'),
+    },
+    {
+      path: '/products/section/new-template',
+      name: 'products.section_template.new',
+      component: () => import('./views/Products/ProductionSectionTemplateForm.vue'),
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

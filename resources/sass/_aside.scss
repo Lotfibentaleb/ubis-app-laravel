@@ -159,3 +159,18 @@ aside.aside {
     }
   }
 }
+
+.no-aside-right {
+  width: 100%;
+  transition: 1s;
+}
+
+.has-aside-right-edit-panel {
+  width: calc(100% - 250px)!important;
+  transition: 1s;
+}
+
+.aside-right-edit-panel-transition {
+  right: 0px!important;
+  transition: 1s;
+}

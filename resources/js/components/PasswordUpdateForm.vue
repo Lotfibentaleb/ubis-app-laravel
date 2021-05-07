@@ -59,6 +59,17 @@ export default {
   },
   methods: {
     submit () {
+      if (this.form.password != this.form.password_confirmation) {
+          this.$buefy.toast.open({
+              message: 'Do not match the new password and confirm password',
+              type: 'is-danger',
+              queue: false,
+              duration: 3000
+          })
+          this.form.password = null
+          this.form.password_confirmation = null
+          return
+      }
       this.isLoading = true
       this.errors = {}
       axios
@@ -68,16 +79,23 @@ export default {
           this.form.password_current = null
           this.form.password = null
           this.form.password_confirmation = null
-
-          this.$buefy.snackbar.open({
-            message: 'Password updated',
-            duration: 1000,
-            queue: false
-          })
+          if (!r.data.data.status) {
+              this.$buefy.toast.open({
+                  message: r.data.data.message,
+                  type: 'is-danger',
+                  queue: false,
+                  duration: 3000
+              })
+          } else {
+              this.$buefy.snackbar.open({
+                  message: 'Password updated',
+                  duration: 1000,
+                  queue: false
+              })
+          }
         })
         .catch(err => {
           this.isLoading = false
-
           if (err.response.data.errors) {
             this.errors = err.response.data.errors
           } else {
