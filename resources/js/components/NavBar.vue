@@ -18,7 +18,6 @@
     <div class="navbar-menu fadeIn animated faster" :class="{'is-active':isMenuNavBarActive}">
       <div class="navbar-end">
         <nav-bar-menu class="has-divider has-user-avatar">
-          <user-avatar/>
           <div class="is-user-name">
             <span>{{ userName }}</span>
           </div>
