@@ -172,6 +172,7 @@ export default {
       },
       "productsSettingPanel": {
         "title": "Production-Order-Nr.",
+        "label": "Production-Order-Nr.",
         "fieldMessage": "Production-Order-Nr.",
         "saveButton": "Save",
         "closeButton": "Close",
@@ -259,6 +260,11 @@ export default {
         "articleNrMessage": "Article-Nr",
         "addBasicDataButton": "Add Production Flow",
         "submitButton": "submit"
+      },
+      "productionFlowCard": {
+        "title": "Production-Flow",
+        "jsonEditor": "Production-Flow",
+        "jsonEditorMessage": "Production-Flow",
       },
       "productionFlowModal": {
         "title": "Production flow",
@@ -527,6 +533,7 @@ export default {
       },
       "productsSettingPanel": {
         "title": "Produktionsauftrags Nummer",
+        "label": "Produktionsauftrags Nummer",
         "fieldMessage": "Produktionsauftrags Nummer",
         "saveButton": "Save",
         "closeButton": "Close",
@@ -613,7 +620,12 @@ export default {
         "articleNr": "Artikel-Nr.",
         "articleNrMessage": "Artikel-Nr.",
         "addBasicDataButton": "Hinzufügen Fertigungsabläufe",
-        "submitButton": "einreichen"
+        "submitButton": "einreichen",
+      },
+      "productionFlowCard": {
+        "title": "Produktions-Ablauf",
+        "jsonEditor": "Produktions-Ablauf",
+        "jsonEditorMessage": "Produktions-Ablauf",
       },
       "productionFlowModal": {
         "title": "Fertigungsabläufe",

@@ -18,16 +18,16 @@
           </card-component>
         </div>
         <div v-if="isClickedRow" class="column">
-          <card-component title="Product Order Nr" class="has-mobile-sort-spaced" icon="lead-pencil">
-            <b-field label="Product Order Nr" message="selected product order nr">
+          <card-component :title="$t('productsPage.productsSettingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
+            <b-field :label="$t('productsPage.productsSettingPanel.label')" :message="$t('productsPage.productsSettingPanel.fieldMessage')">
               <b-input type="text" v-model="selectedPdOrNr" />
             </b-field>
             <div class="level">
               <div class="level-left">
-                <div><b-button class="btn btn-ok-small" @click="onSettingSave">Save</b-button></div>
+                <div><b-button class="btn btn-ok-small" @click="onSettingSave">{{$t('productsPage.productsSettingPanel.saveButton')}}</b-button></div>
               </div>
               <div class="level-right">
-                <div><b-button class="btn btn-cancel-small" @click="onSettingPanelClose">Close</b-button></div>
+                <div><b-button class="btn btn-cancel-small" @click="onSettingPanelClose">{{$t('productsPage.productsSettingPanel.closeButton')}}</b-button></div>
               </div>
             </div>
           </card-component>

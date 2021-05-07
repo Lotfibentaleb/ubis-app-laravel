@@ -54,8 +54,8 @@
             </div>
           </form>
         </card-component>
-        <card-component v-if="hasJsonItem" title="Produktions-Ablauf" icon="package-variant-closed" class="tile is-child">
-          <b-field label="Produktions-Ablauf" message="Produktions-Ablauf" >
+        <card-component v-if="hasJsonItem" :title="$t('createProductionTemplatePage.productionFlowCard.title')" icon="package-variant-closed" class="tile is-child">
+          <b-field :label="$t('createProductionTemplatePage.productionFlowCard.jsonEditor')" :message="$t('createProductionTemplatePage.productionFlowCard.jsonEditorMessage')" >
             <v-jsoneditor ref="jeditor" v-model="jsonData" :options="options"/>
           </b-field>
           <b-field>
