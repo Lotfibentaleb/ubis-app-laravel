@@ -52,7 +52,7 @@
                 <b-input type="textarea" placeholder="Explain how we can help you" v-model="selectedDescription" maxlength="255" required/>
               </b-field>
               <b-field :label="$t('productionSectionPage.settingPanel.configuration')" :message="$t('productionSectionPage.settingPanel.configurationMessage')" >
-                <v-jsoneditor v-model="selectedJsonData" :options="options"/>
+                <v-jsoneditor ref="jeditor" v-model="selectedJsonData" :options="options"/>
               </b-field>
               <b-field>
                 <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
@@ -174,6 +174,8 @@
           this.selectedName = data.name
           this.jsonSecTempData = data
           this.prevJsonSecTempData =this.jsonSecTempData
+
+          setTimeout(function(){ this.$refs.jeditor.editor.expandAll(); }.bind(this), 50);
 
           this.selectedRenderHint = this.jsonSecTempData.render_hint
           this.selectedGroup = this.jsonSecTempData.group

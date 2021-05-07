@@ -56,7 +56,7 @@
         </card-component>
         <card-component v-if="hasJsonItem" title="Produktions-Ablauf" icon="package-variant-closed" class="tile is-child">
           <b-field label="Produktions-Ablauf" message="Produktions-Ablauf" >
-            <v-jsoneditor v-model="jsonData" :options="options"/>
+            <v-jsoneditor ref="jeditor" v-model="jsonData" :options="options"/>
           </b-field>
           <b-field>
             <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
@@ -181,6 +181,7 @@
         this.isJsonModal = false
         this.jsonData.push(data)
         this.isJsonEmpty = false
+        setTimeout(function(){ this.$refs.jeditor.editor.expandAll(); }.bind(this), 50);
       },
       cancelJsonAdd() {
         this.isJsonModal = false
