@@ -48,7 +48,7 @@
             <product-template-table @clickedRow="clickedRow" :reload="isReload"/>
           </card-component>
 
-          <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" title="Änderungsverlauf" icon="package-variant-closed">
+          <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" :title="$t('productionFlowsPage.table.historyTitle')" icon="package-variant-closed">
             <card-toolbar />
             <product-template-history data-url="/production_flow/history" :article_nr="selectedArticleNr" :checkable="true" />
           </card-component>
