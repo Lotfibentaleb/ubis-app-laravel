@@ -100,8 +100,27 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+        ];
+        $requestString = 'auth/logout';
+        $callUrl = $baseUrl.$requestString;
+        $response = $client->request('POST', $callUrl, $options );
         Auth::logout();
         Session::forget('bearer_token');
         return Session::has('bearer_token')
