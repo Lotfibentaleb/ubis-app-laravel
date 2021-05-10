@@ -59,7 +59,7 @@ pwd: geheim
 	- *php artisan queue:restart*
 	- *php artisan cache:clear*
 
-## tranlation updating
+## for updating translation
 
 - refer to vue-i18n-locales.generated.js file in resources/js directory
 - execute *php artisan vue-i18n:generate* to overwrite the vue-i18n-locales.generated.js
