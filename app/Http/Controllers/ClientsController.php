@@ -52,6 +52,9 @@ class ClientsController extends Controller
             $users = json_decode($response->getBody()->getContents());
             return response()->json(['data' => $users]);
         } catch (Exception $e) {
+            if ($e->getCode() == 401) {
+                Session::forget('bearer_token');
+            }
             $statusCode = $e->getResponse()->getStatusCode();
             return response()->json(['message' => $e->getMessage()], $statusCode);
         }

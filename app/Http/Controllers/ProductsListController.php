@@ -9,6 +9,7 @@ use Log;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExcelCollection;
 use Illuminate\Support\Facades\Session;
+use Throwable;
 
 
 class ProductsListController extends Controller
@@ -38,7 +39,7 @@ class ProductsListController extends Controller
         if (Session::has('bearer_token')) {
             $bearer_token = Session::get('bearer_token');
         } else {
-            return redirect('login');
+            return response(['code' => 401, 'error' =>  'Unauthorized'], 401);
         }
 
         $options = [
@@ -49,7 +50,15 @@ class ProductsListController extends Controller
             ]
         ];
 
-        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+        try{
+            $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+        }catch (Throwable $e){
+            if ($e->getCode() == '401') {
+                Session::forget('bearer_token');
+            }
+            return response(['code' => $e->getCode(), 'error' =>  'No product found.'], $e->getCode());
+        }
+
     	$statusCode = $response->getStatusCode();
         $body = json_decode($response->getBody()->getContents());
 
