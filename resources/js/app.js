@@ -13,6 +13,17 @@ import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
 import FlagIcon from 'vue-flag-icon'
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+// internal icons
+import { faCheck, faCheckCircle, faInfoCircle, faExclamationTriangle, faExclamationCircle,
+  faArrowUp, faAngleRight, faAngleLeft, faAngleDown,
+  faEye, faEyeSlash, faCaretDown, faCaretUp, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(faCheck, faCheckCircle, faInfoCircle, faExclamationTriangle, faExclamationCircle,
+    faArrowUp, faAngleRight, faAngleLeft, faAngleDown,
+    faEye, faEyeSlash, faCaretDown, faCaretUp, faUpload);
+
 Vue.use(FlagIcon);
 Vue.use(VueInternationalization);
 
@@ -40,6 +51,8 @@ Vue.config.productionTip = false
 /* These components are used in recursion algorithm */
 Vue.component('AsideMenuList', AsideMenuList)
 
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 Vue.use(require('vue-moment'));
 /* Main component */
 Vue.component('App', App)
@@ -51,8 +64,8 @@ Vue.use(Buefy)
 
 new Vue({
   i18n,
-  store,
   router,
+  store,
   render: h => h(App),
   mounted() {
     document.documentElement.classList.remove('has-spinner-active')
