@@ -9,12 +9,12 @@
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
-        <card-component title="Developer Access" icon="account" class="tile is-child">
+        <card-component title="Developer Access" icon="key" class="tile is-child">
           <developer-access-tokens />
         </card-component>
       </tiles>
       <tiles>
-        <card-component title="Api Access" icon="account" class="tile is-child">
+        <card-component title="Api Access" icon="key" class="tile is-child">
           <api-access-tokens />
         </card-component>
       </tiles>

@@ -23,7 +23,7 @@
         </card-component>
       </tiles>
       <password-update-form/>
-      <card-component title="Developer Access Token" icon="account" class="tile is-child">
+      <card-component title="Developer Access Token" icon="key" class="tile is-child">
         <developer-access-token-form />
       </card-component>
     </section>
