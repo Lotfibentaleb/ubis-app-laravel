@@ -64,13 +64,6 @@
             </button>
           </div>
         </b-table-column>
-        <!--<b-table-column custom-key="actions" class="is-actions-cell">-->
-          <!--<div class="buttons is-right">-->
-            <!--<button class="button is-small is-success" type="button" @click.prevent="showEditPanel(props.row)">-->
-              <!--<b-icon icon="google-photos" size="is-small"/>-->
-            <!--</button>-->
-          <!--</div>-->
-        <!--</b-table-column>-->
       </template>
 
       <section class="section" slot="empty">

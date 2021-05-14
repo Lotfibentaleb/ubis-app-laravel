@@ -44,51 +44,51 @@
     methods: {
       getToken() {
         axios.get('/tokens/getDeveloperToken')
-            .then(r => {
-              if(r.data && r.data.data) {
-                this.hasToken = true
-                this.data[0].created_at = r.data.data.created_at
-              } else {
-                this.data[0].developer_access_token = ''
-              }
-            })
-            .catch(err => {
-              if (err.response.status == 401) {
-                document.getElementById('logout-form').submit()
-              } else {
-                this.isLoading = false
-                this.$buefy.toast.open({
-                  message: `Error: ${err.message}`,
-                  type: 'is-danger',
-                  queue: false
-                })
-              }
-            })
+          .then(r => {
+            if(r.data && r.data.data) {
+              this.hasToken = true
+              this.data[0].created_at = r.data.data.created_at
+            } else {
+              this.data[0].developer_access_token = ''
+            }
+          })
+          .catch(err => {
+            if (err.response.status == 401) {
+              document.getElementById('logout-form').submit()
+            } else {
+              this.isLoading = false
+              this.$buefy.toast.open({
+                message: `Error: ${err.message}`,
+                type: 'is-danger',
+                queue: false
+              })
+            }
+          })
       },
       generateToken() {
         axios.get('/tokens/createDeveloperToken')
-            .then(r => {
-              this.hasToken = true
-              this.data[0].developer_access_token = r.data['developer-access']
-              this.data[0].created_at = r.data.data.created_at
+          .then(r => {
+            this.hasToken = true
+            this.data[0].developer_access_token = r.data['developer-access']
+            this.data[0].created_at = r.data.data.created_at
+            this.$buefy.toast.open({
+              message: 'This is the only time you will see this token, make sure to copy it now.',
+              type: 'is-success',
+              queue: false
+            })
+          })
+          .catch(err => {
+            if (err.response.status == 401) {
+              document.getElementById('logout-form').submit()
+            } else {
+              this.isLoading = false
               this.$buefy.toast.open({
-                message: 'This is the only time you will see this token, make sure to copy it now.',
-                type: 'is-success',
+                message: `Error: ${err.message}`,
+                type: 'is-danger',
                 queue: false
               })
-            })
-            .catch(err => {
-              if (err.response.status == 401) {
-                document.getElementById('logout-form').submit()
-              } else {
-                this.isLoading = false
-                this.$buefy.toast.open({
-                  message: `Error: ${err.message}`,
-                  type: 'is-danger',
-                  queue: false
-                })
-              }
-            })
+            }
+          })
       },
       resetToken() {
         axios.get('/tokens/resetDeveloperToken')
