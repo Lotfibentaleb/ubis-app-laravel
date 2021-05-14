@@ -66,6 +66,13 @@ export default {
             updateMark: true,
             role: ['admin'],
           },
+          {
+            to: '/tokens',
+            label: 'Access Tokens',
+            icon: 'account-multiple',
+            updateMark: true,
+            role: ['admin'],
+          },
         ]
       ]
     }
