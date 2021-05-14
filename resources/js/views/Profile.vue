@@ -23,33 +23,37 @@
         </card-component>
       </tiles>
       <password-update-form/>
+      <card-component title="Developer Access Token" icon="account" class="tile is-child">
+        <developer-access-token-form />
+      </card-component>
     </section>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import CardComponent from '@/components/CardComponent'
-import TitleBar from '@/components/TitleBar'
-import HeroBar from '@/components/HeroBar'
-import ProfileUpdateForm from '@/components/ProfileUpdateForm'
-import PasswordUpdateForm from '@/components/PasswordUpdateForm'
-import Tiles from '@/components/Tiles'
-import UserAvatar from '@/components/UserAvatar'
-export default {
-  name: 'Profile',
-  components: { UserAvatar, Tiles, PasswordUpdateForm, ProfileUpdateForm, HeroBar, TitleBar, CardComponent },
-  computed: {
-    titleStack () {
-      return [
-        'Admin',
-        'Profile'
-      ]
-    },
-    ...mapState([
-      'userName',
-      'userEmail'
-    ])
+  import { mapState } from 'vuex'
+  import CardComponent from '@/components/CardComponent'
+  import TitleBar from '@/components/TitleBar'
+  import HeroBar from '@/components/HeroBar'
+  import ProfileUpdateForm from '@/components/ProfileUpdateForm'
+  import PasswordUpdateForm from '@/components/PasswordUpdateForm'
+  import DeveloperAccessTokenForm from '@/components/Tokens/DeveloperAccessTokenForm'
+  import Tiles from '@/components/Tiles'
+  import UserAvatar from '@/components/UserAvatar'
+  export default {
+    name: 'Profile',
+    components: { UserAvatar, Tiles, PasswordUpdateForm, ProfileUpdateForm, DeveloperAccessTokenForm,HeroBar, TitleBar, CardComponent },
+    computed: {
+      titleStack () {
+        return [
+          'Admin',
+          'Profile'
+        ]
+      },
+      ...mapState([
+        'userName',
+        'userEmail'
+      ])
+    }
   }
-}
 </script>

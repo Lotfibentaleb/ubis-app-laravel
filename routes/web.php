@@ -100,3 +100,12 @@ Route::apiResource('production_flow', 'ProductionFlowController');
 Route::get('production_section/history', 'ProductionSectionController@indexHistory');
 Route::get('production_section/form_support', 'ProductionSectionController@showSupportValues');
 Route::apiResource('production_section', 'ProductionSectionController');
+
+Route::prefix('/tokens')->group(function () {
+    Route::get('/createDeveloperToken', 'TokenController@createDeveloperAccessToken');
+    Route::get('/resetDeveloperToken', 'TokenController@resetDeveloperAccessToken');
+    Route::get('/getDeveloperToken', 'TokenController@getDeveloperAccessToken');
+    Route::get('/createApiToken', 'TokenController@createApiAccessToken');
+    Route::get('/getDeveloperTokens', 'TokenController@getDeveloperAccessTokens');
+    Route::get('/getApiTokens', 'TokenController@getApiAccessTokens');
+});
