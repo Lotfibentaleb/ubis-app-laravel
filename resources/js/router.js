@@ -68,6 +68,11 @@ export default new Router({
       name: 'products.section_template.new',
       component: () => import('./views/Products/ProductionSectionTemplateForm.vue'),
     },
+    {
+      path: '/tokens',
+      name: 'tokens.index',
+      component: () => import('./views/Tokens/TokensIndex.vue'),
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

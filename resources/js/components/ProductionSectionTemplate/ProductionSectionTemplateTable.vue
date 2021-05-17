@@ -171,12 +171,16 @@
               }
             })
             .catch( err => {
-              this.isLoading = false
-              this.$buefy.toast.open({
-                message: `Error: ${err.message}`,
-                type: 'is-danger',
-                queue: false
-              })
+              if (err.response.status == 401) {
+                document.getElementById('logout-form').submit()
+              } else {
+                this.isLoading = false
+                this.$buefy.toast.open({
+                  message: `Error: ${err.message}`,
+                  type: 'is-danger',
+                  queue: false
+                })
+              }
             })
       }
     }

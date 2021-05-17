@@ -56,10 +56,14 @@ class ProductionFlowController extends Controller
         }catch(Throwable $e){
             // fail
             $message = 'Unknown Error';
-            switch($e->getCode()){
-                case 404: $message = 'Not found';break;
-                case 422: $message = 'Wrong parameter';break;
-                case 409: $message = 'Create/store failed';break;
+            if ($e->getCode() == 401) {
+                Session::forget('bearer_token');
+            } else {
+                switch($e->getCode()){
+                    case 404: $message = 'Not found';break;
+                    case 422: $message = 'Wrong parameter';break;
+                    case 409: $message = 'Create/store failed';break;
+                }
             }
             return response(['code' => $e->getCode(), 'error' =>  'Backend call failed.'.$e->getMessage()], $e->getCode());
         }

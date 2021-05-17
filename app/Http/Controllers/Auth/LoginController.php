@@ -108,7 +108,9 @@ class LoginController extends Controller
         if (Session::has('bearer_token')) {
             $bearer_token = Session::get('bearer_token');
         } else {
-            return redirect('login');
+            Auth::logout();
+            Session::forget('bearer_token');
+            return redirect('/');
         }
 
         $options = [
