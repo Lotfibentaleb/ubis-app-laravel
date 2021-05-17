@@ -69,8 +69,7 @@ export default {
           {
             to: '/tokens',
             label: 'Access Tokens',
-            icon: 'account-multiple',
-            updateMark: true,
+            icon: 'key',
             role: ['admin'],
           },
         ]
