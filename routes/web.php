@@ -76,6 +76,7 @@ Route::prefix('/productlist')->group(function () {
     Route::get('', 'ProductsListController@index');
     Route::get('/excel', 'ProductsListController@excel');
     Route::get('/enhancedExcel', 'ProductsListController@enhancedExcel');
+    Route::get('/fullExcel', 'ProductsListController@fullExcel');
 /*    Route::get('/articles', 'RegistrationController@articles');         // list several articles by name/art.nr.
     Route::get('/articles/{id}', 'RegistrationController@article');     // get back details per article
     Route::get('/product/{id}/articleNr/{articleNr?}', 'RegistrationController@showProduct');   // get back details per product

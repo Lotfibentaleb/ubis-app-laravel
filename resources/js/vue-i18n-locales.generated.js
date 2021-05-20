@@ -159,6 +159,7 @@ export default {
         "productsCounts": "Count",
         "downloadExcel": "Export Excel",
         "enhancedExcel": "Export Excel+Measurements",
+        "fullExcel": "Export Full",
         "perPage": "per page",
         "fields": {
           "articleNr": "Article-Nr.",
@@ -520,6 +521,7 @@ export default {
         "productsCounts": "Anzahl der Einträge",
         "downloadExcel": "Export Excel",
         "enhancedExcel": "Export Excel+Messungen",
+        "fullExcel": "Export Voll",
         "perPage": "pro Seite",
         "fields": {
           "articleNr": "Artikel-Nr.",
