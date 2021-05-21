@@ -5,6 +5,7 @@
           <b-button type="is-info" disabled>{{$t('productsPage.productsTable.productsCounts')}}: {{this.total}}</b-button>
           <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.downloadExcel')}}</b-button></a>
           <a :href="this.filterEnhancedUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.enhancedExcel')}}</b-button></a>
+          <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.fullExcel')}}</b-button></a>
     </b-field>
 
     <b-table
@@ -137,6 +138,7 @@ export default {
       selectedRow: {},
       filterGeneralUrl: '',
       filterEnhancedUrl: '',
+      filterFullExcelUrl: '',
       excelProducts: [],
       jsonFields: {
         'Artikel-Nr.': 'st_article_nr',
@@ -241,8 +243,16 @@ export default {
                 `filter=${this.filterValues}`
             ].join('&')
 
+            const paramsFullExcel = [
+              `enhanced=2`,
+              `sort_by=${this.sortField}.${this.sortOrder}`,
+              `page=${this.page}`,
+              `filter=${this.filterValues}`
+            ].join('&')
+
             this.filterGeneralUrl = this.dataUrl + '/excel?' + paramsGeneral
             this.filterEnhancedUrl = this.dataUrl + '/enhancedExcel?' + paramsEnhance
+            this.filterFullExcelUrl = this.dataUrl + '/fullExcel?' + paramsFullExcel
         }
     },
     trashModal (trashObject) {
