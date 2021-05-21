@@ -8,6 +8,7 @@ use Validator;
 use Log;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExcelCollection;
+use App\Exports\FullExport;
 use Illuminate\Support\Facades\Session;
 use Throwable;
 
@@ -195,6 +196,45 @@ class ProductsListController extends Controller
             array_push($excel_data, $item_array);
         }
         return Excel::download(new ExcelCollection($excel_data), 'enhanced_data.xlsx');
+    }
+
+    public function fullExcel(Request $request) {
+
+        $query = $request->query();
+        $passOnQuery = "";
+        // set given query parameters, to be able to forward them
+        if( count($query) ){
+            $passOnQuery .= '?';
+            foreach($query as $key=>$value){
+                $passOnQuery .= $key.'='.urlencode($value).'&';
+            }
+        }
+
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'excelProducts'.$passOnQuery;
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+        $body = json_decode($response->getBody()->getContents());
+
+        $excel_data = $body->data;
+        return (new FullExport(json_decode(json_encode($excel_data))))->download('fullExcel.xlsx');
+
     }
 
     public function updateProduct(Request $request, $id) {
