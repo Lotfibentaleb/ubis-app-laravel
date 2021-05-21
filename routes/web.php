@@ -92,6 +92,7 @@ Route::prefix('/dashboard')->group(function () {
 
 
 Route::get('/dashboardInfo', 'DashboardController@dashboardInfo');
+Route::get('/homeDashboard', 'DashboardController@homeDashboard');
 
 Route::get('/cleanup', [App\Http\Controllers\CleanupController::class, 'index']);
 

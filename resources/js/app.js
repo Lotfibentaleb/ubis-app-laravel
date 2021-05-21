@@ -5,6 +5,9 @@ require('./bootstrap');
 import Vue from 'vue'
 import Buefy from 'buefy'
 
+import VueApexCharts from 'vue-apexcharts'
+import VueCarousel from 'vue-carousel'
+
 /* Router & Store */
 import router from './router'
 import store from './store'
@@ -26,6 +29,10 @@ library.add(faCheck, faCheckCircle, faInfoCircle, faExclamationTriangle, faExcla
 
 Vue.use(FlagIcon);
 Vue.use(VueInternationalization);
+
+Vue.use(VueApexCharts)
+Vue.use(VueCarousel)
+Vue.component('apexchart', VueApexCharts)
 
 const lang = document.documentElement.lang.substr(0, 2);
 // or however you determine your current app locale
