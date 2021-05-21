@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 
 
-class PageSheet implements FromCollection, WithTitle, ShouldAutoSize
+class PageSheet implements FromCollection, WithTitle, ShouldAutoSize, WithEvents
 
 {
 
@@ -80,25 +80,33 @@ class PageSheet implements FromCollection, WithTitle, ShouldAutoSize
     }
 
  /**
-  * for style, for instance: font size, font color...
+  * to set every sheet style, for instance: font size, font color...
   */
 
-//    public function registerEvents(): array
-//
-//    {
-//
-//        return [
-//
-//            AfterSheet::class => function(AfterSheet $event) {
-//
-//                $cellRange = 'A1:W1';//All headers
-//
-//                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(20);
-//
-//            },
-//
-//        ];
-//
-//    }
+    public function registerEvents(): array
+
+    {
+
+        $rowCount = count($this->data) + 1;
+
+        $columnObj = $this->column;
+
+        end($columnObj);
+
+        $lastColumn = key($columnObj);
+
+        return [
+
+            AfterSheet::class => function(AfterSheet $event) use ($rowCount, $lastColumn){
+
+                $cellRange = 'A1:'.$lastColumn.$rowCount;
+
+                $event->sheet->getDelegate()->getStyle($cellRange)->getAlignment()->setHorizontal('center');
+
+            },
+
+        ];
+
+    }
 
 }
