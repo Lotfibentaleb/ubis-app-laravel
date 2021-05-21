@@ -31,11 +31,31 @@ class FullExport implements WithMultipleSheets
 
             $key = $this->sheetData->pages[$i];
 
-            $sheets[] = new PageSheet($this->sheetData->pages[$i],
+            if ($key == 'serial') {
 
-                isset($this->sheetData->columns->$key)?$this->sheetData->columns->$key:[],
+                $sheets[] = new PageSheet($this->sheetData->pages[$i],
 
-                isset($this->sheetData->values->$key)?$this->sheetData->values->$key:[]);
+                    isset($this->sheetData->columns->$key)?$this->sheetData->columns->$key:[],
+
+                    isset($this->sheetData->values->$key)?$this->sheetData->values->$key:[]);
+
+            }
+
+        }
+
+        for($i = 0; $i < count($this->sheetData->pages); $i++){
+
+            $key = $this->sheetData->pages[$i];
+
+            if ($key != 'serial') {
+
+                $sheets[] = new PageSheet($this->sheetData->pages[$i],
+
+                    isset($this->sheetData->columns->$key)?$this->sheetData->columns->$key:[],
+
+                    isset($this->sheetData->values->$key)?$this->sheetData->values->$key:[]);
+
+            }
 
         }
 
