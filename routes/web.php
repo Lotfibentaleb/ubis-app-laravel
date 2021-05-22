@@ -99,6 +99,9 @@ Route::get('/cleanup', [App\Http\Controllers\CleanupController::class, 'index'])
 Route::get('production_flow/history', 'ProductionFlowController@indexHistory');
 Route::apiResource('production_flow', 'ProductionFlowController');
 
+Route::get('device_records', 'MeasurementController@index');
+Route::get('device_records/{id}', 'MeasurementController@getMeasurement');
+
 Route::get('production_section/history', 'ProductionSectionController@indexHistory');
 Route::get('production_section/form_support', 'ProductionSectionController@showSupportValues');
 Route::apiResource('production_section', 'ProductionSectionController');
