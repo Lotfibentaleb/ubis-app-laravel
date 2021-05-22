@@ -132,8 +132,9 @@
         this.getData()
       },
       onFilterChange: debounce(function (filter) {
+        console.warn('filter', Object.entries(filter));
         this.filterValues = '';
-        this.filterValues = filter.st_article_nr ? filter.st_article_nr : ''
+        this.filterValues = encodeURIComponent(JSON.stringify(filter));
         this.getData()
       }, 250),
       ///////////////////////////////////////////////////////////////
@@ -144,8 +145,7 @@
         this.isClickedRow = true
         let data = {
           selectedId: this.selectedId,
-          articleNr: this.selectedRow.st_article_nr,
-          jsonPdFlow: this.jsonPdFlow
+          articleNr: this.selectedRow.st_article_nr
         }
         this.$emit('clickedRow', data)
       },
@@ -157,7 +157,7 @@
           `size=${this.perPage}`,
           `sort_by=${this.sortField}.${this.sortOrder}`,
           `page=${this.page}`,
-          `article_nr=${this.filterValues}`
+          `filter=${this.filterValues}`
         ].join('&')
 
         const fetchUrl = '/device_records'

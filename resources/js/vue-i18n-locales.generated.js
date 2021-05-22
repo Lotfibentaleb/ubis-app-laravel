@@ -207,10 +207,11 @@ export default {
           "componentsCount": "Components",
           "productionOrderNr": "Production-Order-Nr.",
           "createdAt": "Created at",
+          "measurementDetail": "Measurement Detail"
         }
       },
-      "productsSettingPanel": {
-        "title": "Production-Order-Nr.",
+      "settingPanel": {
+        "title": "Measurements detail",
         "label": "Production-Order-Nr.",
         "fieldMessage": "Production-Order-Nr.",
         "saveButton": "Save",
@@ -607,10 +608,11 @@ export default {
           "componentsCount": "Components",
           "productionOrderNr": "Production-Order-Nr.",
           "createdAt": "Created at",
+          "measurementDetail": "Measurement Detail"
         }
       },
-      "productsSettingPanel": {
-        "title": "Production-Order-Nr.",
+      "settingPanel": {
+        "title": "Measurements detail",
         "label": "Production-Order-Nr.",
         "fieldMessage": "Production-Order-Nr.",
         "saveButton": "Save",

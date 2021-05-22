@@ -45,7 +45,7 @@ class MeasurementController extends Controller
         ];
 
         $response = null;
-        $callUrl = $baseUrl.'device_records';
+        $callUrl = $baseUrl.'device_records'.$passOnQuery;
 
         try{
             $response = $client->request('GET', $callUrl, $options );   // call API by serial+article-nr.
