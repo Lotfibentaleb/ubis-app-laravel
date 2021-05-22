@@ -233,7 +233,7 @@ class RegistrationController extends Controller
         }
         $cacheKey = $id.$articleNr;
         $cacheStatusCode = $cacheKey.'statuscode';
-        if (Cache::has($cacheKey)) {
+        if (Cache::has($cacheKey.'_disabled')) {
             $body = Cache::get($cacheKey);
             $statusCode = Cache::get($cacheStatusCode);
             return response()->json($body, $statusCode);
@@ -284,6 +284,14 @@ class RegistrationController extends Controller
                 $articleBody = json_decode($response->getBody()->getContents());
                 if( $statusCode == 200 ){
                     $component->st_article_name = $articleBody->data->name;
+                }else{
+                    $statusMessage = 'Could not fetch subcomponents.';
+                    if( $response &&  !empty($response->getBody()) && !empty((string)$response->getBody())){
+                        $responseContent = json_decode((string)$response->getBody(), true);
+                        $statusMessage = (array_key_exists('error', $responseContent))?$responseContent['error']:$statusMessage;
+                        $statusMessage = (array_key_exists('message', $responseContent))?$responseContent['message']:$statusMessage;
+                    }
+                    return response()->json(['code' => $statusCode, 'error' =>  $statusMessage], $statusCode);
                 }
             }
             Cache::put($cacheKey, $body, $seconds = 3600);
