@@ -40,6 +40,12 @@ export default {
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
+          {
+            to: '/measurements/list',
+            label: this.$t('sidebar.measurements'),
+            icon: 'package-variant-closed',
+            role: ['admin', 'user'],
+          },
         ],
         this.$t('sidebar.template'),
         [
