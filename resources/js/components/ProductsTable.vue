@@ -4,7 +4,6 @@
     <b-field grouped group-multiline>
           <b-button type="is-info" disabled>{{$t('productsPage.productsTable.productsCounts')}}: {{this.total}}</b-button>
           <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.downloadExcel')}}</b-button></a>
-          <a :href="this.filterEnhancedUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.enhancedExcel')}}</b-button></a>
           <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.fullExcel')}}</b-button></a>
     </b-field>
 
