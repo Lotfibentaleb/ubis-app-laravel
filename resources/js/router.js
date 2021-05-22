@@ -49,6 +49,11 @@ export default new Router({
       component: () => import('./views/Products/ProductsList.vue'),
     },
     {
+      path: '/measurements/list',
+      name: 'measurements.list',
+      component: () => import('./views/Products/MeasurementsList.vue'),
+    },
+    {
       path: '/products/template',
       name: 'products.template',
       component: () => import('./views/Products/ProductionTemplate.vue'),

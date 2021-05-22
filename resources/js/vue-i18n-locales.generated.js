@@ -180,6 +180,43 @@ export default {
         "closeButton": "Close",
       }
     },
+    "measurementsPage": {
+      "titleBar": {
+        "main": "Measurements",
+        "sub1": "List",
+      },
+      "heroBar": {
+        "title": "Measurements",
+        "subTitle": "Overview of alll transmitted / registered measurements",
+        "goto": "Dashboard"
+      },
+      "table": {
+        "title": "Measurements",
+        "productsCounts": "Count",
+        "downloadExcel": "Export Excel",
+        "enhancedExcel": "Export Excel+Measurements",
+        "fullExcel": "Export Full",
+        "perPage": "per page",
+        "fields": {
+          "articleNr": "Article-Nr.",
+          "serialNr": "Serial-Nr.",
+          "state": "State",
+          "name": "Section",
+          "createdBy": "Created by",
+          "productionDataCount": "Measurements",
+          "componentsCount": "Components",
+          "productionOrderNr": "Production-Order-Nr.",
+          "createdAt": "Created at",
+        }
+      },
+      "productsSettingPanel": {
+        "title": "Production-Order-Nr.",
+        "label": "Production-Order-Nr.",
+        "fieldMessage": "Production-Order-Nr.",
+        "saveButton": "Save",
+        "closeButton": "Close",
+      }
+    },
     "productionFlowsPage": {
       "titleBar": {
         "main": "Production",
@@ -539,6 +576,43 @@ export default {
         "title": "Produktionsauftrags Nummer",
         "label": "Produktionsauftrags Nummer",
         "fieldMessage": "Produktionsauftrags Nummer",
+        "saveButton": "Save",
+        "closeButton": "Close",
+      }
+    },
+    "measurementsPage": {
+      "titleBar": {
+        "main": "Measurements",
+        "sub1": "List",
+      },
+      "heroBar": {
+        "title": "Measurements",
+        "subTitle": "Overview of alll transmitted / registered measurements",
+        "goto": "Dashboard"
+      },
+      "table": {
+        "title": "Measurements",
+        "productsCounts": "Count",
+        "downloadExcel": "Export Excel",
+        "enhancedExcel": "Export Excel+Measurements",
+        "fullExcel": "Export Full",
+        "perPage": "per page",
+        "fields": {
+          "articleNr": "Article-Nr.",
+          "serialNr": "Serial-Nr.",
+          "state": "State",
+          "name": "Section",
+          "createdBy": "Created by",
+          "productionDataCount": "Measurements",
+          "componentsCount": "Components",
+          "productionOrderNr": "Production-Order-Nr.",
+          "createdAt": "Created at",
+        }
+      },
+      "productsSettingPanel": {
+        "title": "Production-Order-Nr.",
+        "label": "Production-Order-Nr.",
+        "fieldMessage": "Production-Order-Nr.",
         "saveButton": "Save",
         "closeButton": "Close",
       }
