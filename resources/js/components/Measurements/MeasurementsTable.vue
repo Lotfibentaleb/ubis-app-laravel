@@ -178,9 +178,18 @@
               }
             })
             .catch( err => {
-              if (err.response.status == 401) {
-                document.getElementById('logout-form').submit()
-              } else {
+              if (err.response){
+                if (err.response.status == 401) {
+                  document.getElementById('logout-form').submit()
+                } else {
+                  this.isLoading = false
+                  this.$buefy.toast.open({
+                    message: `Error: ${err.message}`,
+                    type: 'is-danger',
+                    queue: false
+                  })
+                }
+              } else if(err.message) {
                 this.isLoading = false
                 this.$buefy.toast.open({
                   message: `Error: ${err.message}`,

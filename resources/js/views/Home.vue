@@ -258,7 +258,6 @@
           })
         }).catch( err => {
           let message = `fetching data fail`
-          console.log(err.response)
           this.$buefy.toast.open({
             message: message,
             type: 'is-danger',
