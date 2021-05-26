@@ -276,7 +276,7 @@
         return resCategories
       },
       calcCarouselItemsPerPage() {
-        this.carouselItemCountsPerPage = this.article_list.length > 2 ? 3 : this.article_list.length
+        this.carouselItemCountsPerPage = this.article_list.length > 2 ? 3 : 2
       },
       labelFormatter(value, index) {
         if(index != 0) {
