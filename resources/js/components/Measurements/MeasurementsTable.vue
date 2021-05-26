@@ -10,7 +10,6 @@
             :per-page="perPage"
             :striped="true"
             :hoverable="true"
-            default-sort="name"
             @page-change="onPageChange"
             :selected.sync="selectedRow"
             backend-sorting
@@ -105,9 +104,9 @@
         total: 0,
         perPage: 10,
         page: 1,
-        sortField:'',
-        sortOrder:'asc',
-        defaultSortOrder:'asc',
+        sortField:'created_at',
+        sortOrder:'desc',
+        defaultSortOrder:'desc',
         filterValues: '',
         measurementsData: [],
         // control table
