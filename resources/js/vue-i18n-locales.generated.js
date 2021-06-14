@@ -198,6 +198,7 @@ export default {
         "fullExcel": "Export Full",
         "perPage": "per page",
         "fields": {
+          "productsId": "Products-Id",
           "articleNr": "Article-Nr.",
           "serialNr": "Serial-Nr.",
           "state": "State",
@@ -599,6 +600,7 @@ export default {
         "fullExcel": "Export Full",
         "perPage": "per page",
         "fields": {
+          "productsId": "Products-Id",
           "articleNr": "Article-Nr.",
           "serialNr": "Serial-Nr.",
           "state": "State",
