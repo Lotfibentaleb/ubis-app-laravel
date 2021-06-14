@@ -23,6 +23,9 @@
             :data="measurementsData">
 
       <template slot-scope="props">
+        <b-table-column :label="$t('measurementsPage.table.fields.productsId')" field="products_id">
+          {{ props.row.products_id}}
+        </b-table-column>
         <b-table-column :label="$t('measurementsPage.table.fields.articleNr')" field="st_article_nr" searchable sortable>
           {{ props.row.st_article_nr }}
         </b-table-column>
@@ -113,7 +116,9 @@
         isClickedRow: false,
         selectedId: null,
         // selected measurement data
-        jsonPdFlow: []
+        jsonPdFlow: [],
+        // productsearch page url
+        productSearchPageUrl: 'http://127.0.0.1:8085/productsearch#/'
       }
     },
     created () {
