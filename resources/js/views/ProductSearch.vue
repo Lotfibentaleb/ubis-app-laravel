@@ -277,6 +277,9 @@ export default {
   mounted () {
     console.log('Inside mounted');
     console.log(this.server_data);
+    if (this.$route.query.products_id) {
+      this.productSearch = this.$route.query.products_id
+    }
   },
   watch: {
     articleSelected: function(){
