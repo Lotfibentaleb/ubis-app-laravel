@@ -151,7 +151,9 @@
           selectedId: this.selectedId,
           articleNr: this.selectedRow.st_article_nr
         }
-        this.$emit('clickedRow', data)
+        // this.$emit('clickedRow', data)
+        const gotoUrl = this.productSearchPageUrl + '?products_id=' + this.selectedRow.products_id
+        window.open(gotoUrl, '_blank');
       },
 
       getData () {
