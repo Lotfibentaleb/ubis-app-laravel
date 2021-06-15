@@ -118,11 +118,12 @@
         // selected measurement data
         jsonPdFlow: [],
         // productsearch page url
-        productSearchPageUrl: 'http://127.0.0.1:8085/productsearch#/'
+        productSearchPageUrl: ''
       }
     },
     created () {
       this.getData()
+      this.productSearchPageUrl = process.env.MIX_PRODUCTS_SEARCH_PAGE_URL
     },
     methods: {
       ///////////////////////////  table  ///////////////////////////
