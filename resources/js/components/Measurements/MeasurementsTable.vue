@@ -23,9 +23,6 @@
             :data="measurementsData">
 
       <template slot-scope="props">
-        <b-table-column :label="$t('measurementsPage.table.fields.productsId')" field="products_id">
-          {{ props.row.products_id}}
-        </b-table-column>
         <b-table-column :label="$t('measurementsPage.table.fields.articleNr')" field="st_article_nr" searchable sortable>
           {{ props.row.st_article_nr }}
         </b-table-column>
