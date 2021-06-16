@@ -59,12 +59,23 @@ pwd: geheim
 	- *php artisan queue:restart*
 	- *php artisan cache:clear*
 
-## for updating translation
+## for updating translation: when using vue-gettext
+referred to https://github.com/Polyconseil/vue-gettext
+- check the Makefile
+- Annotating strings: to make a Vue.js app translatable, you have to annotate the strings you want to translate in your JavaScript code and/or templates.
+- to update .po files, run "make makemessages"
+  check resources/js/locale
+- edit .po files for every language
+- to regenerate translation.json file, run "make clean", run "make translations"
+  check resources/js/translations.json
+  
+  
+## for updating translation: when using i18n
 
 - refer to vue-i18n-locales.generated.js file in resources/js directory
 - execute *php artisan vue-i18n:generate* to overwrite the vue-i18n-locales.generated.js
   - this command refers to the php files in lang directory
-
+  
 **[Online description laravel deploy](https://laravel.com/docs/7.x/deployment)**
 
 **[Online description setting up laravel/nginx](https://laraveldaily.com/how-to-deploy-laravel-projects-to-live-server-the-ultimate-guide/)**
