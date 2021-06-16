@@ -1,0 +1,657 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: easygettext\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: resources/js/views/Home.vue:5
+msgid "Articles in production last 10 days"
+msgstr "Artikel in Produktion letzte 10 Tage"
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:154
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:164
+msgid "createProductionSectionPage.card.addBasicDataButton"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:201
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:207
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:208
+msgid "createProductionSectionPage.card.data"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:123
+msgid "createProductionSectionPage.card.description"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:124
+msgid "createProductionSectionPage.card.descriptionMessage"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:99
+msgid "createProductionSectionPage.card.group"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:60
+msgid "createProductionSectionPage.card.name"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:61
+msgid "createProductionSectionPage.card.nameMessage"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:75
+msgid "createProductionSectionPage.card.render"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:185
+msgid "createProductionSectionPage.card.submitButton"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:75
+msgid "createProductionSectionPage.card.title"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:72
+msgid "createProductionSectionPage.heroBar.title"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:67
+msgid "createProductionSectionPage.titleBar.main"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:68
+msgid "createProductionSectionPage.titleBar.sub1"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:116
+#: resources/js/views/Products/ProductionTemplateForm.vue:126
+msgid "createProductionTemplatePage.card.addBasicDataButton"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:69
+msgid "createProductionTemplatePage.card.articleNr"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:70
+msgid "createProductionTemplatePage.card.articleNrMessage"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:144
+msgid "createProductionTemplatePage.card.submitButton"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:86
+msgid "createProductionTemplatePage.card.title"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:43
+msgid "createProductionTemplatePage.heroBar.goto"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:83
+msgid "createProductionTemplatePage.heroBar.title"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:166
+msgid "createProductionTemplatePage.productionFlowCard.jsonEditor"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:167
+msgid "createProductionTemplatePage.productionFlowCard.jsonEditorMessage"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:160
+msgid "createProductionTemplatePage.productionFlowCard.title"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/CreateProductionFlowModal.vue:122
+msgid "createProductionTemplatePage.productionFlowModal.addButton"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/CreateProductionFlowModal.vue:131
+msgid "createProductionTemplatePage.productionFlowModal.cancelButton"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/CreateProductionFlowModal.vue:37
+msgid "createProductionTemplatePage.productionFlowModal.title"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:77
+msgid "createProductionTemplatePage.titleBar.main"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:78
+msgid "createProductionTemplatePage.titleBar.sub1"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplateForm.vue:79
+msgid "createProductionTemplatePage.titleBar.sub2"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:174
+msgid "createUserPage.card.confirmPassword"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:175
+msgid "createUserPage.card.confirmPasswordMessage"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:137
+#: resources/js/views/Clients/ClientsForm.vue:269
+msgid "createUserPage.card.createdAt"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:86
+#: resources/js/views/Clients/ClientsForm.vue:233
+msgid "createUserPage.card.email"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:87
+msgid "createUserPage.card.emailMessage"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:71
+#: resources/js/views/Clients/ClientsForm.vue:221
+msgid "createUserPage.card.name"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:72
+msgid "createUserPage.card.nameMessage"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:159
+msgid "createUserPage.card.password"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:160
+msgid "createUserPage.card.passwordMessage"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:116
+#: resources/js/views/Clients/ClientsForm.vue:257
+msgid "createUserPage.card.role"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:117
+msgid "createUserPage.card.roleMessage"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:200
+msgid "createUserPage.card.submitButton"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:54
+msgid "createUserPage.card.title"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:101
+#: resources/js/views/Clients/ClientsForm.vue:245
+msgid "createUserPage.card.uuid"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:102
+msgid "createUserPage.card.uuidMessage"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:107
+msgid "createUserPage.card.uuidPlaceholder"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:33
+msgid "createUserPage.heroBar.goto"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:47
+msgid "createUserPage.heroBar.title"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:38
+#: resources/js/views/Clients/ClientsForm.vue:126
+msgid "createUserPage.titleBar.main"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:39
+#: resources/js/views/Clients/ClientsForm.vue:127
+msgid "createUserPage.titleBar.sub1"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsForm.vue:34
+msgid "createUserPage.titleBar.sub2"
+msgstr ""
+
+#: resources/js/views/Products/MeasurementsList.vue:40
+msgid "measurementsPage.heroBar.goto"
+msgstr ""
+
+#: resources/js/views/Products/MeasurementsList.vue:33
+msgid "measurementsPage.heroBar.subTitle"
+msgstr ""
+
+#: resources/js/views/Products/MeasurementsList.vue:32
+msgid "measurementsPage.heroBar.title"
+msgstr ""
+
+#: resources/js/views/Products/MeasurementsList.vue:68
+msgid "measurementsPage.settingPanel.title"
+msgstr ""
+
+#: resources/js/components/Measurements/MeasurementsTable.vue:65
+#: resources/js/views/Products/MeasurementsList.vue:75
+msgid "measurementsPage.table.fields.articleNr"
+msgstr ""
+
+#: resources/js/components/Measurements/MeasurementsTable.vue:116
+msgid "measurementsPage.table.fields.createdAt"
+msgstr ""
+
+#: resources/js/components/Measurements/MeasurementsTable.vue:105
+msgid "measurementsPage.table.fields.createdBy"
+msgstr ""
+
+#: resources/js/views/Products/MeasurementsList.vue:89
+#: resources/js/views/Products/MeasurementsList.vue:90
+msgid "measurementsPage.table.fields.measurementDetail"
+msgstr ""
+
+#: resources/js/components/Measurements/MeasurementsTable.vue:96
+msgid "measurementsPage.table.fields.name"
+msgstr ""
+
+#: resources/js/components/Measurements/MeasurementsTable.vue:76
+msgid "measurementsPage.table.fields.serialNr"
+msgstr ""
+
+#: resources/js/components/Measurements/MeasurementsTable.vue:87
+msgid "measurementsPage.table.fields.state"
+msgstr ""
+
+#: resources/js/components/Measurements/MeasurementsTable.vue:52
+#: resources/js/components/Measurements/MeasurementsTable.vue:53
+#: resources/js/components/Measurements/MeasurementsTable.vue:54
+#: resources/js/components/Measurements/MeasurementsTable.vue:55
+#: resources/js/components/Measurements/MeasurementsTable.vue:56
+msgid "measurementsPage.table.perPage"
+msgstr ""
+
+#: resources/js/views/Products/MeasurementsList.vue:52
+msgid "measurementsPage.table.title"
+msgstr ""
+
+#: resources/js/views/Products/MeasurementsList.vue:27
+msgid "measurementsPage.titleBar.main"
+msgstr ""
+
+#: resources/js/views/Products/MeasurementsList.vue:28
+msgid "measurementsPage.titleBar.sub1"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplate.vue:62
+msgid "productionFlowsPage.heroBar.goto"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplate.vue:55
+msgid "productionFlowsPage.heroBar.subTitle"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplate.vue:54
+msgid "productionFlowsPage.heroBar.title"
+msgstr ""
+
+#: resources/js/views/Products/MeasurementsList.vue:76
+#: resources/js/views/Products/ProductionTemplate.vue:198
+msgid "productionFlowsPage.settingPanel.fieldMessage"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplate.vue:174
+msgid "productionFlowsPage.settingPanel.title"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:66
+#: resources/js/views/Products/ProductionTemplate.vue:197
+msgid "productionFlowsPage.table.fields.articleNr"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:96
+msgid "productionFlowsPage.table.fields.createdAt"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:76
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:76
+#: resources/js/views/Products/ProductionTemplate.vue:211
+#: resources/js/views/Products/ProductionTemplate.vue:212
+msgid "productionFlowsPage.table.fields.productionFlow"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:106
+msgid "productionFlowsPage.table.fields.updatedAt"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:125
+msgid "productionFlowsPage.table.fields.updatedBy"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:134
+msgid "productionFlowsPage.table.fields.validFrom"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:143
+msgid "productionFlowsPage.table.fields.validTill"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplate.vue:155
+msgid "productionFlowsPage.table.historyTitle"
+msgstr ""
+
+#: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:63
+#: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:64
+#: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:65
+#: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:66
+#: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:67
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:53
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:54
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:55
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:56
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:57
+msgid "productionFlowsPage.table.perPage"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplate.vue:140
+msgid "productionFlowsPage.table.title"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplate.vue:40
+msgid "productionFlowsPage.titleBar.main"
+msgstr ""
+
+#: resources/js/views/Products/ProductionTemplate.vue:41
+msgid "productionFlowsPage.titleBar.sub1"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:49
+msgid "productionSectionPage.heroBar.goto"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:42
+msgid "productionSectionPage.heroBar.subTitle"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:41
+msgid "productionSectionPage.heroBar.title"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:188
+msgid "productionSectionPage.settingPanel.configuration"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:189
+msgid "productionSectionPage.settingPanel.configurationMessage"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:171
+msgid "productionSectionPage.settingPanel.description"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:172
+msgid "productionSectionPage.settingPanel.fieldMessage"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:147
+msgid "productionSectionPage.settingPanel.group"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:123
+msgid "productionSectionPage.settingPanel.render"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:115
+msgid "productionSectionPage.settingPanel.saveButton"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:100
+msgid "productionSectionPage.settingPanel.title"
+msgstr ""
+
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:104
+msgid "productionSectionPage.table.fields.createdAt"
+msgstr ""
+
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:85
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:85
+msgid "productionSectionPage.table.fields.data"
+msgstr ""
+
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:75
+msgid "productionSectionPage.table.fields.group"
+msgstr ""
+
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:76
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:66
+msgid "productionSectionPage.table.fields.name"
+msgstr ""
+
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:114
+msgid "productionSectionPage.table.fields.updatedAt"
+msgstr ""
+
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:134
+msgid "productionSectionPage.table.fields.updatedBy"
+msgstr ""
+
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:143
+msgid "productionSectionPage.table.fields.validFrom"
+msgstr ""
+
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:152
+msgid "productionSectionPage.table.fields.validTill"
+msgstr ""
+
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:63
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:64
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:65
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:66
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:67
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:53
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:54
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:55
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:56
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:57
+msgid "productionSectionPage.table.perPage"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:41
+msgid "productionSectionPage.titleBar.main"
+msgstr ""
+
+#: resources/js/views/Products/ProductionSectionTemplate.vue:42
+msgid "productionSectionPage.titleBar.sub1"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:36
+msgid "productsPage.heroBar.goto"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:29
+msgid "productsPage.heroBar.subTitle"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:28
+msgid "productsPage.heroBar.title"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:105
+msgid "productsPage.productsSettingPanel.closeButton"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:73
+msgid "productsPage.productsSettingPanel.fieldMessage"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:72
+msgid "productsPage.productsSettingPanel.label"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:92
+msgid "productsPage.productsSettingPanel.saveButton"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:66
+msgid "productsPage.productsSettingPanel.title"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:58
+msgid "productsPage.productsTable.downloadExcel"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:129
+msgid "productsPage.productsTable.fields.articleNr"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:170
+msgid "productsPage.productsTable.fields.componentsCount"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:190
+msgid "productsPage.productsTable.fields.createdAt"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:161
+msgid "productsPage.productsTable.fields.productionDataCount"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:179
+msgid "productsPage.productsTable.fields.productionOrderNr"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:140
+msgid "productsPage.productsTable.fields.serialNr"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:151
+msgid "productsPage.productsTable.fields.status"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:68
+msgid "productsPage.productsTable.fullExcel"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:103
+#: resources/js/components/ProductsTable.vue:104
+#: resources/js/components/ProductsTable.vue:105
+#: resources/js/components/ProductsTable.vue:106
+#: resources/js/components/ProductsTable.vue:107
+msgid "productsPage.productsTable.perPage"
+msgstr ""
+
+#: resources/js/components/ProductsTable.vue:49
+msgid "productsPage.productsTable.productsCounts"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:50
+msgid "productsPage.productsTable.title"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:14
+msgid "productsPage.titleBar.main"
+msgstr ""
+
+#: resources/js/views/Products/ProductsList.vue:15
+msgid "productsPage.titleBar.sub1"
+msgstr ""
+
+#: resources/js/App.vue:21
+msgid "sidebar.dashboard"
+msgstr ""
+
+#: resources/js/App.vue:16
+msgid "sidebar.general"
+msgstr ""
+
+#: resources/js/App.vue:35
+msgid "sidebar.measurements"
+msgstr ""
+
+#: resources/js/App.vue:50
+msgid "sidebar.prodSection"
+msgstr ""
+
+#: resources/js/App.vue:44
+msgid "sidebar.prodTemplate"
+msgstr ""
+
+#: resources/js/App.vue:25
+msgid "sidebar.production"
+msgstr ""
+
+#: resources/js/App.vue:29
+msgid "sidebar.products"
+msgstr ""
+
+#: resources/js/App.vue:56
+msgid "sidebar.resource"
+msgstr ""
+
+#: resources/js/App.vue:40
+msgid "sidebar.template"
+msgstr ""
+
+#: resources/js/App.vue:60
+msgid "sidebar.users"
+msgstr ""
+
+#: resources/js/components/NavBar.vue:107
+msgid "topbar.logout"
+msgstr ""
+
+#: resources/js/components/NavBar.vue:89
+msgid "topbar.profile"
+msgstr ""
+
+#: resources/js/components/NavBar.vue:96
+msgid "topbar.settings"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:37
+msgid "usersPage.heroBar.goto"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:30
+msgid "usersPage.heroBar.title"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:111
+msgid "usersPage.table.createdAt"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:81
+msgid "usersPage.table.email"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:71
+msgid "usersPage.table.name"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:101
+msgid "usersPage.table.role"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:47
+msgid "usersPage.table.title"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:91
+msgid "usersPage.table.uuid"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:26
+msgid "usersPage.titleBar.main"
+msgstr ""
+
+#: resources/js/views/Clients/ClientsIndex.vue:26
+msgid "usersPage.titleBar.sub1"
+msgstr ""
