@@ -3,7 +3,7 @@
     <div class="dashboard-container">
       <div class="dashboard-carousel-section">
         <div class="carousel-title">
-          <h1><b>Articles in production last 10 days</b></h1>
+          <h1><b><translate>Articles in production last 10 days</translate></b></h1>
         </div>
         <div class="carousel-items">
           <carousel :per-page="carouselItemCountsPerPage" :navigate-to="0" :mouse-drag="false" :autoplay="true" :loop="true"

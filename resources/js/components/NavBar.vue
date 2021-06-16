@@ -90,7 +90,8 @@
     },
     watch: {
       currentLang: function() {
-        this.$root.$i18n.locale = this.currentLang.title
+        // this.$root.$i18n.locale = this.currentLang.title
+        this.$language.current = this.currentLang.title
       }
     },
     data () {
@@ -102,14 +103,14 @@
         },
         isScrollable: false,
         maxHeight: 200,
-        currentLang: { title: 'en', flag: 'gb' },
+        currentLang: { title: 'en_GB', flag: 'gb' },
         availableLanguages: [
           {
-            title: "en",
+            title: "en_GB",
             flag: "gb"
           },
           {
-            title: "de",
+            title: "de_DE",
             flag: "de"
           }
         ],
