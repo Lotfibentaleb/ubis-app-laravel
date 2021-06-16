@@ -566,43 +566,43 @@ msgstr "productsPage.titleBar.sub1"
 
 #: resources/js/App.vue:21
 msgid "sidebar.dashboard"
-msgstr "sidebar.dashboard"
+msgstr "Dashboard"
 
 #: resources/js/App.vue:16
 msgid "sidebar.general"
-msgstr "sidebar.general"
+msgstr "GENERAL"
 
 #: resources/js/App.vue:35
 msgid "sidebar.measurements"
-msgstr "sidebar.measurements"
+msgstr "Measurements"
 
 #: resources/js/App.vue:50
 msgid "sidebar.prodSection"
-msgstr "sidebar.prodSection"
+msgstr "Production sections"
 
 #: resources/js/App.vue:44
 msgid "sidebar.prodTemplate"
-msgstr "sidebar.prodTemplate"
+msgstr "Production flows"
 
 #: resources/js/App.vue:25
 msgid "sidebar.production"
-msgstr "sidebar.production"
+msgstr "PRODUCTION"
 
 #: resources/js/App.vue:29
 msgid "sidebar.products"
-msgstr "sidebar.products"
+msgstr "Products"
 
 #: resources/js/App.vue:56
 msgid "sidebar.resource"
-msgstr "sidebar.resource"
+msgstr "ADMINISTRATION"
 
 #: resources/js/App.vue:40
-msgid "sidebar.template"
-msgstr "sidebar.template"
+msgid "sidebar.setup"
+msgstr "SETUP"
 
 #: resources/js/App.vue:60
 msgid "sidebar.users"
-msgstr "sidebar.users"
+msgstr "User"
 
 #: resources/js/components/NavBar.vue:107
 msgid "topbar.logout"
@@ -655,3 +655,6 @@ msgstr "usersPage.titleBar.main"
 #: resources/js/views/Clients/ClientsIndex.vue:26
 msgid "usersPage.titleBar.sub1"
 msgstr "usersPage.titleBar.sub1"
+
+#~ msgid "sidebar.template"
+#~ msgstr "SETUP"

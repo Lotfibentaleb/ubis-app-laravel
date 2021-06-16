@@ -23,51 +23,51 @@ export default {
   computed: {
     menu () {
       return [
-        this.$t('sidebar.general'),
+        this.$gettext('sidebar.general'),
         [
           {
             to: '/',
             icon: 'desktop-mac',
-            label: this.$t('sidebar.dashboard'),
+            label: this.$gettext('sidebar.dashboard'),
             role: ['admin', 'user'],
           }
         ],
-        this.$t('sidebar.production'),
+        this.$gettext('sidebar.production'),
         [
           {
             to: '/products/list',
-            label: this.$t('sidebar.products'),
+            label: this.$gettext('sidebar.products'),
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
           {
             to: '/measurements/list',
-            label: this.$t('sidebar.measurements'),
+            label: this.$gettext('sidebar.measurements'),
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
         ],
-        this.$t('sidebar.template'),
+        this.$gettext('sidebar.setup'),
         [
           {
             to: '/products/template',
-            label: this.$t('sidebar.prodTemplate'),
+            label: this.$gettext('sidebar.prodTemplate'),
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
           {
             to: '/products/section/template',
-            label: this.$t('sidebar.prodSection'),
+            label: this.$gettext('sidebar.prodSection'),
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
 
         ],
-        this.$t('sidebar.resource'),
+        this.$gettext('sidebar.resource'),
         [
           {
             to: '/users/index',
-            label: this.$t('sidebar.users'),
+            label: this.$gettext('sidebar.users'),
             icon: 'account-multiple',
             updateMark: true,
             role: ['admin'],
