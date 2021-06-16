@@ -15,6 +15,8 @@ import store from './store'
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
 import FlagIcon from 'vue-flag-icon'
+import GetTextPlugin from 'vue-gettext'
+import translations from './translations.json'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 // internal icons
@@ -68,6 +70,23 @@ Vue.component('App', App)
 Vue.use(Buefy)
 
 /* This is main entry point */
+
+Vue.use(GetTextPlugin, {
+  availableLanguages: {
+    en_GB: 'British English',
+    de_DE: 'Germany'
+  },
+  defaultLanguage: 'en_GB',
+  languageVmMixin: {
+    computed: {
+      currentKebabCase: function () {
+        return this.current.toLowerCase().replace('_', '-')
+      },
+    },
+  },
+  translations: translations,
+  silent: true,
+})
 
 new Vue({
   i18n,
