@@ -12,8 +12,6 @@ import VueCarousel from 'vue-carousel'
 import router from './router'
 import store from './store'
 
-import VueInternationalization from 'vue-i18n';
-import Locale from './vue-i18n-locales.generated';
 import FlagIcon from 'vue-flag-icon'
 import GetTextPlugin from 'vue-gettext'
 import translations from './translations.json'
@@ -30,7 +28,6 @@ library.add(faCheck, faCheckCircle, faInfoCircle, faExclamationTriangle, faExcla
     faEye, faEyeSlash, faCaretDown, faCaretUp, faUpload);
 
 Vue.use(FlagIcon);
-Vue.use(VueInternationalization);
 
 Vue.use(VueApexCharts)
 Vue.use(VueCarousel)
@@ -39,10 +36,6 @@ Vue.component('apexchart', VueApexCharts)
 const lang = document.documentElement.lang.substr(0, 2);
 // or however you determine your current app locale
 
-const i18n = new VueInternationalization({
-  locale: lang,
-  messages: Locale
-});
 
 /* Vue. Main component */
 import App from './App.vue'
@@ -89,7 +82,6 @@ Vue.use(GetTextPlugin, {
 })
 
 new Vue({
-  i18n,
   router,
   store,
   render: h => h(App),

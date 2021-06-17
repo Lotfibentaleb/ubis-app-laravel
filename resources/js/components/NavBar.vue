@@ -90,7 +90,6 @@
     },
     watch: {
       currentLang: function() {
-        // this.$root.$i18n.locale = this.currentLang.title
         this.$language.current = this.currentLang.title
       }
     },
