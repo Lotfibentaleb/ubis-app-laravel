@@ -585,11 +585,11 @@ export default {
     "measurementsPage": {
       "titleBar": {
         "main": "Measurements",
-        "sub1": "List",
+        "sub1": "Aufführen",
       },
       "heroBar": {
         "title": "Measurements",
-        "subTitle": "Overview of alll transmitted / registered measurements",
+        "subTitle": "Übersicht aller übertragenen / registrierten Messwerte",
         "goto": "Dashboard"
       },
       "table": {
@@ -598,18 +598,18 @@ export default {
         "downloadExcel": "Export Excel",
         "enhancedExcel": "Export Excel+Measurements",
         "fullExcel": "Export Full",
-        "perPage": "per page",
+        "perPage": "pro Seite",
         "fields": {
           "productsId": "Products-Id",
           "articleNr": "Article-Nr.",
-          "serialNr": "Serial-Nr.",
-          "state": "State",
+          "serialNr": "Serien-Nr.",
+          "state": "Status",
           "name": "Section",
-          "createdBy": "Created by",
+          "createdBy": "Erstellt durch",
           "productionDataCount": "Measurements",
           "componentsCount": "Components",
           "productionOrderNr": "Production-Order-Nr.",
-          "createdAt": "Created at",
+          "createdAt": "Erstellt",
           "measurementDetail": "Measurement Detail"
         }
       },
@@ -664,7 +664,7 @@ export default {
       "table": {
         "title": "Fertigungs-Stationen",
         "historyTitle": "Updated history",
-        "perPage": "per page",
+        "perPage": "pro Seite",
         "fields": {
           "name": "Name",
           "group": "Gruppe",
