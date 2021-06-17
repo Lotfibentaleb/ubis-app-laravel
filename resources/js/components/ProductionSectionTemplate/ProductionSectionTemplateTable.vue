@@ -22,21 +22,21 @@
             :data="pdSecTemplateData">
 
       <template slot-scope="props">
-        <b-table-column :label="$t('productionSectionPage.table.fields.name')" field="name">
+        <b-table-column :label="$gettext('productionSectionPage.table.fields.name')" field="name">
           {{ props.row.name }}
         </b-table-column>
-        <b-table-column :label="$t('productionSectionPage.table.fields.group')" field="group" searchable>
+        <b-table-column :label="$gettext('productionSectionPage.table.fields.group')" field="group" searchable>
           {{ props.row.group }}
         </b-table-column>
-        <b-table-column :label="$t('productionSectionPage.table.fields.data')">
+        <b-table-column :label="$gettext('productionSectionPage.table.fields.data')">
           <b-tooltip :label="JSON.stringify(props.row.data, null, 2)"  position="is-right" :delay="1000" multilined size="is-large">
             {{ JSON.stringify(props.row.data[0]).substring(0, 25) + ' ...' }}
           </b-tooltip>
         </b-table-column>
-        <b-table-column :label="$t('productionSectionPage.table.fields.createdAt')" field="created_at" sortable>
+        <b-table-column :label="$gettext('productionSectionPage.table.fields.createdAt')" field="created_at" sortable>
           {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
-        <b-table-column :label="$t('productionSectionPage.table.fields.updatedAt')" field="updated_at" sortable>
+        <b-table-column :label="$gettext('productionSectionPage.table.fields.updatedAt')" field="updated_at" sortable>
           {{ props.row.updated_at | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
       </template>
@@ -61,11 +61,11 @@
       <template #footer>
         <div class="has-text-right">
           <b-select v-model="perPage">
-            <option value="10">10 {{$t('productionSectionPage.table.perPage')}}</option>
-            <option value="20">20 {{$t('productionSectionPage.table.perPage')}}</option>
-            <option value="50">50 {{$t('productionSectionPage.table.perPage')}}</option>
-            <option value="100">100 {{$t('productionSectionPage.table.perPage')}}</option>
-            <option value="1000">1000 {{$t('productionSectionPage.table.perPage')}}</option>
+            <option value="10">10 {{$gettext('productionSectionPage.table.perPage')}}</option>
+            <option value="20">20 {{$gettext('productionSectionPage.table.perPage')}}</option>
+            <option value="50">50 {{$gettext('productionSectionPage.table.perPage')}}</option>
+            <option value="100">100 {{$gettext('productionSectionPage.table.perPage')}}</option>
+            <option value="1000">1000 {{$gettext('productionSectionPage.table.perPage')}}</option>
           </b-select>
         </div>
       </template>
