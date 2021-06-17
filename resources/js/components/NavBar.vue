@@ -25,16 +25,16 @@
           <div slot="dropdown" class="navbar-dropdown">
             <a class="navbar-item" href="/#/profile">
               <b-icon icon="account" custom-size="default"></b-icon>
-              <span>{{$t('topbar.profile')}}</span>
+              <span>{{$gettext('topbar.profile')}}</span>
             </a>
             <a class="navbar-item">
               <b-icon icon="settings" custom-size="default"></b-icon>
-              <span>{{$t('topbar.settings')}}</span>
+              <span>{{$gettext('topbar.settings')}}</span>
             </a>
             <hr class="navbar-divider">
             <a class="navbar-item" @click="logout">
               <b-icon icon="logout" custom-size="default"></b-icon>
-              <span>{{$t('topbar.logout')}}</span>
+              <span>{{$gettext('topbar.logout')}}</span>
             </a>
           </div>
         </nav-bar-menu>
