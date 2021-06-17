@@ -474,35 +474,35 @@ msgstr "productionSectionPage.titleBar.sub1"
 
 #: resources/js/views/Products/ProductsList.vue:36
 msgid "productsPage.heroBar.goto"
-msgstr "productsPage.heroBar.goto"
+msgstr "Dashboard"
 
 #: resources/js/views/Products/ProductsList.vue:29
 msgid "productsPage.heroBar.subTitle"
-msgstr "productsPage.heroBar.subTitle"
+msgstr "Overview of alll transmitted / registered products"
 
 #: resources/js/views/Products/ProductsList.vue:28
 msgid "productsPage.heroBar.title"
-msgstr "productsPage.heroBar.title"
+msgstr "Products"
 
 #: resources/js/views/Products/ProductsList.vue:105
 msgid "productsPage.productsSettingPanel.closeButton"
-msgstr "productsPage.productsSettingPanel.closeButton"
+msgstr "Close"
 
 #: resources/js/views/Products/ProductsList.vue:73
 msgid "productsPage.productsSettingPanel.fieldMessage"
-msgstr "productsPage.productsSettingPanel.fieldMessage"
+msgstr "Production-Order-Nr."
 
 #: resources/js/views/Products/ProductsList.vue:72
 msgid "productsPage.productsSettingPanel.label"
-msgstr "productsPage.productsSettingPanel.label"
+msgstr "Production-Order-Nr."
 
 #: resources/js/views/Products/ProductsList.vue:92
 msgid "productsPage.productsSettingPanel.saveButton"
-msgstr "productsPage.productsSettingPanel.saveButton"
+msgstr "Save"
 
 #: resources/js/views/Products/ProductsList.vue:66
 msgid "productsPage.productsSettingPanel.title"
-msgstr "productsPage.productsSettingPanel.title"
+msgstr "Production-Order-Nr."
 
 #: resources/js/components/ProductsTable.vue:58
 msgid "productsPage.productsTable.downloadExcel"
@@ -554,15 +554,15 @@ msgstr "productsPage.productsTable.productsCounts"
 
 #: resources/js/views/Products/ProductsList.vue:50
 msgid "productsPage.productsTable.title"
-msgstr "productsPage.productsTable.title"
+msgstr "Products"
 
 #: resources/js/views/Products/ProductsList.vue:14
 msgid "productsPage.titleBar.main"
-msgstr "productsPage.titleBar.main"
+msgstr "Production"
 
 #: resources/js/views/Products/ProductsList.vue:15
 msgid "productsPage.titleBar.sub1"
-msgstr "productsPage.titleBar.sub1"
+msgstr "Products"
 
 #: resources/js/App.vue:21
 msgid "sidebar.dashboard"
@@ -597,7 +597,7 @@ msgid "sidebar.resource"
 msgstr "ADMINISTRATION"
 
 #: resources/js/App.vue:40
-msgid "sidebar.template"
+msgid "sidebar.setup"
 msgstr "SETUP"
 
 #: resources/js/App.vue:60
@@ -655,3 +655,6 @@ msgstr "usersPage.titleBar.main"
 #: resources/js/views/Clients/ClientsIndex.vue:26
 msgid "usersPage.titleBar.sub1"
 msgstr "usersPage.titleBar.sub1"
+
+#~ msgid "sidebar.template"
+#~ msgstr "SETUP"

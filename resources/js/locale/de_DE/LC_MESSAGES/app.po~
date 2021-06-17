@@ -478,11 +478,11 @@ msgstr ""
 
 #: resources/js/views/Products/ProductsList.vue:29
 msgid "productsPage.heroBar.subTitle"
-msgstr ""
+msgstr "Übersicht aller übermittelter / angelegter Produkte"
 
 #: resources/js/views/Products/ProductsList.vue:28
 msgid "productsPage.heroBar.title"
-msgstr ""
+msgstr "Produkte"
 
 #: resources/js/views/Products/ProductsList.vue:105
 msgid "productsPage.productsSettingPanel.closeButton"
@@ -597,7 +597,7 @@ msgid "sidebar.resource"
 msgstr "VERWALTUNG"
 
 #: resources/js/App.vue:40
-msgid "sidebar.template"
+msgid "sidebar.setup"
 msgstr "KONFIGURATION"
 
 #: resources/js/App.vue:60
@@ -655,3 +655,6 @@ msgstr ""
 #: resources/js/views/Clients/ClientsIndex.vue:26
 msgid "usersPage.titleBar.sub1"
 msgstr ""
+
+#~ msgid "sidebar.template"
+#~ msgstr "KONFIGURATION"
