@@ -2,24 +2,24 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      {{$t('measurementsPage.heroBar.title')}}
+      {{$gettext('measurementsPage.heroBar.title')}}
       <p class="subtitle">
-        {{$t('measurementsPage.heroBar.subTitle')}}
+        {{$gettext('measurementsPage.heroBar.subTitle')}}
       </p>
       <router-link slot="right" to="/products/new-template" class="button">
-        {{$t('measurementsPage.heroBar.goto')}}
+        {{$gettext('measurementsPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <div class="columns">
         <div class="column">
-          <card-component class="has-table has-mobile-sort-spaced" :title="$t('measurementsPage.table.title')" icon="package-variant-closed">
+          <card-component class="has-table has-mobile-sort-spaced" :title="$gettext('measurementsPage.table.title')" icon="package-variant-closed">
             <measurements-table @clickedRow="clickedRow" :reload="isReload"/>
           </card-component>
         </div>
         <div v-if="isClickedRow">
           <div  class="column">
-            <card-component :title="$t('measurementsPage.settingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
+            <card-component :title="$gettext('measurementsPage.settingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
               <div class="level">
                 <div class="level-left">
                   <div>
@@ -29,10 +29,10 @@
                   <!--<div><b-button class="btn btn-ok" :disabled="!hasUpdatingData" @click="savePdFlowData">Save</b-button></div>-->
                 </div>
               </div>
-              <b-field :label="$t('measurementsPage.table.fields.articleNr')" :message="$t('productionFlowsPage.settingPanel.fieldMessage')">
+              <b-field :label="$gettext('measurementsPage.table.fields.articleNr')" :message="$gettext('productionFlowsPage.settingPanel.fieldMessage')">
                 <b-input type="text" placeholder="Artikel-Nr." :value="selectedArticleNr" readonly/>
               </b-field>
-              <b-field :label="$t('measurementsPage.table.fields.measurementDetail')" :message="$t('measurementsPage.table.fields.measurementDetail')" >
+              <b-field :label="$gettext('measurementsPage.table.fields.measurementDetail')" :message="$gettext('measurementsPage.table.fields.measurementDetail')" >
                 <v-jsoneditor ref="jeditor" v-model="jsonMeasurementDetail" :options="options" style="max-width: 500px;"/>
               </b-field>
             </card-component>
@@ -70,8 +70,8 @@
     computed: {
       titleStack() {
         return [
-          this.$t('measurementsPage.titleBar.main'),
-          this.$t('measurementsPage.titleBar.sub1')
+          this.$gettext('measurementsPage.titleBar.main'),
+          this.$gettext('measurementsPage.titleBar.sub1')
         ]
       },
     },

@@ -23,22 +23,22 @@
             :data="measurementsData">
 
       <template slot-scope="props">
-        <b-table-column :label="$t('measurementsPage.table.fields.articleNr')" field="st_article_nr" searchable sortable>
+        <b-table-column :label="$gettext('measurementsPage.table.fields.articleNr')" field="st_article_nr" searchable sortable>
           {{ props.row.st_article_nr }}
         </b-table-column>
-        <b-table-column :label="$t('measurementsPage.table.fields.serialNr')" field="st_serial_nr" searchable sortable>
+        <b-table-column :label="$gettext('measurementsPage.table.fields.serialNr')" field="st_serial_nr" searchable sortable>
           {{ props.row.st_serial_nr  }}
         </b-table-column>
-        <b-table-column :label="$t('measurementsPage.table.fields.state')" field="state">
+        <b-table-column :label="$gettext('measurementsPage.table.fields.state')" field="state">
           {{ props.row.state  }}
         </b-table-column>
-        <b-table-column :label="$t('measurementsPage.table.fields.name')" field="name">
+        <b-table-column :label="$gettext('measurementsPage.table.fields.name')" field="name">
           {{ props.row.name  }}
         </b-table-column>
-        <b-table-column :label="$t('measurementsPage.table.fields.createdBy')" field="created_by" searchable sortable>
+        <b-table-column :label="$gettext('measurementsPage.table.fields.createdBy')" field="created_by" searchable sortable>
           {{ props.row.created_by  }}
         </b-table-column>
-        <b-table-column :label="$t('measurementsPage.table.fields.createdAt')" field="created_at" searchable sortable>
+        <b-table-column :label="$gettext('measurementsPage.table.fields.createdAt')" field="created_at" searchable sortable>
           {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
       </template>
@@ -63,11 +63,11 @@
       <template #footer>
         <div class="has-text-right">
           <b-select v-model="perPage">
-            <option value="10">10 {{$t('measurementsPage.table.perPage')}}</option>
-            <option value="20">20 {{$t('measurementsPage.table.perPage')}}</option>
-            <option value="50">50 {{$t('measurementsPage.table.perPage')}}</option>
-            <option value="100">100 {{$t('measurementsPage.table.perPage')}}</option>
-            <option value="1000">1000 {{$t('measurementsPage.table.perPage')}}</option>
+            <option value="10">10 {{$gettext('measurementsPage.table.perPage')}}</option>
+            <option value="20">20 {{$gettext('measurementsPage.table.perPage')}}</option>
+            <option value="50">50 {{$gettext('measurementsPage.table.perPage')}}</option>
+            <option value="100">100 {{$gettext('measurementsPage.table.perPage')}}</option>
+            <option value="1000">1000 {{$gettext('measurementsPage.table.perPage')}}</option>
           </b-select>
         </div>
       </template>
