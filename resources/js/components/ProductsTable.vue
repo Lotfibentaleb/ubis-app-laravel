@@ -2,9 +2,9 @@
   <div>
     <modal-trash-box :is-active="isModalActive" :trash-subject="trashObjectName" @confirm="trashConfirm" @cancel="trashCancel"/>
     <b-field grouped group-multiline>
-          <b-button type="is-info" disabled>{{$t('productsPage.productsTable.productsCounts')}}: {{this.total}}</b-button>
-          <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.downloadExcel')}}</b-button></a>
-          <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$t('productsPage.productsTable.fullExcel')}}</b-button></a>
+          <b-button type="is-info" disabled>{{$gettext('productsPage.productsTable.productsCounts')}}: {{this.total}}</b-button>
+          <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.downloadExcel')}}</b-button></a>
+          <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.fullExcel')}}</b-button></a>
     </b-field>
 
     <b-table
@@ -36,25 +36,25 @@
             <img :src="props.row.avatar" class="is-rounded">
           </div>
         </b-table-column>
-        <b-table-column :label="$t('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable searchable>
           {{ props.row.st_article_nr }}
         </b-table-column>
-        <b-table-column :label="$t('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable searchable>
           {{ props.row.st_serial_nr }}
         </b-table-column>
-        <b-table-column :label="$t('productsPage.productsTable.fields.status')" field="lifecycle" sortable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.status')" field="lifecycle" sortable>
           {{ props.row.lifecycle }}
         </b-table-column>
-        <b-table-column :label="$t('productsPage.productsTable.fields.productionDataCount')" field="production_data_count">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.productionDataCount')" field="production_data_count">
           {{ props.row.production_data_count }}
         </b-table-column>
-        <b-table-column :label="$t('productsPage.productsTable.fields.componentsCount')" field="components_count">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.componentsCount')" field="components_count">
           {{ props.row.components_count }}
         </b-table-column>
-        <b-table-column :label="$t('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable searchable>
           {{ props.row.production_order_nr }}
         </b-table-column>
-        <b-table-column :label="$t('productsPage.productsTable.fields.createdAt')" field="created_at" sortable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.createdAt')" field="created_at" sortable>
           <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>
         <b-table-column custom-key="actions" class="is-actions-cell">
@@ -86,11 +86,11 @@
       <template #footer>
         <div class="has-text-right">
           <b-select v-model="perPage">
-            <option value="10">10 {{$t('productsPage.productsTable.perPage')}}</option>
-            <option value="20">20 {{$t('productsPage.productsTable.perPage')}}</option>
-            <option value="50">50 {{$t('productsPage.productsTable.perPage')}}</option>
-            <option value="100">100 {{$t('productsPage.productsTable.perPage')}}</option>
-            <option value="1000">1000 {{$t('productsPage.productsTable.perPage')}}</option>
+            <option value="10">10 {{$gettext('productsPage.productsTable.perPage')}}</option>
+            <option value="20">20 {{$gettext('productsPage.productsTable.perPage')}}</option>
+            <option value="50">50 {{$gettext('productsPage.productsTable.perPage')}}</option>
+            <option value="100">100 {{$gettext('productsPage.productsTable.perPage')}}</option>
+            <option value="1000">1000 {{$gettext('productsPage.productsTable.perPage')}}</option>
           </b-select>
 
         </div>

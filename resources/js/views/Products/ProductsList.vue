@@ -2,32 +2,32 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      {{$t('productsPage.heroBar.title')}}
+      {{$gettext('productsPage.heroBar.title')}}
       <p class="subtitle">
-        {{$t('productsPage.heroBar.subTitle')}}
+        {{$gettext('productsPage.heroBar.subTitle')}}
       </p>
       <router-link slot="right" to="/" class="button">
-        {{$t('productsPage.heroBar.goto')}}
+        {{$gettext('productsPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
       <div class="columns is-mobile">
         <div class="column" v-bind:class="{'is-four-fifths': isClickedRow}">
-          <card-component class="has-table has-mobile-sort-spaced" :title="$t('productsPage.productsTable.title')" icon="package-variant-closed">
+          <card-component class="has-table has-mobile-sort-spaced" :title="$gettext('productsPage.productsTable.title')" icon="package-variant-closed">
             <products-table data-url="/productlist" @clickedRow="clickedRow" :checkable="true"/>
           </card-component>
         </div>
         <div v-if="isClickedRow" class="column">
-          <card-component :title="$t('productsPage.productsSettingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
-            <b-field :label="$t('productsPage.productsSettingPanel.label')" :message="$t('productsPage.productsSettingPanel.fieldMessage')">
+          <card-component :title="$gettext('productsPage.productsSettingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
+            <b-field :label="$gettext('productsPage.productsSettingPanel.label')" :message="$gettext('productsPage.productsSettingPanel.fieldMessage')">
               <b-input type="text" v-model="selectedPdOrNr" />
             </b-field>
             <div class="level">
               <div class="level-left">
-                <div><b-button class="btn btn-ok-small" @click="onSettingSave">{{$t('productsPage.productsSettingPanel.saveButton')}}</b-button></div>
+                <div><b-button class="btn btn-ok-small" @click="onSettingSave">{{$gettext('productsPage.productsSettingPanel.saveButton')}}</b-button></div>
               </div>
               <div class="level-right">
-                <div><b-button class="btn btn-cancel-small" @click="onSettingPanelClose">{{$t('productsPage.productsSettingPanel.closeButton')}}</b-button></div>
+                <div><b-button class="btn btn-cancel-small" @click="onSettingPanelClose">{{$gettext('productsPage.productsSettingPanel.closeButton')}}</b-button></div>
               </div>
             </div>
           </card-component>
@@ -52,8 +52,8 @@
     computed: {
       titleStack () {
         return [
-          this.$t('productsPage.titleBar.main'),
-          this.$t('productsPage.titleBar.sub1')
+          this.$gettext('productsPage.titleBar.main'),
+          this.$gettext('productsPage.titleBar.sub1')
         ]
       },
     },
