@@ -1,14 +1,14 @@
 <template>
   <div>
-    <title-bar :title-stack="[$t('usersPage.titleBar.main'), $t('usersPage.titleBar.sub1')]"/>
+    <title-bar :title-stack="[$gettext('usersPage.titleBar.main'), $gettext('usersPage.titleBar.sub1')]"/>
     <hero-bar>
-      {{$t('usersPage.heroBar.title')}}
+      {{$gettext('usersPage.heroBar.title')}}
       <router-link to="/users/new" class="button" slot="right">
-        {{$t('usersPage.heroBar.goto')}}
+        {{$gettext('usersPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <card-component class="has-table has-mobile-sort-spaced" :title="$t('usersPage.table.title')" icon="account-multiple">
+      <card-component class="has-table has-mobile-sort-spaced" :title="$gettext('usersPage.table.title')" icon="account-multiple">
         <modal-trash-box :is-active="isModalActive" :trash-subject="trashSubject" @confirm="trashConfirm" @cancel="trashCancel"/>
         <b-table
           :checked-rows.sync="checkedRows"
@@ -21,19 +21,19 @@
           default-sort="name"
           :data="clients">
           <template slot-scope="props">
-            <b-table-column :label="$t('usersPage.table.name')" field="name" sortable>
+            <b-table-column :label="$gettext('usersPage.table.name')" field="name" sortable>
               {{ props.row.name }}
             </b-table-column>
-            <b-table-column :label="$t('usersPage.table.email')" field="email" sortable>
+            <b-table-column :label="$gettext('usersPage.table.email')" field="email" sortable>
               {{ props.row.email }}
             </b-table-column>
-            <b-table-column  :label="$t('usersPage.table.uuid')" field="uuid" sortable>
+            <b-table-column  :label="$gettext('usersPage.table.uuid')" field="uuid" sortable>
               {{ props.row.uuid }}
             </b-table-column>
-            <b-table-column :label="$t('usersPage.table.role')" field="uuid" sortable>
+            <b-table-column :label="$gettext('usersPage.table.role')" field="uuid" sortable>
               {{ props.row.role == 0 ? 'Admin' : 'User' }}
             </b-table-column>
-            <b-table-column :label="$t('usersPage.table.createdAt')">
+            <b-table-column :label="$gettext('usersPage.table.createdAt')">
               <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
             </b-table-column>
             <b-table-column custom-key="actions" class="is-actions-cell">

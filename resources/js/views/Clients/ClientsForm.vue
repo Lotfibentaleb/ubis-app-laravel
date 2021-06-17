@@ -4,7 +4,7 @@
     <hero-bar>
       {{ heroTitle }}
       <router-link slot="right" to="/users/index" class="button">
-        {{$t('createUserPage.heroBar.goto')}}
+        {{$gettext('createUserPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -17,22 +17,22 @@
               </b-field>
               <hr>
             </template>
-            <b-field :label="$t('createUserPage.card.name')" :message="$t('createUserPage.card.nameMessage')" horizontal>
+            <b-field :label="$gettext('createUserPage.card.name')" :message="$gettext('createUserPage.card.nameMessage')" horizontal>
               <b-input placeholder="e.g. John Doe" v-model="form.name" required />
             </b-field>
-            <b-field :label="$t('createUserPage.card.email')" :message="$t('createUserPage.card.emailMessage')" horizontal>
+            <b-field :label="$gettext('createUserPage.card.email')" :message="$gettext('createUserPage.card.emailMessage')" horizontal>
               <b-input placeholder="e.g. user@test.com" v-model="form.email" required />
             </b-field>
-            <b-field :label="$t('createUserPage.card.uuid')" :message="$t('createUserPage.card.uuidMessage')" horizontal>
-              <b-input :placeholder="$t('createUserPage.card.uuidPlaceholder')" v-model="form.uuid" readonly/>
+            <b-field :label="$gettext('createUserPage.card.uuid')" :message="$gettext('createUserPage.card.uuidMessage')" horizontal>
+              <b-input :placeholder="$gettext('createUserPage.card.uuidPlaceholder')" v-model="form.uuid" readonly/>
             </b-field>
-            <b-field :label="$t('createUserPage.card.role')" :message="$t('createUserPage.card.roleMessage')" horizontal>
+            <b-field :label="$gettext('createUserPage.card.role')" :message="$gettext('createUserPage.card.roleMessage')" horizontal>
               <b-select v-model="form.role">
-                <option value="0">{{$t('createUserPage.titleBar.main')}}</option>
-                <option value="1">{{$t('createUserPage.titleBar.sub1')}}</option>
+                <option value="0">{{$gettext('createUserPage.titleBar.main')}}</option>
+                <option value="1">{{$gettext('createUserPage.titleBar.sub1')}}</option>
               </b-select>
             </b-field>
-            <b-field v-if="id" :label="$t('createUserPage.card.createdAt')" horizontal>
+            <b-field v-if="id" :label="$gettext('createUserPage.card.createdAt')" horizontal>
               <b-datepicker
                 @input="input"
                 v-model="form.created_date"
@@ -41,33 +41,33 @@
               </b-datepicker>
             </b-field>
             <b-field v-if="!id" horizontal>
-              <b-field :label="$t('createUserPage.card.password')" :message="$t('createUserPage.card.passwordMessage')">
+              <b-field :label="$gettext('createUserPage.card.password')" :message="$gettext('createUserPage.card.passwordMessage')">
                 <b-input type="password" placeholder="" v-model="form.password" required />
               </b-field>
-              <b-field :label="$t('createUserPage.card.confirmPassword')" :message="$t('createUserPage.card.confirmPasswordMessage')">
+              <b-field :label="$gettext('createUserPage.card.confirmPassword')" :message="$gettext('createUserPage.card.confirmPasswordMessage')">
                 <b-input type="password" placeholder="" v-model="form.confirm_password" required />
               </b-field>
             </b-field>
             <b-field horizontal>
-              <b-button type="is-primary" :loading="isLoading" native-type="submit">{{$t('createUserPage.card.submitButton')}}</b-button>
+              <b-button type="is-primary" :loading="isLoading" native-type="submit">{{$gettext('createUserPage.card.submitButton')}}</b-button>
             </b-field>
           </form>
         </card-component>
         <card-component v-if="isProfileExists" title="User Profile" icon="account" class="tile is-child">
           <hr>
-          <b-field :label="$t('createUserPage.card.name')">
+          <b-field :label="$gettext('createUserPage.card.name')">
             <b-input :value="item.name" custom-class="is-static" readonly/>
           </b-field>
-          <b-field :label="$t('createUserPage.card.email')">
+          <b-field :label="$gettext('createUserPage.card.email')">
             <b-input :value="item.email" custom-class="is-static" readonly/>
           </b-field>
-          <b-field :label="$t('createUserPage.card.uuid')">
+          <b-field :label="$gettext('createUserPage.card.uuid')">
             <b-input :value="item.uuid" custom-class="is-static" readonly/>
           </b-field>
-          <b-field :label="$t('createUserPage.card.role')">
+          <b-field :label="$gettext('createUserPage.card.role')">
             <b-input :value="showRole" custom-class="is-static" readonly/>
           </b-field>
-          <b-field :label="$t('createUserPage.card.createdAt')">
+          <b-field :label="$gettext('createUserPage.card.createdAt')">
             <b-input :value="item.created" custom-class="is-static" readonly/>
           </b-field>
           <hr>
@@ -111,12 +111,12 @@ export default {
       if (this.isProfileExists) {
         lastCrumb = this.form.name
       } else {
-        lastCrumb = this.$t('createUserPage.titleBar.sub2')
+        lastCrumb = this.$gettext('createUserPage.titleBar.sub2')
       }
 
       return [
-        this.$t('createUserPage.titleBar.main'),
-        this.$t('createUserPage.titleBar.sub1'),
+        this.$gettext('createUserPage.titleBar.main'),
+        this.$gettext('createUserPage.titleBar.sub1'),
         lastCrumb
       ]
     },
@@ -124,14 +124,14 @@ export default {
       if (this.isProfileExists) {
         return this.form.name
       } else {
-        return this.$t('createUserPage.heroBar.title')
+        return this.$gettext('createUserPage.heroBar.title')
       }
     },
     formCardTitle () {
       if (this.isProfileExists) {
         return 'Edit User'
       } else {
-        return this.$t('createUserPage.card.title')
+        return this.$gettext('createUserPage.card.title')
       }
     },
     isProfileExists () {
