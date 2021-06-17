@@ -4,7 +4,7 @@
     <hero-bar>
       {{ heroTitle }}
       <router-link slot="right" to="/products/template" class="button">
-        {{$t('createProductionTemplatePage.heroBar.goto')}}
+        {{$gettext('createProductionTemplatePage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <create-production-flow-modal :is-json-modal="isJsonModal" :section-data="sectionData" @addedJsonData="addedJsonData" @cancelJsonAdd="cancelJsonAdd"></create-production-flow-modal>
@@ -12,7 +12,7 @@
       <tiles>
         <card-component :title="formCardTitle" icon="package-variant-closed" class="tile is-child">
           <form @submit.prevent="submit">
-            <b-field :label="$t('createProductionTemplatePage.card.articleNr')" :message="$t('createProductionTemplatePage.card.articleNrMessage')">
+            <b-field :label="$gettext('createProductionTemplatePage.card.articleNr')" :message="$gettext('createProductionTemplatePage.card.articleNrMessage')">
               <b-autocomplete
                       :data="articleList"
                       v-model="article_nr"
@@ -40,22 +40,22 @@
               </b-autocomplete>
             </b-field>
             <b-field expanded>
-              <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">{{$t('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>
-              <b-button v-else type="is-danger" @click="clickedAddJsonBtn">{{$t('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>
+              <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">{{$gettext('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>
+              <b-button v-else type="is-danger" @click="clickedAddJsonBtn">{{$gettext('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>
             </b-field>
             <div class="level">
               <div class="level-left">
               </div>
               <div class="level-right">
                 <b-field >
-                  <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$t('createProductionTemplatePage.card.submitButton')}}</b-button>
+                  <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$gettext('createProductionTemplatePage.card.submitButton')}}</b-button>
                 </b-field>
               </div>
             </div>
           </form>
         </card-component>
-        <card-component v-if="hasJsonItem" :title="$t('createProductionTemplatePage.productionFlowCard.title')" icon="package-variant-closed" class="tile is-child">
-          <b-field :label="$t('createProductionTemplatePage.productionFlowCard.jsonEditor')" :message="$t('createProductionTemplatePage.productionFlowCard.jsonEditorMessage')" >
+        <card-component v-if="hasJsonItem" :title="$gettext('createProductionTemplatePage.productionFlowCard.title')" icon="package-variant-closed" class="tile is-child">
+          <b-field :label="$gettext('createProductionTemplatePage.productionFlowCard.jsonEditor')" :message="$gettext('createProductionTemplatePage.productionFlowCard.jsonEditorMessage')" >
             <v-jsoneditor ref="jeditor" v-model="jsonData" :options="options"/>
           </b-field>
           <b-field>
@@ -157,16 +157,16 @@
     computed: {
       titleStack () {
         return [
-          this.$t('createProductionTemplatePage.titleBar.main'),
-          this.$t('createProductionTemplatePage.titleBar.sub1'),
-          this.$t('createProductionTemplatePage.titleBar.sub2')
+          this.$gettext('createProductionTemplatePage.titleBar.main'),
+          this.$gettext('createProductionTemplatePage.titleBar.sub1'),
+          this.$gettext('createProductionTemplatePage.titleBar.sub2')
         ]
       },
       heroTitle () {
-        return this.$t('createProductionTemplatePage.heroBar.title')
+        return this.$gettext('createProductionTemplatePage.heroBar.title')
       },
       formCardTitle () {
-        return this.$t('createProductionTemplatePage.card.title')
+        return this.$gettext('createProductionTemplatePage.card.title')
       }
     },
     created() {

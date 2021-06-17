@@ -3,7 +3,7 @@
     <div class="modal-card section-template-warning-modal">
       <form id="add-json" @submit.prevent="submit">
         <header class="modal-card-head">
-          <p class="modal-card-title">{{$t('createProductionTemplatePage.productionFlowModal.title')}}</p>
+          <p class="modal-card-title">{{$gettext('createProductionTemplatePage.productionFlowModal.title')}}</p>
         </header>
         <section class="modal-card-body">
           <div class="column is-full">
@@ -41,8 +41,8 @@
           <!---->
         </section>
         <footer class="modal-card-foot custom-foot">
-          <b-button class="btn btn-ok"  native-type="submit">{{$t('createProductionTemplatePage.productionFlowModal.addButton')}}</b-button>
-          <b-button class="btn btn-cancel"  @click="cancelModal">{{$t('createProductionTemplatePage.productionFlowModal.cancelButton')}}</b-button>
+          <b-button class="btn btn-ok"  native-type="submit">{{$gettext('createProductionTemplatePage.productionFlowModal.addButton')}}</b-button>
+          <b-button class="btn btn-cancel"  @click="cancelModal">{{$gettext('createProductionTemplatePage.productionFlowModal.cancelButton')}}</b-button>
         </footer>
       </form>
     </div>

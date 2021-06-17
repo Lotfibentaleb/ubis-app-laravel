@@ -2,12 +2,12 @@
   <div>
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
-      {{$t('productionFlowsPage.heroBar.title')}}
+      {{$gettext('productionFlowsPage.heroBar.title')}}
       <p class="subtitle">
-        {{$t('productionFlowsPage.heroBar.subTitle')}}
+        {{$gettext('productionFlowsPage.heroBar.subTitle')}}
       </p>
       <router-link slot="right" to="/products/new-template" class="button">
-        {{$t('productionFlowsPage.heroBar.goto')}}
+        {{$gettext('productionFlowsPage.heroBar.goto')}}
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
@@ -44,18 +44,18 @@
           </div>
         </b-modal>
         <div class="column">
-          <card-component class="has-table has-mobile-sort-spaced" :title="$t('productionFlowsPage.table.title')" icon="package-variant-closed">
+          <card-component class="has-table has-mobile-sort-spaced" :title="$gettext('productionFlowsPage.table.title')" icon="package-variant-closed">
             <product-template-table @clickedRow="clickedRow" :reload="isReload"/>
           </card-component>
 
-          <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" :title="$t('productionFlowsPage.table.historyTitle')" icon="package-variant-closed">
+          <card-component v-if="isClickedRow" class="has-table has-mobile-sort-spaced history-table" :title="$gettext('productionFlowsPage.table.historyTitle')" icon="package-variant-closed">
             <card-toolbar />
             <product-template-history data-url="/production_flow/history" :article_nr="selectedArticleNr" :checkable="true" />
           </card-component>
         </div>
         <div v-if="isClickedRow">
           <div  class="column">
-            <card-component :title="$t('productionFlowsPage.settingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
+            <card-component :title="$gettext('productionFlowsPage.settingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
               <div class="level">
                 <div class="level-left">
                   <div>
@@ -65,10 +65,10 @@
                   <div><b-button class="btn btn-ok" :disabled="!hasUpdatingData" @click="savePdFlowData">Save</b-button></div>
                 </div>
               </div>
-              <b-field :label="$t('productionFlowsPage.table.fields.articleNr')" :message="$t('productionFlowsPage.settingPanel.fieldMessage')">
+              <b-field :label="$gettext('productionFlowsPage.table.fields.articleNr')" :message="$gettext('productionFlowsPage.settingPanel.fieldMessage')">
                 <b-input type="text" placeholder="Artikel-Nr." :value="selectedArticleNr" readonly/>
               </b-field>
-              <b-field :label="$t('productionFlowsPage.table.fields.productionFlow')" :message="$t('productionFlowsPage.table.fields.productionFlow')" >
+              <b-field :label="$gettext('productionFlowsPage.table.fields.productionFlow')" :message="$gettext('productionFlowsPage.table.fields.productionFlow')" >
                 <v-jsoneditor ref="jeditor" v-model="jsonPdFlow" :options="options" style="max-width: 500px;"/>
               </b-field>
               <b-field>
@@ -134,8 +134,8 @@
     computed: {
       titleStack() {
         return [
-          this.$t('productionFlowsPage.titleBar.main'),
-          this.$t('productionFlowsPage.titleBar.sub1')
+          this.$gettext('productionFlowsPage.titleBar.main'),
+          this.$gettext('productionFlowsPage.titleBar.sub1')
         ]
       },
     },
