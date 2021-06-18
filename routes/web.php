@@ -84,6 +84,8 @@ Route::prefix('/productlist')->group(function () {
 */
     Route::put('/product/{id}', 'ProductsListController@updateProduct');
     Route::delete('/product/{id}', 'ProductsListController@destroy');
+
+    Route::post('/bulkregister', 'ProductsListController@bulkRegister');
 });
 
 Route::prefix('/dashboard')->group(function () {
