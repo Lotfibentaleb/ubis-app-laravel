@@ -213,7 +213,8 @@
           })
           return
         }
-
+        this.isResponseData = false
+        this.tableData = []
         let data = new FormData();
         data.append('productionOrderNr', this.prodOrderNr)
         data.append('articleNr', this.articleNr)
