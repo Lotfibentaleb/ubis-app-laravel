@@ -289,8 +289,23 @@ class ProductsListController extends Controller
 
     public function bulkRegister(Request $request) {
 
-        $requestData = $request->all();
+        $validator = Validator::make($request->all(), [
+            'productionOrderNr' => 'string|between:1,65',
+            'articleNr' => 'string|between:1,65',
+            'file' => 'file'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['message' =>  'Wrong parameter. '.implode(' ',$validator->errors()->all())], 422);
+        }
+
         $csvFile = $request->file('file');
+
+        if(!$csvFile || $csvFile->getClientOriginalExtension() != 'csv') {
+            return response()->json(['message'=>'Invalid File'], 422);
+        }
+
+        $requestData = $request->all();
 
         //CSV file processing
         $file_handle = fopen($csvFile, 'r');
@@ -299,16 +314,19 @@ class ProductsListController extends Controller
             $lineText[] = fgetcsv($file_handle, 0, ',');
         }
         fclose($file_handle);
+
         //remove last index item because the last index item is false
         unset($lineText[count($lineText) - 1]);
 
         $productionOrderNr = $requestData['productionOrderNr'];
         $articleNr = $requestData['articleNr'];
 
+        $resData = [];
         foreach($lineText as $serialNr) {
-            $this->createProduct($articleNr, $productionOrderNr, '0'.(string)$serialNr[0]);
+            array_push($resData, $this->createProduct($articleNr, $productionOrderNr, '0'.(string)$serialNr[0]));
         }
 
+        return response()->json($resData);
     }
 
     private function createProduct($articleNr, $productionOrderNr, $serialNr) {
@@ -337,14 +355,15 @@ class ProductsListController extends Controller
                 $statusMessage = (array_key_exists('error', $responseContent))?$responseContent['error']:$statusMessage;
                 $statusMessage = (array_key_exists('message', $responseContent))?$responseContent['message']:$statusMessage;
             }
-            echo 'Product with serial '.$serialNr.' could not be created ('.$statusMessage.')'."\r\n";
-            return -1;
+            //echo 'Product with serial '.$serialNr.' could not be created ('.$statusMessage.')'."\r\n";
+            return array('status'=>false, 'serialNr'=>$serialNr);
         }
 
         $product = json_decode((string)$response->getBody());
         $product = $product->data;
-        echo 'Product with serial '.$serialNr.' and ID '.$product->id.' created successfully.'."\r\n";
-        return 0;
+        //echo 'Product with serial '.$serialNr.' and ID '.$product->id.' created successfully.'."\r\n";
+        $resData = array('status'=>true, 'serialNr'=>$serialNr, 'productId'=>$product->id);
+        return $resData;
 
     }
 }
