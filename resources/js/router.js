@@ -44,6 +44,11 @@ export default new Router({
       props: true
     },
     {
+      path: '/products/register',
+        name: 'products.register',
+      component: () => import('./views/Products/BulkRegister.vue'),
+    },
+    {
       path: '/products/list',
       name: 'products.list',
       component: () => import('./views/Products/ProductsList.vue'),
