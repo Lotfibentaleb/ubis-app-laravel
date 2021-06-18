@@ -287,5 +287,64 @@ class ProductsListController extends Controller
         return response()->json($body, $statusCode);
     }
 
+    public function bulkRegister(Request $request) {
 
+        $requestData = $request->all();
+        $csvFile = $request->file('file');
+
+        //CSV file processing
+        $file_handle = fopen($csvFile, 'r');
+        $lineText = [];
+        while (!feof($file_handle)) {
+            $lineText[] = fgetcsv($file_handle, 0, ',');
+        }
+        fclose($file_handle);
+        //remove last index item because the last index item is false
+        unset($lineText[count($lineText) - 1]);
+
+        $productionOrderNr = $requestData['productionOrderNr'];
+        $articleNr = $requestData['articleNr'];
+
+        foreach($lineText as $serialNr) {
+            $this->createProduct($articleNr, $productionOrderNr, '0'.(string)$serialNr[0]);
+        }
+
+    }
+
+    private function createProduct($articleNr, $productionOrderNr, $serialNr) {
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $options = [
+            'http_errors'=> false,
+            'headers' =>[
+                'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        $postData = array('st_article_nr' => $articleNr, 'st_serial_nr' => $serialNr);
+
+        $product = null;
+        // no product ID given -> create product
+        $requestString = 'products';
+        $response = $client->request('POST', $baseUrl.$requestString, array_merge($options, ['json' => $postData]));
+        $statusCode = $response->getStatusCode();
+        if( $statusCode != 201){
+            $statusMessage = 'Could not create product.';
+            if( $response &&  !empty($response->getBody()) && !empty((string)$response->getBody())){
+                $responseContent = json_decode((string)$response->getBody(), true);
+                $statusMessage = (array_key_exists('error', $responseContent))?$responseContent['error']:$statusMessage;
+                $statusMessage = (array_key_exists('message', $responseContent))?$responseContent['message']:$statusMessage;
+            }
+            echo 'Product with serial '.$serialNr.' could not be created ('.$statusMessage.')'."\r\n";
+            return -1;
+        }
+
+        $product = json_decode((string)$response->getBody());
+        $product = $product->data;
+        echo 'Product with serial '.$serialNr.' and ID '.$product->id.' created successfully.'."\r\n";
+        return 0;
+
+    }
 }
