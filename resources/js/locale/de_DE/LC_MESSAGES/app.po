@@ -14,6 +14,54 @@ msgstr ""
 msgid "Articles in production last 10 days"
 msgstr "Artikel in Produktion letzte 10 Tage"
 
+#: resources/js/views/Products/BulkRegister.vue:108
+msgid "bulkRegisterPage.articleNr"
+msgstr "Artikel-Nr."
+
+#: resources/js/views/Products/BulkRegister.vue:109
+msgid "bulkRegisterPage.articleNr.message"
+msgstr "Eingabe Artikel-Nr"
+
+#: resources/js/views/Products/BulkRegister.vue:49
+msgid "bulkRegisterPage.card.title"
+msgstr "CSV-Datei hochladen"
+
+#: resources/js/views/Products/BulkRegister.vue:41
+msgid "bulkRegisterPage.heroBar.goto"
+msgstr "Produkte"
+
+#: resources/js/views/Products/BulkRegister.vue:46
+msgid "bulkRegisterPage.heroBar.title"
+msgstr "Massen Registrierung"
+
+#: resources/js/views/Products/BulkRegister.vue:151
+msgid "bulkRegisterPage.productionOrderNr"
+msgstr "Produktionsauftrag Nr"
+
+#: resources/js/views/Products/BulkRegister.vue:152
+msgid "bulkRegisterPage.productionOrderNr.message"
+msgstr "Eingabe Produktionsauftrag Nr"
+
+#: resources/js/views/Products/BulkRegister.vue:168
+msgid "bulkRegisterPage.registerButton"
+msgstr "Registrieren"
+
+#: resources/js/views/Products/BulkRegister.vue:41
+msgid "bulkRegisterPage.titleBar.main"
+msgstr "Produkte"
+
+#: resources/js/views/Products/BulkRegister.vue:42
+msgid "bulkRegisterPage.titleBar.sub1"
+msgstr "Massen Registrierung"
+
+#: resources/js/views/Products/BulkRegister.vue:80
+msgid "bulkRegisterPage.uploadComponents.content"
+msgstr "Legen Sie Ihre CSV-Datei hier ab oder klicken Sie zum Hochladen"
+
+#: resources/js/views/Products/BulkRegister.vue:58
+msgid "bulkRegisterPage.uploadComponents.title"
+msgstr "CSV für Seriennummer hochladen "
+
 #: resources/js/views/Products/ProductionSectionTemplateForm.vue:154
 #: resources/js/views/Products/ProductionSectionTemplateForm.vue:164
 msgid "createProductionSectionPage.card.addBasicDataButton"
@@ -564,6 +612,10 @@ msgstr "Fertigung"
 msgid "productsPage.titleBar.sub1"
 msgstr "Produkte"
 
+#: resources/js/App.vue:29
+msgid "sidebar.bulkRegister"
+msgstr "Massen Registrierung"
+
 #: resources/js/App.vue:21
 msgid "sidebar.dashboard"
 msgstr "Dashboard"
@@ -572,15 +624,15 @@ msgstr "Dashboard"
 msgid "sidebar.general"
 msgstr "ALLGEMEIN"
 
-#: resources/js/App.vue:35
+#: resources/js/App.vue:41
 msgid "sidebar.measurements"
 msgstr "Measurements"
 
-#: resources/js/App.vue:50
+#: resources/js/App.vue:56
 msgid "sidebar.prodSection"
 msgstr "Fertigungs-Stationen"
 
-#: resources/js/App.vue:44
+#: resources/js/App.vue:50
 msgid "sidebar.prodTemplate"
 msgstr "Fertigungsabläufe"
 
@@ -588,19 +640,19 @@ msgstr "Fertigungsabläufe"
 msgid "sidebar.production"
 msgstr "FERTIGUNG"
 
-#: resources/js/App.vue:29
+#: resources/js/App.vue:35
 msgid "sidebar.products"
 msgstr "Produkte"
 
-#: resources/js/App.vue:56
+#: resources/js/App.vue:62
 msgid "sidebar.resource"
 msgstr "VERWALTUNG"
 
-#: resources/js/App.vue:40
+#: resources/js/App.vue:46
 msgid "sidebar.setup"
 msgstr "KONFIGURATION"
 
-#: resources/js/App.vue:60
+#: resources/js/App.vue:66
 msgid "sidebar.users"
 msgstr "Benutzer"
 

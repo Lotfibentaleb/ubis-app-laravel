@@ -11,7 +11,7 @@
       <tiles>
         <card-component :title="formCardTitle" icon="account-edit" class="tile is-child">
           <div class="column is-one-fifths is-offset-two-fifths">
-            <p>Upload CSV for Serial Nr</p>
+            <p>{{$gettext('bulkRegisterPage.uploadComponents.title')}}</p>
           </div>
           <div class="column is-4 is-offset-4">
             <section>
@@ -28,7 +28,7 @@
                                 size="is-large">
                         </b-icon>
                       </p>
-                      <p>Drop your CSV file here or click to upload</p>
+                      <p>{{$gettext('bulkRegisterPage.uploadComponents.content')}}</p>
                     </div>
                   </section>
                 </b-upload>
@@ -48,7 +48,7 @@
             </section>
           </div>
           <div class="column is-12">
-            <b-field label="Article Nr" message="Input Article Nr" horizontal>
+            <b-field :label="$gettext('bulkRegisterPage.articleNr')" :message="$gettext('bulkRegisterPage.articleNr.message')" horizontal>
               <b-autocomplete
                       :data="articleList"
                       v-model="articleNr"
@@ -77,12 +77,12 @@
             </b-field>
           </div>
           <div class="column is-12">
-            <b-field label="Production Order Nr" message="Production Order Nr" horizontal>
+            <b-field :label="$gettext('bulkRegisterPage.productionOrderNr')" :message="$gettext('bulkRegisterPage.productionOrderNr.message')" horizontal>
               <b-input placeholder="e.g. 2021-1446" v-model="prodOrderNr" required />
             </b-field>
           </div>
           <div class="column is-1 is-offset-11">
-            <b-button label="Register" type="is-primary" @click="register"></b-button>
+            <b-button :label="$gettext('bulkRegisterPage.registerButton')" type="is-primary" @click="register"></b-button>
           </div>
         </card-component>
       </tiles>
