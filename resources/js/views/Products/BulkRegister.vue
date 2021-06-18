@@ -93,13 +93,13 @@
 
               <template slot-scope="props">
 
-                <b-table-column label="productId" field="productId" sortable searchable>
+                <b-table-column label="productId" field="productId">
                   {{ getProdId(props.row) }}
                 </b-table-column>
-                <b-table-column label="SerialNr" field="serialNr" sortable searchable>
+                <b-table-column label="SerialNr" field="serialNr">
                   {{ props.row.serialNr }}
                 </b-table-column>
-                <b-table-column label="ArticleNr" field="" sortable>
+                <b-table-column label="ArticleNr" field="">
                   {{ articleNr }}
                 </b-table-column>
                 <b-table-column label="Status" field="">
