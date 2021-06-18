@@ -103,7 +103,10 @@
                   {{ articleNr }}
                 </b-table-column>
                 <b-table-column label="Status" field="">
-                  <span class="tag is-success">
+                  <span v-if="props.row.status" class="tag is-success">
+                    {{getStatus(props.row.status)}}
+                  </span>
+                  <span v-else class="tag is-danger">
                     {{getStatus(props.row.status)}}
                   </span>
                 </b-table-column>
