@@ -131,6 +131,10 @@
           </div>
         </card-component>
       </tiles>
+      <tiles>
+        <card-component :title="$gettext('bulkRegisterPage.reVerifyProductsCard.title')" icon="account-edit" class="tile is-child">
+        </card-component>
+      </tiles>
     </section>
   </div>
 </template>

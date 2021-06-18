@@ -14,25 +14,53 @@ msgstr ""
 msgid "Articles in production last 10 days"
 msgstr "Articles in production last 10 days"
 
-#: resources/js/views/Products/BulkRegister.vue:37
-msgid "bulkRegisterPage.card.title"
-msgstr "Upload CSV"
+#: resources/js/views/Products/BulkRegister.vue:108
+msgid "bulkRegisterPage.articleNr"
+msgstr "Article Nr"
 
-#: resources/js/views/Products/BulkRegister.vue:23
+#: resources/js/views/Products/BulkRegister.vue:109
+msgid "bulkRegisterPage.articleNr.message"
+msgstr "Input Article Nr"
+
+#: resources/js/views/Products/BulkRegister.vue:49
+msgid "bulkRegisterPage.card.title"
+msgstr "Bulk register products"
+
+#: resources/js/views/Products/BulkRegister.vue:41
 msgid "bulkRegisterPage.heroBar.goto"
 msgstr "Products"
 
-#: resources/js/views/Products/BulkRegister.vue:34
+#: resources/js/views/Products/BulkRegister.vue:46
 msgid "bulkRegisterPage.heroBar.title"
 msgstr "Bulk Register"
 
-#: resources/js/views/Products/BulkRegister.vue:29
+#: resources/js/views/Products/BulkRegister.vue:151
+msgid "bulkRegisterPage.productionOrderNr"
+msgstr "Production Order Nr"
+
+#: resources/js/views/Products/BulkRegister.vue:152
+msgid "bulkRegisterPage.productionOrderNr.message"
+msgstr "Input Production Order Nr"
+
+#: resources/js/views/Products/BulkRegister.vue:168
+msgid "bulkRegisterPage.registerButton"
+msgstr "Register"
+
+#: resources/js/views/Products/BulkRegister.vue:41
 msgid "bulkRegisterPage.titleBar.main"
 msgstr "Products"
 
-#: resources/js/views/Products/BulkRegister.vue:30
+#: resources/js/views/Products/BulkRegister.vue:42
 msgid "bulkRegisterPage.titleBar.sub1"
-msgstr "Bulk Register"
+msgstr "Bulk actions"
+
+#: resources/js/views/Products/BulkRegister.vue:80
+msgid "bulkRegisterPage.uploadComponents.content"
+msgstr "Drop your CSV file here or click to upload"
+
+#: resources/js/views/Products/BulkRegister.vue:58
+msgid "bulkRegisterPage.uploadComponents.title"
+msgstr "Upload CSV for Serial Nr"
 
 #: resources/js/views/Products/ProductionSectionTemplateForm.vue:154
 #: resources/js/views/Products/ProductionSectionTemplateForm.vue:164
@@ -586,7 +614,7 @@ msgstr "Products"
 
 #: resources/js/App.vue:29
 msgid "sidebar.bulkRegister"
-msgstr "Bulk Register"
+msgstr "Bulk actions"
 
 #: resources/js/App.vue:21
 msgid "sidebar.dashboard"
