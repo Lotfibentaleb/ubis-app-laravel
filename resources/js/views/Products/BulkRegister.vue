@@ -84,6 +84,51 @@
           <div class="column is-1 is-offset-11">
             <b-button :label="$gettext('bulkRegisterPage.registerButton')" type="is-primary" @click="register"></b-button>
           </div>
+          <div v-if="isResponseData" class="column is-12">
+            <b-table
+                    :loading="isLoading"
+                    :striped="true"
+                    :hoverable="true"
+                    :data="tableData">
+
+              <template slot-scope="props">
+
+                <b-table-column label="productId" field="productId" sortable searchable>
+                  {{ getProdId(props.row) }}
+                </b-table-column>
+                <b-table-column label="SerialNr" field="serialNr" sortable searchable>
+                  {{ props.row.serialNr }}
+                </b-table-column>
+                <b-table-column label="ArticleNr" field="" sortable>
+                  {{ articleNr }}
+                </b-table-column>
+                <b-table-column label="Status" field="">
+                  <span class="tag is-success">
+                    {{getStatus(props.row.status)}}
+                  </span>
+                </b-table-column>
+              </template>
+
+              <section class="section" slot="empty">
+                <div class="content has-text-grey has-text-centered">
+                  <template v-if="isLoading">
+                    <p>
+                      <b-icon icon="dots-horizontal" size="is-large"/>
+                    </p>
+                    <p>Fetching data...</p>
+                  </template>
+                  <template v-else>
+                    <p>
+                      <b-icon icon="emoticon-sad" size="is-large"/>
+                    </p>
+                    <p>Nothing's here&hellip;</p>
+                  </template>
+                </div>
+              </section>
+              <template #footer>
+              </template>
+            </b-table>
+          </div>
         </card-component>
       </tiles>
     </section>
@@ -119,13 +164,15 @@
         dropFiles: [],
         articleNr: '',
         prodOrderNr: '',
-        eMessage: '',
+        isResponseData: false,
 
         //auto complete
         articleList: [],
         articleSelected: null,
         isFetchingArticleList: false,
         clearable: false,
+
+        tableData: []
       }
     },
     computed: {
@@ -174,10 +221,14 @@
 
         axios.post('/productlist/bulkregister', data)
             .then(r => {
-              this.$buefy.snackbar.open({
-                message: 'Succeed register',
-                queue: false
-              })
+              if(r.data) {
+                this.isResponseData = true
+                this.tableData = r.data
+                this.$buefy.snackbar.open({
+                  message: 'Succeed register',
+                  queue: false
+                })
+              }
             })
             .catch(err => {
               if (err.response.status == 401) {
@@ -191,7 +242,6 @@
                 })
               }
             })
-
       },
       getAsyncArticleList: debounce(function (name) {
             if (!name.length) {
@@ -230,13 +280,26 @@
                     // Something happened in setting up the request and triggered an Error
                     console.log('Error', error.message);
                   }
-
                 })
                 .finally(() => {
                   this.isFetchingArticleList = false
                 })
           },
-          250)
+          250),
+      getStatus(state) {
+        if(state) {
+          return 'Created'
+        } else {
+          return 'Failed'
+        }
+      },
+      getProdId(row) {
+        if(row.status) {
+          return row.productId
+        } else {
+          return ''
+        }
+      }
     },
     watch: {
 
