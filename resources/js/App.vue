@@ -35,6 +35,12 @@ export default {
         this.$gettext('sidebar.production'),
         [
           {
+            to: '/products/register',
+            label: this.$gettext('sidebar.bulkRegister'),
+            icon: 'package-variant-closed',
+            role: ['admin', 'user'],
+          },
+          {
             to: '/products/list',
             label: this.$gettext('sidebar.products'),
             icon: 'package-variant-closed',
