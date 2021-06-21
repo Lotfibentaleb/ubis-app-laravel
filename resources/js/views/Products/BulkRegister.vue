@@ -115,10 +115,14 @@
               <section class="section" slot="empty">
                 <div class="content has-text-grey has-text-centered">
                   <template v-if="isLoading">
-                    <p>
-                      <b-icon icon="dots-horizontal" size="is-large"/>
-                    </p>
-                    <p>Fetching data...</p>
+                    <b-loading :is-full-page="isFullPage" v-model="isLoading">
+                      <b-icon
+                              pack="fas"
+                              icon="sync-alt"
+                              size="is-large"
+                              custom-class="fa-spin">
+                      </b-icon>
+                    </b-loading>
                   </template>
                   <template v-else>
                     <p>
@@ -165,7 +169,6 @@
     },
     data () {
       return {
-        isLoading: false,
         item: null,
         createdReadable: null,
         dropFiles: [],
@@ -179,7 +182,11 @@
         isFetchingArticleList: false,
         clearable: false,
 
-        tableData: []
+        tableData: [],
+
+        //loading
+        isLoading: false,
+        isFullPage: true
       }
     },
     computed: {
@@ -220,7 +227,8 @@
           })
           return
         }
-        this.isResponseData = false
+        this.isResponseData = true
+        this.isLoading = true
         this.tableData = []
         let data = new FormData();
         data.append('productionOrderNr', this.prodOrderNr)
@@ -230,7 +238,7 @@
         axios.post('/productlist/bulkregister', data)
             .then(r => {
               if(r.data) {
-                this.isResponseData = true
+                this.isLoading = false
                 this.tableData = r.data
                 this.$buefy.snackbar.open({
                   message: 'Succeed register',
