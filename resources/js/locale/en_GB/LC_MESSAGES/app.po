@@ -27,11 +27,11 @@ msgid "bulkRegisterPage.card.title"
 msgstr "Bulk register products"
 
 #: resources/js/views/Products/BulkRegister.vue:56
-msgid "bulkRegisterPage.heroBar.goto"
+msgid "bulkActionsPage.heroBar.goto"
 msgstr "Products"
 
 #: resources/js/views/Products/BulkRegister.vue:48
-msgid "bulkRegisterPage.heroBar.title"
+msgid "bulkActionsPage.heroBar.title"
 msgstr "Bulk actions"
 
 #: resources/js/views/Products/BulkRegister.vue:166
@@ -47,15 +47,15 @@ msgid "bulkRegisterPage.registerButton"
 msgstr "Register"
 
 #: resources/js/views/Products/BulkRegister.vue:278
-msgid "bulkRegisterPage.reVerifyProductsCard.title"
+msgid "bulkActionsPage.bulkReVerify.card.title"
 msgstr "Bulk re-verify products"
 
 #: resources/js/views/Products/BulkRegister.vue:43
-msgid "bulkRegisterPage.titleBar.main"
+msgid "bulkActionsPage.titleBar.main"
 msgstr "Products"
 
 #: resources/js/views/Products/BulkRegister.vue:44
-msgid "bulkRegisterPage.titleBar.sub1"
+msgid "bulkActionsPage.titleBar.sub1"
 msgstr "Bulk actions"
 
 #: resources/js/views/Products/BulkRegister.vue:95
@@ -617,7 +617,7 @@ msgid "productsPage.titleBar.sub1"
 msgstr "Products"
 
 #: resources/js/App.vue:29
-msgid "sidebar.bulkRegister"
+msgid "sidebar.bulkActions"
 msgstr "Bulk actions"
 
 #: resources/js/App.vue:21
