@@ -420,6 +420,7 @@ class ProductsListController extends Controller
             ]
         ];
         $putData = array('article_nr' => $articleNr, 'serial_nr' => $serialNr, 'section_id' => $sectionId);
+        //'products/{id or serialNr}/section/{sectionId}'
         $requestString = 'products/'.$serialNr.'/section/'.$sectionId;
         $response = $client->request('PUT', $baseUrl.$requestString, array_merge($options, ['json' => $putData]));
         $statusCode = $response->getStatusCode();

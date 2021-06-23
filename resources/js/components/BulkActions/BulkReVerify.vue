@@ -201,7 +201,7 @@
                 this.isLoading = false
                 this.tableData = r.data
                 this.$buefy.snackbar.open({
-                  message: 'Succeed register',
+                  message: 'Got the verification result',
                   queue: false
                 })
               }
@@ -264,9 +264,9 @@
           250),
       getStatus(state) {
         if(state) {
-          return 'Created'
+          return 'Product Valid'
         } else {
-          return 'Failed'
+          return 'Not Valid'
         }
       },
       getProdId(row) {
