@@ -86,6 +86,7 @@ Route::prefix('/productlist')->group(function () {
     Route::delete('/product/{id}', 'ProductsListController@destroy');
 
     Route::post('/bulkregister', 'ProductsListController@bulkRegister');
+    Route::post('/bulkreverify', 'ProductsListController@bulkReVerify');
 });
 
 Route::prefix('/dashboard')->group(function () {

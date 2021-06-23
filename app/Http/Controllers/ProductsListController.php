@@ -329,6 +329,47 @@ class ProductsListController extends Controller
         return response()->json($resData);
     }
 
+    public function bulkReVerify(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'sectionId' => 'string|between:1,65',
+            'articleNr' => 'string|between:1,65',
+            'file' => 'file'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['message' =>  'Wrong parameter. '.implode(' ',$validator->errors()->all())], 422);
+        }
+
+        $csvFile = $request->file('file');
+
+        if(!$csvFile || $csvFile->getClientOriginalExtension() != 'csv') {
+            return response()->json(['message'=>'Invalid File'], 422);
+        }
+
+        $requestData = $request->all();
+
+        //CSV file processing
+        $file_handle = fopen($csvFile, 'r');
+        $lineText = [];
+        while (!feof($file_handle)) {
+            $lineText[] = fgetcsv($file_handle, 0, ',');
+        }
+        fclose($file_handle);
+
+        //remove last index item because the last index item is false
+        unset($lineText[count($lineText) - 1]);
+
+        $sectionId = $requestData['sectionId'];
+        $articleNr = $requestData['articleNr'];
+
+        $resData = [];
+        foreach($lineText as $serialNr) {
+            array_push($resData, $this->reVerifyProduct($articleNr, $sectionId, '0'.(string)$serialNr[0]));
+        }
+
+        return response()->json($resData);
+    }
+
     private function createProduct($articleNr, $productionOrderNr, $serialNr) {
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
@@ -365,5 +406,38 @@ class ProductsListController extends Controller
         $resData = array('status'=>true, 'serialNr'=>$serialNr, 'productId'=>$product->id);
         return $resData;
 
+    }
+
+    private function reVerifyProduct($articleNr, $sectionId, $serialNr) {
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $options = [
+            'http_errors'=> false,
+            'headers' =>[
+                'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+        $putData = array('article_nr' => $articleNr, 'serial_nr' => $serialNr, 'section_id' => $sectionId);
+        $requestString = 'products/'.$serialNr.'/section/'.$sectionId;
+        $response = $client->request('PUT', $baseUrl.$requestString, array_merge($options, ['json' => $putData]));
+        $statusCode = $response->getStatusCode();
+        if( $statusCode != 201){
+            $statusMessage = 'Could not create product.';
+            if( $response &&  !empty($response->getBody()) && !empty((string)$response->getBody())){
+                $responseContent = json_decode((string)$response->getBody(), true);
+                $statusMessage = (array_key_exists('error', $responseContent))?$responseContent['error']:$statusMessage;
+                $statusMessage = (array_key_exists('message', $responseContent))?$responseContent['message']:$statusMessage;
+            }
+            //echo 'Product with serial '.$serialNr.' could not be created ('.$statusMessage.')'."\r\n";
+            return array('status'=>false, 'serialNr'=>$serialNr);
+        }
+
+        $product = json_decode((string)$response->getBody());
+        $product = $product->data;
+        //echo 'Product with serial '.$serialNr.' and ID '.$product->id.' created successfully.'."\r\n";
+        $resData = array('status'=>true, 'serialNr'=>$serialNr, 'productId'=>$product->id);
+        return $resData;
     }
 }
