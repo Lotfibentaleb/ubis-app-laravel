@@ -14,51 +14,55 @@ msgstr ""
 msgid "Articles in production last 10 days"
 msgstr "Articles in production last 10 days"
 
-#: resources/js/views/Products/BulkRegister.vue:108
+#: resources/js/views/Products/BulkRegister.vue:123
 msgid "bulkRegisterPage.articleNr"
 msgstr "Article Nr"
 
-#: resources/js/views/Products/BulkRegister.vue:109
+#: resources/js/views/Products/BulkRegister.vue:124
 msgid "bulkRegisterPage.articleNr.message"
 msgstr "Input Article Nr"
 
-#: resources/js/views/Products/BulkRegister.vue:49
+#: resources/js/views/Products/BulkRegister.vue:51
 msgid "bulkRegisterPage.card.title"
 msgstr "Bulk register products"
 
-#: resources/js/views/Products/BulkRegister.vue:41
-msgid "bulkRegisterPage.heroBar.goto"
+#: resources/js/views/Products/BulkRegister.vue:56
+msgid "bulkActionsPage.heroBar.goto"
 msgstr "Products"
 
-#: resources/js/views/Products/BulkRegister.vue:46
-msgid "bulkRegisterPage.heroBar.title"
-msgstr "Bulk Register"
+#: resources/js/views/Products/BulkRegister.vue:48
+msgid "bulkActionsPage.heroBar.title"
+msgstr "Bulk actions"
 
-#: resources/js/views/Products/BulkRegister.vue:151
+#: resources/js/views/Products/BulkRegister.vue:166
 msgid "bulkRegisterPage.productionOrderNr"
 msgstr "Production Order Nr"
 
-#: resources/js/views/Products/BulkRegister.vue:152
+#: resources/js/views/Products/BulkRegister.vue:167
 msgid "bulkRegisterPage.productionOrderNr.message"
 msgstr "Input Production Order Nr"
 
-#: resources/js/views/Products/BulkRegister.vue:168
+#: resources/js/views/Products/BulkRegister.vue:183
 msgid "bulkRegisterPage.registerButton"
 msgstr "Register"
 
-#: resources/js/views/Products/BulkRegister.vue:41
-msgid "bulkRegisterPage.titleBar.main"
+#: resources/js/views/Products/BulkRegister.vue:278
+msgid "bulkActionsPage.bulkReVerify.card.title"
+msgstr "Bulk re-verify products"
+
+#: resources/js/views/Products/BulkRegister.vue:43
+msgid "bulkActionsPage.titleBar.main"
 msgstr "Products"
 
-#: resources/js/views/Products/BulkRegister.vue:42
-msgid "bulkRegisterPage.titleBar.sub1"
+#: resources/js/views/Products/BulkRegister.vue:44
+msgid "bulkActionsPage.titleBar.sub1"
 msgstr "Bulk actions"
 
-#: resources/js/views/Products/BulkRegister.vue:80
+#: resources/js/views/Products/BulkRegister.vue:95
 msgid "bulkRegisterPage.uploadComponents.content"
 msgstr "Drop your CSV file here or click to upload"
 
-#: resources/js/views/Products/BulkRegister.vue:58
+#: resources/js/views/Products/BulkRegister.vue:73
 msgid "bulkRegisterPage.uploadComponents.title"
 msgstr "Upload CSV for Serial Nr"
 
@@ -613,7 +617,7 @@ msgid "productsPage.titleBar.sub1"
 msgstr "Products"
 
 #: resources/js/App.vue:29
-msgid "sidebar.bulkRegister"
+msgid "sidebar.bulkActions"
 msgstr "Bulk actions"
 
 #: resources/js/App.vue:21
