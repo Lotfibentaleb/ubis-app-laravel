@@ -14,55 +14,83 @@ msgstr ""
 msgid "Articles in production last 10 days"
 msgstr "Artikel in Produktion letzte 10 Tage"
 
-#: resources/js/views/Products/BulkRegister.vue:123
-msgid "bulkRegisterPage.articleNr"
+#: resources/js/components/BulkActions/BulkReVerify.vue:104
+msgid "bulkActionsPage.bulkReVerify.articleNr"
 msgstr "Artikel-Nr."
 
-#: resources/js/views/Products/BulkRegister.vue:124
-msgid "bulkRegisterPage.articleNr.message"
+#: resources/js/components/BulkActions/BulkReVerify.vue:105
+msgid "bulkActionsPage.bulkReVerify.articleNr.message"
 msgstr "Eingabe Artikel-Nr"
 
-#: resources/js/views/Products/BulkRegister.vue:51
-msgid "bulkRegisterPage.card.title"
-msgstr "Massen registrierungs produkte"
-
-#: resources/js/views/Products/BulkRegister.vue:56
-msgid "bulkActionsPage.heroBar.goto"
-msgstr "Produkte"
-
-#: resources/js/views/Products/BulkRegister.vue:48
-msgid "bulkActionsPage.heroBar.title"
-msgstr "Massen Aktionen"
-
-#: resources/js/views/Products/BulkRegister.vue:166
-msgid "bulkRegisterPage.productionOrderNr"
-msgstr "Produktionsauftrag Nr"
-
-#: resources/js/views/Products/BulkRegister.vue:167
-msgid "bulkRegisterPage.productionOrderNr.message"
-msgstr "Eingabe Produktionsauftrag Nr"
-
-#: resources/js/views/Products/BulkRegister.vue:183
-msgid "bulkRegisterPage.registerButton"
-msgstr "Registrieren"
-
-#: resources/js/views/Products/BulkRegister.vue:278
+#: resources/js/components/BulkActions/BulkReVerify.vue:48
 msgid "bulkActionsPage.bulkReVerify.card.title"
 msgstr "Bulk-Neuverifizierung von Produkten"
 
-#: resources/js/views/Products/BulkRegister.vue:43
+#: resources/js/components/BulkActions/BulkReVerify.vue:164
+msgid "bulkActionsPage.bulkReVerify.reVerifyButton"
+msgstr "Erneut überprüfen"
+
+#: resources/js/components/BulkActions/BulkReVerify.vue:147
+msgid "bulkActionsPage.bulkReVerify.sectionId"
+msgstr "Abschnitts-ID"
+
+#: resources/js/components/BulkActions/BulkReVerify.vue:148
+msgid "bulkActionsPage.bulkReVerify.sectionId.message"
+msgstr "Eingabe Abschnitts-ID"
+
+#: resources/js/components/BulkActions/BulkReVerify.vue:76
+msgid "bulkActionsPage.bulkReVerify.uploadComponents.content"
+msgstr "Legen Sie Ihre CSV-Datei hier ab oder klicken Sie zum Hochladen"
+
+#: resources/js/components/BulkActions/BulkReVerify.vue:54
+msgid "bulkActionsPage.bulkReVerify.uploadComponents.title"
+msgstr "CSV für Seriennummer hochladen"
+
+#: resources/js/views/Products/BulkActions.vue:24
+msgid "bulkActionsPage.heroBar.goto"
+msgstr "Produkte"
+
+#: resources/js/views/Products/BulkActions.vue:20
+msgid "bulkActionsPage.heroBar.title"
+msgstr "Massen Aktionen"
+
+#: resources/js/views/Products/BulkActions.vue:15
 msgid "bulkActionsPage.titleBar.main"
 msgstr "Produkte"
 
-#: resources/js/views/Products/BulkRegister.vue:44
+#: resources/js/views/Products/BulkActions.vue:16
 msgid "bulkActionsPage.titleBar.sub1"
 msgstr "Massen Aktionen"
 
-#: resources/js/views/Products/BulkRegister.vue:95
+#: resources/js/components/BulkActions/BulkRegister.vue:104
+msgid "bulkRegisterPage.articleNr"
+msgstr "Artikel-Nr."
+
+#: resources/js/components/BulkActions/BulkRegister.vue:105
+msgid "bulkRegisterPage.articleNr.message"
+msgstr "Eingabe Artikel-Nr"
+
+#: resources/js/components/BulkActions/BulkRegister.vue:48
+msgid "bulkRegisterPage.card.title"
+msgstr "Massen registrierungs produkte"
+
+#: resources/js/components/BulkActions/BulkRegister.vue:147
+msgid "bulkRegisterPage.productionOrderNr"
+msgstr "Produktionsauftrag Nr"
+
+#: resources/js/components/BulkActions/BulkRegister.vue:148
+msgid "bulkRegisterPage.productionOrderNr.message"
+msgstr "Eingabe Produktionsauftrag Nr"
+
+#: resources/js/components/BulkActions/BulkRegister.vue:164
+msgid "bulkRegisterPage.registerButton"
+msgstr "Registrieren"
+
+#: resources/js/components/BulkActions/BulkRegister.vue:76
 msgid "bulkRegisterPage.uploadComponents.content"
 msgstr "Legen Sie Ihre CSV-Datei hier ab oder klicken Sie zum Hochladen"
 
-#: resources/js/views/Products/BulkRegister.vue:73
+#: resources/js/components/BulkActions/BulkRegister.vue:54
 msgid "bulkRegisterPage.uploadComponents.title"
 msgstr "CSV für Seriennummer hochladen "
 
@@ -616,7 +644,7 @@ msgstr "Fertigung"
 msgid "productsPage.titleBar.sub1"
 msgstr "Produkte"
 
-#: resources/js/App.vue:29
+#: resources/js/App.vue:35
 msgid "sidebar.bulkActions"
 msgstr "Massen Aktionen"
 
@@ -624,19 +652,23 @@ msgstr "Massen Aktionen"
 msgid "sidebar.dashboard"
 msgstr "Dashboard"
 
+#: resources/js/App.vue:29
+msgid "sidebar.exports"
+msgstr "Exporte"
+
 #: resources/js/App.vue:16
 msgid "sidebar.general"
 msgstr "ALLGEMEIN"
 
-#: resources/js/App.vue:41
+#: resources/js/App.vue:47
 msgid "sidebar.measurements"
 msgstr "Measurements"
 
-#: resources/js/App.vue:56
+#: resources/js/App.vue:62
 msgid "sidebar.prodSection"
 msgstr "Fertigungs-Stationen"
 
-#: resources/js/App.vue:50
+#: resources/js/App.vue:56
 msgid "sidebar.prodTemplate"
 msgstr "Fertigungsabläufe"
 
@@ -644,19 +676,19 @@ msgstr "Fertigungsabläufe"
 msgid "sidebar.production"
 msgstr "FERTIGUNG"
 
-#: resources/js/App.vue:35
+#: resources/js/App.vue:41
 msgid "sidebar.products"
 msgstr "Produkte"
 
-#: resources/js/App.vue:62
+#: resources/js/App.vue:68
 msgid "sidebar.resource"
 msgstr "VERWALTUNG"
 
-#: resources/js/App.vue:46
+#: resources/js/App.vue:52
 msgid "sidebar.setup"
 msgstr "KONFIGURATION"
 
-#: resources/js/App.vue:66
+#: resources/js/App.vue:72
 msgid "sidebar.users"
 msgstr "Benutzer"
 
