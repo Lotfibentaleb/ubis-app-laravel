@@ -4,7 +4,7 @@
       <p>You can use full excel exports feature</p>
     </div>
     <div class="column is-1 is-offset-11">
-      <b-button label="Export" type="is-primary" @click="excelExports" />
+      <a :href="hrefUrl"><b-button label="Export" type="is-primary" /></a>
     </div>
   </card-component>
 </template>
@@ -15,9 +15,27 @@
   export default {
     name: 'ExcelExports',
     components: {BButton, CardComponent},
+    data() {
+      return {
+        hrefUrl: '',
+        dataUrl: '/productlist',
+        sortField:'created_at',
+        sortOrder:'desc',
+        filterValues: '{}',
+      }
+    },
+    created () {
+      this.getHrefURL()
+    },
     methods: {
-      excelExports() {
-
+      getHrefURL() {
+        const paramsFullExcel = [
+          `enhanced=2`,
+          `sort_by=${this.sortField}.${this.sortOrder}`,
+          `page=${this.page}`,
+          `filter=${this.filterValues}`
+        ].join('&')
+        this.hrefUrl = this.dataUrl + '/fullExcel?' + paramsFullExcel
       }
     }
   }
