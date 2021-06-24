@@ -1,6 +1,6 @@
 <template>
 
-  <card-component :title="$gettext('bulkActionsPage.bulkReVerify.card.title')" icon="account-edit" class="tile is-child">
+  <card-component :title="$gettext('bulkActionsPage.bulkReVerify.card.title')" icon="package-variant-closed" class="tile is-child">
     <div class="column is-one-fifths is-offset-two-fifths">
       <p>{{$gettext('bulkActionsPage.bulkReVerify.uploadComponents.title')}}</p>
     </div>
