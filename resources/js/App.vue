@@ -35,6 +35,12 @@ export default {
         this.$gettext('sidebar.production'),
         [
           {
+            to: '/products/exports',
+            label: this.$gettext('sidebar.exports'),
+            icon: 'package-variant-closed',
+            role: ['admin', 'user'],
+          },
+          {
             to: '/products/bulkactions',
             label: this.$gettext('sidebar.bulkActions'),
             icon: 'package-variant-closed',

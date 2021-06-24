@@ -44,6 +44,11 @@ export default new Router({
       props: true
     },
     {
+      path: '/products/exports',
+      name: 'products.exports',
+      component: () => import('./views/Products/Exports.vue'),
+    },
+    {
       path: '/products/bulkactions',
         name: 'products.bulkactions',
       component: () => import('./views/Products/BulkActions.vue'),
