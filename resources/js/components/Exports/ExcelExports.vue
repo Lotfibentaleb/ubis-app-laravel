@@ -1,10 +1,10 @@
 <template>
   <card-component :title="$gettext('exportsPage.excelExports.card.title')" icon="package-variant-closed" class="tile is-child">
     <div class="column is-one-fifths is-offset-two-fifths">
-      <p>You can use full excel exports feature</p>
+      <p>{{$gettext('exportsPage.excelExports.explanation')}}</p>
     </div>
     <div class="column is-1 is-offset-11">
-      <a :href="hrefUrl"><b-button label="Export" type="is-primary" /></a>
+      <a :href="hrefUrl"><b-button :label="$gettext('exportsPage.excelExports.exportBtn')" type="is-primary" /></a>
     </div>
   </card-component>
 </template>

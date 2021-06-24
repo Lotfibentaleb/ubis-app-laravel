@@ -305,6 +305,30 @@ msgstr "Users"
 msgid "createUserPage.titleBar.sub2"
 msgstr "New User"
 
+#: resources/js/components/Exports/ExcelExports.vue:7
+msgid "exportsPage.excelExports.card.title"
+msgstr "Excel Exports"
+
+#: resources/js/views/Products/Exports.vue:24
+msgid "exportsPage.heroBar.goto"
+msgstr "Products"
+
+#: resources/js/views/Products/Exports.vue:20
+msgid "exportsPage.heroBar.title"
+msgstr "Exports"
+
+#: resources/js/components/Exports/QDisExports.vue:7
+msgid "exportsPage.qdisExports.card.title"
+msgstr "Q-DIS Exports"
+
+#: resources/js/views/Products/Exports.vue:15
+msgid "exportsPage.titleBar.main"
+msgstr "Products"
+
+#: resources/js/views/Products/Exports.vue:16
+msgid "exportsPage.titleBar.sub1"
+msgstr "Exports"
+
 #: resources/js/views/Products/MeasurementsList.vue:40
 msgid "measurementsPage.heroBar.goto"
 msgstr "Dashboard"
