@@ -94,7 +94,7 @@ class addMissingMeasurements20210623 extends Command
 
         $count=0;
         foreach($filenames as $file){
-            if($count++ > 3) break;
+            //if($count++ > 3) break;
             $csvFileName = $file['file'];
             $csvFile = storage_path( 'app\\'.$csvFileName);
             $data = $this->readCSV($csvFile,array('delimiter' => ';'));
