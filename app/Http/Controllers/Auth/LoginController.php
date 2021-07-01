@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Log;
+use Throwable;
 
 
 class LoginController extends Controller
@@ -122,7 +123,17 @@ class LoginController extends Controller
         ];
         $requestString = 'auth/logout';
         $callUrl = $baseUrl.$requestString;
-        $response = $client->request('POST', $callUrl, $options );
+        try{
+            $response = $client->request('POST', $callUrl, $options );
+        }catch(Throwable $e){
+            if ($e->getCode() == 401) {
+                Auth::logout();
+                Session::forget('bearer_token');
+                return Session::has('bearer_token')
+                    ? Session::forget('bearer_token')
+                    : redirect('/');
+            }
+        }
         Auth::logout();
         Session::forget('bearer_token');
         return Session::has('bearer_token')
