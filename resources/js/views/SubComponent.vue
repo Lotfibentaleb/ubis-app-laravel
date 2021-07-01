@@ -34,7 +34,8 @@ export default {
     productid: { default: null },         // ID of parent product, if given
     componentserial:{ default: null },    // this components serial nr.
     componentid:{ default: null },         // this components id
-    productionordernr:{ default: ''}
+    productionordernr:{ default: ''},
+    productionordernrtype:{ default: 'is-normal'},
   },
   data () {
     return {
@@ -61,6 +62,20 @@ export default {
       this.$emit('productUpdate', productSerial, productId)
     },
     submitComponent: function(deleteComponent = false) {
+
+      if( this.productionordernr == '' ){
+        let message = 'Produktions-Auftrags-Nr. ist jetzt leer'
+        this.$buefy.toast.open({
+          message: message,
+          type: 'is-danger',
+          queue: false
+        })
+        this.$emit('setProductionOrderNrType', 'is-danger')
+        return
+      }
+
+      this.$emit('setProductionOrderNrType', 'is-normal')
+
       this.transmissionActive = true
       let method = 'post'
       let url = `/registration/product/${this.productid}/articleNr/${this.articlenumber}`

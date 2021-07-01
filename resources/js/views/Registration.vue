@@ -51,7 +51,7 @@
               <p class="title" >{{ articleSelected.articleNumber }} - {{ articleName }}</p>
             </div>
             <div class="level-right">
-              <b-field label="Produktions-Auftrags-Nr." label-position="on-border">
+              <b-field label="Produktions-Auftrags-Nr." label-position="on-border" :type="productionOrderNrType">
                 <b-input v-model="productionOrderNr" size="is-medium"/>
               </b-field>
             </div>
@@ -89,6 +89,8 @@
             :componentserial="item.component_serial"
             :componentid="item.component_id"
             :productionordernr="productionOrderNr"
+            :productionordernrtype="productionOrderNrType"
+            @setProductionOrderNrType="setProdOrderNrType"
             ></sub-component>
             <br/>
         </div>
@@ -135,7 +137,8 @@ export default {
           productionOrderNr: '',
           product_info_class: 'subtitle is-5 has-text-grey-lighter',
           productSearch: null,
-          transmissionActive: false
+          transmissionActive: false,
+          productionOrderNrType: 'is-normal'
       }
   },
 
@@ -163,6 +166,11 @@ export default {
     console.log(this.server_data);
   },
   watch: {
+    productionOrderNr: function(){
+      if( this.productionOrderNr != '' ){
+        this.productionOrderNrType = 'is-normal'
+      }
+    },
     articleSelected: function(){
       if( !this.transmissionActive ){
         this.fetchArticleDetails();
@@ -218,6 +226,9 @@ export default {
     }
   },
   methods: {
+    setProdOrderNrType: function(type){
+      this.productionOrderNrType = type
+    },
     productionInformation: function(stepName){
         let result = null;
         result = this.productDetails.production_information.find( function(currentValue, index, arr){
