@@ -1,13 +1,13 @@
 <template>
   <section>
     <card-component title="Komponente" class="has-mobile-sort-spaced" icon="view-grid">
-      <div class="level">
-        <div class="level-left">
+      <div class="columns">
+        <div class="column is-8">
           <h5 class="title is-5">
             {{componentarticledata.articleNumber}} - {{componentarticledata.name}}
           </h5>
         </div>
-        <div class="level-right">
+        <div class="column is-4">
           <b-field label="Serial number" label-position="on-border">
             <b-input :value="component_serial" size="is-medium" @change.native="component_serial = $event.target.value" :disabled="component_id != null"/>
              <p class="control">

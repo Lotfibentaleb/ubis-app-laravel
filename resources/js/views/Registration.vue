@@ -46,11 +46,11 @@
         </b-field>
 
         <div v-if="articleSelected != null">
-          <div class="level">
-            <div class="level-left">
+          <div class="columns">
+            <div class="column is-9">
               <p class="title" >{{ articleSelected.articleNumber }} - {{ articleName }}</p>
             </div>
-            <div class="level-right">
+            <div class="column is-3">
               <b-field label="Produktions-Auftrags-Nr." label-position="on-border" :type="productionOrderNrType">
                 <b-input v-model="productionOrderNr" size="is-medium"/>
               </b-field>
