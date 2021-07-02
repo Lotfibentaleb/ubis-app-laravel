@@ -1,5 +1,25 @@
 <template>
   <div>
+    <div class="level">
+      <div class="level-right"></div>
+      <div class="level-left">
+        <b-icon
+                icon="calendar-today">
+        </b-icon>
+        <date-range-picker
+                ref="picker"
+                :timePicker="timePicker"
+                :timePicker24Hour="timePicker24Hour"
+                v-model="dateRange"
+                @update="updateDateRange"
+        >
+          <template v-slot:input="picker" style="min-width: 350px;">
+            <!--{{ getParamDate(picker.startDate) | date }} - {{ getParamDate(picker.endDate) | date }}-->
+            {{ picker.startDate | moment("DD.MM.YYYY / k:mm:ss") }} - {{ picker.endDate | moment("DD.MM.YYYY / k:mm:ss") }}
+          </template>
+        </date-range-picker>
+      </div>
+    </div>
     <b-table
             :checked-rows.sync="checkedRows"
             :checkable="true"
@@ -75,9 +95,12 @@
 <script>
 
   import debounce from 'lodash/debounce'
+  import DateRangePicker from 'vue2-daterange-picker'
+  import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
 
   export default {
     name: 'ProductTemplate',
+    components: {DateRangePicker},
     props: {
       reload: {
         type: Boolean,
@@ -93,7 +116,15 @@
       }
     },
     data () {
+      const today = new Date()
       return {
+        dateRange: {
+          startDate: new Date(today.getFullYear() - 2, today.getMonth(), today.getDate()),
+          endDate: today,
+        },
+        dateRangeValues: '{}',
+        timePicker: true,
+        timePicker24Hour: true,
         // initial table
         checkedRows: [],
         selectedRow: {},
@@ -111,6 +142,16 @@
         selectedId: null,
         // selected measurement data
         jsonPdFlow: []
+      }
+    },
+    filters: {
+      dateCell (value) {
+        let dt = new Date(value)
+
+        return dt.getDate()
+      },
+      date (val) {
+        return val ? val.toLocaleString() : ''
       }
     },
     created () {
@@ -154,6 +195,7 @@
           `size=${this.perPage}`,
           `sort_by=${this.sortField}.${this.sortOrder}`,
           `page=${this.page}`,
+          `date_range=${this.dateRangeValues}`,
           `article_nr=${this.filterValues}`
         ].join('&')
 
@@ -196,6 +238,11 @@
                 })
               }
             })
+      },
+      updateDateRange() {
+        this.dateRangeValues = '';
+        this.dateRangeValues = encodeURIComponent(JSON.stringify(this.dateRange));
+        this.getData()
       }
     }
   }
