@@ -80,6 +80,9 @@ class addMissingMeasurements20210623 extends Command
         $translation['BlackMura Uniformity Black'] = 'homogeneity_black';
         $translation['BlackMura Uniformity White'] = 'homogeneity_white';
         $translation['BlackMura Max Rel. Grad White'] = 'black_mura_gradient';
+        $translation['Kontrast 1000:1'] = 'contrast_white_black';
+        $translation['White  X Mean'] = 'chromatisity_white_x';
+        $translation['White  Y Mean'] = 'chromatisity_white_y';
 
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
@@ -94,7 +97,7 @@ class addMissingMeasurements20210623 extends Command
 
         $count=0;
         foreach($filenames as $file){
-            //if($count++ > 3) break;
+//            if($count++ > 4) break;
             $csvFileName = $file['file'];
             $csvFile = storage_path( 'app\\'.$csvFileName);
             $data = $this->readCSV($csvFile,array('delimiter' => ';'));
@@ -105,9 +108,9 @@ class addMissingMeasurements20210623 extends Command
             $valueSet['ambient_temp'] = 0;
             $valueSet['heating_temp'] = 0;
             $valueSet['heating_time'] = 0;
-            $valueSet['contrast_white_black'] = 0;
-            $valueSet['chromatisity_white_x'] = 0.318;
-            $valueSet['chromatisity_white_y'] = 0.318;
+//            $valueSet['contrast_white_black'] = 0;  // Kontrast
+//            $valueSet['chromatisity_white_x'] = 0.318; // White  X Mean
+//            $valueSet['chromatisity_white_y'] = 0.318; // White  Y Mean
 
             foreach($data as $entry){
                 if( empty($entry) ) continue;
@@ -133,7 +136,7 @@ class addMissingMeasurements20210623 extends Command
                     // 2. create product
                     $postData = array('st_article_nr' => '80000114B2', 'st_serial_nr' => $file['serial'], 'production_order_nr' => 'production_marker_1');
                     $requestString = 'products';
-                    echo 'Could not find reduced serial nr. -> create product'.$baseUrl.$requestString."\n";
+                    echo 'Could not find reduced serial nr. -> create product '.$baseUrl.$requestString."\n";
                     $response = $client->request('POST', $baseUrl.$requestString, array_merge($options, ['json' => $postData]));
                     $statusCode = $response->getStatusCode();
                     if( $statusCode != 200 && $statusCode != 201){
@@ -146,24 +149,41 @@ class addMissingMeasurements20210623 extends Command
             }
             $responseContent = json_decode((string)$response->getBody(), true);
             $productId = $responseContent['data']['id'];
-            echo 'Product ID is: '.$productId."\n";
 
-            // now we have a product id, lets add the measurement
-            $requestString = 'products/'.$productId.'/section/daisy.800000114B2';
-            $measurement['data'] = $valueSet;
-            $response = $client->request('POST', $baseUrl.$requestString, array_merge($options, ['json' => $measurement]));
-            $statusCode = $response->getStatusCode();
-            if( $statusCode != 200 && $statusCode != 201){
-                echo 'Could not store measurements ('.$statusCode.')'.$file['serial']." !!!!  \n";
-                print_r(json_encode($measurement));
-                $responseContent = json_decode((string)$response->getBody(), true);
-                print_r($responseContent);
-                continue;
+            // check which measurement is newer, CSV or DB
+            $dbMeasurementDatetime = new Carbon('2020-01-01');
+            if( isset($responseContent['data']['production_dataset']) && isset($responseContent['data']['production_dataset']['step.daisy.test.1']) ){
+                // 2021-06-28T18:06:36.355000Z
+                echo 'DB Measurement found'."\n";
+                $dbMeasurementDTRAW = $responseContent['data']['production_dataset']['step.daisy.test.1']['created_at'];
+                $dbMeasurementDatetime = Carbon::parse( $dbMeasurementDTRAW );
+            }
+
+            echo 'Product ID is: '.$productId."\n";
+            if( $dbMeasurementDatetime->gte($file['datetime']) ){
+                echo 'DB Measurement date '.$dbMeasurementDatetime->format('Y-m-d').' is newer than CSV date '.$file['datetime']->format('Y-m-d')." -> no update \n";
             }else{
-                echo 'Measurement stored. Continue with next file.'."\n";
+                echo 'DB Measurement date '.$dbMeasurementDatetime->format('Y-m-d').' is older than CSV date '.$file['datetime']->format('Y-m-d')."\n";
+
+                // now we have a product id, lets add the measurement, as it is newer
+                $requestString = 'products/'.$productId.'/section/daisy.800000114B2';
+                $measurement['data'] = $valueSet;
+                $response = $client->request('POST', $baseUrl.$requestString, array_merge($options, ['json' => $measurement]));
+                $statusCode = $response->getStatusCode();
+                if( $statusCode != 200 && $statusCode != 201){
+                    echo 'Could not store measurements ('.$statusCode.')'.$file['serial']." !!!!  \n";
+                    print_r(json_encode($measurement));
+                    $responseContent = json_decode((string)$response->getBody(), true);
+                    print_r($responseContent);
+                    continue;
+                }else{
+                    echo 'Measurement stored. Continue with next file.'."\n";
+                }
             }
             echo "\n";
         }
+        echo "\n";
+        echo 'Complete analysed '.$count." files -> done\n";
         return 0;
     }
 }
