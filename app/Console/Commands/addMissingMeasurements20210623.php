@@ -46,6 +46,16 @@ class addMissingMeasurements20210623 extends Command
     }
 
 
+    function array_sort_by_column(&$array, $column, $direction = SORT_ASC) {
+        $reference_array = array();
+
+        foreach($array as $key => $row) {
+            $reference_array[$key] = $row[$column];
+        }
+
+        array_multisort($reference_array, $direction, $array);
+    }
+
     /**
      * Execute the console command.
      *
@@ -67,6 +77,9 @@ class addMissingMeasurements20210623 extends Command
                 $filenames[] = $entry;
             }
         }
+        $this->array_sort_by_column($filenames, 'datetime', SORT_DESC);
+
+//print_r($filenames);die(__FILE__.__LINE__);
 
         $translation = array();
         $translation['Red Lv purity (Saturation)'] = 'saturation_red';
@@ -97,9 +110,10 @@ class addMissingMeasurements20210623 extends Command
 
         $count=0;
         foreach($filenames as $file){
-//            if($count++ > 4) break;
+            $count++;
+//            if($count > 5) break;
             $csvFileName = $file['file'];
-            $csvFile = storage_path( 'app\\'.$csvFileName);
+            $csvFile = storage_path( 'app'.DIRECTORY_SEPARATOR.$csvFileName);
             $data = $this->readCSV($csvFile,array('delimiter' => ';'));
 
             // translate
@@ -134,7 +148,9 @@ class addMissingMeasurements20210623 extends Command
                 $response = $client->request('GET', $baseUrl.$requestString, $options);
                 if( $statusCode != 200){
                     // 2. create product
-                    $postData = array('st_article_nr' => '80000114B2', 'st_serial_nr' => $file['serial'], 'production_order_nr' => 'production_marker_1');
+                    $postData = array('st_article_nr' => '80000114B2',
+                                    'st_serial_nr' => $file['serial'],
+                                    'production_order_nr' => 'production_marker_1');
                     $requestString = 'products';
                     echo 'Could not find reduced serial nr. -> create product '.$baseUrl.$requestString."\n";
                     $response = $client->request('POST', $baseUrl.$requestString, array_merge($options, ['json' => $postData]));
