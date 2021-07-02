@@ -142,7 +142,7 @@
       const today = new Date()
       return {
         dateRange: {
-          startDate: new Date(today.getFullYear() - 10, today.getMonth(), today.getDate()),
+          startDate: new Date(today.getFullYear() - 2, today.getMonth(), today.getDate()),
           endDate: today,
         },
         dateRangeValues: '{}',
@@ -358,11 +358,3 @@
     }
   }
 </script>
-<style>
-  .daterangepicker.ltr.show-calendar.show-ranges.openscenter.linked {
-    left: 5%!important;
-  }
-  .daterangepicker.ltr.show-calendar.show-ranges.openscenter.linked::before {
-    left: 325px!important;
-  }
-</style>
