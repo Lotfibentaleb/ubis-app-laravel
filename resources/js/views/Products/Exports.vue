@@ -12,7 +12,7 @@
         <excel-exports />
       </tiles>
       <tiles>
-        <q-dis-exports />
+        <q-das-exports />
       </tiles>
     </section>
   </div>
@@ -25,11 +25,11 @@
   import Tiles from '@/components/Tiles'
   import CardComponent from '@/components/CardComponent'
   import ExcelExports from '@/components/Exports/ExcelExports'
-  import QDisExports from '@/components/Exports/QDisExports'
+  import QDasExports from '@/components/Exports/QDasExports'
 
   export default {
     name: 'BulkActions',
-    components: {CardComponent, Tiles, HeroBar, TitleBar, ExcelExports, QDisExports},
+    components: {CardComponent, Tiles, HeroBar, TitleBar, ExcelExports, QDasExports},
     computed: {
       titleStack () {
         return [

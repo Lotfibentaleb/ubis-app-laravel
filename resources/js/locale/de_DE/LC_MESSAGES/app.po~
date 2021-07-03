@@ -305,9 +305,17 @@ msgstr "Benutzer"
 msgid "createUserPage.titleBar.sub2"
 msgstr "Neu Benutzer"
 
-#: resources/js/components/Exports/ExcelExports.vue:7
+#: resources/js/components/Exports/ExcelExports.vue:11
 msgid "exportsPage.excelExports.card.title"
 msgstr "Excel-Exporte"
+
+#: resources/js/components/Exports/ExcelExports.vue:17
+msgid "exportsPage.excelExports.explanation"
+msgstr "Sie können die vollständige Excel-Exportfunktion verwenden"
+
+#: resources/js/components/Exports/ExcelExports.vue:22
+msgid "exportsPage.excelExports.exportBtn"
+msgstr "Exporte"
 
 #: resources/js/views/Products/Exports.vue:24
 msgid "exportsPage.heroBar.goto"
@@ -317,9 +325,17 @@ msgstr "Produkte"
 msgid "exportsPage.heroBar.title"
 msgstr "Exporte"
 
-#: resources/js/components/Exports/QDisExports.vue:7
-msgid "exportsPage.qdisExports.card.title"
-msgstr "Q-DIS-Exporte"
+#: resources/js/components/Exports/QDisExports.vue:11
+msgid "exportsPage.qdasExports.card.title"
+msgstr "Q-DAS-Exporte"
+
+#: resources/js/components/Exports/QDisExports.vue:17
+msgid "exportsPage.qdasExports.explanation"
+msgstr "Sie können die Q-DAS-Exportfunktion verwenden"
+
+#: resources/js/components/Exports/QDisExports.vue:21
+msgid "exportsPage.qdasExports.exportBtn"
+msgstr "Exporte"
 
 #: resources/js/views/Products/Exports.vue:15
 msgid "exportsPage.titleBar.main"
