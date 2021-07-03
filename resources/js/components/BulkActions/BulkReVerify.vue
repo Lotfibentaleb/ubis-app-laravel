@@ -69,7 +69,7 @@
     </div>
     <div class="column is-12">
       <b-field :label="$gettext('bulkActionsPage.bulkReVerify.sectionId')" :message="$gettext('bulkActionsPage.bulkReVerify.sectionId.message')" horizontal>
-        <b-input placeholder="e.g. 2021-1446" v-model="sectionId" required />
+        <b-input placeholder="e.g. measurement.daisy" v-model="sectionId" required />
       </b-field>
     </div>
     <div class="column is-1 is-offset-11">
