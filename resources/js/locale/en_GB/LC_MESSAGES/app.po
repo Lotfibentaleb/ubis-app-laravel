@@ -319,7 +319,7 @@ msgstr "Excel Exports"
 
 #: resources/js/components/Exports/ExcelExports.vue:50
 msgid "exportsPage.excelExports.explanation"
-msgstr "Full Excel Export(Option: Date Range, Article Nr, Production Order-Nr)"
+msgstr "Full Excel Exports(Option: Date Range, Article Nr, Production Order-Nr)"
 
 #: resources/js/components/Exports/ExcelExports.vue:115
 msgid "exportsPage.excelExports.exportBtn"
@@ -347,7 +347,7 @@ msgstr "Q-DAS Exports"
 
 #: resources/js/components/Exports/QDasExports.vue:41
 msgid "exportsPage.qdasExports.explanation"
-msgstr "You can use the Q-DAS Exports feature"
+msgstr "Q-DAS Exports(Option: Date Range, Article Nr, Production Order-Nr)"
 
 #: resources/js/components/Exports/QDasExports.vue:45
 msgid "exportsPage.qdasExports.exportBtn"
