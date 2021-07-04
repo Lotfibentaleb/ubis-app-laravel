@@ -305,17 +305,35 @@ msgstr "Benutzer"
 msgid "createUserPage.titleBar.sub2"
 msgstr "Neu Benutzer"
 
-#: resources/js/components/Exports/ExcelExports.vue:11
+#: resources/js/components/Exports/ExcelExports.vue:54
+msgid "exportsPage.excelExports.articleNr"
+msgstr "Artikel-Nr."
+
+#: resources/js/components/Exports/ExcelExports.vue:55
+msgid "exportsPage.excelExports.articleNr.message"
+msgstr "Eingabe Artikel-Nr"
+
+#: resources/js/components/Exports/ExcelExports.vue:25
 msgid "exportsPage.excelExports.card.title"
 msgstr "Excel-Exporte"
 
-#: resources/js/components/Exports/ExcelExports.vue:17
+#: resources/js/components/Exports/ExcelExports.vue:50
 msgid "exportsPage.excelExports.explanation"
-msgstr "Sie können die vollständige Excel-Exportfunktion verwenden"
+msgstr ""
+"Vollständiger Excel-Export (Option: Datumsbereich, Artikel-Nr, "
+"Produktionsauftrag Nr)"
 
-#: resources/js/components/Exports/ExcelExports.vue:22
+#: resources/js/components/Exports/ExcelExports.vue:115
 msgid "exportsPage.excelExports.exportBtn"
 msgstr "Exporte"
+
+#: resources/js/components/Exports/ExcelExports.vue:97
+msgid "exportsPage.excelExports.productionOrderNr"
+msgstr "Produktionsauftrag Nr"
+
+#: resources/js/components/Exports/ExcelExports.vue:98
+msgid "exportsPage.excelExports.productionOrderNr.message"
+msgstr "Eingabe Produktionsauftrag Nr"
 
 #: resources/js/views/Products/Exports.vue:24
 msgid "exportsPage.heroBar.goto"
@@ -325,15 +343,15 @@ msgstr "Produkte"
 msgid "exportsPage.heroBar.title"
 msgstr "Exporte"
 
-#: resources/js/components/Exports/QDasExports.vue:11
+#: resources/js/components/Exports/QDasExports.vue:16
 msgid "exportsPage.qdasExports.card.title"
 msgstr "Q-DAS-Exporte"
 
-#: resources/js/components/Exports/QDasExports.vue:17
+#: resources/js/components/Exports/QDasExports.vue:41
 msgid "exportsPage.qdasExports.explanation"
 msgstr "Sie können die Q-DAS-Exportfunktion verwenden"
 
-#: resources/js/components/Exports/QDasExports.vue:21
+#: resources/js/components/Exports/QDasExports.vue:45
 msgid "exportsPage.qdasExports.exportBtn"
 msgstr "Exporte"
 

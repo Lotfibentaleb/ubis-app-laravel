@@ -23,7 +23,7 @@
       <p>{{$gettext('exportsPage.excelExports.explanation')}}</p>
     </div>
     <div class="column is-12">
-      <b-field :label="$gettext('bulkRegisterPage.articleNr')" :message="$gettext('bulkRegisterPage.articleNr.message')" horizontal>
+      <b-field :label="$gettext('exportsPage.excelExports.articleNr')" :message="$gettext('exportsPage.excelExports.articleNr.message')" horizontal>
         <b-autocomplete
                 :data="articleList"
                 v-model="articleNr"
@@ -52,7 +52,7 @@
       </b-field>
     </div>
     <div class="column is-12">
-      <b-field :label="$gettext('bulkRegisterPage.productionOrderNr')" :message="$gettext('bulkRegisterPage.productionOrderNr.message')" horizontal>
+      <b-field :label="$gettext('exportsPage.excelExports.productionOrderNr')" :message="$gettext('exportsPage.excelExports.productionOrderNr.message')" horizontal>
         <b-input placeholder="e.g. 2021-1446" v-model="prodOrderNr" required />
       </b-field>
     </div>

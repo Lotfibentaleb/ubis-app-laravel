@@ -311,7 +311,7 @@ msgstr "Excel-Exporte"
 
 #: resources/js/components/Exports/ExcelExports.vue:17
 msgid "exportsPage.excelExports.explanation"
-msgstr "Sie können die vollständige Excel-Exportfunktion verwenden"
+msgstr "Vollständiger Excel-Export (Option: Datumsbereich, Artikel-Nr, Produktionsauftrag Nr)"
 
 #: resources/js/components/Exports/ExcelExports.vue:22
 msgid "exportsPage.excelExports.exportBtn"
@@ -325,15 +325,15 @@ msgstr "Produkte"
 msgid "exportsPage.heroBar.title"
 msgstr "Exporte"
 
-#: resources/js/components/Exports/QDisExports.vue:11
+#: resources/js/components/Exports/QDasExports.vue:11
 msgid "exportsPage.qdasExports.card.title"
 msgstr "Q-DAS-Exporte"
 
-#: resources/js/components/Exports/QDisExports.vue:17
+#: resources/js/components/Exports/QDasExports.vue:17
 msgid "exportsPage.qdasExports.explanation"
 msgstr "Sie können die Q-DAS-Exportfunktion verwenden"
 
-#: resources/js/components/Exports/QDisExports.vue:21
+#: resources/js/components/Exports/QDasExports.vue:21
 msgid "exportsPage.qdasExports.exportBtn"
 msgstr "Exporte"
 
@@ -361,16 +361,16 @@ msgstr "Measurements"
 msgid "measurementsPage.settingPanel.title"
 msgstr "Measurements detail"
 
-#: resources/js/components/Measurements/MeasurementsTable.vue:65
+#: resources/js/components/Measurements/MeasurementsTable.vue:89
 #: resources/js/views/Products/MeasurementsList.vue:75
 msgid "measurementsPage.table.fields.articleNr"
 msgstr "Artikel-Nr."
 
-#: resources/js/components/Measurements/MeasurementsTable.vue:116
+#: resources/js/components/Measurements/MeasurementsTable.vue:140
 msgid "measurementsPage.table.fields.createdAt"
 msgstr "Erstellt"
 
-#: resources/js/components/Measurements/MeasurementsTable.vue:105
+#: resources/js/components/Measurements/MeasurementsTable.vue:129
 msgid "measurementsPage.table.fields.createdBy"
 msgstr "Erstellt durch"
 
@@ -379,23 +379,23 @@ msgstr "Erstellt durch"
 msgid "measurementsPage.table.fields.measurementDetail"
 msgstr "Measurement Detail"
 
-#: resources/js/components/Measurements/MeasurementsTable.vue:96
+#: resources/js/components/Measurements/MeasurementsTable.vue:120
 msgid "measurementsPage.table.fields.name"
 msgstr "Section"
 
-#: resources/js/components/Measurements/MeasurementsTable.vue:76
+#: resources/js/components/Measurements/MeasurementsTable.vue:100
 msgid "measurementsPage.table.fields.serialNr"
 msgstr "Serien-Nr."
 
-#: resources/js/components/Measurements/MeasurementsTable.vue:87
+#: resources/js/components/Measurements/MeasurementsTable.vue:111
 msgid "measurementsPage.table.fields.state"
 msgstr "Status"
 
-#: resources/js/components/Measurements/MeasurementsTable.vue:52
-#: resources/js/components/Measurements/MeasurementsTable.vue:53
-#: resources/js/components/Measurements/MeasurementsTable.vue:54
-#: resources/js/components/Measurements/MeasurementsTable.vue:55
-#: resources/js/components/Measurements/MeasurementsTable.vue:56
+#: resources/js/components/Measurements/MeasurementsTable.vue:76
+#: resources/js/components/Measurements/MeasurementsTable.vue:77
+#: resources/js/components/Measurements/MeasurementsTable.vue:78
+#: resources/js/components/Measurements/MeasurementsTable.vue:79
+#: resources/js/components/Measurements/MeasurementsTable.vue:80
 msgid "measurementsPage.table.perPage"
 msgstr "pro Seite"
 
@@ -432,23 +432,23 @@ msgstr "Ausgewählt Artikel-Nr"
 msgid "productionFlowsPage.settingPanel.title"
 msgstr "Bearbeiten Produktionsabläufe"
 
-#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:66
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:90
 #: resources/js/views/Products/ProductionTemplate.vue:197
 msgid "productionFlowsPage.table.fields.articleNr"
 msgstr "Artikel-Nr."
 
-#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:96
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:120
 msgid "productionFlowsPage.table.fields.createdAt"
 msgstr "Erstellt"
 
 #: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:76
-#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:76
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:100
 #: resources/js/views/Products/ProductionTemplate.vue:211
 #: resources/js/views/Products/ProductionTemplate.vue:212
 msgid "productionFlowsPage.table.fields.productionFlow"
 msgstr "Produktions-Ablauf"
 
-#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:106
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:130
 msgid "productionFlowsPage.table.fields.updatedAt"
 msgstr "Geändert"
 
@@ -473,11 +473,11 @@ msgstr "Änderungsverlauf"
 #: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:65
 #: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:66
 #: resources/js/components/ProductsTemplate/ProductTemplateHistory.vue:67
-#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:53
-#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:54
-#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:55
-#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:56
-#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:57
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:77
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:78
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:79
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:80
+#: resources/js/components/ProductsTemplate/ProductTemplateTable.vue:81
 msgid "productionFlowsPage.table.perPage"
 msgstr "pro Seite"
 
@@ -537,25 +537,25 @@ msgstr "Save"
 msgid "productionSectionPage.settingPanel.title"
 msgstr "Bearbeiten Fertigungs-Stationen"
 
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:104
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:128
 msgid "productionSectionPage.table.fields.createdAt"
 msgstr "Erstellt"
 
 #: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:85
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:85
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:109
 msgid "productionSectionPage.table.fields.data"
 msgstr "Daten"
 
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:75
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:99
 msgid "productionSectionPage.table.fields.group"
 msgstr "Gruppe"
 
 #: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:76
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:66
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:90
 msgid "productionSectionPage.table.fields.name"
 msgstr "Name"
 
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:114
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:138
 msgid "productionSectionPage.table.fields.updatedAt"
 msgstr "Geändert"
 
@@ -576,11 +576,11 @@ msgstr "Gültig bis"
 #: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:65
 #: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:66
 #: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateHistoryTable.vue:67
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:53
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:54
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:55
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:56
-#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:57
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:77
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:78
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:79
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:80
+#: resources/js/components/ProductionSectionTemplate/ProductionSectionTemplateTable.vue:81
 msgid "productionSectionPage.table.perPage"
 msgstr "pro Seite"
 
@@ -628,31 +628,31 @@ msgstr "Produktionsauftrags Nummer"
 msgid "productsPage.productsTable.downloadExcel"
 msgstr "Export Excel"
 
-#: resources/js/components/ProductsTable.vue:129
+#: resources/js/components/ProductsTable.vue:145
 msgid "productsPage.productsTable.fields.articleNr"
 msgstr "Artikel-Nr."
 
-#: resources/js/components/ProductsTable.vue:170
+#: resources/js/components/ProductsTable.vue:186
 msgid "productsPage.productsTable.fields.componentsCount"
 msgstr "Komponenten"
 
-#: resources/js/components/ProductsTable.vue:190
+#: resources/js/components/ProductsTable.vue:206
 msgid "productsPage.productsTable.fields.createdAt"
 msgstr "Erstellt"
 
-#: resources/js/components/ProductsTable.vue:161
+#: resources/js/components/ProductsTable.vue:177
 msgid "productsPage.productsTable.fields.productionDataCount"
 msgstr "Fertigungsdaten"
 
-#: resources/js/components/ProductsTable.vue:179
+#: resources/js/components/ProductsTable.vue:195
 msgid "productsPage.productsTable.fields.productionOrderNr"
 msgstr "Produktionsauftrag"
 
-#: resources/js/components/ProductsTable.vue:140
+#: resources/js/components/ProductsTable.vue:156
 msgid "productsPage.productsTable.fields.serialNr"
 msgstr "Serien-Nr."
 
-#: resources/js/components/ProductsTable.vue:151
+#: resources/js/components/ProductsTable.vue:167
 msgid "productsPage.productsTable.fields.status"
 msgstr "Status"
 
@@ -660,11 +660,11 @@ msgstr "Status"
 msgid "productsPage.productsTable.fullExcel"
 msgstr "Export Voll"
 
-#: resources/js/components/ProductsTable.vue:103
-#: resources/js/components/ProductsTable.vue:104
-#: resources/js/components/ProductsTable.vue:105
-#: resources/js/components/ProductsTable.vue:106
-#: resources/js/components/ProductsTable.vue:107
+#: resources/js/components/ProductsTable.vue:119
+#: resources/js/components/ProductsTable.vue:120
+#: resources/js/components/ProductsTable.vue:121
+#: resources/js/components/ProductsTable.vue:122
+#: resources/js/components/ProductsTable.vue:123
 msgid "productsPage.productsTable.perPage"
 msgstr "pro Seite"
 
