@@ -142,7 +142,7 @@
       const today = new Date()
       return {
         dateRange: {
-          startDate: new Date(today.getFullYear() - 2, today.getMonth(), today.getDate()),
+          startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
         },
         dateRangeValues: '{}',
@@ -211,6 +211,7 @@
       updateDateRange() {
         this.dateRangeValues = '';
         this.dateRangeValues = encodeURIComponent(JSON.stringify(this.dateRange));
+        this.getFilteringURL ()
         this.getData()
       },
       onPageChange(page) {
@@ -285,6 +286,7 @@
             `enhanced=0`,
             `sort_by=${this.sortField}.${this.sortOrder}`,
             `page=${this.page}`,
+            `date_range=${this.dateRangeValues}`,
             `filter=${this.filterValues}`
           ].join('&')
 
@@ -292,6 +294,7 @@
             `enhanced=1`,
             `sort_by=${this.sortField}.${this.sortOrder}`,
             `page=${this.page}`,
+            `date_range=${this.dateRangeValues}`,
             `filter=${this.filterValues}`
           ].join('&')
 
@@ -299,6 +302,7 @@
             `enhanced=2`,
             `sort_by=${this.sortField}.${this.sortOrder}`,
             `page=${this.page}`,
+            `date_range=${this.dateRangeValues}`,
             `filter=${this.filterValues}`
           ].join('&')
 
