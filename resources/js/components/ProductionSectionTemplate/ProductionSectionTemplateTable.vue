@@ -120,7 +120,7 @@
       const today = new Date()
       return {
         dateRange: {
-          startDate: new Date(today.getFullYear() - 2, today.getMonth(), today.getDate()),
+          startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
         },
         dateRangeValues: '{}',
@@ -136,6 +136,7 @@
         sortField:'',
         sortOrder:'asc',
         defaultSortOrder:'asc',
+        filters: {},
         filterValues: '',
         pdSecTemplateData: [],
         // control table
@@ -156,6 +157,7 @@
       }
     },
     created () {
+      this.setFilterValues()
       this.getData()
     },
     methods: {
@@ -169,9 +171,10 @@
         this.sortOrder = order
         this.getData()
       },
-      onFilterChange: debounce(function (filter) {
-        this.filterValues = '';
-        this.filterValues = filter.group ? filter.group : ''
+      onFilterChange: debounce(function (params) {
+        this.filters = {}
+        this.filters = params
+        this.setFilterValues()
         this.getData()
       }, 250),
       ///////////////////////////////////////////////////////////////
@@ -190,13 +193,18 @@
         }
         this.$emit('clickedRow', data)
       },
-
+      setFilterValues() {
+        let filter = this.filters
+        filter['created_at-gt'] = this.dateRange.startDate
+        filter['created_at-lt'] = this.dateRange.endDate
+        this.filterValues = ''
+        this.filterValues = encodeURIComponent(JSON.stringify(filter))
+      },
       getData () {
         const params = [
           `size=100`,
           `page=1`,
-          `date_range=${this.dateRangeValues}`,
-          `group=${this.filterValues}`
+          `filter=${this.filterValues}`
         ].join('&')
         const fetchUrl = '/production_section'
         axios.create({
@@ -237,6 +245,7 @@
       updateDateRange() {
         this.dateRangeValues = '';
         this.dateRangeValues = encodeURIComponent(JSON.stringify(this.dateRange));
+        this.setFilterValues()
         this.getData()
       }
     }
