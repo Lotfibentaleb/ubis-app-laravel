@@ -58,7 +58,7 @@
         <b-table-column :label="$gettext('measurementsPage.table.fields.createdBy')" field="created_by" searchable sortable>
           {{ props.row.created_by  }}
         </b-table-column>
-        <b-table-column :label="$gettext('measurementsPage.table.fields.createdAt')" field="created_at" searchable sortable>
+        <b-table-column :label="$gettext('measurementsPage.table.fields.createdAt')" field="created_at"  sortable>
           {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
       </template>
@@ -138,6 +138,7 @@
         sortField:'created_at',
         sortOrder:'desc',
         defaultSortOrder:'desc',
+        filters: {},
         filterValues: '',
         measurementsData: [],
         // control table
@@ -160,6 +161,7 @@
       }
     },
     created () {
+      this.setFilterValues()
       this.getData()
       this.productSearchPageUrl = process.env.MIX_PRODUCTS_SEARCH_PAGE_URL
     },
@@ -174,10 +176,10 @@
         this.sortOrder = order
         this.getData()
       },
-      onFilterChange: debounce(function (filter) {
-        console.warn('filter', Object.entries(filter));
-        this.filterValues = '';
-        this.filterValues = encodeURIComponent(JSON.stringify(filter));
+      onFilterChange: debounce(function (params) {
+        this.filters = {}
+        this.filters = params
+        this.setFilterValues()
         this.getData()
       }, 250),
       ///////////////////////////////////////////////////////////////
@@ -194,7 +196,13 @@
         const gotoUrl = this.productSearchPageUrl + '?products_id=' + this.selectedRow.products_id
         window.open(gotoUrl, '_blank');
       },
-
+      setFilterValues() {
+        let filter = this.filters
+        filter['created_at-gt'] = this.dateRange.startDate
+        filter['created_at-lt'] = this.dateRange.endDate
+        this.filterValues = ''
+        this.filterValues = encodeURIComponent(JSON.stringify(filter))
+      },
       getData () {
         this.isLoading = true
         this.isClickedRow = false
@@ -202,7 +210,6 @@
           `size=${this.perPage}`,
           `sort_by=${this.sortField}.${this.sortOrder}`,
           `page=${this.page}`,
-          `date_range=${this.dateRangeValues}`,
           `filter=${this.filterValues}`
         ].join('&')
 
@@ -248,6 +255,7 @@
       updateDateRange() {
         this.dateRangeValues = '';
         this.dateRangeValues = encodeURIComponent(JSON.stringify(this.dateRange));
+        this.setFilterValues()
         this.getData()
       }
     }
