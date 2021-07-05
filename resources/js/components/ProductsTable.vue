@@ -160,6 +160,7 @@
         defaultSortOrder:'desc',
         page: 1,
         total: 0,
+        filters: {},
         filterValues: '{}',
         selectedRow: {},
         filterGeneralUrl: '',
@@ -204,15 +205,17 @@
       }
     },
     created () {
+      this.setFilterValues()
       this.getData()
-      this.getFilteringURL ()
+      this.getFilteringURL()
     },
     methods: {
       updateDateRange() {
         this.dateRangeValues = '';
         this.dateRangeValues = encodeURIComponent(JSON.stringify(this.dateRange));
-        this.getFilteringURL ()
+        this.setFilterValues()
         this.getData()
+        this.getFilteringURL()
       },
       onPageChange(page) {
         this.page = page
@@ -223,14 +226,19 @@
         this.sortOrder = order
         this.getData()
       },
-      onFilterChange: debounce(function (filter) {
-        console.log(filter);
-        console.warn('filter', Object.entries(filter));
-        this.filterValues = '';
-        this.filterValues = encodeURIComponent(JSON.stringify(filter));
+      onFilterChange: debounce(function (params) {
+        this.filters = {}
+        this.filters = params
+        this.setFilterValues()
         this.getData()
-        this.getFilteringURL()
       }, 250),
+      setFilterValues() {
+        let filter = this.filters
+        filter['created_at-gt'] = this.dateRange.startDate
+        filter['created_at-lt'] = this.dateRange.endDate
+        this.filterValues = ''
+        this.filterValues = encodeURIComponent(JSON.stringify(filter))
+      },
       getData () {
         if (this.dataUrl) {
           this.isLoading = true
@@ -238,7 +246,6 @@
             `size=${this.perPage}`,
             `sort_by=${this.sortField}.${this.sortOrder}`,
             `page=${this.page}`,
-            `date_range=${this.dateRangeValues}`,
             `filter=${this.filterValues}`
           ].join('&')
 
@@ -280,13 +287,12 @@
               })
         }
       },
-      getFilteringURL () {
+      getFilteringURL() {
         if(this.dataUrl){
           const paramsGeneral = [
             `enhanced=0`,
             `sort_by=${this.sortField}.${this.sortOrder}`,
             `page=${this.page}`,
-            `date_range=${this.dateRangeValues}`,
             `filter=${this.filterValues}`
           ].join('&')
 
@@ -294,7 +300,6 @@
             `enhanced=1`,
             `sort_by=${this.sortField}.${this.sortOrder}`,
             `page=${this.page}`,
-            `date_range=${this.dateRangeValues}`,
             `filter=${this.filterValues}`
           ].join('&')
 
@@ -302,7 +307,6 @@
             `enhanced=2`,
             `sort_by=${this.sortField}.${this.sortOrder}`,
             `page=${this.page}`,
-            `date_range=${this.dateRangeValues}`,
             `filter=${this.filterValues}`
           ].join('&')
 
