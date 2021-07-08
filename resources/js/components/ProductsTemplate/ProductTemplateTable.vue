@@ -1,25 +1,5 @@
 <template>
   <div>
-    <div class="level">
-      <div class="level-right"></div>
-      <div class="level-left">
-        <b-icon
-                icon="calendar-today">
-        </b-icon>
-        <date-range-picker
-                ref="picker"
-                :timePicker="timePicker"
-                :timePicker24Hour="timePicker24Hour"
-                v-model="dateRange"
-                @update="updateDateRange"
-        >
-          <template v-slot:input="picker" style="min-width: 350px;">
-            <!--{{ getParamDate(picker.startDate) | date }} - {{ getParamDate(picker.endDate) | date }}-->
-            {{ picker.startDate | moment("DD.MM.YYYY / k:mm:ss") }} - {{ picker.endDate | moment("DD.MM.YYYY / k:mm:ss") }}
-          </template>
-        </date-range-picker>
-      </div>
-    </div>
     <b-table
             :checked-rows.sync="checkedRows"
             :checkable="true"
@@ -52,7 +32,18 @@
             {{ JSON.stringify(props.row.production_flow[0]).substring(0, 40) + ' ...' }}
           </b-tooltip>
         </b-table-column>
-        <b-table-column :label="$gettext('productionFlowsPage.table.fields.createdAt')" field="created_at" sortable>
+        <b-table-column :label="$gettext('productionFlowsPage.table.fields.createdAt')" field="created_at" sortable searchable>
+          <template #searchable="props">
+            <date-range-picker
+                    ref="picker"
+                    v-model="dateRange"
+                    @update="updateDateRange"
+            >
+              <template v-slot:input="picker" style="min-width: 350px;">
+                {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+              </template>
+            </date-range-picker>
+          </template>
           {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
         <b-table-column :label="$gettext('productionFlowsPage.table.fields.updatedAt')" field="updated_at" sortable>
@@ -123,8 +114,6 @@
           endDate: today,
         },
         dateRangeValues: '{}',
-        timePicker: true,
-        timePicker24Hour: true,
         // initial table
         checkedRows: [],
         selectedRow: {},

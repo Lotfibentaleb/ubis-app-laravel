@@ -7,23 +7,6 @@
         <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.downloadExcel')}}</b-button></a>
         <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.fullExcel')}}</b-button></a>
       </div>
-      <div class="level-right">
-        <b-icon
-                icon="calendar-today">
-        </b-icon>
-        <date-range-picker
-                ref="picker"
-                :timePicker="timePicker"
-                :timePicker24Hour="timePicker24Hour"
-                v-model="dateRange"
-                @update="updateDateRange"
-        >
-          <template v-slot:input="picker" style="min-width: 350px;">
-            <!--{{ getParamDate(picker.startDate) | date }} - {{ getParamDate(picker.endDate) | date }}-->
-            {{ picker.startDate | moment("DD.MM.YYYY / k:mm:ss") }} - {{ picker.endDate | moment("DD.MM.YYYY / k:mm:ss") }}
-          </template>
-        </date-range-picker>
-      </div>
     </div>
     <b-table
             :checked-rows.sync="checkedRows"
@@ -72,7 +55,18 @@
         <b-table-column :label="$gettext('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable searchable>
           {{ props.row.production_order_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.createdAt')" field="created_at" sortable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.createdAt')" field="created_at" sortable searchable>
+          <template #searchable="props">
+            <date-range-picker
+                    ref="picker"
+                    v-model="dateRange"
+                    @update="updateDateRange"
+            >
+              <template v-slot:input="picker" style="min-width: 350px;">
+                {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+              </template>
+            </date-range-picker>
+          </template>
           <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>
         <b-table-column custom-key="actions" class="is-actions-cell">
@@ -145,8 +139,6 @@
           endDate: today,
         },
         dateRangeValues: '{}',
-        timePicker: true,
-        timePicker24Hour: true,
         isModalActive: false,
         trashObject: null,
         products: [],

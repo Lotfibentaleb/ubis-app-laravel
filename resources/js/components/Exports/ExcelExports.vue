@@ -14,7 +14,7 @@
                 @update="updateDateRange"
         >
           <template v-slot:input="picker" style="min-width: 350px;">
-            {{ picker.startDate | moment("DD.MM.YYYY / k:mm:ss") }} - {{ picker.endDate | moment("DD.MM.YYYY / k:mm:ss") }}
+            {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
           </template>
         </date-range-picker>
       </div>
@@ -80,8 +80,6 @@
           endDate: today,
         },
         dateRangeValues: '{}',
-        timePicker: true,
-        timePicker24Hour: true,
         hrefUrl: '',
         dataUrl: '/productlist',
         sortField:'created_at',
