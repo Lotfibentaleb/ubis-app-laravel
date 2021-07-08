@@ -43,9 +43,7 @@
         "vue-carousel": "^0.18.0",
         "vue-flag-icon": "^1.0.6",
         "vue-gettext": "^2.1.12",
-        "vue-json-excel": "^0.3.0",
         "vue-moment": "^4.1.0",
-        "vue-slick-carousel": "^1.0.6",
         "vue2-daterange-picker": "^0.6.5"
     }
 }

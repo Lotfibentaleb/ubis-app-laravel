@@ -119,7 +119,6 @@
 <script>
   import ModalTrashBox from '@/components/ModalTrashBox'
   import debounce from 'lodash/debounce'
-  import downloadexcel from "vue-json-excel";
   import BButton from "buefy/src/components/button/Button";
   import DateRangePicker from 'vue2-daterange-picker'
   import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
@@ -127,7 +126,7 @@
 
   export default {
     name: 'ProductsTable',
-    components: {BField, BButton, ModalTrashBox, downloadexcel, DateRangePicker },
+    components: {BField, BButton, ModalTrashBox, DateRangePicker },
     props: {
       dataUrl: {
         type: String,
