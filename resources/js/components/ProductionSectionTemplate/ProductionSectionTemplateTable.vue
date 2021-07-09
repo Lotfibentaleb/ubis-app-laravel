@@ -89,6 +89,7 @@
   import debounce from 'lodash/debounce'
   import DateRangePicker from 'vue2-daterange-picker'
   import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
+  import moment from "moment"
 
   export default {
     name: 'ProductionSectionTemplate',
@@ -184,8 +185,8 @@
       },
       setFilterValues() {
         let filter = this.filters
-        filter['created_at-gt'] = this.dateRange.startDate
-        filter['created_at-lt'] = this.dateRange.endDate
+        filter['created_at-gt'] = moment.utc(this.dateRange.startDate).format()
+        filter['created_at-lt'] = moment.utc(this.dateRange.endDate).format()
         this.filterValues = ''
         this.filterValues = encodeURIComponent(JSON.stringify(filter))
       },

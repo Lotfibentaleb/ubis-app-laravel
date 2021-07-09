@@ -111,7 +111,6 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
   import ModalTrashBox from '@/components/ModalTrashBox'
   import debounce from 'lodash/debounce'
   import BButton from "buefy/src/components/button/Button"
@@ -189,9 +188,6 @@
       }
     },
     computed: {
-      ...mapState([
-        'utcOffset'
-      ]),
       trashObjectName () {
         if (this.trashObject) {
           return this.trashObject.st_article_nr+"/"+this.trashObject.st_serial_nr
