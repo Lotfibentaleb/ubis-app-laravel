@@ -12,6 +12,7 @@
 import NavBar from '@/components/NavBar'
 import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
+import moment from 'moment'
 
 export default {
   name: 'home',
@@ -106,6 +107,9 @@ export default {
           type: 'is-danger'
         })
       })
+    const today = new Date()
+    const utcOffset = moment.parseZone(today).utcOffset()
+    this.$store.commit('utcOffset', utcOffset)
   }
 }
 </script>

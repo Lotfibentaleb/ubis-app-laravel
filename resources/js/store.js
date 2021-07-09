@@ -21,6 +21,9 @@ export default new Vuex.Store({
     isAsideVisible: true,
     isAsideMobileExpanded: false,
 
+    /* client UTC OffSet value */
+    utcOffset: 0,
+
   },
   mutations: {
     /* A fit-them-all commit */
@@ -42,6 +45,10 @@ export default new Vuex.Store({
       if (payload.role != null) {
           state.userRole = payload.role == 0 ? 'admin' : 'user'
       }
+    },
+
+    utcOffset (state, payload) {
+      state.utcOffset = payload
     },
 
     /* Aside Mobile */

@@ -8,8 +8,6 @@
         </b-icon>
         <date-range-picker
                 ref="picker"
-                :timePicker="timePicker"
-                :timePicker24Hour="timePicker24Hour"
                 v-model="dateRange"
                 @update="updateDateRange"
         >
