@@ -101,6 +101,9 @@
       },
     },
     watch: {
+      perPage:function(){
+        this.getData();
+      },
       selectedRow: function () {
         this.rowClickHandler()
       },
