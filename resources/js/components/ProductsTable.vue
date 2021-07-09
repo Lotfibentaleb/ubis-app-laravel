@@ -337,22 +337,6 @@
       },
       finishDownload () {
         console.log("Finished Download!")
-      },
-      getParamDate(strDate) {
-        let d = new Date(strDate);
-        let yyyy = d.getFullYear();
-        let mm = d.getMonth() + 1;
-        let dd = d.getDate()
-        let hr = d.getHours();
-        let min = d.getMinutes();
-        let second = d.getSeconds();
-        mm = mm < 10 ? ('0' + mm) : mm;
-        dd = dd < 10 ? ('0' + dd) : dd;
-        hr = hr < 10 ? ('0' + hr) : hr;
-        min = min < 10 ? ('0' + min) : min;
-        second = second < 10 ? ('0' + second) : second;
-        // return yyyy + '-' + mm + '-' + dd
-        return dd + '.' + mm + '.' + yyyy
       }
     }
   }
