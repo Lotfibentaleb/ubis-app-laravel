@@ -8,6 +8,25 @@
         <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.fullExcel')}}</b-button></a>
       </div>
     </div>
+
+    <b-field grouped group-multiline>
+      <div class="control">
+        <b-switch v-model="isArticleNrFilter">Article-Nr.</b-switch>
+      </div>
+      <div class="control">
+        <b-switch v-model="isSerialNrFilter">Serial-Nr.</b-switch>
+      </div>
+      <div class="control">
+        <b-switch v-model="isProductionOrderNrFilter">Production-Order-Nr.</b-switch>
+      </div>
+      <div class="control">
+        <b-switch v-model="isCreatedAtFilter">Created at</b-switch>
+      </div>
+      <div class="control">
+        <b-switch v-model="isRemoveAll">Remove All Filters</b-switch>
+      </div>
+    </b-field>
+
     <b-table
             :checked-rows.sync="checkedRows"
             :checkable="checkable"
@@ -37,10 +56,10 @@
             <img :src="props.row.avatar" class="is-rounded">
           </div>
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable :searchable="isArticleNrFilter ? true : false">
           {{ props.row.st_article_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable :searchable="isSerialNrFilter ? true : false">
           {{ props.row.st_serial_nr }}
         </b-table-column>
         <b-table-column :label="$gettext('productsPage.productsTable.fields.status')" field="lifecycle" sortable>
@@ -52,10 +71,10 @@
         <b-table-column :label="$gettext('productsPage.productsTable.fields.componentsCount')" field="components_count">
           {{ props.row.components_count }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable :searchable="isProductionOrderNrFilter ? true : false">
           {{ props.row.production_order_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.createdAt')" field="created_at" sortable searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.createdAt')" field="created_at" sortable :searchable="isCreatedAtFilter ? true : false">
           <template #searchable="props">
             <date-range-picker
                     ref="picker"
@@ -135,6 +154,11 @@
     data () {
       const today = new Date()
       return {
+        isArticleNrFilter: false,
+        isSerialNrFilter: false,
+        isProductionOrderNrFilter: false,
+        isCreatedAtFilter: false,
+        isRemoveAll: false,
         dateRange: {
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
@@ -185,6 +209,14 @@
       },
       selectedRow: function() {
         this.$emit('clickedRow', this.selectedRow)
+      },
+      isRemoveAll: function() {
+        if(this.isRemoveAll){
+          this.isArticleNrFilter = false
+          this.isSerialNrFilter = false
+          this.isProductionOrderNrFilter = false
+          this.isCreatedAtFilter = false
+        }
       }
     },
     computed: {
