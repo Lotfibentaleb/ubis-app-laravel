@@ -8,7 +8,6 @@
         <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.fullExcel')}}</b-button></a>
       </div>
     </div>
-
     <b-field grouped group-multiline>
       <div class="control">
         <b-switch v-model="isArticleNrFilter">Article-Nr.</b-switch>
@@ -23,10 +22,9 @@
         <b-switch v-model="isCreatedAtFilter">Created at</b-switch>
       </div>
       <div class="control">
-        <b-switch v-model="isRemoveAll">Remove All Filters</b-switch>
+        <b-switch v-model="isRemoveAllFilter">Remove All Filters</b-switch>
       </div>
     </b-field>
-
     <b-table
             :checked-rows.sync="checkedRows"
             :checkable="checkable"
@@ -154,11 +152,11 @@
     data () {
       const today = new Date()
       return {
-        isArticleNrFilter: false,
-        isSerialNrFilter: false,
-        isProductionOrderNrFilter: false,
-        isCreatedAtFilter: false,
-        isRemoveAll: false,
+        isArticleNrFilter: true,
+        isSerialNrFilter: true,
+        isProductionOrderNrFilter: true,
+        isCreatedAtFilter: true,
+        isRemoveAllFilter: false,
         dateRange: {
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
@@ -210,13 +208,47 @@
       selectedRow: function() {
         this.$emit('clickedRow', this.selectedRow)
       },
-      isRemoveAll: function() {
-        if(this.isRemoveAll){
+      isRemoveAllFilter: function(state) {
+        if(state){
           this.isArticleNrFilter = false
           this.isSerialNrFilter = false
           this.isProductionOrderNrFilter = false
           this.isCreatedAtFilter = false
         }
+      },
+      isArticleNrFilter: function(state) {
+        if(state){
+          this.isRemoveAllFilter = false
+        }
+        delete this.filters.st_article_nr
+        this.setFilterValues()
+        this.getData();
+      },
+      isSerialNrFilter: function(state) {
+        if(state){
+          this.isRemoveAllFilter = false
+        }
+        delete this.filters.st_serial_nr
+        this.setFilterValues()
+        this.getData();
+      },
+      isProductionOrderNrFilter: function(state) {
+        if(state){
+          this.isRemoveAllFilter = false
+        }
+        delete this.filters.production_order_nr
+        this.setFilterValues()
+        this.getData();
+      },
+      isCreatedAtFilter: function(state) {
+        if(state){
+          this.isRemoveAllFilter = false
+        }
+        const today = new Date()
+        this.dateRange.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+        this.dateRange.endDate = today
+        this.setFilterValues()
+        this.getData();
       }
     },
     computed: {
