@@ -297,6 +297,8 @@
         this.dateRangeUpdatedAt.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
         this.dateRangeUpdatedAt.endDate = today
         this.isDateRangeUpdatedAt = false
+        this.setFilterValues()
+        this.getData()
       },
       updateDateRangeCreatedAt() {
         this.isDateRangeCreatedAt = true
