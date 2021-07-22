@@ -305,17 +305,33 @@ msgstr "Users"
 msgid "createUserPage.titleBar.sub2"
 msgstr "New User"
 
-#: resources/js/components/Exports/ExcelExports.vue:11
+#: resources/js/components/Exports/ExcelExports.vue:54
+msgid "exportsPage.excelExports.articleNr"
+msgstr "Article Nr"
+
+#: resources/js/components/Exports/ExcelExports.vue:55
+msgid "exportsPage.excelExports.articleNr.message"
+msgstr "Input Article Nr"
+
+#: resources/js/components/Exports/ExcelExports.vue:25
 msgid "exportsPage.excelExports.card.title"
 msgstr "Excel Exports"
 
-#: resources/js/components/Exports/ExcelExports.vue:17
+#: resources/js/components/Exports/ExcelExports.vue:50
 msgid "exportsPage.excelExports.explanation"
-msgstr "Full Excel Export(Option: Date Range, Article Nr, Production Order-Nr)"
+msgstr "Full Excel Exports(Option: Date Range, Article Nr, Production Order-Nr)"
 
-#: resources/js/components/Exports/ExcelExports.vue:22
+#: resources/js/components/Exports/ExcelExports.vue:115
 msgid "exportsPage.excelExports.exportBtn"
 msgstr "Export"
+
+#: resources/js/components/Exports/ExcelExports.vue:97
+msgid "exportsPage.excelExports.productionOrderNr"
+msgstr "Production Order Nr"
+
+#: resources/js/components/Exports/ExcelExports.vue:98
+msgid "exportsPage.excelExports.productionOrderNr.message"
+msgstr "Input Production Order Nr"
 
 #: resources/js/views/Products/Exports.vue:24
 msgid "exportsPage.heroBar.goto"
@@ -325,15 +341,15 @@ msgstr "Products"
 msgid "exportsPage.heroBar.title"
 msgstr "Exports"
 
-#: resources/js/components/Exports/QDasExports.vue:11
+#: resources/js/components/Exports/QDasExports.vue:16
 msgid "exportsPage.qdasExports.card.title"
 msgstr "Q-DAS Exports"
 
-#: resources/js/components/Exports/QDasExports.vue:17
+#: resources/js/components/Exports/QDasExports.vue:41
 msgid "exportsPage.qdasExports.explanation"
-msgstr "You can use the Q-DAS Exports feature"
+msgstr "Q-DAS Exports(Option: Date Range, Article Nr, Production Order-Nr)"
 
-#: resources/js/components/Exports/QDasExports.vue:21
+#: resources/js/components/Exports/QDasExports.vue:45
 msgid "exportsPage.qdasExports.exportBtn"
 msgstr "Export"
 
