@@ -35,14 +35,14 @@
         <b-table-column :label="$gettext('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable
                         searchable>
           <template #searchable="props">
-            <b-autocomplete clearable />
+            <b-autocomplete v-model="filterArticleNr" clearable />
           </template>
           {{ props.row.st_article_nr }}
         </b-table-column>
         <b-table-column :label="$gettext('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable
                         searchable>
           <template #searchable="props">
-            <b-autocomplete clearable />
+            <b-autocomplete v-model="filterSerialNr" clearable />
           </template>
           {{ props.row.st_serial_nr }}
         </b-table-column>
@@ -52,12 +52,12 @@
             <b-dropdown
                     :scrollable="isScrollable"
                     :max-height="maxHeight"
-                    v-model="currentStatus"
+                    v-model="filterStatus"
                     aria-role="list"
             >
               <template #trigger>
                 <b-button
-                        :label="currentStatus.text"
+                        :label="filterStatus.text"
                         icon-right="menu-down" />
               </template>
 
@@ -83,7 +83,7 @@
         </b-table-column>
         <b-table-column :label="$gettext('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable searchable>
           <template #searchable="props">
-            <b-autocomplete clearable />
+            <b-autocomplete v-model="filterProdOrderNr" clearable />
           </template>
           {{ props.row.production_order_nr }}
         </b-table-column>
@@ -190,9 +190,13 @@
     data () {
       const today = new Date()
       return {
+        // filter
+        filterArticleNr: '',
+        filterSerialNr: '',
+        filterProdOrderNr: '',
+        filterStatus: { text: 'all' },
         isScrollable: false,
         maxHeight: 200,
-        currentStatus: { text: 'all' },
         menus: [
           { text: 'all' },
           { text: 'unknown' },
@@ -210,6 +214,7 @@
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
         },
+
         isModalActive: false,
         trashObject: null,
         products: [],
@@ -248,6 +253,22 @@
       selectedRow: function() {
         this.$emit('clickedRow', this.selectedRow)
       },
+      filterArticleNr: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterSerialNr: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterProdOrderNr: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterStatus: function() {
+        this.setFilterValues()
+        this.getData()
+      }
     },
     computed: {
       trashObjectName () {
@@ -305,9 +326,27 @@
         this.getData()
       }, 250),
       setFilterValues() {
-        let filter = this.filters
-        filter['created_at-gt'] = moment.utc(this.dateRangeCreatedAt.startDate).format()
-        filter['created_at-lt'] = moment.utc(this.dateRangeCreatedAt.endDate).format()
+        let filter = {}
+        if(this.filterArticleNr) {
+          filter['st_article_nr'] = this.filterArticleNr
+        }
+        if(this.filterSerialNr) {
+          filter['st_serial_nr'] = this.filterSerialNr
+        }
+        if(this.filterStatus.text != 'all') {
+          filter['lifecycle'] = this.filterStatus.text
+        }
+        if(this.filterProdOrderNr) {
+          filter['production_order_nr'] = this.filterProdOrderNr
+        }
+        if(this.isDateRangeCreatedAt) {
+          filter['created_at-gt'] = moment.utc(this.dateRangeCreatedAt.startDate).format()
+          filter['created_at-lt'] = moment.utc(this.dateRangeCreatedAt.endDate).format()
+        }
+        if(this.isDateRangeUpdatedAt) {
+          filter['updated_at-gt'] = moment.utc(this.dateRangeUpdatedAt.startDate).format()
+          filter['updated_at-lt'] = moment.utc(this.dateRangeUpdatedAt.endDate).format()
+        }
         this.filterValues = ''
         this.filterValues = encodeURIComponent(JSON.stringify(filter))
       },
