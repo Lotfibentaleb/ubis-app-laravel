@@ -194,15 +194,15 @@
         filterArticleNr: '',
         filterSerialNr: '',
         filterProdOrderNr: '',
-        filterStatus: { text: 'all' },
+        filterStatus: { text: 'all', value: 0 },
         isScrollable: false,
         maxHeight: 200,
         menus: [
-          { text: 'all' },
-          { text: 'unknown' },
-          { text: 'in_production' },
-          { text: 'all_tests_passed' },
-          { text: 'test_failed' },
+          { text: 'all', value: 0 },
+          { text: 'unknown', value: 0 },
+          { text: 'in_production', value: 1 },
+          { text: 'all_tests_passed', value: 2 },
+          { text: 'test_failed', value: 3 },
         ],
         isDateRangeCreatedAt: false,
         dateRangeCreatedAt: {
@@ -334,7 +334,7 @@
           filter['st_serial_nr'] = this.filterSerialNr
         }
         if(this.filterStatus.text != 'all') {
-          filter['lifecycle'] = this.filterStatus.text
+          filter['lifecycle'] = this.filterStatus.value
         }
         if(this.filterProdOrderNr) {
           filter['production_order_nr'] = this.filterProdOrderNr
