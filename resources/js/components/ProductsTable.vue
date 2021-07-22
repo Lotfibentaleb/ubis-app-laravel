@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="products-list-table">
     <modal-trash-box :is-active="isModalActive" :trash-subject="trashObjectName" @confirm="trashConfirm" @cancel="trashCancel"/>
     <div class="level">
       <div class="level-left">
@@ -26,6 +26,7 @@
       </div>
     </b-field>
     <b-table
+            header-class="products-list"
             :checked-rows.sync="checkedRows"
             :checkable="checkable"
             :loading="isLoading"
@@ -48,19 +49,15 @@
             :data="products">
 
       <template slot-scope="props">
-
-        <b-table-column class="has-no-head-mobile is-image-cell">
-          <div v-if="props.row.avatar" class="image">
-            <img :src="props.row.avatar" class="is-rounded">
-          </div>
-        </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable :searchable="isArticleNrFilter ? true : false">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable
+                        :searchable="isArticleNrFilter ? true : false">
           {{ props.row.st_article_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable :searchable="isSerialNrFilter ? true : false">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable
+                        :searchable="isSerialNrFilter ? true : false">
           {{ props.row.st_serial_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.status')" field="lifecycle" sortable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.status')" field="lifecycle">
           {{ props.row.lifecycle }}
         </b-table-column>
         <b-table-column :label="$gettext('productsPage.productsTable.fields.productionDataCount')" field="production_data_count">
@@ -85,6 +82,20 @@
             </date-range-picker>
           </template>
           <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
+        </b-table-column>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.updatedAt')" field="updated_at" sortable :searchable="isCreatedAtFilter ? true : false">
+          <template #searchable="props">
+            <date-range-picker
+                    ref="picker"
+                    v-model="dateRange"
+                    @update="updateDateRange"
+            >
+              <template v-slot:input="picker" style="min-width: 350px;">
+                {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+              </template>
+            </date-range-picker>
+          </template>
+          <small class="has-text-grey is-abbr-like" :title="props.row.updated_at">{{ props.row.updated_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>
         <b-table-column custom-key="actions" class="is-actions-cell">
           <div class="buttons is-right">
@@ -180,15 +191,6 @@
         filterEnhancedUrl: '',
         filterFullExcelUrl: '',
         excelProducts: [],
-        jsonFields: {
-          'Artikel-Nr.': 'st_article_nr',
-          'Serial-Nr.': 'st_serial_nr',
-          'Status': 'lifecycle',
-          'Produktionsdaten': 'production_data_count',
-          'Komponenten': 'components_count',
-          'Produktionsauftrag': 'production_order_nr',
-          'Erstellt': 'created_at'
-        },
       }
     },
     filters: {

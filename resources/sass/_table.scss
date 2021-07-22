@@ -182,3 +182,21 @@ table.table {
 .history-table{
   margin-top: 30px;
 }
+
+.products-list-table {
+  .b-table .table{
+    th:nth-child(2) .th-wrap {
+      width: 120px;
+    }
+    th:nth-child(3) .th-wrap {
+      width: 120px;
+    }
+    th:nth-child(7) .th-wrap {
+      width: 180px;
+    }
+  }
+  .field.is-grouped-multiline.is-grouped {
+    display: flex;
+    justify-content: center;
+  }
+}
