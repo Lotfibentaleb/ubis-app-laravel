@@ -22,6 +22,9 @@
         <b-switch v-model="isCreatedAtFilter">Created at</b-switch>
       </div>
       <div class="control">
+        <b-switch v-model="isUpdatedAtFilter">Updated at</b-switch>
+      </div>
+      <div class="control">
         <b-switch v-model="isRemoveAllFilter">Remove All Filters</b-switch>
       </div>
     </b-field>
@@ -83,7 +86,7 @@
           </template>
           <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.updatedAt')" field="updated_at" sortable :searchable="isCreatedAtFilter ? true : false">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.updatedAt')" field="updated_at" sortable :searchable="isUpdatedAtFilter ? true : false">
           <template #searchable="props">
             <date-range-picker
                     ref="picker"
@@ -167,6 +170,7 @@
         isSerialNrFilter: true,
         isProductionOrderNrFilter: true,
         isCreatedAtFilter: true,
+        isUpdatedAtFilter: true,
         isRemoveAllFilter: false,
         dateRange: {
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
@@ -216,33 +220,50 @@
           this.isSerialNrFilter = false
           this.isProductionOrderNrFilter = false
           this.isCreatedAtFilter = false
+          this.isUpdatedAtFilter = false
         }
       },
       isArticleNrFilter: function(state) {
         if(state){
           this.isRemoveAllFilter = false
         }
-        delete this.filters.st_article_nr
-        this.setFilterValues()
-        this.getData();
+        if(this.filters.st_article_nr) {
+          delete this.filters.st_article_nr
+          this.setFilterValues()
+          this.getData();
+        }
       },
       isSerialNrFilter: function(state) {
         if(state){
           this.isRemoveAllFilter = false
         }
-        delete this.filters.st_serial_nr
-        this.setFilterValues()
-        this.getData();
+        if(this.filters.st_serial_nr) {
+          delete this.filters.st_serial_nr
+          this.setFilterValues()
+          this.getData();
+        }
       },
       isProductionOrderNrFilter: function(state) {
         if(state){
           this.isRemoveAllFilter = false
         }
-        delete this.filters.production_order_nr
+        if(this.filters.production_order_nr) {
+          delete this.filters.production_order_nr
+          this.setFilterValues()
+          this.getData();
+        }
+      },
+      isCreatedAtFilter: function(state) {
+        if(state){
+          this.isRemoveAllFilter = false
+        }
+        const today = new Date()
+        this.dateRange.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+        this.dateRange.endDate = today
         this.setFilterValues()
         this.getData();
       },
-      isCreatedAtFilter: function(state) {
+      isUpdatedAtFilter: function(state) {
         if(state){
           this.isRemoveAllFilter = false
         }
