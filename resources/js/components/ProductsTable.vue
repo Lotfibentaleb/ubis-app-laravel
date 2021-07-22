@@ -8,29 +8,6 @@
         <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.fullExcel')}}</b-button></a>
       </div>
     </div>
-    <b-field grouped group-multiline>
-      <div class="control">
-        <b-switch v-model="isArticleNrFilter">Article-Nr.</b-switch>
-      </div>
-      <div class="control">
-        <b-switch v-model="isSerialNrFilter">Serial-Nr.</b-switch>
-      </div>
-      <div class="control">
-        <b-switch v-model="isStatusFilter">Status</b-switch>
-      </div>
-      <div class="control">
-        <b-switch v-model="isProductionOrderNrFilter">Production-Order-Nr.</b-switch>
-      </div>
-      <div class="control">
-        <b-switch v-model="isCreatedAtFilter">Created at</b-switch>
-      </div>
-      <div class="control">
-        <b-switch v-model="isUpdatedAtFilter">Updated at</b-switch>
-      </div>
-      <div class="control">
-        <b-switch v-model="isRemoveAllFilter">Remove All Filters</b-switch>
-      </div>
-    </b-field>
     <b-table
             header-class="products-list"
             :checked-rows.sync="checkedRows"
@@ -56,25 +33,31 @@
 
       <template slot-scope="props">
         <b-table-column :label="$gettext('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable
-                        :searchable="isArticleNrFilter ? true : false">
+                        searchable>
+          <template #searchable="props">
+            <b-autocomplete clearable />
+          </template>
           {{ props.row.st_article_nr }}
         </b-table-column>
         <b-table-column :label="$gettext('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable
-                        :searchable="isSerialNrFilter ? true : false">
+                        searchable>
+          <template #searchable="props">
+            <b-autocomplete clearable />
+          </template>
           {{ props.row.st_serial_nr }}
         </b-table-column>
         <b-table-column :label="$gettext('productsPage.productsTable.fields.status')" field="lifecycle"
-                        :searchable="isStatusFilter ? true : false">
+                        searchable>
           <template #searchable="props">
             <b-dropdown
                     :scrollable="isScrollable"
                     :max-height="maxHeight"
-                    v-model="currentMenu"
+                    v-model="currentStatus"
                     aria-role="list"
             >
               <template #trigger>
                 <b-button
-                        :label="currentMenu.text"
+                        :label="currentStatus.text"
                         icon-right="menu-down" />
               </template>
 
@@ -98,34 +81,45 @@
         <b-table-column :label="$gettext('productsPage.productsTable.fields.componentsCount')" field="components_count">
           {{ props.row.components_count }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable :searchable="isProductionOrderNrFilter ? true : false">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable searchable>
+          <template #searchable="props">
+            <b-autocomplete clearable />
+          </template>
           {{ props.row.production_order_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.createdAt')" field="created_at" sortable :searchable="isCreatedAtFilter ? true : false">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.createdAt')" field="created_at" sortable searchable>
           <template #searchable="props">
             <date-range-picker
                     ref="picker"
-                    v-model="dateRange"
-                    @update="updateDateRange"
+                    v-model="dateRangeCreatedAt"
+                    @update="updateDateRangeCreatedAt"
             >
-              <template v-slot:input="picker" style="min-width: 350px;">
+              <template v-if="isDateRangeCreatedAt" v-slot:input="picker" style="min-width: 350px;">
                 {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
               </template>
+              <template v-else v-slot:input="picker" style="min-width: 350px;">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              </template>
             </date-range-picker>
+            <b-button v-if="isDateRangeCreatedAt" @click="clearCreatedAt">X</b-button>
           </template>
           <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.updatedAt')" field="updated_at" sortable :searchable="isUpdatedAtFilter ? true : false">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.updatedAt')" field="updated_at" sortable searchable>
           <template #searchable="props">
             <date-range-picker
                     ref="picker"
-                    v-model="dateRange"
-                    @update="updateDateRange"
+                    v-model="dateRangeUpdatedAt"
+                    @update="updateDateRangeUpdatedAt"
             >
-              <template v-slot:input="picker" style="min-width: 350px;">
+              <template v-if="isDateRangeUpdatedAt" v-slot:input="picker" style="min-width: 350px;">
                 {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
               </template>
+              <template v-else v-slot:input="picker" style="min-width: 350px;">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              </template>
             </date-range-picker>
+            <b-button v-if="isDateRangeUpdatedAt" @click="clearUpdatedAt">X</b-button>
           </template>
           <small class="has-text-grey is-abbr-like" :title="props.row.updated_at">{{ props.row.updated_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>
@@ -178,10 +172,11 @@
   import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
   import BField from "buefy/src/components/field/Field"
   import moment from "moment"
+  import BAutocomplete from "buefy/src/components/autocomplete/Autocomplete";
 
   export default {
     name: 'ProductsTable',
-    components: {BField, BButton, ModalTrashBox, DateRangePicker },
+    components: {BAutocomplete, BField, BButton, ModalTrashBox, DateRangePicker },
     props: {
       dataUrl: {
         type: String,
@@ -195,23 +190,23 @@
     data () {
       const today = new Date()
       return {
-        isArticleNrFilter: true,
-        isSerialNrFilter: true,
-        isStatusFilter: false,
-        isProductionOrderNrFilter: true,
-        isCreatedAtFilter: true,
-        isUpdatedAtFilter: true,
-        isRemoveAllFilter: false,
         isScrollable: false,
         maxHeight: 200,
-        currentMenu: { text: 'unknown' },
+        currentStatus: { text: 'all' },
         menus: [
+          { text: 'all' },
           { text: 'unknown' },
           { text: 'in_production' },
           { text: 'all_tests_passed' },
           { text: 'test_failed' },
         ],
-        dateRange: {
+        isDateRangeCreatedAt: false,
+        dateRangeCreatedAt: {
+          startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
+          endDate: today,
+        },
+        isDateRangeUpdatedAt: false,
+        dateRangeUpdatedAt: {
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
         },
@@ -253,70 +248,6 @@
       selectedRow: function() {
         this.$emit('clickedRow', this.selectedRow)
       },
-      isRemoveAllFilter: function(state) {
-        if(state){
-          this.isArticleNrFilter = false
-          this.isSerialNrFilter = false
-          this.isProductionOrderNrFilter = false
-          this.isCreatedAtFilter = false
-          this.isUpdatedAtFilter = false
-        }
-      },
-      isArticleNrFilter: function(state) {
-        if(state){
-          this.isRemoveAllFilter = false
-        }
-        if(this.filters.st_article_nr) {
-          delete this.filters.st_article_nr
-          this.setFilterValues()
-          this.getData();
-        }
-      },
-      isSerialNrFilter: function(state) {
-        if(state){
-          this.isRemoveAllFilter = false
-        }
-        if(this.filters.st_serial_nr) {
-          delete this.filters.st_serial_nr
-          this.setFilterValues()
-          this.getData();
-        }
-      },
-      isStatusFilter: function(state) {
-        if(state) {
-          this.isRemoveAllFilter = false
-        }
-      },
-      isProductionOrderNrFilter: function(state) {
-        if(state){
-          this.isRemoveAllFilter = false
-        }
-        if(this.filters.production_order_nr) {
-          delete this.filters.production_order_nr
-          this.setFilterValues()
-          this.getData();
-        }
-      },
-      isCreatedAtFilter: function(state) {
-        if(state){
-          this.isRemoveAllFilter = false
-        }
-        const today = new Date()
-        this.dateRange.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
-        this.dateRange.endDate = today
-        this.setFilterValues()
-        this.getData();
-      },
-      isUpdatedAtFilter: function(state) {
-        if(state){
-          this.isRemoveAllFilter = false
-        }
-        const today = new Date()
-        this.dateRange.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
-        this.dateRange.endDate = today
-        this.setFilterValues()
-        this.getData();
-      }
     },
     computed: {
       trashObjectName () {
@@ -332,7 +263,28 @@
       this.getFilteringURL()
     },
     methods: {
-      updateDateRange() {
+      clearCreatedAt() {
+        const today = new Date()
+        this.dateRangeCreatedAt.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+        this.dateRangeCreatedAt.endDate = today
+        this.isDateRangeCreatedAt = false
+        this.setFilterValues()
+        this.getData()
+      },
+      clearUpdatedAt() {
+        const today = new Date()
+        this.dateRangeUpdatedAt.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+        this.dateRangeUpdatedAt.endDate = today
+        this.isDateRangeUpdatedAt = false
+      },
+      updateDateRangeCreatedAt() {
+        this.isDateRangeCreatedAt = true
+        this.setFilterValues()
+        this.getData()
+        this.getFilteringURL()
+      },
+      updateDateRangeUpdatedAt() {
+        this.isDateRangeUpdatedAt = true
         this.setFilterValues()
         this.getData()
         this.getFilteringURL()
@@ -354,8 +306,8 @@
       }, 250),
       setFilterValues() {
         let filter = this.filters
-        filter['created_at-gt'] = moment.utc(this.dateRange.startDate).format()
-        filter['created_at-lt'] = moment.utc(this.dateRange.endDate).format()
+        filter['created_at-gt'] = moment.utc(this.dateRangeCreatedAt.startDate).format()
+        filter['created_at-lt'] = moment.utc(this.dateRangeCreatedAt.endDate).format()
         this.filterValues = ''
         this.filterValues = encodeURIComponent(JSON.stringify(filter))
       },

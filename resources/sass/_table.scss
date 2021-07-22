@@ -184,18 +184,32 @@ table.table {
 }
 
 .products-list-table {
-  .b-table .table{
+  .b-table .table {
     th:nth-child(2) .th-wrap {
-      width: 120px;
+      width: 110px;
     }
     th:nth-child(3) .th-wrap {
-      width: 120px;
+      width: 110px;
     }
     th:nth-child(4) .th-wrap {
-      width: 150px;
+      width: 100px;
     }
     th:nth-child(7) .th-wrap {
-      width: 180px;
+      width: 100px;
+    }
+    th:nth-child(8) .th-wrap {
+      .button {
+        font-weight: bold;
+        color: white;
+        background: #dad6d6;
+      }
+    }
+    th:nth-child(9) .th-wrap {
+      .button {
+        font-weight: bold;
+        color: white;
+        background: #dad6d6;
+      }
     }
   }
   .field.is-grouped-multiline.is-grouped {
