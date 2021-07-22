@@ -16,6 +16,9 @@
         <b-switch v-model="isSerialNrFilter">Serial-Nr.</b-switch>
       </div>
       <div class="control">
+        <b-switch v-model="isStatusFilter">Status</b-switch>
+      </div>
+      <div class="control">
         <b-switch v-model="isProductionOrderNrFilter">Production-Order-Nr.</b-switch>
       </div>
       <div class="control">
@@ -60,7 +63,33 @@
                         :searchable="isSerialNrFilter ? true : false">
           {{ props.row.st_serial_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.status')" field="lifecycle">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.status')" field="lifecycle"
+                        :searchable="isStatusFilter ? true : false">
+          <template #searchable="props">
+            <b-dropdown
+                    :scrollable="isScrollable"
+                    :max-height="maxHeight"
+                    v-model="currentMenu"
+                    aria-role="list"
+            >
+              <template #trigger>
+                <b-button
+                        :label="currentMenu.text"
+                        icon-right="menu-down" />
+              </template>
+
+              <b-dropdown-item
+                      v-for="(menu, index) in menus"
+                      :key="index"
+                      :value="menu" aria-role="listitem">
+                <div class="media">
+                  <div class="media-content">
+                    <h3>{{menu.text}}</h3>
+                  </div>
+                </div>
+              </b-dropdown-item>
+            </b-dropdown>
+          </template>
           {{ props.row.lifecycle }}
         </b-table-column>
         <b-table-column :label="$gettext('productsPage.productsTable.fields.productionDataCount')" field="production_data_count">
@@ -168,10 +197,20 @@
       return {
         isArticleNrFilter: true,
         isSerialNrFilter: true,
+        isStatusFilter: false,
         isProductionOrderNrFilter: true,
         isCreatedAtFilter: true,
         isUpdatedAtFilter: true,
         isRemoveAllFilter: false,
+        isScrollable: false,
+        maxHeight: 200,
+        currentMenu: { text: 'unknown' },
+        menus: [
+          { text: 'unknown' },
+          { text: 'in_production' },
+          { text: 'all_tests_passed' },
+          { text: 'test_failed' },
+        ],
         dateRange: {
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
@@ -241,6 +280,11 @@
           delete this.filters.st_serial_nr
           this.setFilterValues()
           this.getData();
+        }
+      },
+      isStatusFilter: function(state) {
+        if(state) {
+          this.isRemoveAllFilter = false
         }
       },
       isProductionOrderNrFilter: function(state) {
