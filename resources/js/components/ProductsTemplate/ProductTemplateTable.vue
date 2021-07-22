@@ -46,7 +46,18 @@
           </template>
           {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
-        <b-table-column :label="$gettext('productionFlowsPage.table.fields.updatedAt')" field="updated_at" sortable>
+        <b-table-column :label="$gettext('productionFlowsPage.table.fields.updatedAt')" field="updated_at" sortable searchable>
+          <template #searchable="props">
+            <date-range-picker
+                    ref="picker"
+                    v-model="dateRange"
+                    @update="updateDateRange"
+            >
+              <template v-slot:input="picker" style="min-width: 350px;">
+                {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+              </template>
+            </date-range-picker>
+          </template>
           {{ props.row.updated_at | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
       </template>
