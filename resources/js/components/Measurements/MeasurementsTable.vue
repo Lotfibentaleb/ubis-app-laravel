@@ -52,6 +52,13 @@
           </template>
           {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
         </b-table-column>
+        <b-table-column>
+          <div class="buttons is-right">
+            <button class="button is-small is-info" type="button" @click.prevent="rowClickHandler(props.row)">
+              <font-awesome-icon icon="info-circle" />
+            </button>
+          </div>
+        </b-table-column>
       </template>
 
       <section class="section" slot="empty">
@@ -92,10 +99,11 @@
   import DateRangePicker from 'vue2-daterange-picker'
   import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
   import moment from "moment"
+  import BTableColumn from "buefy/src/components/table/TableColumn";
 
   export default {
     name: 'ProductTemplate',
-    components: {DateRangePicker},
+    components: {BTableColumn, DateRangePicker},
     props: {
       reload: {
         type: Boolean,
@@ -105,9 +113,6 @@
     watch: {
       perPage:function(){
         this.getData();
-      },
-      selectedRow: function () {
-        this.rowClickHandler()
       },
       reload: function () {
         this.getData()
@@ -135,7 +140,6 @@
         filterValues: '',
         measurementsData: [],
         // control table
-        isClickedRow: false,
         selectedId: null,
         // selected measurement data
         jsonPdFlow: [],
@@ -177,16 +181,8 @@
       }, 250),
       ///////////////////////////////////////////////////////////////
 
-      rowClickHandler () {
-        this.selectedId = this.selectedRow.id
-        this.jsonPdFlow = this.selectedRow.production_flow
-        this.isClickedRow = true
-        let data = {
-          selectedId: this.selectedId,
-          articleNr: this.selectedRow.st_article_nr
-        }
-        // this.$emit('clickedRow', data)
-        const gotoUrl = this.productSearchPageUrl + '?products_id=' + this.selectedRow.products_id
+      rowClickHandler(row) {
+        const gotoUrl = this.productSearchPageUrl + '?products_id=' + row.products_id
         window.open(gotoUrl, '_blank');
       },
       setFilterValues() {
@@ -198,7 +194,6 @@
       },
       getData () {
         this.isLoading = true
-        this.isClickedRow = false
         const params = [
           `size=${this.perPage}`,
           `sort_by=${this.sortField}.${this.sortOrder}`,
