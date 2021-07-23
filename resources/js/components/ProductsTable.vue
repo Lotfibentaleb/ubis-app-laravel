@@ -309,13 +309,11 @@
         this.isDateRangeCreatedAt = true
         this.setFilterValues()
         this.getData()
-        this.getFilteringURL()
       },
       updateDateRangeUpdatedAt() {
         this.isDateRangeUpdatedAt = true
         this.setFilterValues()
         this.getData()
-        this.getFilteringURL()
       },
       onPageChange(page) {
         this.page = page
@@ -354,6 +352,7 @@
         }
         this.filterValues = ''
         this.filterValues = encodeURIComponent(JSON.stringify(filter))
+        this.getFilteringURL()
       },
       getData () {
         if (this.dataUrl) {
