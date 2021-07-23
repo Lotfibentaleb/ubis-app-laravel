@@ -95,12 +95,12 @@
             >
               <template v-if="isDateRangeCreatedAt" v-slot:input="picker" style="min-width: 350px;">
                 {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+                <b-button v-if="isDateRangeCreatedAt" @click="clearCreatedAt" />
               </template>
               <template v-else v-slot:input="picker" style="min-width: 350px;">
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
               </template>
             </date-range-picker>
-            <b-button v-if="isDateRangeCreatedAt" @click="clearCreatedAt">X</b-button>
           </template>
           <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>
@@ -113,12 +113,12 @@
             >
               <template v-if="isDateRangeUpdatedAt" v-slot:input="picker" style="min-width: 350px;">
                 {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+                <b-button v-if="isDateRangeUpdatedAt" @click="clearUpdatedAt" />
               </template>
               <template v-else v-slot:input="picker" style="min-width: 350px;">
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
               </template>
             </date-range-picker>
-            <b-button v-if="isDateRangeUpdatedAt" @click="clearUpdatedAt">X</b-button>
           </template>
           <small class="has-text-grey is-abbr-like" :title="props.row.updated_at">{{ props.row.updated_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
         </b-table-column>

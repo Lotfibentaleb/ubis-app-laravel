@@ -199,16 +199,30 @@ table.table {
     }
     th:nth-child(8) .th-wrap {
       .button {
-        font-weight: bold;
-        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
         background: #dad6d6;
+        &:before {
+          font-size: 14px;
+          font-weight: 600;
+          color: white;
+          content: 'X';
+        }
       }
     }
     th:nth-child(9) .th-wrap {
       .button {
-        font-weight: bold;
-        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
         background: #dad6d6;
+        &:before {
+          font-size: 14px;
+          font-weight: 600;
+          color: white;
+          content: 'X';
+        }
       }
     }
   }
