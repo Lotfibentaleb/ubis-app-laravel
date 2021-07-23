@@ -61,7 +61,7 @@
               </template>
 
               <b-dropdown-item
-                      v-for="(menu, index) in menus"
+                      v-for="(menu, index) in statusOptions"
                       :key="index"
                       :value="menu" aria-role="listitem">
                 <div class="media">
@@ -199,7 +199,7 @@
         filterStatus: { text: 'all', value: 0 },
         isScrollable: false,
         maxHeight: 200,
-        menus: [
+        statusOptions: [
           { text: 'all', value: 0 },
           { text: 'unknown', value: 0 },
           { text: 'in_production', value: 1 },
@@ -285,6 +285,7 @@
     created () {
       this.setFilterValues()
       this.getData()
+      this.getFormSupport()
       this.getFilteringURL()
       this.productSearchPageUrl = process.env.MIX_PRODUCTS_SEARCH_PAGE_URL
     },
@@ -354,7 +355,28 @@
         this.filterValues = encodeURIComponent(JSON.stringify(filter))
         this.getFilteringURL()
       },
-      getData () {
+      getFormSupport() {
+        axios.get('/productlist/form_support')
+            .then( r => {
+              console.log(r.data.lifecycle)
+              const options = r.data.lifecycle
+              // console.log(options)
+              // this.statusOptions = options
+            }).catch( err => {
+          let message
+          if( err.response.status == 404){
+            message = `Products FormSupport Error`
+          }
+          this.$buefy.toast.open({
+            message: message,
+            type: 'is-danger',
+            queue: false
+          })
+        }).finally(() => {
+
+        })
+      },
+      getData() {
         if (this.dataUrl) {
           this.isLoading = true
           const params = [

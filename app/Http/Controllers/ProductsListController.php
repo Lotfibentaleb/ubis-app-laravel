@@ -441,4 +441,30 @@ class ProductsListController extends Controller
         $resData = array('status'=>true, 'serialNr'=>$serialNr, 'productId'=>$product->id);
         return $resData;
     }
+
+    public function showSupportValues() {
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'products/form_support';
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+        $body = json_decode($response->getBody()->getContents());
+
+        return response()->json($body);
+    }
 }
