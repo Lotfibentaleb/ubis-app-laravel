@@ -211,6 +211,14 @@ table.table {
   }
 }
 
+.production-template-table {
+  .b-table .table {
+    th:nth-child(2) .th-wrap {
+      width: 130px;
+    }
+  }
+}
+
 .vue-daterange-picker .form-control.reportrange-text {
   border-radius: 4px;
   font-weight: 300;
