@@ -27,7 +27,6 @@
             @sort="onSort"
 
             backend-filtering
-            @filters-change="onFilterChange"
 
             :data="products">
 
@@ -125,6 +124,9 @@
         </b-table-column>
         <b-table-column custom-key="actions" class="is-actions-cell">
           <div class="buttons is-right">
+            <button class="button is-small is-info" type="button" @click.prevent="infoClickHandler(props.row)">
+              <font-awesome-icon icon="info-circle" />
+            </button>
             <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)">
               <b-icon icon="trash-can" size="is-small"/>
             </button>
@@ -234,6 +236,8 @@
         filterEnhancedUrl: '',
         filterFullExcelUrl: '',
         excelProducts: [],
+        // productsearch page url
+        productSearchPageUrl: ''
       }
     },
     filters: {
@@ -282,6 +286,7 @@
       this.setFilterValues()
       this.getData()
       this.getFilteringURL()
+      this.productSearchPageUrl = process.env.MIX_PRODUCTS_SEARCH_PAGE_URL
     },
     methods: {
       clearCreatedAt() {
@@ -321,12 +326,10 @@
         this.sortOrder = order
         this.getData()
       },
-      onFilterChange: debounce(function (params) {
-        this.filters = {}
-        this.filters = params
-        this.setFilterValues()
-        this.getData()
-      }, 250),
+      infoClickHandler(row) {
+        const gotoUrl = this.productSearchPageUrl + '?products_id=' + row.id
+        window.open(gotoUrl, '_blank');
+      },
       setFilterValues() {
         let filter = {}
         if(this.filterArticleNr) {
