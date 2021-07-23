@@ -95,7 +95,9 @@
             >
               <template v-if="isDateRangeCreatedAt" v-slot:input="picker" style="min-width: 350px;">
                 {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
-                <b-button v-if="isDateRangeCreatedAt" @click="clearCreatedAt" />
+                <span v-if="isDateRangeCreatedAt" class="icon is-right is-clickable" style="opacity: 20%">
+                  <i class="mdi mdi-close-circle mdi-24px" @click="clearCreatedAt" />
+                </span>
               </template>
               <template v-else v-slot:input="picker" style="min-width: 350px;">
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -113,7 +115,9 @@
             >
               <template v-if="isDateRangeUpdatedAt" v-slot:input="picker" style="min-width: 350px;">
                 {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
-                <b-button v-if="isDateRangeUpdatedAt" @click="clearUpdatedAt" />
+                <span v-if="isDateRangeUpdatedAt" class="icon is-right is-clickable" style="opacity: 20%">
+                  <i class="mdi mdi-close-circle mdi-24px" @click="clearUpdatedAt" />
+                </span>
               </template>
               <template v-else v-slot:input="picker" style="min-width: 350px;">
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
