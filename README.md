@@ -45,6 +45,7 @@ pwd: geheim
 - setup on .env file ERP_SERVICE_BASE_URL
 - setup on .env file PC_SERVICE_BASE_URL
 - setup on .env file PIS_SERVICE_BASE_URL
+- setup on .env file MIX_PRODUCTS_SEARCH_PAGE_URL
 
 
 ## Update
