@@ -18,14 +18,19 @@
             :default-sort="[sortField, sortOrder]"
             @sort="onSort"
             backend-filtering
-            @filters-change="onFilterChange"
             :data="pdSecTemplateData">
 
       <template slot-scope="props">
-        <b-table-column :label="$gettext('productionSectionPage.table.fields.name')" field="name">
+        <b-table-column :label="$gettext('productionSectionPage.table.fields.name')" field="name" searchable>
+          <template #searchable="props">
+            <b-autocomplete v-model="filterName" clearable />
+          </template>
           {{ props.row.name }}
         </b-table-column>
         <b-table-column :label="$gettext('productionSectionPage.table.fields.group')" field="group" searchable>
+          <template #searchable="props">
+            <b-autocomplete v-model="filterGroup" clearable />
+          </template>
           {{ props.row.group }}
         </b-table-column>
         <b-table-column :label="$gettext('productionSectionPage.table.fields.data')">
@@ -37,11 +42,17 @@
           <template #searchable="props">
             <date-range-picker
                     ref="picker"
-                    v-model="dateRange"
-                    @update="updateDateRange"
+                    v-model="dateRangeCreatedAt"
+                    @update="updateDateRangeCreatedAt"
             >
-              <template v-slot:input="picker" style="min-width: 350px;">
+              <template v-if="isDateRangeCreatedAt" v-slot:input="picker" style="min-width: 350px;">
                 {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+                <span v-if="isDateRangeCreatedAt" class="icon is-right is-clickable" style="opacity: 20%">
+                  <i class="mdi mdi-close-circle mdi-24px" @click="clearCreatedAt" />
+                </span>
+              </template>
+              <template v-else v-slot:input="picker" style="min-width: 350px;">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
               </template>
             </date-range-picker>
           </template>
@@ -51,11 +62,17 @@
           <template #searchable="props">
             <date-range-picker
                     ref="picker"
-                    v-model="dateRange"
-                    @update="updateDateRange"
+                    v-model="dateRangeUpdatedAt"
+                    @update="updateDateRangeUpdatedAt"
             >
-              <template v-slot:input="picker" style="min-width: 350px;">
+              <template v-if="isDateRangeUpdatedAt" v-slot:input="picker" style="min-width: 350px;">
                 {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+                <span v-if="isDateRangeUpdatedAt" class="icon is-right is-clickable" style="opacity: 20%">
+                  <i class="mdi mdi-close-circle mdi-24px" @click="clearUpdatedAt" />
+                </span>
+              </template>
+              <template v-else v-slot:input="picker" style="min-width: 350px;">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
               </template>
             </date-range-picker>
           </template>
@@ -101,10 +118,11 @@
   import DateRangePicker from 'vue2-daterange-picker'
   import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
   import moment from "moment"
+  import BAutocomplete from "buefy/src/components/autocomplete/Autocomplete"
 
   export default {
     name: 'ProductionSectionTemplate',
-    components: {DateRangePicker},
+    components: {DateRangePicker, BAutocomplete},
     props: {
       reset: {
         type: Boolean,
@@ -120,16 +138,32 @@
       },
       reset: function () {
         this.getData()
-      }
+      },
+      filterName: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterGroup: function() {
+        this.setFilterValues()
+        this.getData()
+      },
     },
     data () {
       const today = new Date()
       return {
-        dateRange: {
+        // filter
+        filterName: '',
+        filterGroup: '',
+        isDateRangeCreatedAt: false,
+        dateRangeCreatedAt: {
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
         },
-        dateRangeValues: '{}',
+        isDateRangeUpdatedAt: false,
+        dateRangeUpdatedAt: {
+          startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
+          endDate: today,
+        },
         // initial table
         checkedRows: [],
         selectedRow: {},
@@ -175,14 +209,33 @@
         this.sortOrder = order
         this.getData()
       },
-      onFilterChange: debounce(function (params) {
-        this.filters = {}
-        this.filters = params
+      ///////////////////////////////////////////////////////////////
+      clearCreatedAt() {
+        const today = new Date()
+        this.dateRangeCreatedAt.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+        this.dateRangeCreatedAt.endDate = today
+        this.isDateRangeCreatedAt = false
         this.setFilterValues()
         this.getData()
-      }, 250),
-      ///////////////////////////////////////////////////////////////
-
+      },
+      clearUpdatedAt() {
+        const today = new Date()
+        this.dateRangeUpdatedAt.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+        this.dateRangeUpdatedAt.endDate = today
+        this.isDateRangeUpdatedAt = false
+        this.setFilterValues()
+        this.getData()
+      },
+      updateDateRangeCreatedAt() {
+        this.isDateRangeCreatedAt = true
+        this.setFilterValues()
+        this.getData()
+      },
+      updateDateRangeUpdatedAt() {
+        this.isDateRangeUpdatedAt = true
+        this.setFilterValues()
+        this.getData()
+      },
       rowClickHandler () {
         this.selectedId = this.selectedRow.id
         this.jsonMeasurementData = this.selectedRow.data
@@ -198,9 +251,21 @@
         this.$emit('clickedRow', data)
       },
       setFilterValues() {
-        let filter = this.filters
-        filter['created_at-gt'] = moment.utc(this.dateRange.startDate).format()
-        filter['created_at-lt'] = moment.utc(this.dateRange.endDate).format()
+        let filter = {}
+        if(this.filterName) {
+          filter['name'] = this.filterName
+        }
+        if(this.filterGroup) {
+          filter['group'] = this.filterGroup
+        }
+        if(this.isDateRangeCreatedAt) {
+          filter['created_at-gt'] = moment.utc(this.dateRangeCreatedAt.startDate).format()
+          filter['created_at-lt'] = moment.utc(this.dateRangeCreatedAt.endDate).format()
+        }
+        if(this.isDateRangeUpdatedAt) {
+          filter['updated_at-gt'] = moment.utc(this.dateRangeUpdatedAt.startDate).format()
+          filter['updated_at-lt'] = moment.utc(this.dateRangeUpdatedAt.endDate).format()
+        }
         this.filterValues = ''
         this.filterValues = encodeURIComponent(JSON.stringify(filter))
       },
