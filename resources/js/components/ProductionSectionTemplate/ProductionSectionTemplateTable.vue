@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="production-section-template-table">
     <b-table
             :checked-rows.sync="checkedRows"
             :checkable="true"
@@ -34,9 +34,9 @@
           {{ props.row.group }}
         </b-table-column>
         <b-table-column :label="$gettext('productionSectionPage.table.fields.data')">
-          <b-tooltip :label="JSON.stringify(props.row.data, null, 2)"  position="is-right" :delay="1000" multilined size="is-large">
-            {{ JSON.stringify(props.row.data[0]).substring(0, 25) + ' ...' }}
-          </b-tooltip>
+          {{ JSON.stringify(props.row.data[0]).substring(0, 25) + ' ...' }}
+          <font-awesome-icon :title="JSON.stringify(props.row.data, null, 2)" icon="comment-medical" >
+          </font-awesome-icon>
         </b-table-column>
         <b-table-column :label="$gettext('productionSectionPage.table.fields.createdAt')" field="created_at" sortable searchable>
           <template #searchable="props">

@@ -30,9 +30,9 @@
           {{ props.row.st_article_nr }}
         </b-table-column>
         <b-table-column :label="$gettext('productionFlowsPage.table.fields.productionFlow')" field="production_flow">
-          <b-tooltip :label="JSON.stringify(props.row.production_flow, null, 2)"  position="is-right" :delay="1000" multilined size="is-large">
-            {{ JSON.stringify(props.row.production_flow[0]).substring(0, 40) + ' ...' }}
-          </b-tooltip>
+          {{ JSON.stringify(props.row.production_flow[0]).substring(0, 40) + ' ...' }}
+          <font-awesome-icon :title="JSON.stringify(props.row.production_flow, null, 2)" icon="comment-medical" >
+          </font-awesome-icon>
         </b-table-column>
         <b-table-column :label="$gettext('productionFlowsPage.table.fields.createdAt')" field="created_at" sortable searchable>
           <template #searchable="props">
