@@ -14,29 +14,8 @@
       <div class="columns">
         <div class="column">
           <card-component class="has-table has-mobile-sort-spaced" :title="$gettext('measurementsPage.table.title')" icon="package-variant-closed">
-            <measurements-table @clickedRow="clickedRow" :reload="isReload"/>
+            <measurements-table :reload="isReload"/>
           </card-component>
-        </div>
-        <div v-if="isClickedRow">
-          <div  class="column">
-            <card-component :title="$gettext('measurementsPage.settingPanel.title')" class="has-mobile-sort-spaced" icon="lead-pencil">
-              <div class="level">
-                <div class="level-left">
-                  <div>
-                  </div>
-                </div>
-                <div class="level-right">
-                  <!--<div><b-button class="btn btn-ok" :disabled="!hasUpdatingData" @click="savePdFlowData">Save</b-button></div>-->
-                </div>
-              </div>
-              <b-field :label="$gettext('measurementsPage.table.fields.articleNr')" :message="$gettext('productionFlowsPage.settingPanel.fieldMessage')">
-                <b-input type="text" placeholder="Artikel-Nr." :value="selectedArticleNr" readonly/>
-              </b-field>
-              <b-field :label="$gettext('measurementsPage.table.fields.measurementDetail')" :message="$gettext('measurementsPage.table.fields.measurementDetail')" >
-                <v-jsoneditor ref="jeditor" v-model="jsonMeasurementDetail" :options="options" style="max-width: 500px;"/>
-              </b-field>
-            </card-component>
-          </div>
         </div>
       </div>
     </section>
@@ -77,7 +56,6 @@
     },
     data () {
       return {
-        isClickedRow: false,
         prevjsonMeasurementDetail: [],
         jsonMeasurementDetail: [],
         selectedId: null,
@@ -100,10 +78,6 @@
       }
     },
     methods: {
-      clickedRow(data) {
-        this.isClickedRow = true
-        this.getData(data.selectedId)
-      },
       getData (id) {
         const fetchUrl = '/device_records/' + id
         axios.create({
