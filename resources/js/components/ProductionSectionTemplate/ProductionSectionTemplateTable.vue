@@ -171,9 +171,9 @@
         total: 0,
         perPage: 10,
         page: 1,
-        sortField:'',
-        sortOrder:'asc',
-        defaultSortOrder:'asc',
+        sortField:'created_at',
+        sortOrder:'desc',
+        defaultSortOrder:'desc',
         filters: {},
         filterValues: '',
         pdSecTemplateData: [],
@@ -280,6 +280,7 @@
       getData () {
         const params = [
           `size=100`,
+          `sort_by=${this.sortField}-${this.sortOrder}`,
           `page=1`,
           `filter=${this.filterValues}`
         ].join('&')

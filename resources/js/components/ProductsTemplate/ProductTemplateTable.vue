@@ -165,9 +165,9 @@
         total: 0,
         perPage: 10,
         page: 1,
-        sortField:'',
-        sortOrder:'asc',
-        defaultSortOrder:'asc',
+        sortField:'created_at',
+        sortOrder:'desc',
+        defaultSortOrder:'desc',
         filters: {},
         filterValues: '',
         pdTemplateData: [],
@@ -252,7 +252,7 @@
         this.hasUpdatingData = false
         const params = [
           `size=${this.perPage}`,
-          `sort_by=${this.sortField}.${this.sortOrder}`,
+          `sort_by=${this.sortField}-${this.sortOrder}`,
           `page=${this.page}`,
           `filter=${this.filterValues}`
         ].join('&')

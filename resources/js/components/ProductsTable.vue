@@ -392,7 +392,7 @@
           this.isLoading = true
           const params = [
             `size=${this.perPage}`,
-            `sort_by=${this.sortField}.${this.sortOrder}`,
+            `sort_by=${this.sortField}-${this.sortOrder}`,
             `page=${this.page}`,
             `filter=${this.filterValues}`
           ].join('&')
