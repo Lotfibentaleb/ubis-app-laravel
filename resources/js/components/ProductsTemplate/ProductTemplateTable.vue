@@ -52,7 +52,7 @@
               </template>
             </date-range-picker>
           </template>
-          {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
+          {{ getLocalTime(props.row.created_at) }}
         </b-table-column>
         <b-table-column :label="$gettext('productionFlowsPage.table.fields.updatedAt')" field="updated_at" sortable searchable>
           <template #searchable="props">
@@ -72,7 +72,7 @@
               </template>
             </date-range-picker>
           </template>
-          {{ props.row.updated_at | moment("DD.MM.YYYY / k:mm:ss")}}
+          {{ getLocalTime(props.row.updated_at) }}
         </b-table-column>
       </template>
 
@@ -110,6 +110,7 @@
 </template>
 <script>
 
+  import { mapState } from 'vuex'
   import debounce from 'lodash/debounce'
   import DateRangePicker from 'vue2-daterange-picker'
   import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
@@ -187,6 +188,11 @@
         return val ? val.toLocaleString() : ''
       }
     },
+    computed: {
+      ...mapState([
+        'utcOffset'
+      ])
+    },
     created () {
       this.setFilterValues()
       this.getData()
@@ -236,6 +242,9 @@
         }
         this.filterValues = ''
         this.filterValues = encodeURIComponent(JSON.stringify(filter))
+      },
+      getLocalTime(date) {
+        return moment.utc(date).utcOffset(this.utcOffset).format("DD.MM.YYYY / k:mm:ss")
       },
       getData () {
         this.isLoading = true

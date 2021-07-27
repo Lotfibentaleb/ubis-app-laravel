@@ -104,7 +104,7 @@
               </template>
             </date-range-picker>
           </template>
-          <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
+          <small class="has-text-grey is-abbr-like" :title="props.row.created_at">{{ getLocalTime(props.row.created_at) }}</small>
         </b-table-column>
         <b-table-column :label="$gettext('productsPage.productsTable.fields.updatedAt')" field="updated_at" sortable searchable>
           <template #searchable="props">
@@ -124,7 +124,7 @@
               </template>
             </date-range-picker>
           </template>
-          <small class="has-text-grey is-abbr-like" :title="props.row.updated_at">{{ props.row.updated_at | moment("DD.MM.YYYY / k:mm:ss")}}</small>
+          <small class="has-text-grey is-abbr-like" :title="props.row.updated_at">{{ getLocalTime(props.row.updated_at) }}</small>
         </b-table-column>
         <b-table-column custom-key="actions" class="is-actions-cell">
           <div class="buttons is-right">
@@ -171,6 +171,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import ModalTrashBox from '@/components/ModalTrashBox'
   import debounce from 'lodash/debounce'
   import BButton from "buefy/src/components/button/Button"
@@ -284,7 +285,10 @@
           return this.trashObject.st_article_nr+"/"+this.trashObject.st_serial_nr
         }
         return null
-      }
+      },
+      ...mapState([
+        'utcOffset'
+      ])
     },
     created () {
       this.setFilterValues()
@@ -358,6 +362,9 @@
         this.filterValues = ''
         this.filterValues = encodeURIComponent(JSON.stringify(filter))
         this.getFilteringURL()
+      },
+      getLocalTime(date) {
+        return moment.utc(date).utcOffset(this.utcOffset).format("DD.MM.YYYY / k:mm:ss")
       },
       getFormSupport() {
         axios.get('/productlist/form_support')
