@@ -111,9 +111,9 @@
         isLoading: false,
         perPage: 10,
         checkedRows: [],
-        sortField:'',
-        sortOrder:'asc',
-        defaultSortOrder:'asc',
+        sortField:'valid_since',
+        sortOrder:'desc',
+        defaultSortOrder:'desc',
         page: 1,
         total: 0,
         filterValues: '{}',
@@ -162,7 +162,7 @@
           this.isLoading = true
           const params = [
             `size=${this.perPage}`,
-            `sort_by=${this.sortField}.${this.sortOrder}`,
+            `sort_by=${this.sortField}-${this.sortOrder}`,
             `page=${this.page}`,
             `name=${this.name}`
           ].join('&')
