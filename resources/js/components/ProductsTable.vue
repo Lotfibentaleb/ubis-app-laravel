@@ -439,21 +439,21 @@
         if(this.dataUrl){
           const paramsGeneral = [
             `enhanced=0`,
-            `sort_by=${this.sortField}.${this.sortOrder}`,
+            `sort_by=${this.sortField}-${this.sortOrder}`,
             `page=${this.page}`,
             `filter=${this.filterValues}`
           ].join('&')
 
           const paramsEnhance = [
             `enhanced=1`,
-            `sort_by=${this.sortField}.${this.sortOrder}`,
+            `sort_by=${this.sortField}-${this.sortOrder}`,
             `page=${this.page}`,
             `filter=${this.filterValues}`
           ].join('&')
 
           const paramsFullExcel = [
             `enhanced=2`,
-            `sort_by=${this.sortField}.${this.sortOrder}`,
+            `sort_by=${this.sortField}-${this.sortOrder}`,
             `page=${this.page}`,
             `filter=${this.filterValues}`
           ].join('&')
