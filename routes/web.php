@@ -105,6 +105,7 @@ Route::apiResource('production_flow', 'ProductionFlowController');
 
 Route::get('device_records', 'MeasurementController@index');
 Route::get('device_records/{id}', 'MeasurementController@getMeasurement');
+Route::put('device_records/reloadMeasurements', 'MeasurementController@reloadMeasurements');
 
 Route::get('production_section/history', 'ProductionSectionController@indexHistory');
 Route::get('production_section/form_support', 'ProductionSectionController@showSupportValues');

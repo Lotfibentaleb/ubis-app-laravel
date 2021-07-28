@@ -113,4 +113,49 @@ class MeasurementController extends Controller
         $body = json_decode($response->getBody()->getContents());
         return response()->json($body, $statusCode);
     }
+
+    public function reloadMeasurements(Request $request) {
+
+        $client = new Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'http_errors'=> false,
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        $uuid = $request->input('id', '');
+        $sectionId = $request->input('sectionId', '');
+
+        $putData = array('id' => $uuid, 'sectionId' => $sectionId);
+        //'products/{id or serialNr}/section/{sectionId}'
+        $requestString = 'products/'.$uuid.'/section/'.$sectionId;
+        $response = $client->request('PUT', $baseUrl.$requestString, array_merge($options, ['json' => $putData]));
+        $statusCode = $response->getStatusCode();
+        if( $statusCode != 201){
+            $statusMessage = 'Could not create product.';
+            if( $response &&  !empty($response->getBody()) && !empty((string)$response->getBody())){
+                $responseContent = json_decode((string)$response->getBody(), true);
+                $statusMessage = (array_key_exists('error', $responseContent))?$responseContent['error']:$statusMessage;
+                $statusMessage = (array_key_exists('message', $responseContent))?$responseContent['message']:$statusMessage;
+            }
+            //echo 'Product with serial '.$serialNr.' could not be created ('.$statusMessage.')'."\r\n";
+            return array('status'=>false, 'id'=>$uuid);
+        }
+
+        $product = json_decode((string)$response->getBody());
+        $product = $product->data;
+        return array('status'=>true, 'data'=>$product);
+    }
 }

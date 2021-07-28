@@ -74,7 +74,7 @@
           </template>
           {{ props.row.name  }}
         </b-table-column>
-        <b-table-column :label="$gettext('measurementsPage.table.fields.createdBy')" field="created_by" searchable
+        <b-table-column :label="$gettext('measurementsPage.table.fields.createdBy')" field="device_records.created_by" searchable
                         sortable>
           <template #searchable="props">
             <b-autocomplete v-model="filterCreatedBy" clearable />
@@ -281,6 +281,37 @@
       },
       reloadConfirm() {
         this.isModalActive = false
+        const data = {
+          id: this.selectedRefreshRow.products_id,
+          sectionId: this.selectedRefreshRow.name
+        }
+        axios.put('device_records/reloadMeasurements', data)
+            .then( r => {
+              console.log(r.data)
+              if(r.data.status == false) {
+                let message = `Device record not found.`
+                this.$buefy.toast.open({
+                  message: message,
+                  type: 'is-danger',
+                  queue: false
+                })
+              } else {
+                //update entry
+                console.log(r.data)
+              }
+            }).catch( err => {
+          let message
+          if( err.response.status == 404){
+            message = `Products FormSupport Error`
+          }
+          this.$buefy.toast.open({
+            message: message,
+            type: 'is-danger',
+            queue: false
+          })
+        }).finally(() => {
+
+        })
       },
       reloadCancel() {
         this.isModalActive = false

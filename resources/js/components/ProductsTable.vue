@@ -173,7 +173,6 @@
 <script>
   import { mapState } from 'vuex'
   import ModalTrashBox from '@/components/ModalTrashBox'
-  import debounce from 'lodash/debounce'
   import BButton from "buefy/src/components/button/Button"
   import DateRangePicker from 'vue2-daterange-picker'
   import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
@@ -232,8 +231,6 @@
         sortField:'created_at',
         sortOrder:'desc',
         defaultSortOrder:'desc',
-        sortIcon: 'arrow-down',
-        sortIconSize: 'is-small',
         page: 1,
         total: 0,
         filters: {},
