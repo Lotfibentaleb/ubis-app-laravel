@@ -70,7 +70,29 @@
         </b-table-column>
         <b-table-column :label="$gettext('measurementsPage.table.fields.name')" field="name" searchable sortable>
           <template #searchable="props">
-            <b-autocomplete v-model="filterSection" clearable />
+            <b-dropdown
+                    :scrollable="isScrollable"
+                    :max-height="maxHeight"
+                    v-model="filterSection"
+                    aria-role="list"
+            >
+              <template #trigger>
+                <b-button
+                        :label="filterSection.text"
+                        icon-right="menu-down" />
+              </template>
+
+              <b-dropdown-item
+                      v-for="(menu, index) in sectionOptions"
+                      :key="index"
+                      :value="menu" aria-role="listitem">
+                <div class="media">
+                  <div class="media-content">
+                    <h3>{{menu.text}}</h3>
+                  </div>
+                </div>
+              </b-dropdown-item>
+            </b-dropdown>
           </template>
           {{ props.row.name  }}
         </b-table-column>
@@ -208,7 +230,15 @@
           { text: 'success', value: 2 },
           { text: 'failed', value: 3 },
         ],
-        filterSection: '',
+        // filterSection: '',
+        filterSection: { text: 'all', value: 0 },
+        sectionOptions: [
+          { text: 'all', value: 0 },
+          { text: 'unknonw', value: 0 },
+          { text: 'in progress', value: 1 },
+          { text: 'success', value: 2 },
+          { text: 'failed', value: 3 },
+        ],
         filterCreatedBy: '',
         isDateRangeCreatedAt: false,
         dateRangeCreatedAt: {
@@ -257,6 +287,7 @@
     },
     created () {
       this.setFilterValues()
+      this.getFormSupport()
       this.getData()
       this.productSearchPageUrl = process.env.MIX_PRODUCTS_SEARCH_PAGE_URL
     },
@@ -331,8 +362,8 @@
         if(this.filterState.text != 'all') {
           filter['device_records.state'] = this.filterState.value
         }
-        if(this.filterSection) {
-          filter['device_records.production_section_template_id'] = this.filterSection
+        if(this.filterSection.text != 'all') {
+          filter['device_records.production_section_template_id'] = this.filterSection.value
         }
         if(this.filterCreatedBy) {
           filter['device_records.created_by'] = this.filterCreatedBy
@@ -347,7 +378,33 @@
       getLocalTime(date) {
         return moment.utc(date).utcOffset(this.utcOffset).format("DD.MM.YYYY / k:mm:ss")
       },
-      getData () {
+      getFormSupport() {
+        axios.get('/device_records/form_support')
+            .then( r => {
+              const options = r.data.state
+              this.sectionOptions = []
+              const item = {text: 'all', value: 0}
+              this.sectionOptions.push(item)
+              for (const property in options) {
+                console.log(`${property}: ${options[property]}`);
+                const item = {text: `${options[property]}`, value: `${property}`}
+                this.sectionOptions.push(item)
+              }
+            }).catch( err => {
+          let message
+          if( err.response.status == 404){
+            message = `Products FormSupport Error`
+          }
+          this.$buefy.toast.open({
+            message: message,
+            type: 'is-danger',
+            queue: false
+          })
+        }).finally(() => {
+
+        })
+      },
+      getData() {
         this.isLoading = true
         const params = [
           `size=${this.perPage}`,

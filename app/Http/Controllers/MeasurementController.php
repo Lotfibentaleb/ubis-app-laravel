@@ -162,4 +162,30 @@ class MeasurementController extends Controller
         $product = $product->data;
         return array('status'=>true, 'data'=>$product);
     }
+
+    public function showSupportValues() {
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $requestString = 'device_records/form_support';
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+        $body = json_decode($response->getBody()->getContents());
+
+        return response()->json($body);
+    }
 }
