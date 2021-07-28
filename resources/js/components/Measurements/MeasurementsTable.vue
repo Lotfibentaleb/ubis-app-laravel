@@ -125,11 +125,11 @@
         </b-table-column>
         <b-table-column>
           <div class="buttons is-right">
-            <button class="button is-small is-info" type="button" @click.prevent="rowReloadHandler(props.row)">
+            <button class="button is-small is-info icon-btn" type="button" @click.prevent="rowReloadHandler(props.row)">
               <font-awesome-icon icon="sync" />
             </button>
             <b-tooltip :label="JSON.stringify(props.row.note, null, 2)" position="is-left">
-              <button class="button is-small is-info" type="button" @click.prevent="rowClickHandler(props.row)">
+              <button class="button is-small is-info icon-btn" type="button" @click.prevent="rowClickHandler(props.row)">
                 <font-awesome-icon icon="info-circle" />
               </button>
             </b-tooltip>

@@ -128,7 +128,7 @@
         </b-table-column>
         <b-table-column custom-key="actions" class="is-actions-cell">
           <div class="buttons is-right">
-            <button class="button is-small is-info" type="button" @click.stop="infoClickHandler(props.row)">
+            <button class="button is-small is-info icon-btn" type="button" @click.stop="infoClickHandler(props.row)">
               <font-awesome-icon icon="info-circle" />
             </button>
             <button class="button is-small is-danger" type="button" @click.stop="trashModal(props.row)">

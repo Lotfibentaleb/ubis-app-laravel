@@ -12,7 +12,7 @@
     </hero-bar>
     <section class="section is-main-section">
       <div class="columns is-mobile">
-        <div class="column" v-bind:class="{'is-four-fifths': isClickedRow}">
+        <div class="column" v-bind:class="{'is-10': isClickedRow}">
           <card-component class="has-table has-mobile-sort-spaced" :title="$gettext('productsPage.productsTable.title')" icon="package-variant-closed">
             <products-table data-url="/productlist" @clickedRow="clickedRow" :checkable="true"/>
           </card-component>
