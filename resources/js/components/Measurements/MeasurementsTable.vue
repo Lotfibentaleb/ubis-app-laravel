@@ -320,17 +320,21 @@
         }
         axios.put('device_records/reloadMeasurements', data)
             .then( r => {
-              console.log(r.data)
               if(r.data.status == false) {
                 let message = `Device record not found.`
-                this.$buefy.toast.open({
+                this.$buefy.snackbar.open({
                   message: message,
                   type: 'is-danger',
                   queue: false
                 })
               } else {
                 //update entry
-                console.log(r.data)
+                let message = `Updated successfully!`
+                this.$buefy.snackbar.open({
+                  message: message,
+                  type: 'is-success',
+                  queue: false
+                })
               }
             }).catch( err => {
           let message
