@@ -4,7 +4,7 @@
     <div class="level">
       <div class="level-left">
         <b-button type="is-info" disabled>{{$gettext('productsPage.productsTable.productsCounts')}}: {{this.total}}</b-button>
-        <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.downloadExcel')}}</b-button></a>
+<!--        <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.downloadExcel')}}</b-button></a> -->
         <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.fullExcel')}}</b-button></a>
       </div>
     </div>

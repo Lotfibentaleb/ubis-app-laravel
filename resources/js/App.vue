@@ -36,18 +36,6 @@ export default {
         this.$gettext('sidebar.production'),
         [
           {
-            to: '/products/exports',
-            label: this.$gettext('sidebar.exports'),
-            icon: 'package-variant-closed',
-            role: ['admin', 'user'],
-          },
-          {
-            to: '/products/bulkactions',
-            label: this.$gettext('sidebar.bulkActions'),
-            icon: 'package-variant-closed',
-            role: ['admin', 'user'],
-          },
-          {
             to: '/products/list',
             label: this.$gettext('sidebar.products'),
             icon: 'package-variant-closed',
@@ -59,6 +47,18 @@ export default {
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
+          {
+            to: '/products/exports',
+            label: this.$gettext('sidebar.exports'),
+            icon: 'package-variant-closed',
+            role: ['admin', 'user'],
+          },
+          {
+            to: '/products/bulkactions',
+            label: this.$gettext('sidebar.bulkActions'),
+            icon: 'package-variant-closed',
+            role: ['admin', 'user'],
+          }
         ],
         this.$gettext('sidebar.setup'),
         [

@@ -143,7 +143,11 @@ class MeasurementController extends Controller
         $requestString = 'products/'.$uuid.'/section/'.$sectionId;
         $response = $client->request('PUT', $baseUrl.$requestString, array_merge($options, ['json' => $putData]));
         $statusCode = $response->getStatusCode();
-        if( $statusCode != 201){
+
+//        $responseContent = json_decode((string)$response->getBody(), true);
+//        print_r(array($requestString, $statusCode, $responseContent));
+//        die(__FILE__);
+        if( $statusCode != 201 && $statusCode != 200 ){
             $statusMessage = 'Could not create product.';
             if( $response &&  !empty($response->getBody()) && !empty((string)$response->getBody())){
                 $responseContent = json_decode((string)$response->getBody(), true);
