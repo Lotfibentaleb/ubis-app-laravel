@@ -332,6 +332,7 @@
         this.sortField = field
         this.sortOrder = order
         this.getData()
+        this.getFilteringURL()
       },
       infoClickHandler(row) {
         const gotoUrl = this.productSearchPageUrl + '?products_id=' + row.id
