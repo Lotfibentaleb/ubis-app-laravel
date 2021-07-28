@@ -1,5 +1,8 @@
 <template>
   <div class="measurements-list-table">
+    <modal-box :is-active="isModalActive" @confirm="reloadConfirm" @cancel="reloadCancel" confirmLabel="Reload">
+      <p>This will modify the RESULT of measurement data. Do you want to continue?</p>
+    </modal-box>
     <b-table
             :checked-rows.sync="checkedRows"
             :checkable="true"
@@ -150,10 +153,11 @@
   import moment from "moment"
   import BTableColumn from "buefy/src/components/table/TableColumn"
   import BAutocomplete from "buefy/src/components/autocomplete/Autocomplete"
+  import ModalBox from '@/components/ModalBox'
 
   export default {
     name: 'ProductTemplate',
-    components: {BAutocomplete, BTableColumn, DateRangePicker},
+    components: {BAutocomplete, BTableColumn, DateRangePicker, ModalBox},
     props: {
       reload: {
         type: Boolean,
@@ -230,7 +234,10 @@
         // selected measurement data
         jsonPdFlow: [],
         // productsearch page url
-        productSearchPageUrl: ''
+        productSearchPageUrl: '',
+        // refresh
+        isModalActive: false,
+        selectedRefreshRow: ''
       }
     },
     filters: {
@@ -269,7 +276,14 @@
       },
       ///////////////////////////////////////////////////////////////
       rowReloadHandler(row) {
-
+        this.selectedRefreshRow = row
+        this.isModalActive = true
+      },
+      reloadConfirm() {
+        this.isModalActive = false
+      },
+      reloadCancel() {
+        this.isModalActive = false
       },
       rowClickHandler(row) {
         const gotoUrl = this.productSearchPageUrl + '?products_id=' + row.products_id
