@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="measurements-list-table">
     <b-table
             :checked-rows.sync="checkedRows"
             :checkable="true"
@@ -18,42 +18,91 @@
             @sort="onSort"
 
             backend-filtering
-            @filters-change="onFilterChange"
 
             :data="measurementsData">
 
       <template slot-scope="props">
-        <b-table-column :label="$gettext('measurementsPage.table.fields.articleNr')" field="st_article_nr" searchable sortable>
+        <b-table-column :label="$gettext('measurementsPage.table.fields.articleNr')" field="st_article_nr" searchable
+                        sortable>
+          <template #searchable="props">
+            <b-autocomplete v-model="filterArticleNr" clearable />
+          </template>
           {{ props.row.st_article_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('measurementsPage.table.fields.serialNr')" field="st_serial_nr" searchable sortable>
+        <b-table-column :label="$gettext('measurementsPage.table.fields.serialNr')" field="st_serial_nr" searchable
+                        sortable>
+          <template #searchable="props">
+            <b-autocomplete v-model="filterSerialNr" clearable />
+          </template>
           {{ props.row.st_serial_nr  }}
         </b-table-column>
-        <b-table-column :label="$gettext('measurementsPage.table.fields.state')" field="state">
+        <b-table-column :label="$gettext('measurementsPage.table.fields.state')" field="state" searchable
+                        sortable>
+          <template #searchable="props">
+            <b-dropdown
+                    :scrollable="isScrollable"
+                    :max-height="maxHeight"
+                    v-model="filterState"
+                    aria-role="list"
+            >
+              <template #trigger>
+                <b-button
+                        :label="filterState.text"
+                        icon-right="menu-down" />
+              </template>
+
+              <b-dropdown-item
+                      v-for="(menu, index) in stateOptions"
+                      :key="index"
+                      :value="menu" aria-role="listitem">
+                <div class="media">
+                  <div class="media-content">
+                    <h3>{{menu.text}}</h3>
+                  </div>
+                </div>
+              </b-dropdown-item>
+            </b-dropdown>
+          </template>
           {{ props.row.state  }}
         </b-table-column>
-        <b-table-column :label="$gettext('measurementsPage.table.fields.name')" field="name">
+        <b-table-column :label="$gettext('measurementsPage.table.fields.name')" field="name" searchable sortable>
+          <template #searchable="props">
+            <b-autocomplete v-model="filterSection" clearable />
+          </template>
           {{ props.row.name  }}
         </b-table-column>
-        <b-table-column :label="$gettext('measurementsPage.table.fields.createdBy')" field="created_by" searchable sortable>
-          {{ props.row.created_by  }}
+        <b-table-column :label="$gettext('measurementsPage.table.fields.createdBy')" field="created_by" searchable
+                        sortable>
+          <template #searchable="props">
+            <b-autocomplete v-model="filterCreatedBy" clearable />
+          </template>
+          {{ props.row['device_records.created_by'] }}
         </b-table-column>
-        <b-table-column :label="$gettext('measurementsPage.table.fields.createdAt')" field="created_at"  sortable searchable>
+        <b-table-column :label="$gettext('measurementsPage.table.fields.createdAt')" field="device_records.created_at"  sortable searchable>
           <template #searchable="props">
             <date-range-picker
                     ref="picker"
-                    v-model="dateRange"
-                    @update="updateDateRange"
+                    v-model="dateRangeCreatedAt"
+                    @update="updateDateRangeCreatedAt"
             >
-              <template v-slot:input="picker" style="min-width: 350px;">
+              <template v-if="isDateRangeCreatedAt" v-slot:input="picker" style="min-width: 350px;">
                 {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+                <span v-if="isDateRangeCreatedAt" class="icon is-right is-clickable" style="opacity: 20%">
+                  <i class="mdi mdi-close-circle mdi-24px" @click="clearCreatedAt" />
+                </span>
+              </template>
+              <template v-else v-slot:input="picker" style="min-width: 350px;">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
               </template>
             </date-range-picker>
           </template>
-          {{ props.row.created_at | moment("DD.MM.YYYY / k:mm:ss")}}
+          {{ getLocalTime(props.row['device_records.created_at']) }}
         </b-table-column>
         <b-table-column>
           <div class="buttons is-right">
+            <button class="button is-small is-info" type="button" @click.prevent="rowReloadHandler(props.row)">
+              <font-awesome-icon icon="sync" />
+            </button>
             <button class="button is-small is-info" type="button" @click.prevent="rowClickHandler(props.row)">
               <font-awesome-icon icon="info-circle" />
             </button>
@@ -95,15 +144,16 @@
 </template>
 <script>
 
-  import debounce from 'lodash/debounce'
+  import { mapState } from 'vuex'
   import DateRangePicker from 'vue2-daterange-picker'
   import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
   import moment from "moment"
-  import BTableColumn from "buefy/src/components/table/TableColumn";
+  import BTableColumn from "buefy/src/components/table/TableColumn"
+  import BAutocomplete from "buefy/src/components/autocomplete/Autocomplete"
 
   export default {
     name: 'ProductTemplate',
-    components: {BTableColumn, DateRangePicker},
+    components: {BAutocomplete, BTableColumn, DateRangePicker},
     props: {
       reload: {
         type: Boolean,
@@ -116,16 +166,52 @@
       },
       reload: function () {
         this.getData()
+      },
+      filterArticleNr: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterSerialNr: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterState: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterSection: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterCreatedBy: function() {
+        this.setFilterValues()
+        this.getData()
       }
     },
     data () {
       const today = new Date()
       return {
-        dateRange: {
+        // filter
+        filterArticleNr: '',
+        filterSerialNr: '',
+        filterState: { text: 'all', value: 0 },
+        isScrollable: false,
+        maxHeight: 200,
+        stateOptions: [
+          { text: 'all', value: 0 },
+          { text: 'unknonw', value: 0 },
+          { text: 'in progress', value: 1 },
+          { text: 'success', value: 2 },
+          { text: 'failed', value: 3 },
+        ],
+        filterSection: '',
+        filterCreatedBy: '',
+        isDateRangeCreatedAt: false,
+        dateRangeCreatedAt: {
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
         },
-        dateRangeValues: '{}',
+
         // initial table
         checkedRows: [],
         selectedRow: {},
@@ -133,7 +219,7 @@
         total: 0,
         perPage: 10,
         page: 1,
-        sortField:'created_at',
+        sortField:'device_records.created_at',
         sortOrder:'desc',
         defaultSortOrder:'desc',
         filters: {},
@@ -157,6 +243,11 @@
         return val ? val.toLocaleString() : ''
       }
     },
+    computed: {
+      ...mapState([
+        'utcOffset'
+      ])
+    },
     created () {
       this.setFilterValues()
       this.getData()
@@ -171,32 +262,51 @@
       onSort (field, order) {
         this.sortField = field
         this.sortOrder = order
+        if(field == 'name') {
+          this.sortField = 'device_records.production_section_template_id'
+        }
         this.getData()
       },
-      onFilterChange: debounce(function (params) {
-        this.filters = {}
-        this.filters = params
-        this.setFilterValues()
-        this.getData()
-      }, 250),
       ///////////////////////////////////////////////////////////////
+      rowReloadHandler(row) {
 
+      },
       rowClickHandler(row) {
         const gotoUrl = this.productSearchPageUrl + '?products_id=' + row.products_id
         window.open(gotoUrl, '_blank');
       },
       setFilterValues() {
-        let filter = this.filters
-        filter['created_at-gt'] = moment.utc(this.dateRange.startDate).format()
-        filter['created_at-lt'] = moment.utc(this.dateRange.endDate).format()
+        let filter = {}
+        if(this.filterArticleNr) {
+          filter['st_article_nr'] = this.filterArticleNr
+        }
+        if(this.filterSerialNr) {
+          filter['st_serial_nr'] = this.filterSerialNr
+        }
+        if(this.filterState.text != 'all') {
+          filter['device_records.state'] = this.filterState.value
+        }
+        if(this.filterSection) {
+          filter['device_records.production_section_template_id'] = this.filterSection
+        }
+        if(this.filterCreatedBy) {
+          filter['device_records.created_by'] = this.filterCreatedBy
+        }
+        if(this.isDateRangeCreatedAt) {
+          filter['device_records.created_at-gt'] = moment.utc(this.dateRangeCreatedAt.startDate).format()
+          filter['device_records.created_at-lt'] = moment.utc(this.dateRangeCreatedAt.endDate).format()
+        }
         this.filterValues = ''
         this.filterValues = encodeURIComponent(JSON.stringify(filter))
+      },
+      getLocalTime(date) {
+        return moment.utc(date).utcOffset(this.utcOffset).format("DD.MM.YYYY / k:mm:ss")
       },
       getData () {
         this.isLoading = true
         const params = [
           `size=${this.perPage}`,
-          `sort_by=${this.sortField}.${this.sortOrder}`,
+          `sort_by=${this.sortField}-${this.sortOrder}`,
           `page=${this.page}`,
           `filter=${this.filterValues}`
         ].join('&')
@@ -240,12 +350,19 @@
               }
             })
       },
-      updateDateRange() {
-        this.dateRangeValues = '';
-        this.dateRangeValues = encodeURIComponent(JSON.stringify(this.dateRange));
+      clearCreatedAt() {
+        const today = new Date()
+        this.dateRangeCreatedAt.startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+        this.dateRangeCreatedAt.endDate = today
+        this.isDateRangeCreatedAt = false
         this.setFilterValues()
         this.getData()
-      }
+      },
+      updateDateRangeCreatedAt() {
+        this.isDateRangeCreatedAt = true
+        this.setFilterValues()
+        this.getData()
+      },
     }
   }
 </script>

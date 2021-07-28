@@ -232,6 +232,8 @@
         sortField:'created_at',
         sortOrder:'desc',
         defaultSortOrder:'desc',
+        sortIcon: 'arrow-down',
+        sortIconSize: 'is-small',
         page: 1,
         total: 0,
         filters: {},

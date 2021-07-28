@@ -211,10 +211,42 @@ table.table {
   }
 }
 
+.measurements-list-table {
+  .b-table .table {
+    th:nth-child(2) .th-wrap {
+      width: 110px;
+    }
+    th:nth-child(3) .th-wrap {
+      width: 110px;
+    }
+    th:nth-child(4) .th-wrap {
+      width: 120px;
+    }
+    th:nth-child(5) .th-wrap {
+      width: 160px;
+    }
+  }
+  .field.is-grouped-multiline.is-grouped {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0 15px 0;
+  }
+}
 .production-template-table {
   .b-table .table {
     th:nth-child(2) .th-wrap {
       width: 130px;
+    }
+  }
+}
+
+.production-section-template-table {
+  .b-table .table {
+    th:nth-child(2) .th-wrap {
+      width: 160px;
+    }
+    th:nth-child(3) .th-wrap {
+      width: 160px;
     }
   }
 }
