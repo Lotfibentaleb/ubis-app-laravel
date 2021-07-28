@@ -128,9 +128,11 @@
             <button class="button is-small is-info" type="button" @click.prevent="rowReloadHandler(props.row)">
               <font-awesome-icon icon="sync" />
             </button>
-            <button class="button is-small is-info" type="button" @click.prevent="rowClickHandler(props.row)">
-              <font-awesome-icon icon="info-circle" />
-            </button>
+            <b-tooltip :label="JSON.stringify(props.row.note, null, 2)" position="is-left">
+              <button class="button is-small is-info" type="button" @click.prevent="rowClickHandler(props.row)">
+                <font-awesome-icon icon="info-circle" />
+              </button>
+            </b-tooltip>
           </div>
         </b-table-column>
       </template>
@@ -386,7 +388,6 @@
               const item = {text: 'all', value: 0}
               this.sectionOptions.push(item)
               for (const property in options) {
-                console.log(`${property}: ${options[property]}`);
                 const item = {text: `${options[property]}`, value: `${property}`}
                 this.sectionOptions.push(item)
               }
