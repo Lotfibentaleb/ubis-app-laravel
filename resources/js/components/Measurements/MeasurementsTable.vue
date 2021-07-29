@@ -228,13 +228,7 @@
         stateOptions: [],
         // filterSection: '',
         filterSection: { text: 'all', value: 0 },
-        sectionOptions: [
-          {text: 'all', value: 0 },
-          { text: 'unknonw', value: 0 },
-          { text: 'in progress', value: 1 },
-          { text: 'success', value: 2 },
-          { text: 'failed', value: 3 },
-        ],
+        sectionOptions: [],
         filterCreatedBy: '',
         isDateRangeCreatedAt: false,
         dateRangeCreatedAt: {
@@ -284,6 +278,7 @@
     created () {
       this.setFilterValues()
       this.getFormSupport()
+      this.getFormSupportSectionTemplate()
       this.getData()
       this.productSearchPageUrl = process.env.MIX_PRODUCTS_SEARCH_PAGE_URL
     },
@@ -393,6 +388,31 @@
           let message
           if( err.response.status == 404){
             message = `Products FormSupport Error`
+          }
+          this.$buefy.toast.open({
+            message: message,
+            type: 'is-danger',
+            queue: false
+          })
+        }).finally(() => {
+
+        })
+      },
+      getFormSupportSectionTemplate() {
+        axios.get('/production_section/form_support')
+            .then( r => {
+              const options = r.data.section
+              this.sectionOptions = []
+              const item = {text: 'all', value: 0}
+              this.sectionOptions.push(item)
+              for (const property in options) {
+                const item = {text: `${options[property]['name']}`, value: `${options[property]['id']}`}
+                this.sectionOptions.push(item)
+              }
+            }).catch( err => {
+          let message
+          if( err.response.status == 404){
+            message = `Production section template FormSupport Error`
           }
           this.$buefy.toast.open({
             message: message,
