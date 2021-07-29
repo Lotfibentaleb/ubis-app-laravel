@@ -203,13 +203,7 @@
         filterStatus: { text: 'all', value: 0 },
         isScrollable: false,
         maxHeight: 200,
-        statusOptions: [
-          { text: 'all', value: 0 },
-          { text: 'unknown', value: 0 },
-          { text: 'in_production', value: 1 },
-          { text: 'all_tests_passed', value: 2 },
-          { text: 'test_failed', value: 3 },
-        ],
+        statusOptions: [],
         isDateRangeCreatedAt: false,
         dateRangeCreatedAt: {
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
@@ -371,8 +365,13 @@
             .then( r => {
               console.log(r.data.lifecycle)
               const options = r.data.lifecycle
-              // console.log(options)
-              // this.statusOptions = options
+              this.statusOptions = []
+              const item = {text: 'all', value: 0}
+              this.statusOptions.push(item)
+              for (const property in options) {
+                const item = {text: `${options[property]}`, value: `${property}`}
+                this.statusOptions.push(item)
+              }
             }).catch( err => {
           let message
           if( err.response.status == 404){
