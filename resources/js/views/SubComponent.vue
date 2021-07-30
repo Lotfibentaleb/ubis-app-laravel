@@ -9,7 +9,10 @@
         </div>
         <div class="column is-4">
           <b-field label="Serial number" label-position="on-border">
-            <b-input :value="component_serial" size="is-medium" @change.native="component_serial = $event.target.value" :disabled="component_id != null || transmissionActive"/>
+            <b-input :value="component_serial" size="is-medium"
+                    @change.native="component_serial = $event.target.value"
+                    :disabled="component_id != null || globaltransmissionactive"
+                    :tabindex="tabindex"/>
              <p class="control">
                 <b-button v-show="component_id == null" :disabled="transmissionActive" type="is-success" label="speichern" size="is-medium"/>
                 <b-button v-show="component_id != null" @click="submitComponent(true)" :disabled="transmissionActive" type="is-dark" label="löschen" size="is-medium"/>
@@ -37,6 +40,8 @@ export default {
     componentid:{ default: null },         // this components id
     productionordernr:{ default: ''},
     productionordernrtype:{ default: 'is-normal'},
+    globaltransmissionactive:{ default: false}, // set by parrent, so we could lock ourself
+    tabindex:{ type:Number, default: 1},
   },
   data () {
     return {
@@ -62,9 +67,11 @@ export default {
     productUpdate: function(productSerial, productId) {
       this.$emit('productUpdate', productSerial, productId)
     },
-    setTransmissionActive: debounce(function () {
+    setTransmissionActive: function () {
+      console.log('Transmission is'+this.transmissionActive+' Set transmission TRUE');
+      this.$emit('setTransmissionActive', true);
       this.transmissionActive = true
-    }, 1000),
+    },
     submitComponent: function(deleteComponent = false) {
 
       if( this.productionordernr == '' ){
@@ -77,11 +84,10 @@ export default {
         this.$emit('setProductionOrderNrType', 'is-danger')
         return
       }
-
       this.$emit('setProductionOrderNrType', 'is-normal')
 
-      // this.transmissionActive = true
-      this.setTransmissionActive()
+      this.setTransmissionActive()  // inform others that we going to transmitt now
+
       let method = 'post'
       let url = `/registration/product/${this.productid}/articleNr/${this.articlenumber}`
       let data = {
@@ -138,13 +144,18 @@ export default {
           queue: false
         })
       }).finally(() => {
-        this.transmissionActive = false
+        this.$emit('setTransmissionActive', false);
+        console.log('Transmission is '+this.transmissionActive+' Set transmission FALSE');
       })
     }
   },
   watch: {
     component_serial : function(newValue, oldValue) {
       console.log('Sub component_serial watch triggered');
+      if( newValue == null ){
+        console.log('... but value is null');
+        return;
+      }
       console.log('Value was changed from ' + oldValue + ' to ' + newValue )
       if( this.transmissionActive != true && this.initialUpdate == false){  // mutal exclusive sending
         this.submitComponent(false);

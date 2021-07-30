@@ -90,6 +90,9 @@
             :componentid="item.component_id"
             :productionordernr="productionOrderNr"
             :productionordernrtype="productionOrderNrType"
+            :tabindex="subComponentTabIndex +1"
+            :globaltransmissionactive="transmissionActive"
+            @setTransmissionActive="setTransmissionActive"
             @setProductionOrderNrType="setProdOrderNrType"
             ></sub-component>
             <br/>
@@ -138,7 +141,9 @@ export default {
           product_info_class: 'subtitle is-5 has-text-grey-lighter',
           productSearch: null,
           transmissionActive: false,
-          productionOrderNrType: 'is-normal'
+          subcomponentEditActive: false,
+          productionOrderNrType: 'is-normal',
+          subComponentTabIndex: 1
       }
   },
 
@@ -162,7 +167,6 @@ export default {
     },
   },
   mounted () {
-    console.log('Inside mounted');
     console.log(this.server_data);
   },
   watch: {
@@ -228,6 +232,9 @@ export default {
   methods: {
     setProdOrderNrType: function(type){
       this.productionOrderNrType = type
+    },
+    setTransmissionActive: function(type){
+      this.transmissionActive = type
     },
     productionInformation: function(stepName){
         let result = null;
