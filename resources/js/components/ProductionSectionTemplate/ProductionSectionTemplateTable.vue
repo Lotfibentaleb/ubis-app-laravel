@@ -43,6 +43,7 @@
             <date-range-picker
                     ref="picker"
                     v-model="dateRangeCreatedAt"
+                    opens="left"
                     @update="updateDateRangeCreatedAt"
             >
               <template v-if="isDateRangeCreatedAt" v-slot:input="picker" style="min-width: 350px;">
@@ -63,6 +64,7 @@
             <date-range-picker
                     ref="picker"
                     v-model="dateRangeUpdatedAt"
+                    opens="left"
                     @update="updateDateRangeUpdatedAt"
             >
               <template v-if="isDateRangeUpdatedAt" v-slot:input="picker" style="min-width: 350px;">
