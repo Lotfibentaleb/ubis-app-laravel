@@ -40,6 +40,7 @@
                     ref="picker"
                     v-model="dateRangeCreatedAt"
                     opens="left"
+                    :ranges="ranges"
                     @update="updateDateRangeCreatedAt"
             >
               <template v-if="isDateRangeCreatedAt" v-slot:input="picker" style="min-width: 350px;">
@@ -61,6 +62,7 @@
                     ref="picker"
                     v-model="dateRangeUpdatedAt"
                     opens="left"
+                    :ranges="ranges"
                     @update="updateDateRangeUpdatedAt"
             >
               <template v-if="isDateRangeUpdatedAt" v-slot:input="picker" style="min-width: 350px;">
@@ -145,6 +147,22 @@
     },
     data () {
       const today = new Date()
+      // for date picker range
+      const rangeDataToday = new Date()
+      let rangeDataYesterday = new Date()
+      rangeDataYesterday.setDate(rangeDataToday.getDate() - 1)
+
+      let dateLastWeek = new Date()
+      let rangeDataLastWeekEnd = new Date()
+      let rangeDataLastWeekStart = new Date()
+      rangeDataLastWeekEnd.setTime(dateLastWeek.setTime(dateLastWeek.getTime()-(dateLastWeek.getDay()?dateLastWeek.getDay():7)*24*60*60*1000))
+      rangeDataLastWeekStart.setTime(dateLastWeek.setTime(rangeDataLastWeekEnd.getTime()-6*24*60*60*1000))
+
+      let dateLast2Week = new Date()
+      let rangeDataLast2WeekEnd = new Date()
+      let rangeDataLast2WeekStart = new Date()
+      rangeDataLast2WeekEnd.setTime(dateLast2Week.setTime(dateLast2Week.getTime()-(dateLast2Week.getDay()?dateLast2Week.getDay():7)*24*60*60*1000))
+      rangeDataLast2WeekStart.setTime(dateLast2Week.setTime(rangeDataLastWeekEnd.getTime()-13*24*60*60*1000))
       return {
         //filter
         filterArticleNr: '',
@@ -159,7 +177,15 @@
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
           endDate: today,
         },
-        dateRangeValues: '{}',
+        ranges: {
+          'Today': [rangeDataToday, rangeDataToday],
+          'Yesterday': [rangeDataYesterday, rangeDataYesterday],
+          'This month': [new Date(today.getFullYear(), today.getMonth(), 1), new Date(today.getFullYear(), today.getMonth() + 1, 0)],
+          'This year': [new Date(today.getFullYear(), 0, 1), new Date(today.getFullYear(), 11, 31)],
+          'Last month': [new Date(today.getFullYear(), today.getMonth() - 1, 1), new Date(today.getFullYear(), today.getMonth(), 0)],
+          'Last week': [rangeDataLastWeekStart, rangeDataLastWeekEnd],
+          'Last 2 weeks': [rangeDataLast2WeekStart, rangeDataLast2WeekEnd],
+        },
         // initial table
         checkedRows: [],
         selectedRow: {},
