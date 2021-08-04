@@ -46,7 +46,7 @@ class fixDoubleProducts20210803 extends Command
 
         $articleNr = '80000081C1';
         $maxComponentCount = 3;
-        $timeLatency = 5; //sec
+        $timeLatency = 10; //sec
 
         // find all single entry SCONs
         $products = DB::connection('pgsql_pc')->select(
