@@ -44,9 +44,29 @@ class fixDoubleProducts20210803 extends Command
 
         //$products = DB::connection('pgsql_pc')->table('products')->where('st_article_nr','80000081C1')->get();
 
+
         $articleNr = '80000081C1';
         $maxComponentCount = 3;
-        $timeLatency = 10; //sec
+        $timeLatency = 7; //sec
+
+        $client = new GuzzleHttp\Client();
+/*
+ERP_SERVICE_BASE_URL=http://127.0.0.1:8000/api/
+PC_SERVICE_BASE_URL=http://127.0.0.1:8087/api/
+PIS_SERVICE_BASE_URL=http://127.0.0.1:8082/api/
+PIS_SERVICE_BASE_URL2=http://127.0.0.1:8082/api/
+*/
+
+        $baseUrlERP = env('ERP_SERVICE_BASE_URL');
+        $options = [
+            'http_errors'=> false,
+            'headers' =>[
+                'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
 
         // find all single entry SCONs
         $products = DB::connection('pgsql_pc')->select(
@@ -66,8 +86,8 @@ class fixDoubleProducts20210803 extends Command
             ) = 1
         order by products.st_serial_nr desc;");
 
-
         $i=0;
+        $matchCount = array();
         foreach($products as $product){
             $match = DB::connection('pgsql_pc')->select(
                 "select products.st_serial_nr,
@@ -75,7 +95,12 @@ class fixDoubleProducts20210803 extends Command
                     SELECT COUNT(*)
                     FROM products as prod2
                     WHERE products.id = prod2.parent
-                    ) as components ,
+                ) as components ,
+                (
+                    SELECT COUNT(*)
+                    FROM device_records dr
+                    WHERE products.id = dr.products_id
+                ) as device_records ,
                 products.st_article_nr, products.id, products.lifecycle, products.created_at as product_creation
                 from products
                 where products.st_article_nr ='".$articleNr."'
@@ -88,9 +113,77 @@ class fixDoubleProducts20210803 extends Command
                 "
             );
             print_r($match);
+            if( !array_key_exists(count($match), $matchCount) ){
+                $matchCount[count($match)] = 1;
+            }else{
+                $matchCount[count($match)]++;
+            }
+            // TODO: merge 2 entry values
+            if( count($match) == 2 ){
+                $master = null;
+                $slave = null;
+                // select slave
+                if( $match[0]->components == 1 && $match[0]->device_records == 0 && $match[1]->components == 1 && $match[1]->device_records == 0){
+                    // merge using first generated serial-nr. as master
+                    if( intval($match[0]->st_serial_nr) >  intval($match[1]->st_serial_nr) ){
+                        $master = $match[1];
+                        $slave = $match[0];
+                    }else{
+                        $master = $match[0];
+                        $slave = $match[1];
+                    }
+                    echo "Selected master by first serial nr. as both products have no measurements\n";
+                    //echo "Skip entry for serial ".$match[1]->st_serial_nr." and ".$match[0]->st_serial_nr." as there could no slave be selected\n";
+                    //continue;   // Go on with loop
+                }elseif( $match[0]->components == 1 && $match[0]->device_records == 0){
+                    $master = $match[1];
+                    $slave = $match[0];
+                }elseif($match[1]->components == 1 && $match[1]->device_records == 0){
+                    $master = $match[0];
+                    $slave = $match[1];
+                };
+
+                if( $master != null ){
+                    // check if there is a delivery note for slave
+                    $requestString = 'stock/articlenr/'.$articleNr;
+                    $payload['serials'] = array($slave->st_serial_nr); // , '029286', '029284'
+                    $response = $client->request('GET', $baseUrlERP.$requestString, array_merge($options, ['json' => $payload]));
+                    $statusCode = $response->getStatusCode();
+                    if( $statusCode != 200){
+                        echo "Could not request shipping data for \n";
+                    }
+                    $responseContent = json_decode((string)$response->getBody(), true);
+                    if( !empty($responseContent) ){
+                        // found shippment
+                        echo "There is a shippment registered for slave ".$slave->st_serial_nr.". So we skip this entry\n";
+                        continue;   // Go on with loop
+                    }else{
+                        echo "Shipping requested, but non found for ".$slave->st_serial_nr.". Continue processing\n";
+                    }
+                    // we have a master, fetch slave component and move over
+                    $updateComponent = DB::connection('pgsql_pc')->select("update products set parent = '".$master->id."' where parent = '".$slave->id."'");
+                    echo "Merge executed for ".$master->st_serial_nr."(*) and ".$slave->st_serial_nr."\n";
+                }else{
+                    echo "Skip entry for serial ".$match[1]->st_serial_nr." and ".$match[0]->st_serial_nr." as there seems something wrong\n";
+                }
+            }
 //            if($i++>3) break;
         }
-//        print_r($products);
+
+        print_r($matchCount);
+
+        // TODO: Cleanup 0 entry values
+        $deleteZeroComponentProducts = DB::connection('pgsql_pc')->select("
+            delete from products
+            where products.st_article_nr ='80000081C1'
+            and (
+                SELECT COUNT(*)
+                FROM products as prod3
+                WHERE products.id = prod3.parent
+            ) = 0;
+            ");
+
+        echo "Removed ".count($deleteZeroComponentProducts)."zero components products \n";
         return 0;
-    }
+}
 }
