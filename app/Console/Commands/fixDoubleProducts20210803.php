@@ -212,10 +212,8 @@ PIS_SERVICE_BASE_URL2=http://127.0.0.1:8082/api/
 
         $serialsToDelete = array();
         array_map( function( $val ) use(&$serialsToDelete) {
-            $serialsToDelete[$val['st_article_nr']][] = $val['st_serial_nr'];
+            $serialsToDelete[] = $val->st_serial_nr;
         }, $zeroComponentProductsToDelete );
-
-        print_r($serialsToDelete);
 
         $requestString = 'stock/articlenr/'.$articleNr;
         $payload['serials'] = $serialsToDelete; // , '029286', '029284'
@@ -225,34 +223,34 @@ PIS_SERVICE_BASE_URL2=http://127.0.0.1:8082/api/
             echo "Could not request shipping data for serials\n";
         }else{
             $responseContent = json_decode((string)$response->getBody(), true);
-			$serialsDelivered = array();
-			array_map( function( $val ) use(&$serialsDelivered) {
-				$serialsDelivered[] = $val['serialNumber'];
-			}, $responseContent );
+            $serialsDelivered = array();
+            array_map( function( $val ) use(&$serialsDelivered) {
+                $serialsDelivered[] = $val['serialNumber'];
+            }, $responseContent );
 
-			$serialsDelivered = '\''.implode ('\',\'', $serialsDelivered).'\'';   // implode could not use PDO::quote, but we should be in an save environment
+            $serialsDelivered = '\''.implode ('\',\'', $serialsDelivered).'\'';   // implode could not use PDO::quote, but we should be in an save environment
 
-			$zeroComponentProductsToDelete = DB::connection('pgsql_pc')->select("
-			delete from products
-			where products.st_article_nr ='".$articleNr."'
-			and (
-				SELECT COUNT(*)
-				FROM products as prod3
-				WHERE products.id = prod3.parent
-			) = 0
-			and (
-				SELECT COUNT(*)
-				FROM device_records as records
-				WHERE products.id = records.products_id
-				) = 0
-			and (products.st_serial_nr::INTEGER < 27384 or products.st_serial_nr::INTEGER > 27618)
-			and (products.st_serial_nr::INTEGER < 26352 or products.st_serial_nr::INTEGER > 26501)
-			and (products.st_serial_nr::INTEGER < 26627 or products.st_serial_nr::INTEGER > 26776)
-			and products.st_serial_nr not in (".$serialsDelivered.")
-			");
+            $zeroComponentProductsToDelete = DB::connection('pgsql_pc')->select("
+            delete from products
+            where products.st_article_nr ='".$articleNr."'
+            and (
+                SELECT COUNT(*)
+                FROM products as prod3
+                WHERE products.id = prod3.parent
+            ) = 0
+            and (
+                SELECT COUNT(*)
+                FROM device_records as records
+                WHERE products.id = records.products_id
+                ) = 0
+            and (products.st_serial_nr::INTEGER < 27384 or products.st_serial_nr::INTEGER > 27618)
+            and (products.st_serial_nr::INTEGER < 26352 or products.st_serial_nr::INTEGER > 26501)
+            and (products.st_serial_nr::INTEGER < 26627 or products.st_serial_nr::INTEGER > 26776)
+            and products.st_serial_nr not in (".$serialsDelivered.")
+            ");
 
-			echo "Einträge gelöscht :".count($zeroComponentProductsToDelete)."\n";
+            echo "Einträge gelöscht :".count($zeroComponentProductsToDelete)."\n";
         }
         return 0;
-}
+    }
 }
