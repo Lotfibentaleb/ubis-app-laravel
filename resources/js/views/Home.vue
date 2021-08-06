@@ -304,9 +304,6 @@
         this.dashboard_time = dd + '.' + mm + '.' + yyyy + '  ' + hr + ':' + min + ':' + second;
       }
     },
-    computed: {
-
-    },
     beforeDestroy() {
       clearInterval(this.fetchInterval)
       clearInterval(this.uiTimeInterval)
