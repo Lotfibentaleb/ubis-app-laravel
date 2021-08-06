@@ -45,8 +45,8 @@ class fixDoubleProducts20210803 extends Command
         //$products = DB::connection('pgsql_pc')->table('products')->where('st_article_nr','80000081C1')->get();
 
 
-        $articleNr = '80000081C1';
-        $maxComponentCount = 3;
+        $articleNr = '80000114B2';
+        $maxComponentCount = 2;
         $timeLatency = 7; //sec
 
         $client = new GuzzleHttp\Client();
@@ -173,17 +173,86 @@ PIS_SERVICE_BASE_URL2=http://127.0.0.1:8082/api/
         print_r($matchCount);
 
         // TODO: Cleanup 0 entry values
-        $deleteZeroComponentProducts = DB::connection('pgsql_pc')->select("
+		// Note: must check before cleanup:
+		// - was delivered to customer?
+		// - 0 components
+		// - take care on components which had been created manually
+/*        $deleteZeroComponentProducts = DB::connection('pgsql_pc')->select("
             delete from products
-            where products.st_article_nr ='80000081C1'
+            where products.st_article_nr ='".$articleNr."'
             and (
                 SELECT COUNT(*)
                 FROM products as prod3
                 WHERE products.id = prod3.parent
-            ) = 0;
+            ) = 0
+            and (
+                SELECT COUNT(*)
+                FROM device_records as records
+                WHERE products.id = records.products_id
+                ) = 0;
             ");
+*/
+        $zeroComponentProductsToDelete = DB::connection('pgsql_pc')->select("
+        select products.st_serial_nr from products
+        where products.st_article_nr ='".$articleNr."'
+        and (
+            SELECT COUNT(*)
+            FROM products as prod3
+            WHERE products.id = prod3.parent
+        ) = 0
+        and (
+            SELECT COUNT(*)
+            FROM device_records as records
+            WHERE products.id = records.products_id
+            ) = 0
+        and (products.st_serial_nr::INTEGER < 27384 or products.st_serial_nr::INTEGER > 27618)
+        and (products.st_serial_nr::INTEGER < 26352 or products.st_serial_nr::INTEGER > 26501)
+        and (products.st_serial_nr::INTEGER < 26627 or products.st_serial_nr::INTEGER > 26776);
+        ");
 
-        echo "Removed ".count($deleteZeroComponentProducts)."zero components products \n";
+        $serialsToDelete = array();
+        array_map( function( $val ) use(&$serialsToDelete) {
+            $serialsToDelete[$val['st_article_nr']][] = $val['st_serial_nr'];
+        }, $zeroComponentProductsToDelete );
+
+        print_r($serialsToDelete);
+
+        $requestString = 'stock/articlenr/'.$articleNr;
+        $payload['serials'] = $serialsToDelete; // , '029286', '029284'
+        $response = $client->request('GET', $baseUrlERP.$requestString, array_merge($options, ['json' => $payload]));
+        $statusCode = $response->getStatusCode();
+        if( $statusCode != 200){
+            echo "Could not request shipping data for serials\n";
+        }else{
+            $responseContent = json_decode((string)$response->getBody(), true);
+			$serialsDelivered = array();
+			array_map( function( $val ) use(&$serialsDelivered) {
+				$serialsDelivered[] = $val['serialNumber'];
+			}, $responseContent );
+
+			$serialsDelivered = '\''.implode ('\',\'', $serialsDelivered).'\'';   // implode could not use PDO::quote, but we should be in an save environment
+
+			$zeroComponentProductsToDelete = DB::connection('pgsql_pc')->select("
+			delete from products
+			where products.st_article_nr ='".$articleNr."'
+			and (
+				SELECT COUNT(*)
+				FROM products as prod3
+				WHERE products.id = prod3.parent
+			) = 0
+			and (
+				SELECT COUNT(*)
+				FROM device_records as records
+				WHERE products.id = records.products_id
+				) = 0
+			and (products.st_serial_nr::INTEGER < 27384 or products.st_serial_nr::INTEGER > 27618)
+			and (products.st_serial_nr::INTEGER < 26352 or products.st_serial_nr::INTEGER > 26501)
+			and (products.st_serial_nr::INTEGER < 26627 or products.st_serial_nr::INTEGER > 26776)
+			and products.st_serial_nr not in (".$serialsDelivered.")
+			");
+
+			echo "Einträge gelöscht :".count($zeroComponentProductsToDelete)."\n";
+        }
         return 0;
 }
 }
