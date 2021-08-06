@@ -69,6 +69,8 @@
         autoPlay: true,
         dashboard_time: '',
         article_list: [],
+        fetchInterval: '',
+        uiTimeInterval: '',
         article_card_color: ['card-one', 'card-two', 'card-three', 'card-four', 'card-five', 'card-six',
           'card-seven', 'card-eight', 'card-nine', 'card-ten'],
         category_month_info: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct',
@@ -224,8 +226,8 @@
     },
     mounted () {
       this.fetchInfo()
-      setInterval(this.calcTime, 1000)
-      setInterval(this.clearSelectedDate, 180000) //every 3 min
+      this.uiTimeInterval = setInterval(this.calcTime, 1000)
+      this.fetchInterval = setInterval(this.clearSelectedDate, 10000) //every 3 min  180000
     },
     methods: {
       clearSelectedDate() {
@@ -257,6 +259,7 @@
             message: infoMessage,
             queue: false
           })
+          console.log('I am Home Dashboard')
         }).catch( err => {
           let message = `fetching data fail`
           this.$buefy.toast.open({
@@ -303,6 +306,10 @@
     },
     computed: {
 
+    },
+    beforeDestroy() {
+      clearInterval(this.fetchInterval)
+      clearInterval(this.uiTimeInterval)
     },
     watch:{
       selectedDate:function(){
