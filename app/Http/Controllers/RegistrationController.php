@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use GuzzleHttp;
 use Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Session;
 
 class RegistrationController extends Controller
 {
@@ -52,6 +53,53 @@ class RegistrationController extends Controller
         return response()->json(array('data' => $body->data), $statusCode);
     }
 
+    public function updateArticleOptions(Request $request, $id) {
+
+        $client = new GuzzleHttp\Client();
+        $baseUrl = env('PIS_SERVICE_BASE_URL2');
+        $endpoint = 'articles/'.$id.'/options';
+
+        $requestData = $request->all();
+
+        $bearer_token = '';
+        if (Session::has('bearer_token')) {
+            $bearer_token = Session::get('bearer_token');
+        } else {
+            return redirect('login');
+        }
+
+        $options = [
+            'headers' =>[
+                'Authorization' => 'Bearer ' .$bearer_token,
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => $requestData
+        ];
+
+        $response = null;
+        $callUrl = $baseUrl.$endpoint;
+
+        try{
+            $response = $client->request('POST', $callUrl, $options );   // call API by serial+article-nr.
+        }catch(Throwable $e){
+            // fail
+            $message = 'Unknown Error';
+            if ($e->getCode() == 401) {
+                Session::forget('bearer_token');
+            } else {
+                switch($e->getCode()){
+                    case 404: $message = 'Not found';break;
+                    case 422: $message = 'Wrong parameter';break;
+                    case 409: $message = 'Create/store failed';break;
+                }
+            }
+            return response(['code' => $e->getCode(), 'error' =>  'Backend call failed.'.$e->getMessage()], $e->getCode());
+        }
+        $statusCode = $response->getStatusCode();
+        $body = json_decode($response->getBody()->getContents());
+        return response()->json($body, $statusCode);
+    }
 
     public function article($id) {
 
