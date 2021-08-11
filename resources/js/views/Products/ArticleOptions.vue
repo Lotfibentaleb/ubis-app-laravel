@@ -3,9 +3,6 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <!--<router-link slot="right" to="/products/template" class="button">-->
-      <!--{{$gettext('ArticleOptions.heroBar.goto')}}-->
-      <!--</router-link>-->
     </hero-bar>
     <section class="section is-main-section">
       <tiles>
@@ -38,35 +35,33 @@
                 </template>
               </b-autocomplete>
             </b-field>
-            <!--<b-field expanded>-->
-            <!--<b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">{{$gettext('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>-->
-            <!--<b-button v-else type="is-danger" @click="clickedAddJsonBtn">{{$gettext('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>-->
-            <!--</b-field>-->
-            <b-field :label="$gettext('ArticleOptions.form.show_article_on_registration')">
-              <b-switch ></b-switch>
-            </b-field>
-            <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern')">
-              <b-input placeholder="e.g. John Doe" required />
-            </b-field>
-            <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern_verification')">
-              <b-switch ></b-switch>
-            </b-field>
-            <b-field :label="$gettext('ArticleOptions.form.serial_in_bar_code_pattern')">
-              <b-input placeholder="e.g. John Doe" required />
-            </b-field>
-            <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_search')">
-              <b-switch ></b-switch>
-            </b-field>
-            <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_store')">
-              <b-switch ></b-switch>
-            </b-field>
-            <div class="level">
-              <div class="level-left">
-              </div>
-              <div class="level-right">
-                <b-field >
-                  <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$gettext('ArticleOptions.form.saveButton')}}</b-button>
-                </b-field>
+            <div v-if="isArticleNr">
+              <b-field :label="$gettext('ArticleOptions.form.show_article_on_registration')">
+                <b-switch v-model="showOnRegistration" />
+              </b-field>
+              <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern')">
+                <b-input v-model="codeVerificationPattern" required />
+              </b-field>
+              <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern_verification')">
+                <b-switch v-model="codeVerificationActive" />
+              </b-field>
+              <b-field :label="$gettext('ArticleOptions.form.serial_in_bar_code_pattern')">
+                <b-input v-model="codeSerialPattern" required />
+              </b-field>
+              <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_search')">
+                <b-switch v-model="codeSerialSearchActive" />
+              </b-field>
+              <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_store')">
+                <b-switch v-model="codeSerialStoreActive" />
+              </b-field>
+              <div class="level">
+                <div class="level-left">
+                </div>
+                <div class="level-right">
+                  <b-field >
+                    <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$gettext('ArticleOptions.form.saveButton')}}</b-button>
+                  </b-field>
+                </div>
               </div>
             </div>
           </form>
@@ -98,11 +93,8 @@
     data () {
       return {
         isLoading: false,
-        isJsonModal: false,
-        hasJsonItem: false,
         article_nr: '',
-        jsonData: [],
-        isJsonEmpty: false,
+        isArticleNr: false,
 
         //auto complete
         articleList: [],
@@ -110,14 +102,20 @@
         isFetchingArticleList: false,
         clearable: false,
 
-        //production section template information
-        pdSecTemData: [],
-        availableSectionIds: [],
-        availableSectionNames: [],
-        availableSectionGroups: [],
-        selectedSectionIndex: 0,
-        sectionData: {},
-
+        //form
+        showOnRegistration: true,
+        codeVerificationPattern: '',
+        codeVerificationActive: false,
+        codeSerialPattern: '',
+        codeSerialSearchActive: false,
+        codeSerialStoreActive: false
+      }
+    },
+    watch: {
+      articleSelected: function(value) {
+        if(value != '') {
+          this.getArticleOptions(value.articleNumber)
+        }
       }
     },
     computed: {
@@ -135,49 +133,27 @@
       }
     },
     created() {
-      this.getSectionTemplateData()
+
     },
     methods: {
-      clickedAddJsonBtn() {
-        this.isJsonModal = true
-      },
-      addedJsonData(data) {
-        this.hasJsonItem = true
-        this.isJsonModal = false
-        this.jsonData.push(data)
-        this.isJsonEmpty = false
-        setTimeout(function(){ this.$refs.jeditor.editor.expandAll(); }.bind(this), 50);
-      },
-      cancelJsonAdd() {
-        this.isJsonModal = false
-      },
-      getSectionTemplateData() {
-        const params = [
-          `size=100`,
-          `page=1`
-        ].join('&')
-        const fetchUrl = '/production_section'
+      getArticleOptions(articleNr) {
+        const fetchUrl = 'registration/articles/' + articleNr
         axios.create({
           headers: {
             'Content-Type': 'application/json',
           }
         })
-            .get(fetchUrl+'?'+params)
+            .get(fetchUrl)
             .then(r => {
-              this.isLoading = false
-              if (r.data && r.data.data) {
-                this.pdSecTemData = r.data.data
-                this.pdSecTemData.forEach(pdSectionTempItem => {
-                  this.availableSectionIds.push(pdSectionTempItem.id)
-                  this.availableSectionNames.push(pdSectionTempItem.name)
-                  this.availableSectionGroups.push(pdSectionTempItem['group'])
-                })
-                this.sectionData = {
-                  availableIds: this.availableSectionIds,
-                  availableNames: this.availableSectionNames,
-                  availableGroups: this.availableSectionGroups
-                }
+              if(r.data.data.options) {
+                this.showOnRegistration = r.data.data.options.show_on_registration
+                this.codeVerificationPattern = r.data.data.options.code_verification_pattern
+                this.codeVerificationActive = r.data.data.options.code_verification_active
+                this.codeSerialPattern = r.data.data.options.code_serial_pattern
+                this.codeSerialSearchActive = r.data.data.options.code_serial_search_active
+                this.codeSerialStoreActive = r.data.data.options.code_serial_store_active
               }
+              this.isArticleNr = true
             })
             .catch( err => {
               this.isLoading = false
@@ -189,28 +165,18 @@
             })
       },
       submit () {
-        if(this.jsonData.length == 0) {
-          this.isJsonEmpty = true
-          this.$buefy.snackbar.open({
-            type: 'is-danger',
-            message: 'Empty production flow field',
-            queue: false
-          })
-          return
-        } else if(!this.isValidSchema) {
-          this.$buefy.snackbar.open({
-            type: 'is-danger',
-            message: 'Json schema Validation Error',
-            queue: false
-          })
-          return
-        }
         this.isLoading = true
         let method = 'post'
-        let url = '/production_flow'
+        let url = 'registration/articles/' + this.article_nr + '/options'
         let data = {
-          article_nr: this.article_nr,
-          production_flow: JSON.stringify(this.jsonData)
+          attributes: {
+            show_on_registration: this.showOnRegistration,
+            code_verification_pattern: this.codeVerificationPattern,
+            code_verification_active: this.codeVerificationActive,
+            code_serial_pattern: this.codeSerialPattern,
+            code_serial_search_active: this.codeSerialSearchActive,
+            code_serial_store_active: this.codeSerialStoreActive
+          }
         }
         axios({
           method,
@@ -219,9 +185,8 @@
         }).then(r => {
           this.isLoading = false
           if (r.data ) {
-            this.$router.push({name: 'products.template'})
             this.$buefy.snackbar.open({
-              message: 'Created New Product Template',
+              message: 'Saved article options successfully',
               queue: false
             })
           }
