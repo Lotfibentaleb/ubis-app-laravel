@@ -63,6 +63,12 @@ export default {
         this.$gettext('sidebar.setup'),
         [
           {
+            to: '/products/article-options',
+            label: this.$gettext('sidebar.articleOptions'),
+            icon: 'package-variant-closed',
+            role: ['admin', 'user'],
+          },
+          {
             to: '/products/template',
             label: this.$gettext('sidebar.prodTemplate'),
             icon: 'package-variant-closed',
@@ -74,7 +80,6 @@ export default {
             icon: 'package-variant-closed',
             role: ['admin', 'user'],
           },
-
         ],
         this.$gettext('sidebar.resource'),
         [

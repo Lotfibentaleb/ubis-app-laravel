@@ -84,6 +84,11 @@ export default new Router({
       component: () => import('./views/Products/ProductionSectionTemplateForm.vue'),
     },
     {
+      path: '/products/article-options',
+      name: 'products.article-options',
+      component: () => import('./views/Products/ArticleOptions.vue'),
+    },
+    {
       path: '/tokens',
       name: 'tokens.index',
       component: () => import('./views/Tokens/TokensIndex.vue'),

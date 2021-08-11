@@ -3,11 +3,10 @@
     <title-bar :title-stack="titleStack"/>
     <hero-bar>
       {{ heroTitle }}
-      <router-link slot="right" to="/products/template" class="button">
-        {{$gettext('createProductionTemplatePage.heroBar.goto')}}
-      </router-link>
+      <!--<router-link slot="right" to="/products/template" class="button">-->
+      <!--{{$gettext('ArticleOptions.heroBar.goto')}}-->
+      <!--</router-link>-->
     </hero-bar>
-    <create-production-flow-modal :is-json-modal="isJsonModal" :section-data="sectionData" @addedJsonData="addedJsonData" @cancelJsonAdd="cancelJsonAdd"></create-production-flow-modal>
     <section class="section is-main-section">
       <tiles>
         <card-component :title="formCardTitle" icon="package-variant-closed" class="tile is-child">
@@ -39,41 +38,38 @@
                 </template>
               </b-autocomplete>
             </b-field>
-            <b-field expanded>
-              <b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">{{$gettext('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>
-              <b-button v-else type="is-danger" @click="clickedAddJsonBtn">{{$gettext('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>
+            <!--<b-field expanded>-->
+            <!--<b-button v-if="!isJsonEmpty" @click="clickedAddJsonBtn">{{$gettext('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>-->
+            <!--<b-button v-else type="is-danger" @click="clickedAddJsonBtn">{{$gettext('createProductionTemplatePage.card.addBasicDataButton')}}</b-button>-->
+            <!--</b-field>-->
+            <b-field :label="$gettext('ArticleOptions.form.show_article_on_registration')">
+              <b-switch ></b-switch>
+            </b-field>
+            <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern')">
+              <b-input placeholder="e.g. John Doe" required />
+            </b-field>
+            <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern_verification')">
+              <b-switch ></b-switch>
+            </b-field>
+            <b-field :label="$gettext('ArticleOptions.form.serial_in_bar_code_pattern')">
+              <b-input placeholder="e.g. John Doe" required />
+            </b-field>
+            <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_search')">
+              <b-switch ></b-switch>
+            </b-field>
+            <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_store')">
+              <b-switch ></b-switch>
             </b-field>
             <div class="level">
               <div class="level-left">
               </div>
               <div class="level-right">
                 <b-field >
-                  <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$gettext('createProductionTemplatePage.card.submitButton')}}</b-button>
+                  <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$gettext('ArticleOptions.form.saveButton')}}</b-button>
                 </b-field>
               </div>
             </div>
           </form>
-        </card-component>
-        <card-component v-if="hasJsonItem" :title="$gettext('createProductionTemplatePage.productionFlowCard.title')" icon="package-variant-closed" class="tile is-child">
-          <b-field :label="$gettext('createProductionTemplatePage.productionFlowCard.jsonEditor')" :message="$gettext('createProductionTemplatePage.productionFlowCard.jsonEditorMessage')" >
-            <v-jsoneditor ref="jeditor" v-model="jsonData" :options="options"/>
-          </b-field>
-          <b-field>
-            <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
-              <p>path: {{schemaErrorData.instancePath}}</p>
-              <p>message: {{schemaErrorData.message}}</p>
-              <p v-if="schemaErrorData.message == errorMessage.enumValues">allowed values: {{JSON.stringify(schemaErrorData.params.allowedValues)}}</p>
-              <b-tooltip :label="JSON.stringify(schemaData.schema, null, 2)" position="is-left" size="is-large" multilined>
-                <a href="#"><p>See schema</p></a>
-              </b-tooltip>
-            </b-message>
-          </b-field>
-          <b-field>
-            <b-message v-if="isValidSchema" auto-close title="Success" type="is-success" aria-close-label="Close message" has-icon>
-              <p>JSON Schema Validation Success</p>
-            </b-message>
-          </b-field>
-          <hr>
         </card-component>
       </tiles>
     </section>
@@ -81,7 +77,6 @@
 </template>
 
 <script>
-  import Ajv from 'ajv'
   import TitleBar from '@/components/TitleBar'
   import HeroBar from '@/components/HeroBar'
   import Tiles from '@/components/Tiles'
@@ -90,30 +85,14 @@
   import UserAvatar from '@/components/UserAvatar'
   import Notification from '@/components/Notification'
   import BField from "buefy/src/components/field/Field"
-  import VJsoneditor from 'v-jsoneditor'
   import debounce from 'lodash/debounce'
-  import CreateProductionFlowModal from '@/components/ProductsTemplate/CreateProductionFlowModal'
-  import ProductionFlowSchema from '@/schema/ProductionFlowSchema'
-
-  const ajv = new Ajv()
 
   export default {
     name: 'ProductionSectionTemplateForm',
-    components: {BField, UserAvatar, FilePicker, CardComponent, VJsoneditor, CreateProductionFlowModal, Tiles, HeroBar, TitleBar, Notification },
+    components: {BField, UserAvatar, FilePicker, CardComponent, Tiles, HeroBar, TitleBar, Notification },
     props: {
       id: {
         default: null
-      }
-    },
-    watch: {
-      jsonData: function() {
-        const valid = ajv.validate(this.schemaData.schema, this.jsonData)
-        if(!valid) {
-          this.isValidSchema = false
-          this.schemaErrorData = ajv.errors[0]
-        } else {
-          this.isValidSchema = true
-        }
       }
     },
     data () {
@@ -139,35 +118,20 @@
         selectedSectionIndex: 0,
         sectionData: {},
 
-        //json schema
-        options: {
-          mode: 'tree',
-          modes: ['code', 'tree'], // allowed modes
-          enableTransform: false,
-          enableSort: false,
-          search: false
-        },
-        isValidSchema: true,
-        schemaErrorData: {},
-        errorMessage: {
-          enumValues: 'must be equal to one of the allowed values'
-        },
-        schemaData: ProductionFlowSchema,
       }
     },
     computed: {
       titleStack () {
         return [
-          this.$gettext('createProductionTemplatePage.titleBar.main'),
-          this.$gettext('createProductionTemplatePage.titleBar.sub1'),
-          this.$gettext('createProductionTemplatePage.titleBar.sub2')
+          this.$gettext('ArticleOptions.titleBar.main'),
+          this.$gettext('ArticleOptions.titleBar.sub1')
         ]
       },
       heroTitle () {
-        return this.$gettext('createProductionTemplatePage.heroBar.title')
+        return this.$gettext('ArticleOptions.heroBar.title')
       },
       formCardTitle () {
-        return this.$gettext('createProductionTemplatePage.card.title')
+        return this.$gettext('ArticleOptions.card.title')
       }
     },
     created() {
