@@ -69,7 +69,7 @@
                 <b-input type="text" placeholder="Artikel-Nr." :value="selectedArticleNr" readonly/>
               </b-field>
               <b-field :label="$gettext('productionFlowsPage.table.fields.productionFlow')" :message="$gettext('productionFlowsPage.table.fields.productionFlow')" >
-                <v-jsoneditor ref="jeditor" v-model="jsonPdFlow" :options="options" style="max-width: 500px;"/>
+                <v-jsoneditor ref="jeditor" v-model="jsonPdFlow" :options="options" style="max-width: 500px; min-width: 350px"/>
               </b-field>
               <b-field>
                 <b-message v-if="!isValidSchema" title="Schema Error!" type="is-danger" aria-close-label="Close message" has-icon>
