@@ -151,6 +151,7 @@
           modes: ['code', 'tree'], // allowed modes
           enableTransform: false,
           enableSort: false,
+          search: false
         },
         isValidSchema: true,
         schemaErrorData: {},
