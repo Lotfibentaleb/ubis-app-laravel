@@ -36,31 +36,49 @@
               </b-autocomplete>
             </b-field>
             <div v-if="isArticleNr">
-              <b-field :label="$gettext('ArticleOptions.form.show_article_on_registration')">
-                <b-switch v-model="showOnRegistration" />
-              </b-field>
-              <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern')">
-                <b-input v-model="codeVerificationPattern" required />
-              </b-field>
-              <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern_verification')">
-                <b-switch v-model="codeVerificationActive" />
-              </b-field>
-              <b-field :label="$gettext('ArticleOptions.form.serial_in_bar_code_pattern')">
-                <b-input v-model="codeSerialPattern" required />
-              </b-field>
-              <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_search')">
-                <b-switch v-model="codeSerialSearchActive" />
-              </b-field>
-              <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_store')">
-                <b-switch v-model="codeSerialStoreActive" />
-              </b-field>
-              <div class="level">
-                <div class="level-left">
+              <div class="box">
+                <div class="columns">
+                  <div class="column is-one-third">
+                    <div class="box">
+                      <b-field :label="$gettext('ArticleOptions.form.show_article_on_registration')">
+                        <b-switch v-model="showOnRegistration" />
+                      </b-field>
+                    </div>
+                  </div>
+                  <div class="column is-two-thirds">
+                    <div class="box">
+                      <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern')">
+                        <b-input v-model="codeVerificationPattern" required />
+                      </b-field>
+                      <b-field :label="$gettext('ArticleOptions.form.bar_code_pattern_verification')">
+                        <b-switch v-model="codeVerificationActive" />
+                      </b-field>
+                      <b-field :label="$gettext('ArticleOptions.form.serial_in_bar_code_pattern')">
+                        <b-input v-model="codeSerialPattern" required />
+                      </b-field>
+                      <div class="level">
+                        <div class="level-left">
+                          <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_search')">
+                            <b-switch v-model="codeSerialSearchActive" />
+                          </b-field>
+                        </div>
+                        <div class="level-right">
+                          <b-field :label="$gettext('ArticleOptions.form.use_serial_in_bar_code_on_store')">
+                            <b-switch v-model="codeSerialStoreActive" />
+                          </b-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="level-right">
-                  <b-field >
-                    <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$gettext('ArticleOptions.form.saveButton')}}</b-button>
-                  </b-field>
+                <div class="level">
+                  <div class="level-left">
+                  </div>
+                  <div class="level-right">
+                    <b-field >
+                      <b-button class="btn btn-ok" :loading="isLoading" native-type="submit">{{$gettext('ArticleOptions.form.saveButton')}}</b-button>
+                    </b-field>
+                  </div>
                 </div>
               </div>
             </div>
@@ -183,9 +201,9 @@
         let data = {
           attributes: {
             show_on_registration: this.showOnRegistration,
-            code_verification_pattern: this.codeVerificationPattern,
+            code_verification_pattern: this.codeVerificationPattern.trim(),
             code_verification_active: this.codeVerificationActive,
-            code_serial_pattern: this.codeSerialPattern,
+            code_serial_pattern: this.codeSerialPattern.trim(),
             code_serial_search_active: this.codeSerialSearchActive,
             code_serial_store_active: this.codeSerialStoreActive
           }
