@@ -2,7 +2,7 @@
   <div class="container">
     <hero-bar>
       UBIS - Produktsuche
-      <p class="subtitle">Vorhandene Produkte finden, darstellen und löschen</p>
+      <p class="subtitle">Vorhandene Produkte finde und darstellen</p>
     </hero-bar>
     <section class="section is-main-section">
       <card-component title="Produkt" class="has-mobile-sort-spaced" icon="filter" >

@@ -82,6 +82,7 @@
       <!-- show all possible sub components -->
       <div v-if="this.articleDetails != null && this.articleDetails.bom != null">
         <div  v-for="item in this.articleDetails.bom" :key="item.name">
+          <div v-if="(item.options == null) || (item.options != null && item.options.show_on_registration == true)">
             <sub-component v-on:productUpdate="handleProductUpdate"
             :componentarticledata=item
             :articlenumber="articleDetails.articleNumber"
@@ -96,6 +97,7 @@
             @setProductionOrderNrType="setProdOrderNrType"
             ></sub-component>
             <br/>
+          </div>
         </div>
       </div>
       <div v-if="this.articleDetails != null && (this.articleDetails.bom == null || this.articleDetails.bom.length == 0)" >
@@ -123,6 +125,7 @@ import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
 import debounce from 'lodash/debounce'
 import SubComponent from './SubComponent.vue'
+import ApiAccessTokens from '../components/Tokens/ApiAccessTokens.vue'
 
 
 
@@ -153,7 +156,8 @@ export default {
     CardWidget,
     Tiles,
     HeroBar,
-    SubComponent
+    SubComponent,
+    ApiAccessTokens
   },
   computed: {
     'server_data': function(){

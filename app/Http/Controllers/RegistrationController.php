@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use GuzzleHttp;
 use Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class RegistrationController extends Controller
 {
@@ -102,53 +103,59 @@ class RegistrationController extends Controller
     }
 
     public function article($id) {
+        $cacheKeyArticle = 'article_by_nr_with_bom_'.$id;
+        $response = Cache::get($cacheKeyArticle);
+        if( $response == null ){
+            $client = new GuzzleHttp\Client();
+            $baseUrl = env('PIS_SERVICE_BASE_URL2');
+            $requestString = 'articles/'.$id;
+            $options = [
+                'http_errors'=> false,
+                'headers' =>[
+                'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
+                'Accept'        => 'application/json',
+                'Content-Type' => 'application/json'
+                ]
+            ];
 
-        $client = new GuzzleHttp\Client();
-        $baseUrl = env('PIS_SERVICE_BASE_URL2');
-        $requestString = 'articles/'.$id;
-        $options = [
-            'http_errors'=> false,
-            'headers' =>[
-            'Authorization' => 'Bearer ' .env('PIS_BEARER_TOKEN'),
-            'Accept'        => 'application/json',
-            'Content-Type' => 'application/json'
-            ]
-        ];
+            $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+            $statusCode = $response->getStatusCode();
+            $body = json_decode($response->getBody()->getContents());
 
-        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
-    	$statusCode = $response->getStatusCode();
-        $body = json_decode($response->getBody()->getContents());
-
-        if( \property_exists($body, 'data') ){
-            $articleData = array();
-            if( \property_exists($body->data, 'bom') ){
-                $bom = json_decode($body->data->bom);
-                $bom = (is_array($bom))?$bom:array();  // prepare $bom for foreach()
-                foreach($bom as $key=>$value){
-                    /*
-                     {
-                    "id": 48798,
-                    "version": 0,
-                    "quantity": 1,
-                    "articleId": 46793,
-                    "createDate": "2019-10-16 15:16:51.288",
-                    "articleNumber": "10000214A1",
-                    "positionNumber": 1,
-                    "lastModifiedDate": "2019-10-16 15:16:51.288"
-                    },
-                    */
-                    for($quantity=0; $quantity<$value->quantity; $quantity++){
-                        $requestString = 'articles/'.$value->articleNumber;
-                        $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
-                        $articleData[] = json_decode($response->getBody()->getContents())->data;
-                    }
-                };
+            if( \property_exists($body, 'data') ){
+                $articleData = array();
+                if( \property_exists($body->data, 'bom') ){
+                    $bom = is_string($body->data->bom)?json_decode($body->data->bom):$body->data->bom;  // former PCService implementation delivered BOM as string, so take care of this
+                    $bom = (is_array($bom))?$bom:array();  // prepare $bom for foreach()
+                    foreach($bom as $key=>$value){
+                        /*
+                        {
+                        "id": 48798,
+                        "version": 0,
+                        "quantity": 1,
+                        "articleId": 46793,
+                        "createDate": "2019-10-16 15:16:51.288",
+                        "articleNumber": "10000214A1",
+                        "positionNumber": 1,
+                        "lastModifiedDate": "2019-10-16 15:16:51.288"
+                        },
+                        */
+                        for($quantity=0; $quantity<$value->quantity; $quantity++){
+                            $requestString = 'articles/'.$value->articleNumber;
+                            $response = $client->request('GET', $baseUrl.$requestString, $options);   // call API
+                            $articleData[] = json_decode($response->getBody()->getContents())->data;
+                        }
+                    };
+                }
+                $body->data->bom = $articleData;    // assigne reworked reworked BOM, or empty array to response
+                Cache::put($cacheKeyArticle, array('data' => $body->data, 'code' => $statusCode), now()->addMinutes(20));
+                return response()->json(array('data' => $body->data), $statusCode);
+            }else{
+                return response()->json(array('data' => $body), $statusCode);   // could not find data section, return body as given
             }
-            $body->data->bom = $articleData;    // assigne reworked reworked BOM, or empty array to response
-            return response()->json(array('data' => $body->data), $statusCode);
-        }else{
-            return response()->json(array('data' => $body), $statusCode);   // could not find data section, return body as given
         }
+        //Log::notice('Cache hit for '.$cacheKeyArticle);
+        return  response()->json(array('data' => $response['data']), $response['code']);   // could not find data section, return body as given
     }
 
     /**
@@ -342,8 +349,8 @@ class RegistrationController extends Controller
                     return response()->json(['code' => $statusCode, 'error' =>  $statusMessage], $statusCode);
                 }
             }
-            Cache::put($cacheKey, $body, $seconds = 3600);
-            Cache::put($cacheStatusCode, $statusCode, $seconds = 3600); //1 hour
+            Cache::put($cacheKey, $body, now()->addMinutes(20));
+            Cache::put($cacheStatusCode, $statusCode, now()->addMinutes(20));
             return response()->json($body, $statusCode);
         }
     }
