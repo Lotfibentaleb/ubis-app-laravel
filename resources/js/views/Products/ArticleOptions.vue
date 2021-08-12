@@ -113,8 +113,10 @@
     },
     watch: {
       articleSelected: function(value) {
-        if(value != '') {
+        if(value) {
           this.getArticleOptions(value.articleNumber)
+        } else {
+          this.isArticleNr = false
         }
       }
     },
@@ -136,6 +138,14 @@
 
     },
     methods: {
+      setDefault() {
+        this.showOnRegistration = true
+        this.codeVerificationPattern = ''
+        this.codeVerificationActive = false
+        this.codeSerialPattern = ''
+        this.codeSerialSearchActive = false
+        this.codeSerialStoreActive = false
+      },
       getArticleOptions(articleNr) {
         const fetchUrl = 'registration/articles/' + articleNr
         axios.create({
@@ -152,6 +162,8 @@
                 this.codeSerialPattern = r.data.data.options.code_serial_pattern
                 this.codeSerialSearchActive = r.data.data.options.code_serial_search_active
                 this.codeSerialStoreActive = r.data.data.options.code_serial_store_active
+              } else {
+                this.setDefault()
               }
               this.isArticleNr = true
             })
