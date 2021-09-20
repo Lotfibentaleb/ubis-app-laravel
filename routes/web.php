@@ -121,3 +121,7 @@ Route::prefix('/tokens')->group(function () {
     Route::get('/getDeveloperTokens', 'TokenController@getDeveloperAccessTokens');
     Route::get('/getApiTokens', 'TokenController@getApiAccessTokens');
 });
+
+Route::prefix('/landing')->group(function () {
+    Route::get('', 'LandingController@index');
+});

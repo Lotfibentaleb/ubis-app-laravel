@@ -23,6 +23,7 @@ mix
   .js('resources/js/registrationapp.js', 'public/js')
   .js('resources/js/productsearchapp.js', 'public/js')
   .js('resources/js/dashboardapp.js', 'public/js')
+  .js('resources/js/landingapp.js', 'public/js')
   .sass('resources/sass/app.scss', 'public/css')
   .styles([
     'node_modules/@mdi/font/css/materialdesignicons.css',
