@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="columns card-container">
-      <div class="container">
+      <div class="container is-max-desktop">
         <div class="columns">
           <div class="column item-center">
             <div class="card-container-label">
@@ -41,8 +41,8 @@
             </div>
           </div>
         </div>
-        <div class="columns is-mobile">
-          <div class="column is-6">
+        <div class="columns">
+          <div class="column is-12-mobile is-12-tablet is-6-desktop">
             <div class="card-item">
               <div class="columns">
                 <div class="column">
@@ -61,7 +61,7 @@
               </div>
             </div>
           </div>
-          <div class="column is-6">
+          <div class="column is-12-mobile is-12-tablet is-6-desktop">
             <div class="card-item">
               <div class="columns">
                 <div class="column">
@@ -81,8 +81,8 @@
             </div>
           </div>
         </div>
-        <div class="columns is-mobile">
-          <div class="column is-6">
+        <div class="columns">
+          <div class="column is-12-mobile is-12-tablet is-6-desktop">
             <div class="card-item">
               <div class="columns">
                 <div class="column">
@@ -101,7 +101,7 @@
               </div>
             </div>
           </div>
-          <div class="column is-6">
+          <div class="column is-12-mobile is-12-tablet is-6-desktop">
             <div class="card-item">
               <div class="columns">
                 <div class="column">
@@ -202,10 +202,10 @@
             </div>
             <div class="columns">
               <!--<b-icon-->
-                <!--pack="fas"-->
-                <!--icon="faPhoneAlt"-->
-                <!--size="is-large"-->
-                <!--type="is-success"></b-icon>-->
+              <!--pack="fas"-->
+              <!--icon="faPhoneAlt"-->
+              <!--size="is-large"-->
+              <!--type="is-success"></b-icon>-->
               <p class="contact-phone">+49 1234 56789</p>
             </div>
           </div>
@@ -215,22 +215,22 @@
     <div class="footer-container">
       <div class="container">
         <div class="columns">
-          <div class="column">
+          <div class="column is-6-mobile is-4-tablet is-2-desktop">
             <img class="footer-logo-icon" src="images/logo-fast-solutions.svg" />
           </div>
-          <div class="column">
+          <div class="column is-6-mobile is-4-tablet is-2-desktop">
             <img class="footer-logo-icon" src="images/logo-esp.svg" />
           </div>
-          <div class="column">
+          <div class="column is-6-mobile is-4-tablet is-2-desktop">
             <img class="footer-logo-icon" src="images/logo-iligenta.svg" />
           </div>
-          <div class="column">
+          <div class="column is-6-mobile is-4-tablet is-2-desktop">
             <img class="footer-logo-icon" src="images/logo-corporation.svg" />
           </div>
-          <div class="column">
+          <div class="column is-6-mobile is-4-tablet is-2-desktop">
             <img class="footer-logo-icon" src="images/logo-czech.svg" />
           </div>
-          <div class="column">
+          <div class="column is-6-mobile is-4-tablet is-2-desktop">
             <img class="footer-logo-icon" src="images/logo-holding.svg" />
           </div>
         </div>
@@ -239,10 +239,10 @@
   </div>
 </template>
 <script>
-  import Parallax from "vue-parallaxy";
+  import Parallax from 'vue-parallaxy'
   export default {
     components: {
       Parallax
     }
-  };
+  }
 </script>
