@@ -18,8 +18,7 @@
     justify-content: center;
     align-items: center;
     .img-logo {
-      width: 200px;
-      height: 80px;
+      width: 210px;
     }
   }
   .carousel-area {
@@ -47,11 +46,25 @@
     height: 45px;
     position: absolute;
     bottom: 0px;
-    color: #fbf1f1;
+    color: #fff;
   }
   .card-container {
-    background: #fbf1f1;
+    background: #fff;
     padding-bottom: 130px;
+    .card-container-label {
+      margin-top: 55px;
+      background-color: rgba(80,102,144,.1);
+      color: #506690;
+      border-radius: 50rem;
+      display: inline-block;
+      font-size: .75em;
+      font-weight: 600;
+      line-height: 1;
+      padding: 0.55rem 0.9rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
     .card-item {
       border-radius: 4px;
       margin-top: 30px;
@@ -60,6 +73,7 @@
       height: 200px;
       padding-left: 40px;
       padding-right: 40px;
+      box-shadow: 3px 3px 10px 1px #e0d8d8;
       .icon-label {
         margin-top: 40px;
         .card-icon {
@@ -90,6 +104,12 @@
           font-weight: 600;
         }
       }
+      cursor: pointer;
+      transition: all .3s;
+      &:hover {
+        box-shadow: 0 1rem 2.5rem rgba(22,28,45,.1),0 .5rem 1rem -.75rem rgba(22,28,45,.1)!important;
+        transform: translate3d(0,-3px,0);
+      }
     }
   }
   .contact-container {
@@ -101,8 +121,8 @@
       width: 200%;
       height: 45px;
       position: absolute;
-      top: -35px;
-      color: #fbf1f1;
+      top: -30px;
+      color: #f1f4f8;
     }
     .contact-logo {
       width: 200px;

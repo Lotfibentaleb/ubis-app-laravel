@@ -34,6 +34,13 @@
     </div>
     <div class="columns card-container">
       <div class="container">
+        <div class="columns">
+          <div class="column item-center">
+            <div class="card-container-label">
+              <p>IT'S YOUR CHOICE</p>
+            </div>
+          </div>
+        </div>
         <div class="columns is-mobile">
           <div class="column is-6">
             <div class="card-item">
