@@ -32,8 +32,8 @@
         "vuex": "^3.6.0"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-svg-core": "^1.2.35",
-        "@fortawesome/free-solid-svg-icons": "^5.15.3",
+        "@fortawesome/fontawesome-svg-core": "^1.2.36",
+        "@fortawesome/free-solid-svg-icons": "^5.15.4",
         "@fortawesome/vue-fontawesome": "^2.0.2",
         "ajv": "^8.2.0",
         "apexcharts": "^3.26.0",
@@ -44,6 +44,7 @@
         "vue-flag-icon": "^1.0.6",
         "vue-gettext": "^2.1.12",
         "vue-moment": "^4.1.0",
+        "vue-parallaxy": "^1.1.1",
         "vue2-daterange-picker": "^0.6.5"
     }
 }

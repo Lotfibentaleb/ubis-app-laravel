@@ -1,0 +1,155 @@
+.landing-pg {
+  .columns {
+    margin: 0px;
+  }
+  .column {
+    margin: 0px;
+    padding: 0px;
+  }
+  .item-center {
+    display: flex;
+    justify-content: center;
+  }
+  .landing-header {
+    width: 100%;
+    height: 115px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .img-logo {
+      width: 200px;
+      height: 80px;
+    }
+  }
+  .carousel-area {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    background-image: url("images/parallax.jpg") ;
+    font-family: HKGroteskPro,serif;
+    color: #ffffff;
+    .label-ubis {
+      margin-top: 70px;
+      font-size: 3.8125rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .label-service {
+      margin-top: 20px;
+      color: hsla(0,0%,100%,.75)!important;
+      font-size: 1.3125rem;
+      font-weight: 400;
+    }
+  }
+  .up-arch-svg {
+    width: 200%;
+    height: 45px;
+    position: absolute;
+    bottom: 0px;
+    color: #fbf1f1;
+  }
+  .card-container {
+    background: #fbf1f1;
+    padding-bottom: 130px;
+    .card-item {
+      border-radius: 4px;
+      margin-top: 30px;
+      width: 95%;
+      background: #fff;
+      height: 200px;
+      padding-left: 40px;
+      padding-right: 40px;
+      .icon-label {
+        margin-top: 40px;
+        .card-icon {
+          width: 40px;
+          color: #f39100;
+          margin-right: 20px;
+        }
+        .card-icon path {
+          background-color: #f39100;
+        }
+        .card-label {
+          font-weight: 400;
+          letter-spacing: -.01em;
+          font-size: 2.3125rem;
+        }
+      }
+      .card-btn {
+        margin-top: 20px;
+        width: 100%;
+        height: 50px;
+        background-color: rgba(243,145,0,.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .card-btn-label {
+          color: #f39100;
+          font-size: 1.0625rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .contact-container {
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 80px;
+    background-color: #f1f4f8!important;
+    .down-arch-svg {
+      width: 200%;
+      height: 45px;
+      position: absolute;
+      top: -35px;
+      color: #fbf1f1;
+    }
+    .contact-logo {
+      width: 200px;
+    }
+    .social-links {
+      margin-top: 10px;
+    }
+    .contact-main-label {
+      letter-spacing: .08em;
+      color: #506690;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: .75rem;
+    }
+    .contact-sub-label {
+      margin-top: 10px;
+      font-family: HKGroteskPro,serif;
+      text-decoration: none;
+      color: inherit;
+      color: #869ab8;
+      font-size: 1.0625rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .contact-owner{
+      margin-top: 15px;
+      strong{
+        font-family: HKGroteskPro,serif;
+        font-weight: 700;
+        color: #162e71!important;
+        font-size: 1.0625rem;
+      }
+    }
+    .contact-phone {
+      color: #162e71;
+      font-family: HKGroteskPro,serif;
+      font-size: 1.0625rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+  }
+  .footer-container {
+    padding: 45px 0px 45px 0px;
+    background-color: #f9fbfd!important;
+    .footer-logo-icon {
+      width: 140px;
+    }
+  }
+}
