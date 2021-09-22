@@ -17,6 +17,11 @@
           </div>
           <div class="columns">
             <div class="column item-center">
+              <h1 class="label-version">Version 1.3</h1>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column item-center">
               <p class="label-service">Integrated Manufacturing Services</p>
             </div>
           </div>
@@ -255,12 +260,6 @@
       this.searchPageURL = process.env.MIX_PRODUCTS_SEARCH_PAGE_URL
       this.registrationPageURL = process.env.MIX_PRODUCTS_REGISTRATION_PAGE_URL
       this.dashboardPageRUL = process.env.MIX_DASHBOARD_PAGE_URL
-      console.log('1111111111111111111111111')
-      console.log(this.loginPageURL)
-      console.log(this.searchPageURL)
-      console.log(this.registrationPageURL)
-      console.log(this.dashboardPageRUL)
-      console.log('1111111111111111111111111')
     }
   }
 </script>

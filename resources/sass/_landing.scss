@@ -43,6 +43,12 @@
       line-height: 1.2;
       font-family: HKGroteskPro,serif!important;
     }
+    .label-version {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: hsla(0,0%,100%,.75)!important;
+      font-family: HKGroteskPro,serif!important;
+    }
     .label-service {
       margin-top: 20px;
       color: hsla(0,0%,100%,.75)!important;
@@ -90,8 +96,7 @@
       width: 95%;
       background: #fff;
       height: 200px;
-      padding-left: 40px;
-      padding-right: 40px;
+      padding: 1px 40px 0px 40px;
       box-shadow: 0 1.5rem 4rem rgba(22,28,45,.1);
       .icon-label {
         margin-top: 40px;
