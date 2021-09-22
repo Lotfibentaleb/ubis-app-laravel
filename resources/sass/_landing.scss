@@ -35,27 +35,37 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: HKGroteskPro,serif;
     color: #ffffff;
     .label-ubis {
       margin-top: 70px;
       font-size: 3.8125rem;
       font-weight: 600;
       line-height: 1.2;
+      font-family: HKGroteskPro,serif!important;
     }
     .label-service {
       margin-top: 20px;
       color: hsla(0,0%,100%,.75)!important;
       font-size: 1.3125rem;
       font-weight: 400;
+      font-family: HKGroteskPro,serif!important;
     }
   }
   .up-arch-svg {
     width: 200%;
     height: 45px;
     position: absolute;
-    bottom: -20px;
+    bottom: 0px;
     color: #fff;
+    @media screen and (max-width: 1200px) {
+      bottom: -20px;
+    }
+    @media screen and (max-width: 1200px) {
+      bottom: -20px;
+    }
+    @media screen and (max-width: 700px) {
+      bottom: -30px;
+    }
   }
   .card-container {
     background: #fff;
@@ -132,6 +142,9 @@
       position: absolute;
       top: -20px;
       color: #f1f4f8;
+      @media screen and (max-width: 700px) {
+        top: -10px;
+      }
     }
     .contact-logo {
       width: 200px;
