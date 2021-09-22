@@ -1,6 +1,7 @@
 .landing-pg {
   .columns {
     margin: 0px;
+    flex-wrap: wrap;
   }
   .column {
     margin: 0px;
@@ -133,8 +134,15 @@
     }
     .social-links {
       margin-top: 10px;
+      display: flex;
+      justify-content: flex-start;
+      .social-icon {
+        width: 25px;
+        margin-right: 20px;
+      }
     }
     .contact-main-label {
+      margin-top: 20px;
       letter-spacing: .08em;
       color: #506690;
       text-transform: uppercase;
@@ -174,6 +182,25 @@
     background-color: #f9fbfd!important;
     .footer-logo-icon {
       width: 140px;
+      margin-bottom: 20px;
     }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    max-width: 700px!important;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    max-width: 500px!important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    max-width: 450px!important;
   }
 }

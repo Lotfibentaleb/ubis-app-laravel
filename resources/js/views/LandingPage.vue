@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="columns card-container">
-      <div class="container is-max-desktop">
+      <div class="container is-mobile">
         <div class="columns">
           <div class="column item-center">
             <div class="card-container-label">
@@ -134,8 +134,8 @@
         </div>
       </div>
       <div class="container">
-        <div class="columns">
-          <div class="column">
+        <div class="columns is-mobile">
+          <div class="column is-12-mobile is-12-tablet is-3-desktop">
             <div class="columns">
               <img class="contact-logo" src="images/brand.svg" />
             </div>
@@ -143,26 +143,18 @@
               <p class="contact-sub-label">We Display your Brilliance.</p>
             </div>
             <div class="columns">
-              <div class="column is-7">
+              <div class="column is-6-mobile is-7-desktop">
                 <div class="columns social-links">
-                  <div class="column">
-                    <img src="images/instagram.svg" />
-                  </div>
-                  <div class="column">
-                    <img src="images/facebook.svg" />
-                  </div>
-                  <div class="column">
-                    <img src="images/twitter.svg" />
-                  </div>
-                  <div class="column">
-                    <img src="images/pinterest.svg" />
-                  </div>
+                  <img class="social-icon" src="images/instagram.svg" />
+                  <img class="social-icon" src="images/facebook.svg" />
+                  <img class="social-icon" src="images/twitter.svg" />
+                  <img class="social-icon" src="images/pinterest.svg" />
                 </div>
               </div>
-              <div class="column is-5"></div>
+              <div class="column is-6-mobile is-5-desktop"></div>
             </div>
           </div>
-          <div class="column">
+          <div class="column is-6-mobile is-4-tablet is-3-desktop">
             <div class="columns">
               <p class="contact-main-label">INTERNAL LINKS</p>
             </div>
@@ -176,7 +168,7 @@
               <a href="#" class="contact-sub-label">etc ...</a>
             </div>
           </div>
-          <div class="column">
+          <div class="column is-6-mobile is-4-tablet is-3-desktop">
             <div class="columns">
               <p class="contact-main-label">EXTERNAL LINKS</p>
             </div>
@@ -190,7 +182,7 @@
               <a href="#" class="contact-sub-label">etc ...</a>
             </div>
           </div>
-          <div class="column">
+          <div class="column is-6-mobile is-4-tablet is-3-desktop">
             <div class="columns">
               <p class="contact-main-label">SUPPORT CONTACT</p>
             </div>
@@ -214,7 +206,7 @@
     </div>
     <div class="footer-container">
       <div class="container">
-        <div class="columns">
+        <div class="columns is-mobile">
           <div class="column is-6-mobile is-4-tablet is-2-desktop">
             <img class="footer-logo-icon" src="images/logo-fast-solutions.svg" />
           </div>
