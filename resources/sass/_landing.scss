@@ -92,7 +92,7 @@
       height: 200px;
       padding-left: 40px;
       padding-right: 40px;
-      box-shadow: 3px 3px 10px 1px #e0d8d8;
+      box-shadow: 0 1.5rem 4rem rgba(22,28,45,.1);
       .icon-label {
         margin-top: 40px;
         .card-icon {
@@ -124,7 +124,7 @@
         }
       }
       cursor: pointer;
-      transition: all .3s;
+      transition: box-shadow .25s ease,transform .25s ease;
       &:hover {
         box-shadow: 0 1rem 2.5rem rgba(22,28,45,.1),0 .5rem 1rem -.75rem rgba(22,28,45,.1)!important;
         transform: translate3d(0,-3px,0);
@@ -155,7 +155,7 @@
       justify-content: flex-start;
       .social-icon {
         width: 25px;
-        margin-right: 20px;
+        margin-right: 15px;
       }
     }
     .contact-main-label {
@@ -201,6 +201,12 @@
       width: 140px;
       margin-bottom: 20px;
     }
+  }
+}
+
+@media screen and (max-width: 1900px) {
+  .container {
+    max-width: 1000px!important;
   }
 }
 

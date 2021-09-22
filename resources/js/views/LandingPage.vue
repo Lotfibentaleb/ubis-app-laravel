@@ -151,7 +151,7 @@
               <p class="contact-sub-label">We Display your Brilliance.</p>
             </div>
             <div class="columns">
-              <div class="column is-6-mobile is-7-desktop">
+              <div class="column is-6-mobile is-8-desktop">
                 <div class="columns social-links">
                   <img class="social-icon" src="images/instagram.svg" />
                   <img class="social-icon" src="images/facebook.svg" />
@@ -159,7 +159,7 @@
                   <img class="social-icon" src="images/pinterest.svg" />
                 </div>
               </div>
-              <div class="column is-6-mobile is-5-desktop"></div>
+              <div class="column is-6-mobile is-4-desktop"></div>
             </div>
           </div>
           <div class="column is-6-mobile is-4-tablet is-3-desktop">
