@@ -43,82 +43,90 @@
         </div>
         <div class="columns">
           <div class="column is-12-mobile is-12-tablet is-6-desktop">
-            <div class="card-item">
-              <div class="columns">
-                <div class="column">
-                  <div class="icon-label item-center">
-                    <img class="card-icon" src="images/registration-icon.svg" />
-                    <p class="card-label">Product registration</p>
+            <a :href="registrationPageURL">
+              <div class="card-item">
+                <div class="columns">
+                  <div class="column">
+                    <div class="icon-label item-center">
+                      <img class="card-icon" src="images/registration-icon.svg" />
+                      <p class="card-label">Product registration</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column">
+                    <div class="card-btn">
+                      <p class="card-btn-label">Open</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="columns">
-                <div class="column">
-                  <div class="card-btn">
-                    <p class="card-btn-label">Open</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
           <div class="column is-12-mobile is-12-tablet is-6-desktop">
-            <div class="card-item">
-              <div class="columns">
-                <div class="column">
-                  <div class="icon-label item-center">
-                    <img class="card-icon" src="images/search-icon.svg" />
-                    <p class="card-label">Product search</p>
+            <a :href="searchPageURL">
+              <div class="card-item">
+                <div class="columns">
+                  <div class="column">
+                    <div class="icon-label item-center">
+                      <img class="card-icon" src="images/search-icon.svg" />
+                      <p class="card-label">Product search</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column">
+                    <div class="card-btn">
+                      <p class="card-btn-label">Open</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="columns">
-                <div class="column">
-                  <div class="card-btn">
-                    <p class="card-btn-label">Open</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
         </div>
         <div class="columns">
           <div class="column is-12-mobile is-12-tablet is-6-desktop">
-            <div class="card-item">
-              <div class="columns">
-                <div class="column">
-                  <div class="icon-label item-center">
-                    <img class="card-icon" src="images/configuration-icon.svg" />
-                    <p class="card-label">Configuration</p>
+            <a :href="loginPageURL">
+              <div class="card-item">
+                <div class="columns">
+                  <div class="column">
+                    <div class="icon-label item-center">
+                      <img class="card-icon" src="images/configuration-icon.svg" />
+                      <p class="card-label">UBIS Management</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column">
+                    <div class="card-btn">
+                      <p class="card-btn-label">Open</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="columns">
-                <div class="column">
-                  <div class="card-btn">
-                    <p class="card-btn-label">Open</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
           <div class="column is-12-mobile is-12-tablet is-6-desktop">
-            <div class="card-item">
-              <div class="columns">
-                <div class="column">
-                  <div class="icon-label item-center">
-                    <img class="card-icon" src="images/dashboard-icon.svg" />
-                    <p class="card-label">Dashboard</p>
+            <a :href="dashboardPageRUL">
+              <div class="card-item">
+                <div class="columns">
+                  <div class="column">
+                    <div class="icon-label item-center">
+                      <img class="card-icon" src="images/dashboard-icon.svg" />
+                      <p class="card-label">Dashboard</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column">
+                    <div class="card-btn">
+                      <p class="card-btn-label">Open</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="columns">
-                <div class="column">
-                  <div class="card-btn">
-                    <p class="card-btn-label">Open</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -235,6 +243,26 @@
   export default {
     components: {
       Parallax
+    },
+    data() {
+      return {
+        searchPageURL: '',
+        registrationPageURL: '',
+        loginPageURL: '',
+        dashboardPageRUL: ''
+      }
+    },
+    created() {
+      this.loginPageURL = process.env.MIX_LOGIN_PAGE_URL
+      this.searchPageURL = process.env.MIX_PRODUCTS_SEARCH_PAGE_URL
+      this.registrationPageURL = process.env.MIX_PRODUCTS_REGISTRATION_PAGE_URL
+      this.dashboardPageRUL = process.env.MIX_DASHBOARD_PAGE_URL
+      console.log('1111111111111111111111111')
+      console.log(this.loginPageURL)
+      console.log(this.searchPageURL)
+      console.log(this.registrationPageURL)
+      console.log(this.dashboardPageRUL)
+      console.log('1111111111111111111111111')
     }
   }
 </script>
