@@ -167,13 +167,13 @@
               <p class="contact-main-label">INTERNAL LINKS</p>
             </div>
             <div class="columns">
-              <a href="#" class="contact-sub-label">Sharepoint</a>
+              <a href="http://sims-int.garching.semsotec.de/index.html" class="contact-sub-label">Prozesse</a>
             </div>
             <div class="columns">
-              <a href="#" class="contact-sub-label">Outlook</a>
+              <a href="https://cloud.garching.semsotec.de/index.php/apps/dashboard/" class="contact-sub-label">Nextcloud</a>
             </div>
             <div class="columns">
-              <a href="#" class="contact-sub-label">etc ...</a>
+              <a href="https://openproject.garching.semsotec.de/" class="contact-sub-label">Projektmanagement</a>
             </div>
           </div>
           <div class="column is-6-mobile is-4-tablet is-3-desktop">
@@ -181,7 +181,7 @@
               <p class="contact-main-label">EXTERNAL LINKS</p>
             </div>
             <div class="columns">
-              <a href="#" class="contact-sub-label">Semsotec Website</a>
+              <a href="https://www.semsotec.de/" class="contact-sub-label">Semsotec Website</a>
             </div>
             <div class="columns">
               <a href="#" class="contact-sub-label">UBIS Docs</a>
@@ -198,15 +198,13 @@
               <a class="contact-sub-label" href="#">Technical support</a>
             </div>
             <div class="columns">
-              <p class="contact-owner"><strong>Max Mustermann</strong></p>
+              <p class="contact-owner"><strong>Markus Harrieder</strong></p>
             </div>
             <div class="columns">
-              <!--<b-icon-->
-              <!--pack="fas"-->
-              <!--icon="faPhoneAlt"-->
-              <!--size="is-large"-->
-              <!--type="is-success"></b-icon>-->
-              <p class="contact-phone">+49 1234 56789</p>
+              <p class="contact-phone">markus.harrieder@semsotec.de</p>
+            </div>
+            <div class="columns">
+              <p class="contact-phone">+49 941 46392360</p>
             </div>
           </div>
         </div>
