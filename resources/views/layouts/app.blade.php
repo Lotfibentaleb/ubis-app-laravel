@@ -15,6 +15,7 @@
     {{-- Fonts --}}
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/hk-grotesk.min.css">
 
     {{-- Styles --}}
     <link href="{{ mix($stylesheet ?? 'css/app.css') }}" rel="stylesheet">
