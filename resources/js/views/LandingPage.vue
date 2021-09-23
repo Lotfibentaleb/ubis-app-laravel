@@ -153,7 +153,7 @@
               <img class="contact-logo" src="images/brand.svg" />
             </div>
             <div class="columns">
-              <p class="contact-sub-label">We Display your Brilliance.</p>
+              <p class="contact-sub-label strong-color">We Display your Brilliance.</p>
             </div>
             <div class="columns">
               <div class="column is-6-mobile is-8-desktop">
