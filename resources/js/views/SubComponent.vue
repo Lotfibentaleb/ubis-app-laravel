@@ -1,25 +1,33 @@
 <template>
   <section>
     <card-component title="Komponente" class="has-mobile-sort-spaced" icon="view-grid">
-      <div class="columns">
-        <div class="column is-8">
+
+        <div class="is-full">
           <h5 class="title is-5">
             {{componentarticledata.articleNumber}} - {{componentarticledata.name}}
           </h5>
         </div>
-        <div class="column is-4">
+        </br>
+        <div class="is-full">
           <b-field label="Serial number" label-position="on-border">
+            <div class="columns">
+            <div class="column is-10">
+
             <b-input :value="component_serial" size="is-medium"
                     @change.native="component_serial = $event.target.value"
                     :disabled="component_id != null || globaltransmissionactive"
                     :tabindex="tabindex"/>
+            </div>
+            <div class="column">
              <p class="control">
                 <b-button v-show="component_id == null" :disabled="transmissionActive" type="is-success" label="speichern" size="is-medium"/>
                 <b-button v-show="component_id != null" @click="submitComponent(true)" :disabled="transmissionActive" type="is-dark" label="löschen" size="is-medium"/>
             </p>
+            </div>
+            </div>
           </b-field>
         </div>
-      </div>
+
     </card-component>
     </section>
 </template>
