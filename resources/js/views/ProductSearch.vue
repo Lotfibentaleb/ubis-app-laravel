@@ -70,7 +70,7 @@
               <div class="level-left">
                 <div>
                   <p class="heading">Anlage Datum</p>
-                  <p class="subtitle is-5 has-text-grey-darker">{{productDetails.created_at | moment("DD.MM.YYYY / h:mm:ss")}}</p>
+                  <p class="subtitle is-5 has-text-grey-darker">{{getLocalTime(productDetails.created_at)}}</p>
                 </div>
               </div>
               <div class="level-item">
@@ -124,7 +124,7 @@
               </div>
               <div class="level-right">
                 <div>
-                  <p class="has-text-right">{{item.created_at | moment("DD.MM.YYYY / h:mm:ss")}}</p>
+                  <p class="has-text-right">{{getLocalTime(item.created_at)}}</p>
                 </div>
               </div>
             </div>
@@ -138,7 +138,7 @@
               <div class="level-left">
                 <div>
                 <p class="heading">Erstellt am</p>
-                <p class="subtitle is-6 has-text-grey-darker">{{item.created_at | moment("DD.MM.YYYY / h:mm:ss")}}</p>
+                <p class="subtitle is-6 has-text-grey-darker">{{getLocalTime(item.created_at)}}</p>
                 </div>
               </div>
               <div class="level-item has-text-centered">
@@ -200,12 +200,14 @@ import SubComponent from './SubComponent.vue'
 import MeasurementDaisyA1 from './MeasurementDaisyA1.vue'
 import MeasurementBLPressA1 from './MeasurementBLPressA1.vue'
 import MeasurementDefaultA1 from './MeasurementDefaultA1.vue'
+import moment from 'moment'
 
 
 
 export default {
   data() {
       return {
+          utcOffset: 0,
           articleList: [],
           articleSelected: null,
           isFetchingArticleList: false,
@@ -279,7 +281,9 @@ export default {
     console.log(this.server_data);
     if (this.$route.query.products_id) {
       this.productSearch = this.$route.query.products_id
-    }
+    };
+    const today = new Date()
+    this.utcOffset = moment.parseZone(today).utcOffset()
   },
   watch: {
     articleSelected: function(){
@@ -339,6 +343,9 @@ export default {
     }
   },
   methods: {
+      getLocalTime(date) {
+        return moment.utc(date).utcOffset(this.utcOffset).format("DD.MM.YYYY / k:mm:ss")
+      },
     productionInformation: function(stepName){
       let result = null;
       result = this.productDetails.production_information.find( function(currentValue, index, arr){
