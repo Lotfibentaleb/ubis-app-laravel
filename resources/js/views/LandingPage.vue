@@ -17,7 +17,7 @@
           </div>
           <div class="columns">
             <div class="column item-center">
-              <h1 class="label-version">Version 1.3</h1>
+              <h1 class="label-version">Version {{this.systemVersion}}</h1>
             </div>
           </div>
           <div class="columns">
@@ -252,10 +252,12 @@
         searchPageURL: '',
         registrationPageURL: '',
         loginPageURL: '',
-        dashboardPageRUL: ''
+        dashboardPageRUL: '',
+        systemVersion: ''
       }
     },
     created() {
+      this.systemVersion = process.env.MIX_SYSTEM_VERSION
       this.loginPageURL = process.env.MIX_LOGIN_PAGE_URL
       this.searchPageURL = process.env.MIX_PRODUCTS_SEARCH_PAGE_URL
       this.registrationPageURL = process.env.MIX_PRODUCTS_REGISTRATION_PAGE_URL
