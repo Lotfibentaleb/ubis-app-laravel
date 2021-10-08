@@ -162,20 +162,21 @@ class RegistrationController extends Controller
      * Create new product including subcomponent, by adding a subcomponent serial nr.
      * $id == '-' or null
      */
-    public function createProduct(Request $request, $id, $articleNr = null){
-        $requestData = array_merge($request->all(), ['product_id' => $id, 'product_article_nr' => $articleNr]);
+    public function createProduct(Request $request, $id){
+        $requestData = array_merge($request->all(), array('product_id' => $id));
 
         $validator = Validator::make($requestData, [
             'component_article_nr' => 'string|required|between:5,64',
             'component_serial_nr' => 'string|required|between:1,64',
             'production_order_nr' => 'string|between:1,64|nullable',
-            'product_article_nr' => 'required_if:product_id,-|nullable|string|between:5,64',
+            'article_nr' => 'required_if:product_id,-|nullable|string|between:5,64',
             'product_id' => 'exclude_if:product_id,-|required|uuid',    // if product id == - -> skip check
         ]);
 
         if($validator->fails()){
             return response()->json(['message' =>  'Append component failed. Wrong parameter. '.implode (' ',$validator->errors()->all()).' '.implode('#',$request->all()) ], 422);
         }
+        $articleNr = $request->input('article_nr', null);
 
         $client = new GuzzleHttp\Client();
         $baseUrl = env('PIS_SERVICE_BASE_URL2');
@@ -275,17 +276,19 @@ class RegistrationController extends Controller
     /**
      * Show product information
      */
-    public function showProduct(Request $request, $id, $articleNr = null){
-        $requestData = array_merge($request->all(), ['product_id' => $id, 'product_article_nr' => $articleNr]);
+    public function showProduct(Request $request, $id){
+        $requestData = array_merge($request->all(), array('id' => $id));
 
         $validator = Validator::make($requestData, [
-            'product_article_nr' => 'nullable|string|between:5,64',
+            'article_nr' => 'string|between:5,65',
             'product_id' => 'nullable|string|between:1,64',    // if product id == - -> skip check
         ]);
 
+//        print_r($requestData);die(__FILE__);
         if($validator->fails()){
             return response()->json(['message' =>  'Requesting product failed. Wrong parameter. '.implode (' ',$validator->errors()->all()).' '.implode('#',$request->all()) ], 422);
         }
+        $articleNr = $request->input('article_nr', null);
         $cacheKey = $id.$articleNr;
         $cacheStatusCode = $cacheKey.'statuscode';
         if (Cache::has($cacheKey.'_disabled')) {

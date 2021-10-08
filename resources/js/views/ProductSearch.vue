@@ -294,10 +294,10 @@ export default {
       let method = 'get'
       let searchString = encodeURIComponent(this.productSearch)
       // plain product UUID search
-      let url = `/registration/product/${searchString}/articleNr?lookup_subcomponents=true`
+      let url = `/registration/product/${searchString}?lookup_subcomponents=true`
       if( this.articleSelected ){
         // article nr. + article serial search
-        url = `/registration/product/${searchString}/articleNr/${this.articleSelected.articleNumber}?lookup_subcomponents=true`
+        url = `/registration/product/${searchString}?article_nr=${this.articleSelected.articleNumber}&lookup_subcomponents=true`
       }
       console.log('Inside product search '+url)
       axios({

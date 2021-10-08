@@ -73,15 +73,16 @@ export default {
       this.transmissionActive = true
     },
     submitComponent: function(deleteComponent = false) {
-
+      console.log('submitComponent entered');
       if( this.productionordernr == '' ){
-        let message = 'Produktions-Auftrags-Nr. ist jetzt leer'
+        let message = 'Bitte Produktions-Auftrags-Nr. angeben! Für Tests die 777.'
         this.$buefy.toast.open({
           message: message,
           type: 'is-danger',
           queue: false
         })
         this.$emit('setProductionOrderNrType', 'is-danger')
+        this.component_serial = ''; // reset input field, so it could be filled and sent again
         return
       }
       this.$emit('setProductionOrderNrType', 'is-normal')
@@ -89,7 +90,7 @@ export default {
       this.setTransmissionActive()  // inform others that we going to transmitt now
 
       let method = 'post'
-      let url = `/registration/product/${this.productid}/articleNr/${this.articlenumber}`
+      let url = `/registration/product/${this.productid}?article_nr=${this.articlenumber}`
       let data = {
         component_article_nr: `${this.componentarticledata.articleNumber}`,
         component_serial_nr: `${this.component_serial}`,
@@ -146,13 +147,14 @@ export default {
       }).finally(() => {
         this.$emit('setTransmissionActive', false);
         console.log('Transmission is '+this.transmissionActive+' Set transmission FALSE');
+        this.transmissionActive = false;
       })
     }
   },
   watch: {
     component_serial : function(newValue, oldValue) {
       console.log('Sub component_serial watch triggered');
-      if( newValue == null ){
+      if( newValue == null || newValue.length === 0 ){
         console.log('... but value is null');
         return;
       }

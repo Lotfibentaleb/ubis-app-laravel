@@ -60,10 +60,10 @@ Route::prefix('/registration')->group(function () {
     Route::get('/articles', 'RegistrationController@articles');         // list several articles by name/art.nr.
     Route::get('/articles/{id}', 'RegistrationController@article');     // get back details per article
     Route::post('/articles/{id}/options', 'RegistrationController@updateArticleOptions');     // get back details per article
-    Route::get('/product/{id}/articleNr/{articleNr?}', 'RegistrationController@showProduct');   // get back details per product
-    Route::post('/product/{id}/articleNr/{articleNr?}', 'RegistrationController@createProduct');  // get back details per article
     Route::delete('/product/{id}/components/{componentId}', 'RegistrationController@deleteComponent');
 
+    Route::get('/product/{id}', 'RegistrationController@showProduct')->where('id', '.*');   // get back details per product
+    Route::post('/product/{id}', 'RegistrationController@createProduct')->where('id', '.*');
 });
 
 Route::prefix('/productsearch')->group(function () {
