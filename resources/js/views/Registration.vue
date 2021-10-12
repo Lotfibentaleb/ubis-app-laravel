@@ -200,6 +200,9 @@ export default {
         url
       }).then( r => {
         this.productDetails = r.data.data
+        if( this.productDetails.production_order_nr ){
+          this.productionOrderNr = this.productDetails.production_order_nr
+        }
         console.log(this.productDetails)
         let infoMessage = `Produkt mit der Ser.Nr./UUID '${this.productSearch}' geladen`
         this.handleProductUpdate(this.productDetails.st_serial_nr, this.productDetails.id)

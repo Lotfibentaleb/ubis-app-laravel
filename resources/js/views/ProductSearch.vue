@@ -116,10 +116,12 @@
             </div>
           </div>
           <div  v-for="item in this.productDetails.components" :key="item.id">
-            <div class="level">
+
+            <div class="level" style="height:60px">
               <div class="level-left">
                 <div>
-                  <p>{{item.st_article_nr}} - {{item.st_article_name}}   /   {{item.serial_nr}}</p>
+                  <p>{{item.st_article_nr}} - {{item.st_article_name}}</p>
+                  <p>Serien Nr.: {{item.serial_nr}}</p>
                 </div>
               </div>
               <div class="level-right">
@@ -128,6 +130,7 @@
                 </div>
               </div>
             </div>
+
           </div>
         </card-component>
 

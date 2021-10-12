@@ -1,15 +1,18 @@
 <template>
   <section>
-    <card-component title="Komponente" class="has-mobile-sort-spaced" icon="view-grid">
-      <div class="columns">
-        <div class="column is-8">
-          <h5 class="title is-5">
-            {{componentarticledata.articleNumber}} - {{componentarticledata.name}}
-          </h5>
+    <card-component :title="'Komponente: '+componentarticledata.articleNumber+' - '+componentarticledata.name" icon="view-grid">
+
+        <div class="is-full">
+          <h6 class="title is-5">
+{{componentarticledata.articleNumber}} - {{componentarticledata.name}}
+          </h6>
         </div>
-        <div class="column is-4">
+        </br>
+        <div class="is-full">
           <b-field label="Serial number" label-position="on-border">
-            <b-input :value="component_serial" size="is-medium"
+            <b-input size="is-medium"
+                    class="is-expanded"
+                    :value="component_serial"
                     @change.native="component_serial = $event.target.value"
                     :disabled="component_id != null || globaltransmissionactive"
                     :tabindex="tabindex"/>
@@ -19,7 +22,7 @@
             </p>
           </b-field>
         </div>
-      </div>
+
     </card-component>
     </section>
 </template>
