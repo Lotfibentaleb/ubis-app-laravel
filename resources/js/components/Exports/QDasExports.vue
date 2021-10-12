@@ -55,8 +55,12 @@
       </b-field>
     </div>
     <div class="column is-1 is-offset-11">
-      <b-button :label="$gettext('exportsPage.qdasExports.exportBtn')" type="is-primary" @click="qdisExports" />
+      <b-button :label="$gettext('exportsPage.qdasExports.exportBtn')" type="is-primary" @click="showModal" />
     </div>
+    <modal-box :is-active="isModalActive" confirmLabel="Ok" @confirm="hideModal" @cancel="hideModal">
+      <p>Function not available yet</p>
+    </modal-box>
+
   </card-component>
 </template>
 
@@ -65,10 +69,11 @@
   import DateRangePicker from 'vue2-daterange-picker'
   import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
   import debounce from 'lodash/debounce'
+  import ModalBox from '@/components/ModalBox'
 
   export default {
     name: 'QDasExports',
-    components: {CardComponent, DateRangePicker},
+    components: {CardComponent, DateRangePicker, ModalBox},
     data() {
       const today = new Date()
       return {
@@ -84,8 +89,8 @@
         articleSelected: null,
         isFetchingArticleList: false,
         clearable: false,
-
         prodOrderNr: '',
+        isModalActive: false,
       }
     },
     filters: {
@@ -109,6 +114,12 @@
     methods: {
       qdisExports() {
 
+      },
+      showModal () {
+        this.isModalActive = true
+      },
+      hideModal () {
+        this.isModalActive = false
       },
       updateDateRange() {
         this.dateRangeValues = ''

@@ -1,24 +1,22 @@
 <template>
   <card-component :title="$gettext('exportsPage.excelExports.card.title')" icon="package-variant-closed" class="tile is-child">
-    <div class="level">
-      <div class="level-left"></div>
-      <div class="level-right">
-        <b-icon
-                icon="calendar-today">
-        </b-icon>
-        <date-range-picker
+    <div class="column is-one-fifths is-offset-two-fifths">
+      <p>{{$gettext('exportsPage.excelExports.explanation')}}</p>
+    </div>
+    <div class="column is-12">
+      <!--<div class="column is-3">{{$gettext('exportsPage.excelExports.timeSpan')}}</div>-->
+      <b-field label="Zeitraum" horizontal>
+      <date-range-picker
+                style="min-width: 300px;"
                 ref="picker"
                 v-model="dateRange"
                 @update="updateDateRange"
-        >
-          <template v-slot:input="picker" style="min-width: 350px;">
-            {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
-          </template>
-        </date-range-picker>
-      </div>
-    </div>
-    <div class="column is-one-fifths is-offset-two-fifths">
-      <p>{{$gettext('exportsPage.excelExports.explanation')}}</p>
+      >
+        <template v-slot:input="picker" style="min-width: 350px;">
+          {{ picker.startDate | moment("DD.MM.YYYY") }} - {{ picker.endDate | moment("DD.MM.YYYY") }}
+        </template>
+      </date-range-picker>
+      </b-field>
     </div>
     <div class="column is-12">
       <b-field :label="$gettext('exportsPage.excelExports.articleNr')" :message="$gettext('exportsPage.excelExports.articleNr.message')" horizontal>
@@ -72,9 +70,10 @@
     components: {BButton, CardComponent, DateRangePicker},
     data() {
       const today = new Date()
+      const endDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
       return {
         dateRange: {
-          startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
+          startDate: endDate,
           endDate: today,
         },
         dateRangeValues: '{}',
@@ -124,7 +123,7 @@
       getHrefURL() {
         const paramsFullExcel = [
           `enhanced=2`,
-          `sort_by=${this.sortField}.${this.sortOrder}`,
+          `sort_by=${this.sortField}-${this.sortOrder}`,
           `page=${this.page}`,
           `date_range=${this.dateRangeValues}`,
           `filter=${this.filterValues}`

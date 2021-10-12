@@ -4,7 +4,6 @@
     <div class="level">
       <div class="level-left">
         <b-button type="is-info" disabled>{{$gettext('productsPage.productsTable.productsCounts')}}: {{this.total}}</b-button>
-<!--        <a :href="this.filterGeneralUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.downloadExcel')}}</b-button></a> -->
         <a :href="this.filterFullExcelUrl"><b-button class="btn excel-export">{{$gettext('productsPage.productsTable.fullExcel')}}</b-button></a>
       </div>
     </div>
@@ -25,41 +24,28 @@
             :default-sort-direction="defaultSortOrder"
             :default-sort="[sortField, sortOrder]"
             @sort="onSort"
-
             backend-filtering
-
             :data="products">
 
       <template slot-scope="props">
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable
-                        searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.articleNr')" field="st_article_nr" sortable searchable>
           <template #searchable="props">
             <b-autocomplete v-model="filterArticleNr" clearable />
           </template>
           {{ props.row.st_article_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable
-                        searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.serialNr')" field="st_serial_nr" sortable searchable>
           <template #searchable="props">
             <b-autocomplete v-model="filterSerialNr" clearable />
           </template>
           {{ props.row.st_serial_nr }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.status')" field="lifecycle"
-                        searchable>
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.status')" field="lifecycle" searchable>
           <template #searchable="props">
-            <b-dropdown
-                    :scrollable="isScrollable"
-                    :max-height="maxHeight"
-                    v-model="filterStatus"
-                    aria-role="list"
-            >
+            <b-dropdown :scrollable="isScrollable" :max-height="maxHeight" v-model="filterStatus" aria-role="list">
               <template #trigger>
-                <b-button
-                        :label="filterStatus.text"
-                        icon-right="menu-down" />
+                <b-button :label="filterStatus.text" icon-right="menu-down" />
               </template>
-
               <b-dropdown-item
                       v-for="(menu, index) in statusOptions"
                       :key="index"
@@ -74,10 +60,44 @@
           </template>
           {{ props.row.lifecycle }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.productionDataCount')" field="production_data_count">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.productionDataCount')" field="production_data_count" searchable>
+          <template #searchable="props">
+            <b-dropdown :scrollable="isScrollable" :max-height="maxHeight" v-model="filterMeasurementsCount" aria-role="list">
+              <template #trigger>
+                <b-button :label="filterMeasurementsCount.text" icon-right="menu-down" />
+              </template>
+              <b-dropdown-item
+                      v-for="(menu, index) in measurementsCountOptions"
+                      :key="index"
+                      :value="menu" aria-role="listitem">
+                <div class="media">
+                  <div class="media-content">
+                    <h3>{{menu.text}}</h3>
+                  </div>
+                </div>
+              </b-dropdown-item>
+            </b-dropdown>
+          </template>
           {{ props.row.production_data_count }}
         </b-table-column>
-        <b-table-column :label="$gettext('productsPage.productsTable.fields.componentsCount')" field="components_count">
+        <b-table-column :label="$gettext('productsPage.productsTable.fields.componentsCount')" field="components_count" searchable>
+          <template #searchable="props">
+            <b-dropdown :scrollable="isScrollable" :max-height="maxHeight" v-model="filterComponentsCount" aria-role="list">
+              <template #trigger>
+                <b-button :label="filterComponentsCount.text" icon-right="menu-down" />
+              </template>
+              <b-dropdown-item
+                      v-for="(menu, index) in componentsCountOptions"
+                      :key="index"
+                      :value="menu" aria-role="listitem">
+                <div class="media">
+                  <div class="media-content">
+                    <h3>{{menu.text}}</h3>
+                  </div>
+                </div>
+              </b-dropdown-item>
+            </b-dropdown>
+          </template>
           {{ props.row.components_count }}
         </b-table-column>
         <b-table-column :label="$gettext('productsPage.productsTable.fields.productionOrderNr')" field="production_order_nr" sortable searchable>
@@ -206,9 +226,13 @@
         filterSerialNr: '',
         filterProdOrderNr: '',
         filterStatus: { text: 'all', value: 0 },
+        filterMeasurementsCount: { text: 'all', value: 0 },
+        filterComponentsCount: { text: 'all', value: 0 },
         isScrollable: false,
         maxHeight: 200,
         statusOptions: [],
+        measurementsCountOptions: [],
+        componentsCountOptions: [],
         isDateRangeCreatedAt: false,
         dateRangeCreatedAt: {
           startDate: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()),
@@ -235,8 +259,6 @@
         filters: {},
         filterValues: '{}',
         selectedRow: {},
-        filterGeneralUrl: '',
-        filterEnhancedUrl: '',
         filterFullExcelUrl: '',
         excelProducts: [],
         // productsearch page url
@@ -246,7 +268,6 @@
     filters: {
       dateCell (value) {
         let dt = new Date(value)
-
         return dt.getDate()
       },
       date (val) {
@@ -273,6 +294,14 @@
         this.getData()
       },
       filterStatus: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterComponentsCount: function() {
+        this.setFilterValues()
+        this.getData()
+      },
+      filterMeasurementsCount: function() {
         this.setFilterValues()
         this.getData()
       }
@@ -347,6 +376,12 @@
         if(this.filterStatus.text != 'all') {
           filter['lifecycle'] = this.filterStatus.value
         }
+        if(this.filterMeasurementsCount.text != 'all') {
+          filter['production_data_count-eq'] = this.filterMeasurementsCount.value
+        }
+        if(this.filterComponentsCount.text != 'all') {
+          filter['components_count-eq'] = this.filterComponentsCount.value
+        }
         if(this.filterProdOrderNr) {
           filter['production_order_nr'] = this.filterProdOrderNr
         }
@@ -370,12 +405,27 @@
             .then( r => {
               const options = r.data.lifecycle
               this.statusOptions = []
+              this.componentsCountOptions = []
+              this.measurementsCountOptions = []
               const item = {text: 'all', value: 0}
               this.statusOptions.push(item)
+              this.componentsCountOptions.push(item)
+              this.measurementsCountOptions.push(item)
               for (const property in options) {
                 const item = {text: `${options[property]}`, value: `${property}`}
                 this.statusOptions.push(item)
               }
+              const options1 = r.data.components_count
+              for (const property in options1) {
+                const item = {text: `${options1[property]}`, value: `${property}`}
+                this.componentsCountOptions.push(item)
+              }
+              const options2 = r.data.production_data_count
+              for (const property in options2) {
+                const item = {text: `${options2[property]}`, value: `${property}`}
+                this.measurementsCountOptions.push(item)
+              }
+
             }).catch( err => {
           let message
           if( err.response.status == 404){
@@ -461,8 +511,6 @@
             `filter=${this.filterValues}`
           ].join('&')
 
-          this.filterGeneralUrl = this.dataUrl + '/excel?' + paramsGeneral
-          this.filterEnhancedUrl = this.dataUrl + '/enhancedExcel?' + paramsEnhance
           this.filterFullExcelUrl = this.dataUrl + '/fullExcel?' + paramsFullExcel
         }
       },
