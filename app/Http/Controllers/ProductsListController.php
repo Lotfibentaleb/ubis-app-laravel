@@ -11,7 +11,7 @@ use App\Exports\ExcelCollection;
 use App\Exports\FullExport;
 use Illuminate\Support\Facades\Session;
 use Throwable;
-
+use Carbon\Carbon;
 
 class ProductsListController extends Controller
 {
@@ -111,7 +111,6 @@ class ProductsListController extends Controller
             'production_data_count' => 'Produktionsdaten',
             'production_order_nr' => 'Produktionsauftrag',
             'created_at' => 'Erstellt',
-            'new_date' => 'Neues Datum',
             'updated_at' => 'Aktualisiert'
         ];
         array_push($excel_data, $excel_header);
@@ -233,7 +232,8 @@ class ProductsListController extends Controller
         $body = json_decode($response->getBody()->getContents());
 
         $excel_data = $body->data;
-        return (new FullExport(json_decode(json_encode($excel_data))))->download('fullExcel.xlsx');
+        $fileName = Carbon::now()->format('Ymd').'_fullExport.xlsx';
+        return (new FullExport(json_decode(json_encode($excel_data))))->download($fileName);
 
     }
 
