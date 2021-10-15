@@ -1,6 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: de_DE\n"
@@ -9,25 +11,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: easygettext\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0\n"
 
-#: resources/js/views/Products/ArticleOptions.vue:55
+#: resources/js/views/Products/ArticleOptions.vue:60
 msgid "ArticleOptions.card.title"
 msgstr "Artikel Optionen"
 
-#: resources/js/views/Products/ArticleOptions.vue:29
-#, fuzzy
-msgid "ArticleOptions.heroBar.goto"
-msgstr "Produkte"
+#: resources/js/views/Products/ArticleOptions.vue:115
+msgid "ArticleOptions.form.bar_code_pattern"
+msgstr "Bar-code Muster"
 
-#: resources/js/views/Products/ArticleOptions.vue:52
+#: resources/js/views/Products/ArticleOptions.vue:127
+msgid "ArticleOptions.form.bar_code_pattern_verification"
+msgstr "Bar-code Muster soll geprüft werden"
+
+#: resources/js/views/Products/ArticleOptions.vue:191
+msgid "ArticleOptions.form.saveButton"
+msgstr "Speichern"
+
+#: resources/js/views/Products/ArticleOptions.vue:138
+msgid "ArticleOptions.form.serial_in_bar_code_pattern"
+msgstr "Seriennummer in bar-code Muster"
+
+#: resources/js/views/Products/ArticleOptions.vue:100
+msgid "ArticleOptions.form.show_article_on_registration"
+msgstr "Artikel in der Registrierung anzeigen"
+
+#: resources/js/views/Products/ArticleOptions.vue:152
+msgid "ArticleOptions.form.use_serial_in_bar_code_on_search"
+msgstr "Serial in bar-code bei Suche verwenden"
+
+#: resources/js/views/Products/ArticleOptions.vue:165
+msgid "ArticleOptions.form.use_serial_in_bar_code_on_store"
+msgstr "Serial in bar-code bei Speichern verwenden"
+
+#: resources/js/views/Products/ArticleOptions.vue:57
 msgid "ArticleOptions.heroBar.title"
 msgstr "Artikel Optionen"
 
-#: resources/js/views/Products/ArticleOptions.vue:47
+#: resources/js/views/Products/ArticleOptions.vue:52
 msgid "ArticleOptions.titleBar.main"
 msgstr "Produktion"
 
-#: resources/js/views/Products/ArticleOptions.vue:48
+#: resources/js/views/Products/ArticleOptions.vue:53
 msgid "ArticleOptions.titleBar.sub1"
 msgstr "Artikel Optionen"
 
@@ -35,35 +61,35 @@ msgstr "Artikel Optionen"
 msgid "Articles in production last 10 days"
 msgstr "Artikel in Produktion letzte 10 Tage"
 
-#: resources/js/components/BulkActions/BulkReVerify.vue:104
+#: resources/js/components/BulkActions/BulkReVerify.vue:105
 msgid "bulkActionsPage.bulkReVerify.articleNr"
 msgstr "Artikel-Nr."
 
-#: resources/js/components/BulkActions/BulkReVerify.vue:105
+#: resources/js/components/BulkActions/BulkReVerify.vue:106
 msgid "bulkActionsPage.bulkReVerify.articleNr.message"
 msgstr "Eingabe Artikel-Nr"
 
-#: resources/js/components/BulkActions/BulkReVerify.vue:48
+#: resources/js/components/BulkActions/BulkReVerify.vue:49
 msgid "bulkActionsPage.bulkReVerify.card.title"
 msgstr "Bulk-Neuverifizierung von Produkten"
 
-#: resources/js/components/BulkActions/BulkReVerify.vue:164
+#: resources/js/components/BulkActions/BulkReVerify.vue:165
 msgid "bulkActionsPage.bulkReVerify.reVerifyButton"
 msgstr "Erneut überprüfen"
 
-#: resources/js/components/BulkActions/BulkReVerify.vue:147
+#: resources/js/components/BulkActions/BulkReVerify.vue:148
 msgid "bulkActionsPage.bulkReVerify.sectionId"
 msgstr "Abschnitts-ID"
 
-#: resources/js/components/BulkActions/BulkReVerify.vue:148
+#: resources/js/components/BulkActions/BulkReVerify.vue:149
 msgid "bulkActionsPage.bulkReVerify.sectionId.message"
 msgstr "Eingabe Abschnitts-ID"
 
-#: resources/js/components/BulkActions/BulkReVerify.vue:76
+#: resources/js/components/BulkActions/BulkReVerify.vue:77
 msgid "bulkActionsPage.bulkReVerify.uploadComponents.content"
 msgstr "Legen Sie Ihre CSV-Datei hier ab oder klicken Sie zum Hochladen"
 
-#: resources/js/components/BulkActions/BulkReVerify.vue:54
+#: resources/js/components/BulkActions/BulkReVerify.vue:55
 msgid "bulkActionsPage.bulkReVerify.uploadComponents.title"
 msgstr "CSV für Seriennummer hochladen"
 
@@ -83,84 +109,84 @@ msgstr "Produkte"
 msgid "bulkActionsPage.titleBar.sub1"
 msgstr "Massen Aktionen"
 
-#: resources/js/components/BulkActions/BulkRegister.vue:104
+#: resources/js/components/BulkActions/BulkRegister.vue:105
 msgid "bulkRegisterPage.articleNr"
 msgstr "Artikel-Nr."
 
-#: resources/js/components/BulkActions/BulkRegister.vue:105
+#: resources/js/components/BulkActions/BulkRegister.vue:106
 msgid "bulkRegisterPage.articleNr.message"
 msgstr "Eingabe Artikel-Nr"
 
-#: resources/js/components/BulkActions/BulkRegister.vue:48
+#: resources/js/components/BulkActions/BulkRegister.vue:49
 msgid "bulkRegisterPage.card.title"
-msgstr "Massen registrierungs produkte"
+msgstr "Massenregistrierung Produkte"
 
-#: resources/js/components/BulkActions/BulkRegister.vue:147
+#: resources/js/components/BulkActions/BulkRegister.vue:148
 msgid "bulkRegisterPage.productionOrderNr"
 msgstr "Produktionsauftrag Nr"
 
-#: resources/js/components/BulkActions/BulkRegister.vue:148
+#: resources/js/components/BulkActions/BulkRegister.vue:149
 msgid "bulkRegisterPage.productionOrderNr.message"
 msgstr "Eingabe Produktionsauftrag Nr"
 
-#: resources/js/components/BulkActions/BulkRegister.vue:164
+#: resources/js/components/BulkActions/BulkRegister.vue:165
 msgid "bulkRegisterPage.registerButton"
 msgstr "Registrieren"
 
-#: resources/js/components/BulkActions/BulkRegister.vue:76
+#: resources/js/components/BulkActions/BulkRegister.vue:77
 msgid "bulkRegisterPage.uploadComponents.content"
 msgstr "Legen Sie Ihre CSV-Datei hier ab oder klicken Sie zum Hochladen"
 
-#: resources/js/components/BulkActions/BulkRegister.vue:54
+#: resources/js/components/BulkActions/BulkRegister.vue:55
 msgid "bulkRegisterPage.uploadComponents.title"
 msgstr "CSV für Seriennummer hochladen "
 
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:154
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:164
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:156
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:166
 msgid "createProductionSectionPage.card.addBasicDataButton"
-msgstr "Grunddaten hinzufügen"
+msgstr "Basisdaten hinzufügen"
 
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:201
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:207
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:208
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:203
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:209
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:210
 msgid "createProductionSectionPage.card.data"
 msgstr "Data"
 
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:123
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:125
 msgid "createProductionSectionPage.card.description"
 msgstr "Beschreibung"
 
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:124
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:126
 msgid "createProductionSectionPage.card.descriptionMessage"
 msgstr "Beschreibung mit bis zu 255 Zeichen"
 
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:99
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:101
 msgid "createProductionSectionPage.card.group"
 msgstr "Gruppe"
 
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:60
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:62
 msgid "createProductionSectionPage.card.name"
 msgstr "Name"
 
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:61
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:63
 msgid "createProductionSectionPage.card.nameMessage"
 msgstr "Fertigungs-Stationen Name"
 
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:75
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:77
 msgid "createProductionSectionPage.card.render"
 msgstr "Darstellung"
 
-#: resources/js/views/Products/ProductionSectionTemplateForm.vue:185
+#: resources/js/views/Products/ProductionSectionTemplateForm.vue:187
 msgid "createProductionSectionPage.card.submitButton"
-msgstr "einreichen"
+msgstr "Speichern"
 
 #: resources/js/views/Products/ProductionSectionTemplateForm.vue:75
 msgid "createProductionSectionPage.card.title"
-msgstr "Neu Fertigungs-Stationen"
+msgstr "Neu Fertigungs-Station"
 
 #: resources/js/views/Products/ProductionSectionTemplateForm.vue:72
 msgid "createProductionSectionPage.heroBar.title"
-msgstr "Fertigungs-Stationen erstellen"
+msgstr "Fertigungs-Station erstellen"
 
 #: resources/js/views/Products/ProductionSectionTemplateForm.vue:67
 msgid "createProductionSectionPage.titleBar.main"
@@ -168,19 +194,19 @@ msgstr "Production"
 
 #: resources/js/views/Products/ProductionSectionTemplateForm.vue:68
 msgid "createProductionSectionPage.titleBar.sub1"
-msgstr "Neu Fertigungs-Stationen"
+msgstr "Neu Fertigungs-Station"
 
 #: resources/js/views/Products/ProductionTemplateForm.vue:116
 #: resources/js/views/Products/ProductionTemplateForm.vue:126
 msgid "createProductionTemplatePage.card.addBasicDataButton"
 msgstr "Hinzufügen Fertigungsabläufe"
 
-#: resources/js/views/Products/ArticleOptions.vue:49
+#: resources/js/views/Products/ArticleOptions.vue:54
 #: resources/js/views/Products/ProductionTemplateForm.vue:69
 msgid "createProductionTemplatePage.card.articleNr"
 msgstr "Artikel-Nr."
 
-#: resources/js/views/Products/ArticleOptions.vue:50
+#: resources/js/views/Products/ArticleOptions.vue:55
 #: resources/js/views/Products/ProductionTemplateForm.vue:70
 msgid "createProductionTemplatePage.card.articleNrMessage"
 msgstr "Artikel-Nr."
@@ -257,7 +283,7 @@ msgstr "Email"
 
 #: resources/js/views/Clients/ClientsForm.vue:87
 msgid "createUserPage.card.emailMessage"
-msgstr "Benutzer email"
+msgstr "Benutzer Email"
 
 #: resources/js/views/Clients/ClientsForm.vue:71
 #: resources/js/views/Clients/ClientsForm.vue:221
@@ -266,7 +292,7 @@ msgstr "Name"
 
 #: resources/js/views/Clients/ClientsForm.vue:72
 msgid "createUserPage.card.nameMessage"
-msgstr "Benutzer name"
+msgstr "Benutzername"
 
 #: resources/js/views/Clients/ClientsForm.vue:159
 msgid "createUserPage.card.password"
@@ -328,69 +354,108 @@ msgstr "Benutzer"
 msgid "createUserPage.titleBar.sub2"
 msgstr "Neu Benutzer"
 
-#: resources/js/components/Exports/ExcelExports.vue:52
-#: resources/js/components/Exports/QDasExports.vue:52
+#: resources/js/components/Exports/ExcelExports.vue:56
+#: resources/js/components/Exports/QDasExports.vue:54
 msgid "exportsPage.excelExports.articleNr"
 msgstr "Artikel-Nr."
 
-#: resources/js/components/Exports/ExcelExports.vue:53
-#: resources/js/components/Exports/QDasExports.vue:53
+#: resources/js/components/Exports/ExcelExports.vue:57
+#: resources/js/components/Exports/QDasExports.vue:55
 msgid "exportsPage.excelExports.articleNr.message"
 msgstr "Eingabe Artikel-Nr"
 
-#: resources/js/components/Exports/ExcelExports.vue:25
-msgid "exportsPage.excelExports.card.title"
-msgstr "Excel-Exporte"
+#: resources/js/components/Exports/ExcelExports.vue:34
+msgid "exportsPage.excelExports.card.timeSpan"
+msgstr "Zeitraum"
 
-#: resources/js/components/Exports/ExcelExports.vue:48
+#: resources/js/components/Exports/ExcelExports.vue:23
+msgid "exportsPage.excelExports.card.title"
+msgstr "Excel-Export nach Zeitraum, Artikel-Nr. oder Produktionsauftrag"
+
+#: resources/js/components/Exports/ExcelExports.vue:29
 msgid "exportsPage.excelExports.explanation"
 msgstr ""
-"Vollständiger Excel-Export (Option: Datumsbereich, Artikel-Nr, "
-"Produktionsauftrag Nr)"
+"Vollständiger Excel-Export (Option: Datumsbereich, Artikel-Nr., "
+"Produktionsauftragsnummer)\n"
+"Bitte berücksichtigen das bei groß gewählten Zeiträumen (z.B. ein Jahr) "
+"große Datenmengen analysiert und exportiert werden müssen. Der Export kann "
+"hier bis zu drei Minuten dauern, oder auch mit einem Fehler abbrechen, wenn "
+"die Datenmenge zu groß ist. \n"
+"In diesem Fall bitte mehrere Zeitabschnitte exportieren. "
 
-#: resources/js/components/Exports/ExcelExports.vue:113
+#: resources/js/components/Exports/ExcelExports.vue:117
+#: resources/js/components/Exports/ExcelExportsBySerial.vue:91
 msgid "exportsPage.excelExports.exportBtn"
-msgstr "Exporte"
+msgstr "Export"
 
-#: resources/js/components/Exports/ExcelExports.vue:95
-#: resources/js/components/Exports/QDasExports.vue:95
+#: resources/js/components/Exports/ExcelExports.vue:99
+#: resources/js/components/Exports/QDasExports.vue:97
 msgid "exportsPage.excelExports.productionOrderNr"
 msgstr "Produktionsauftrag Nr"
 
-#: resources/js/components/Exports/ExcelExports.vue:96
-#: resources/js/components/Exports/QDasExports.vue:96
+#: resources/js/components/Exports/ExcelExports.vue:100
+#: resources/js/components/Exports/QDasExports.vue:98
 msgid "exportsPage.excelExports.productionOrderNr.message"
 msgstr "Eingabe Produktionsauftrag Nr"
 
-#: resources/js/views/Products/Exports.vue:24
+#: resources/js/components/Exports/ExcelExportsBySerial.vue:73
+msgid "exportsPage.excelExports.serialNr"
+msgstr "Serien-Nr."
+
+#: resources/js/components/Exports/ExcelExportsBySerial.vue:74
+msgid "exportsPage.excelExports.serialNr.message"
+msgstr "Eingabe Artikel-Nummer"
+
+#: resources/js/components/Exports/ExcelExportsBySerial.vue:31
+msgid "exportsPage.excelExportsSerial.articleNr"
+msgstr "Artikel-Nr."
+
+#: resources/js/components/Exports/ExcelExportsBySerial.vue:32
+msgid "exportsPage.excelExportsSerial.articleNr.message"
+msgstr "Artikel-Nr."
+
+#: resources/js/components/Exports/ExcelExportsBySerial.vue:21
+msgid "exportsPage.excelExportsSerial.card.title"
+msgstr "Excel-Export nach Serien-Nummern"
+
+#: resources/js/components/Exports/ExcelExportsBySerial.vue:27
+msgid "exportsPage.excelExportsSerial.explanation"
+msgstr ""
+"Excel-Export anhand von Serien-Nummern. \n"
+"Artikel Auswahl ist optional. Die Serien-Nummern müssen dem Produkt "
+"entsprechend, Komponenten-Serien-Nummern werden nicht akzeptiert. \n"
+"Erwartet wird eine Liste von Nummern Komma separiert (bsp: 022125, 022139, "
+"025559)"
+
+#: resources/js/views/Products/Exports.vue:25
 msgid "exportsPage.heroBar.goto"
 msgstr "Produkte"
 
-#: resources/js/views/Products/Exports.vue:20
+#: resources/js/views/Products/Exports.vue:22
 msgid "exportsPage.heroBar.title"
-msgstr "Exporte"
+msgstr "Export Funktionen"
 
-#: resources/js/components/Exports/QDasExports.vue:25
+#: resources/js/components/Exports/QDasExports.vue:27
 msgid "exportsPage.qdasExports.card.title"
-msgstr "Q-DAS-Exporte"
+msgstr "Q-DAS-Export"
 
-#: resources/js/components/Exports/QDasExports.vue:48
+#: resources/js/components/Exports/QDasExports.vue:50
 msgid "exportsPage.qdasExports.explanation"
 msgstr ""
 "Q-DAS-Exportfunktion(Option: Datumsbereich, Artikel-Nr, Produktionsauftrag "
 "Nr)"
 
-#: resources/js/components/Exports/QDasExports.vue:112
+#: resources/js/components/Exports/QDasExports.vue:114
 msgid "exportsPage.qdasExports.exportBtn"
-msgstr "Exporte"
+msgstr "Export"
 
-#: resources/js/views/Products/Exports.vue:15
+#: resources/js/views/Products/Exports.vue:17
 msgid "exportsPage.titleBar.main"
 msgstr "Produkte"
 
-#: resources/js/views/Products/Exports.vue:16
+#: resources/js/views/Products/Exports.vue:18
 msgid "exportsPage.titleBar.sub1"
-msgstr "Exporte"
+msgstr "Export"
 
 #: resources/js/views/Products/MeasurementsList.vue:27
 msgid "measurementsPage.heroBar.goto"
@@ -398,11 +463,11 @@ msgstr "Dashboard"
 
 #: resources/js/views/Products/MeasurementsList.vue:20
 msgid "measurementsPage.heroBar.subTitle"
-msgstr "Übersicht aller übertragenen / registrierten Messwerte"
+msgstr "Übersicht aller übertragenen Mess- und Testdaten zu den Produkten"
 
 #: resources/js/views/Products/MeasurementsList.vue:19
 msgid "measurementsPage.heroBar.title"
-msgstr "Measurements"
+msgstr "Messdaten"
 
 #: resources/js/components/Measurements/MeasurementsTable.vue:95
 msgid "measurementsPage.table.fields.articleNr"
@@ -418,7 +483,7 @@ msgstr "Erstellt durch"
 
 #: resources/js/components/Measurements/MeasurementsTable.vue:177
 msgid "measurementsPage.table.fields.name"
-msgstr "Section"
+msgstr "Station"
 
 #: resources/js/components/Measurements/MeasurementsTable.vue:113
 msgid "measurementsPage.table.fields.serialNr"
@@ -438,11 +503,11 @@ msgstr "pro Seite"
 
 #: resources/js/views/Products/MeasurementsList.vue:39
 msgid "measurementsPage.table.title"
-msgstr "Measurements"
+msgstr "Messdaten / Testergebnisse"
 
 #: resources/js/views/Products/MeasurementsList.vue:27
 msgid "measurementsPage.titleBar.main"
-msgstr "Measurements"
+msgstr "Messdaten"
 
 #: resources/js/views/Products/MeasurementsList.vue:28
 msgid "measurementsPage.titleBar.sub1"
@@ -529,47 +594,47 @@ msgstr "Produktion"
 msgid "productionFlowsPage.titleBar.sub1"
 msgstr "Fertigungsabläufe"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:49
+#: resources/js/views/Products/ProductionSectionTemplate.vue:51
 msgid "productionSectionPage.heroBar.goto"
 msgstr "Nue Fertigungs-Stationen"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:42
+#: resources/js/views/Products/ProductionSectionTemplate.vue:44
 msgid "productionSectionPage.heroBar.subTitle"
 msgstr "Übersicht der aktuell aktiven Produktionsabläufe je Artikel"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:41
+#: resources/js/views/Products/ProductionSectionTemplate.vue:43
 msgid "productionSectionPage.heroBar.title"
 msgstr "Fertigungs-Stationen"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:188
+#: resources/js/views/Products/ProductionSectionTemplate.vue:190
 msgid "productionSectionPage.settingPanel.configuration"
 msgstr "Konfiguration"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:189
+#: resources/js/views/Products/ProductionSectionTemplate.vue:191
 msgid "productionSectionPage.settingPanel.configurationMessage"
 msgstr "Messplatz Konfiguration"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:171
+#: resources/js/views/Products/ProductionSectionTemplate.vue:173
 msgid "productionSectionPage.settingPanel.description"
 msgstr "Beschreibung"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:172
+#: resources/js/views/Products/ProductionSectionTemplate.vue:174
 msgid "productionSectionPage.settingPanel.fieldMessage"
 msgstr "Beschreibung mit bis zu 255 Zeichen"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:147
+#: resources/js/views/Products/ProductionSectionTemplate.vue:149
 msgid "productionSectionPage.settingPanel.group"
 msgstr "Gruppe"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:123
+#: resources/js/views/Products/ProductionSectionTemplate.vue:125
 msgid "productionSectionPage.settingPanel.render"
 msgstr "Darstellung"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:115
+#: resources/js/views/Products/ProductionSectionTemplate.vue:117
 msgid "productionSectionPage.settingPanel.saveButton"
-msgstr "Save"
+msgstr "Speichern"
 
-#: resources/js/views/Products/ProductionSectionTemplate.vue:100
+#: resources/js/views/Products/ProductionSectionTemplate.vue:102
 msgid "productionSectionPage.settingPanel.title"
 msgstr "Bearbeiten Fertigungs-Stationen"
 
@@ -642,7 +707,7 @@ msgstr "Produkte"
 
 #: resources/js/views/Products/ProductsList.vue:105
 msgid "productsPage.productsSettingPanel.closeButton"
-msgstr "Close"
+msgstr "Schließen"
 
 #: resources/js/views/Products/ProductsList.vue:73
 msgid "productsPage.productsSettingPanel.fieldMessage"
@@ -660,51 +725,51 @@ msgstr "Save"
 msgid "productsPage.productsSettingPanel.title"
 msgstr "Produktionsauftrags Nummer"
 
-#: resources/js/components/ProductsTable.vue:118
+#: resources/js/components/ProductsTable.vue:124
 msgid "productsPage.productsTable.fields.articleNr"
 msgstr "Artikel-Nr."
 
-#: resources/js/components/ProductsTable.vue:208
+#: resources/js/components/ProductsTable.vue:250
 msgid "productsPage.productsTable.fields.componentsCount"
 msgstr "Komponenten"
 
-#: resources/js/components/ProductsTable.vue:235
+#: resources/js/components/ProductsTable.vue:313
 msgid "productsPage.productsTable.fields.createdAt"
 msgstr "Erstellt"
 
-#: resources/js/components/ProductsTable.vue:199
+#: resources/js/components/ProductsTable.vue:205
 msgid "productsPage.productsTable.fields.productionDataCount"
 msgstr "Fertigungsdaten"
 
-#: resources/js/components/ProductsTable.vue:217
+#: resources/js/components/ProductsTable.vue:295
 msgid "productsPage.productsTable.fields.productionOrderNr"
 msgstr "Produktionsauftrag"
 
-#: resources/js/components/ProductsTable.vue:136
+#: resources/js/components/ProductsTable.vue:142
 msgid "productsPage.productsTable.fields.serialNr"
 msgstr "Serien-Nr."
 
-#: resources/js/components/ProductsTable.vue:154
+#: resources/js/components/ProductsTable.vue:160
 msgid "productsPage.productsTable.fields.status"
 msgstr "Status"
 
-#: resources/js/components/ProductsTable.vue:281
+#: resources/js/components/ProductsTable.vue:359
 msgid "productsPage.productsTable.fields.updatedAt"
 msgstr "Geändert"
 
-#: resources/js/components/ProductsTable.vue:71
+#: resources/js/components/ProductsTable.vue:77
 msgid "productsPage.productsTable.fullExcel"
-msgstr "Export Voll"
+msgstr "Vollständiger Export"
 
-#: resources/js/components/ProductsTable.vue:105
-#: resources/js/components/ProductsTable.vue:106
-#: resources/js/components/ProductsTable.vue:107
-#: resources/js/components/ProductsTable.vue:108
-#: resources/js/components/ProductsTable.vue:109
+#: resources/js/components/ProductsTable.vue:111
+#: resources/js/components/ProductsTable.vue:112
+#: resources/js/components/ProductsTable.vue:113
+#: resources/js/components/ProductsTable.vue:114
+#: resources/js/components/ProductsTable.vue:115
 msgid "productsPage.productsTable.perPage"
 msgstr "pro Seite"
 
-#: resources/js/components/ProductsTable.vue:61
+#: resources/js/components/ProductsTable.vue:68
 msgid "productsPage.productsTable.productsCounts"
 msgstr "Anzahl der Einträge"
 
@@ -734,7 +799,7 @@ msgstr "Dashboard"
 
 #: resources/js/App.vue:42
 msgid "sidebar.exports"
-msgstr "Exporte"
+msgstr "Export"
 
 #: resources/js/App.vue:17
 msgid "sidebar.general"
@@ -784,43 +849,43 @@ msgstr "Mein Profil"
 msgid "topbar.settings"
 msgstr "Einstellungen"
 
-#: resources/js/views/Clients/ClientsIndex.vue:37
+#: resources/js/views/Clients/ClientsIndex.vue:39
 msgid "usersPage.heroBar.goto"
 msgstr "Neu Benutzer"
 
-#: resources/js/views/Clients/ClientsIndex.vue:30
+#: resources/js/views/Clients/ClientsIndex.vue:32
 msgid "usersPage.heroBar.title"
 msgstr "Benutzer"
 
-#: resources/js/views/Clients/ClientsIndex.vue:111
+#: resources/js/views/Clients/ClientsIndex.vue:113
 msgid "usersPage.table.createdAt"
 msgstr "Erstellt"
 
-#: resources/js/views/Clients/ClientsIndex.vue:81
+#: resources/js/views/Clients/ClientsIndex.vue:83
 msgid "usersPage.table.email"
 msgstr "Email"
 
-#: resources/js/views/Clients/ClientsIndex.vue:71
+#: resources/js/views/Clients/ClientsIndex.vue:73
 msgid "usersPage.table.name"
 msgstr "Name"
 
-#: resources/js/views/Clients/ClientsIndex.vue:101
+#: resources/js/views/Clients/ClientsIndex.vue:103
 msgid "usersPage.table.role"
 msgstr "Rolle"
 
-#: resources/js/views/Clients/ClientsIndex.vue:47
+#: resources/js/views/Clients/ClientsIndex.vue:49
 msgid "usersPage.table.title"
 msgstr "Benutzer"
 
-#: resources/js/views/Clients/ClientsIndex.vue:91
+#: resources/js/views/Clients/ClientsIndex.vue:93
 msgid "usersPage.table.uuid"
 msgstr "UUID"
 
-#: resources/js/views/Clients/ClientsIndex.vue:26
+#: resources/js/views/Clients/ClientsIndex.vue:28
 msgid "usersPage.titleBar.main"
 msgstr "Administrator"
 
-#: resources/js/views/Clients/ClientsIndex.vue:26
+#: resources/js/views/Clients/ClientsIndex.vue:28
 msgid "usersPage.titleBar.sub1"
 msgstr "Benutzer"
 

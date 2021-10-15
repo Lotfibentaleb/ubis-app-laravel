@@ -5,7 +5,7 @@
     </div>
     <div class="column is-12">
       <!--<div class="column is-3">{{$gettext('exportsPage.excelExports.timeSpan')}}</div>-->
-      <b-field label="Zeitraum" horizontal>
+      <b-field :label="$gettext('exportsPage.excelExports.card.timeSpan')" horizontal>
       <date-range-picker
                 style="min-width: 300px;"
                 ref="picker"
