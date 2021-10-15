@@ -12,6 +12,9 @@
         <excel-exports />
       </tiles>
       <tiles>
+        <excel-exports-by-serial />
+      </tiles>
+      <tiles>
         <q-das-exports />
       </tiles>
     </section>
@@ -26,12 +29,14 @@
   import CardComponent from '@/components/CardComponent'
   import ExcelExports from '@/components/Exports/ExcelExports'
   import QDasExports from '@/components/Exports/QDasExports'
+  import ExcelExportsBySerial from '@/components/Exports/ExcelExportsBySerial'
 
   export default {
     name: 'BulkActions',
-    components: {CardComponent, Tiles, HeroBar, TitleBar, ExcelExports, QDasExports},
+    components: {CardComponent, Tiles, HeroBar, TitleBar, ExcelExports, QDasExports, ExcelExportsBySerial},
     computed: {
-      titleStack () {
+      titleStack ()
+        {
         return [
           this.$gettext('exportsPage.titleBar.main'),
           this.$gettext('exportsPage.titleBar.sub1'),

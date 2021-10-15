@@ -61,6 +61,9 @@ pwd: geheim
 	- *php artisan cache:clear*
 
 ## for updating translation: when using vue-gettext
+
+!! requires apt-get install gettext !!
+
 referred to https://github.com/Polyconseil/vue-gettext
 - check the Makefile
 - Annotating strings: to make a Vue.js app translatable, you have to annotate the strings you want to translate in your JavaScript code and/or templates.
