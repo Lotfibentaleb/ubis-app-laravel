@@ -28,7 +28,7 @@ class LoginController extends Controller
     |
     */
 
-//    use AuthenticatesUsers;
+    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -81,6 +81,7 @@ class LoginController extends Controller
             $response = $client->request('post', $baseUrl.$requestString, $options);   // call API
             $body = json_decode($response->getBody()->getContents());
             if (isset($body->access_token)) {
+                // create valid session
                 Session::put('bearer_token', $body->access_token);
                 return redirect('/home');
             } else {
@@ -134,6 +135,11 @@ class LoginController extends Controller
                     : redirect('/');
             }
         }
+/*
+        $this->guard()->logout();
+        Session::invalidate();
+        Session::regenerateToken();
+*/
         Auth::logout();
         Session::forget('bearer_token');
         return Session::has('bearer_token')
