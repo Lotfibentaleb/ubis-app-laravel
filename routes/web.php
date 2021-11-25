@@ -104,6 +104,7 @@ Route::prefix('/productlist')->group(function () {
     Route::get('/excel', 'ProductsListController@excel');
     Route::get('/enhancedExcel', 'ProductsListController@enhancedExcel');
     Route::get('/fullExcel', 'ProductsListController@fullExcel');
+    Route::get('/fullExcelBySub', 'ProductsListController@fullExcelBySub')->withoutMiddleware(['auth', 'auth.basic']);
     Route::get('/form_support', 'ProductsListController@showSupportValues');
 /*    Route::get('/articles', 'RegistrationController@articles');         // list several articles by name/art.nr.
     Route::get('/articles/{id}', 'RegistrationController@article');     // get back details per article
